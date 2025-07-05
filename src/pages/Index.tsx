@@ -7,8 +7,9 @@ import RoleSelection from '../components/RoleSelection';
 import RecruiterView from '../components/RecruiterView';
 import FriendView from '../components/FriendView';
 import ShirleyView from '../components/ShirleyView';
+import ShirleyAuth from '../components/ShirleyAuth';
 
-type ViewType = 'welcome' | 'role-selection' | 'recruiter' | 'friend' | 'shirley-peek' | 'shirley-auth';
+type ViewType = 'welcome' | 'role-selection' | 'recruiter' | 'friend' | 'shirley-auth' | 'shirley-peek' | 'shirley-dashboard';
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<ViewType>('welcome');
@@ -30,9 +31,14 @@ const Index = () => {
       case 'shirley':
         setCurrentView('shirley-auth');
         break;
-      case 'shirley-peek':
-        setCurrentView('shirley-peek');
-        break;
+    }
+  };
+
+  const handleShirleyAuth = (authType: 'login' | 'peek') => {
+    if (authType === 'login') {
+      setCurrentView('shirley-dashboard');
+    } else {
+      setCurrentView('shirley-peek');
     }
   };
 
@@ -51,11 +57,14 @@ const Index = () => {
         {currentView === 'friend' && (
           <FriendView key="friend" onBack={() => setCurrentView('role-selection')} />
         )}
-        {(currentView === 'shirley-peek' || currentView === 'shirley-auth') && (
+        {currentView === 'shirley-auth' && (
+          <ShirleyAuth key="shirley-auth" onAuth={handleShirleyAuth} onBack={() => setCurrentView('role-selection')} />
+        )}
+        {(currentView === 'shirley-peek' || currentView === 'shirley-dashboard') && (
           <ShirleyView 
             key="shirley" 
             isPeek={currentView === 'shirley-peek'}
-            onBack={() => setCurrentView('role-selection')} 
+            onBack={() => setCurrentView('shirley-auth')} 
           />
         )}
       </AnimatePresence>

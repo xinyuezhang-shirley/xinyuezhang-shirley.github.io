@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Heart, User, Eye } from 'lucide-react';
@@ -54,7 +53,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
           <p className="text-xl text-gray-300">How would you like to explore my world?</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {roles.map((role, index) => (
             <motion.button
               key={role.id}
@@ -83,21 +82,6 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
             </motion.button>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="text-center"
-        >
-          <button
-            onClick={() => onRoleSelect('shirley-peek')}
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 text-sm group"
-          >
-            <Eye size={16} />
-            <span className="group-hover:underline">Not Shirley but want a sneak peek?</span>
-          </button>
-        </motion.div>
       </div>
     </motion.div>
   );
