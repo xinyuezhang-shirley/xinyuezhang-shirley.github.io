@@ -1,0 +1,23 @@
+name = "portfolio-view-counter"
+main = "src/index.ts"
+compatibility_date = "2025-05-01"
+
+# Create with: wrangler d1 create portfolio-views
+# Then paste the database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-views"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+# Secrets (set via `wrangler secret put`):
+#   RESEND_API_KEY
+#   EMAIL_TO
+#   EMAIL_FROM
+#   ALLOWED_ORIGIN          e.g. https://xinyuezhang-shirley.github.io
+#   DEV_RESET_SECRET       only for local/dev testing
+#
+# Vars (non-secret):
+#   ALLOW_DEV_RESET        must be "true" only in local/dev — never in production
+
+[vars]
+ALLOW_DEV_RESET = "false"

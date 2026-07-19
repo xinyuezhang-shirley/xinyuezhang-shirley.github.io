@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-view-counter",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute portfolio-views --file=./schema.sql",
+    "db:init:local": "wrangler d1 execute portfolio-views --local --file=./schema.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250525.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.19.1"
+  }
+}

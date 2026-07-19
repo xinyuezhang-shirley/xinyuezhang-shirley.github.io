@@ -1,0 +1,7 @@
+# Copy to .dev.vars for local `wrangler dev` only. Never deploy these as production secrets via this file.
+RESEND_API_KEY=re_xxx
+EMAIL_TO=you@example.com
+EMAIL_FROM=Portfolio <onboarding@resend.dev>
+ALLOWED_ORIGIN=http://localhost:5173
+ALLOW_DEV_RESET=true
+DEV_RESET_SECRET=local-test-secret
