@@ -506,15 +506,6 @@ export default function IroncladRoom() {
           </p>
         </section>
 
-        <section className="iron-section iron-nda" aria-labelledby="iron-nda">
-          <h2 id="iron-nda">NDA &amp; disclosure</h2>
-          <p>
-            The chat request and contract fields on this page are sanitized schematics. No
-            proprietary Ironclad screenshots, customer contracts, or confidential playbook text are
-            shown. Status labels deliberately separate in-progress internship work from planned
-            depth.
-          </p>
-        </section>
       </div>
     </article>
   );

@@ -376,8 +376,19 @@
 .nommi-chapter {
   min-height: 70vh;
   padding: 2.5rem 0 3.5rem;
-  border-top: 1px solid var(--nm-border);
+  border-top: 1px solid transparent;
   position: relative;
+}
+
+.nommi-chapter__panel {
+  background: rgba(250, 249, 245, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 20px;
+  padding: 1.5rem 1.35rem 1.35rem;
+  box-shadow: 0 12px 36px rgba(31, 41, 55, 0.06);
+  max-width: 36rem;
 }
 
 .nommi-chapter:first-child {
@@ -460,7 +471,7 @@
   background:
     url("/work/nommi/nommi-bg-pattern.png") center / 420px repeat,
     var(--nm-bg);
-  opacity: 0.35;
+  opacity: 0.22;
   pointer-events: none;
   z-index: 0;
 }

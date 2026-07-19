@@ -87,18 +87,4 @@ export const researchProjects: ResearchProject[] = [
     ],
     pdfUrl: "/research/pomdp-aid-allocation-paper.pdf",
   },
-  {
-    slug: "imec-drones",
-    title: "Autonomous convertible quadcopter drones",
-    venue: "Undergraduate Research Assistant Program · IMEC Lab, Northwestern University",
-    org: "IMEC Lab, Northwestern University",
-    dates: "Dec 2023 – Jun 2024",
-    tags: ["robotics", "data-systems"],
-    abstract:
-      "Hands-on design of autonomous convertible quadcopter drones with sprawling capabilities, alongside a multi-camera motion-tracking system built from modified cameras and open-source libraries to capture drone trajectories during testing.",
-    keyFindings: [
-      "Designed convertible quadcopter airframes with sprawling capabilities as part of the lab's autonomous drone research.",
-      "Modified cameras and used open-source libraries to build a multi-camera motion-tracking rig that captured drone trajectories for evaluation.",
-    ],
-  },
 ];

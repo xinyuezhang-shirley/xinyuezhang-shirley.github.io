@@ -164,26 +164,30 @@ export default function NommiRoom() {
                   refs.current[i] = el;
                 }}
               >
-                <p className="nommi-chapter__label">{ch.label}</p>
-                <h2>{ch.title}</h2>
-                {ch.body.map((p) => (
-                  <p key={p.slice(0, 24)}>{p}</p>
-                ))}
+                <div className="nommi-chapter__panel">
+                  <p className="nommi-chapter__label">{ch.label}</p>
+                  <h2>{ch.title}</h2>
+                  {ch.body.map((p) => (
+                    <p key={p.slice(0, 24)}>{p}</p>
+                  ))}
+                </div>
               </section>
             ))}
 
             <section className="nommi-chapter">
-              <p className="nommi-chapter__label">Design principles</p>
-              <h2>Trust, reciprocity, moderation</h2>
-              <p>
-                Nommi treats students as authors of local knowledge. Verification and ownership of
-                edits protect trust; contribution loops make reciprocity visible; community norms —
-                not scrapers — decide what belongs in the commons.
-              </p>
-              <p>
-                Feed, map, conversation, and save are one post object with many queries — so campus
-                knowledge can move without losing its place in community memory.
-              </p>
+              <div className="nommi-chapter__panel">
+                <p className="nommi-chapter__label">Design principles</p>
+                <h2>Trust, reciprocity, moderation</h2>
+                <p>
+                  Nommi treats students as authors of local knowledge. Verification and ownership of
+                  edits protect trust; contribution loops make reciprocity visible; community norms —
+                  not scrapers — decide what belongs in the commons.
+                </p>
+                <p>
+                  Feed, map, conversation, and save are one post object with many queries — so campus
+                  knowledge can move without losing its place in community memory.
+                </p>
+              </div>
             </section>
           </div>
         </div>

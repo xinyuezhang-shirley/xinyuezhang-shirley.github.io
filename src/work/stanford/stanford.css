@@ -173,7 +173,9 @@
 
 .stan-pdf {
   display: inline-flex;
-  margin-top: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
   font-family: var(--st-mono);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
@@ -182,10 +184,18 @@
   color: #fff;
   background: var(--st-cardinal);
   padding: 0.85rem 1.25rem;
+  line-height: 1.2;
+  border: 1px solid var(--st-cardinal);
+}
+
+/* Beat `.stan-pub a { color: cardinal }` so filled CTAs keep white labels */
+.stan-pub a.stan-pdf {
+  color: #fff;
 }
 
 .stan-pdf:hover {
   filter: brightness(1.05);
+  color: #fff;
 }
 
 /* Claim bars reused for Airbnb inside stan */
@@ -236,12 +246,16 @@
 .stan-cta-row {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.75rem;
   margin-top: 2.5rem;
 }
 
 .stan-pdf-secondary {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
   font-family: var(--st-mono);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
@@ -251,6 +265,11 @@
   background: transparent;
   border: 1px solid var(--st-cardinal);
   padding: 0.85rem 1.25rem;
+  line-height: 1.2;
+}
+
+.stan-pub a.stan-pdf-secondary {
+  color: var(--st-cardinal);
 }
 
 .stan-pdf-secondary:hover {

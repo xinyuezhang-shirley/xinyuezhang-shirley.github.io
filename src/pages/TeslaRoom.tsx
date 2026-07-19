@@ -392,14 +392,6 @@ export default function TeslaRoom() {
           </p>
         </section>
 
-        <section className="tesla-section tesla-nda" aria-labelledby="tesla-nda">
-          <h2 id="tesla-nda">NDA &amp; disclosure</h2>
-          <p>
-            No fake internal Tesla screenshots appear on this page. Visualizations are schematic
-            teaching aids derived from the public project narrative. Proprietary dashboards, raw
-            telemetry, and true model coefficients remain internal.
-          </p>
-        </section>
       </div>
     </article>
   );

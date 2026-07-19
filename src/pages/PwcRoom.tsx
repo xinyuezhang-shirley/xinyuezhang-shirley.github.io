@@ -319,14 +319,6 @@ export default function PwcRoom() {
           </p>
         </section>
 
-        <section className="pwc-section pwc-nda" aria-labelledby="pwc-nda">
-          <h2 id="pwc-nda">NDA &amp; disclosure</h2>
-          <p>
-            Only a sanitized query appears here. No fake proprietary screenshots, no real internal
-            document text, and no confidential evaluation items. Stage artifacts are schematic
-            descriptions of the public architecture narrative.
-          </p>
-        </section>
       </div>
     </article>
   );
