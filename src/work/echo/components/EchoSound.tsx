@@ -7,12 +7,14 @@ const VOLUME = 0.18;
 export function EchoSound() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [on, setOn] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = VOLUME;
     audio.loop = true;
+    setReady(true);
     return () => {
       audio.pause();
     };
@@ -26,19 +28,25 @@ export function EchoSound() {
     } else {
       audio.pause();
     }
-    localStorage.setItem(SOUND_KEY, on ? "on" : "off");
+    try {
+      localStorage.setItem(SOUND_KEY, on ? "on" : "off");
+    } catch {
+      /* private mode */
+    }
   }, [on]);
 
   return (
     <div className="echo-sound">
-      <audio ref={audioRef} src="/work/echo/soundtrack.mp3" preload="none" loop />
+      <audio ref={audioRef} src="/work/echo/soundtrack.mp3" preload="metadata" loop />
       <button
         type="button"
         className="echo-sound-toggle"
         aria-pressed={on}
+        aria-label={on ? "Turn Echo soundtrack off" : "Turn Echo soundtrack on"}
+        disabled={!ready}
         onClick={() => setOn((v) => !v)}
       >
-        sound: {on ? "on" : "off"}
+        {on ? "Turn soundtrack off" : "Turn soundtrack on"}
       </button>
     </div>
   );

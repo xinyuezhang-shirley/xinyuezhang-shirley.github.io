@@ -448,6 +448,192 @@
   border: 1px solid var(--nm-blue);
 }
 
+.nommi-world__inner {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2.5rem 0 4rem;
+}
+
+.nommi-world__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    url("/work/nommi/nommi-bg-pattern.png") center / 420px repeat,
+    var(--nm-bg);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.nommi-world {
+  position: relative;
+}
+
+.nommi-world__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.nommi-world__logo {
+  display: block;
+  width: min(160px, 42vw);
+  height: auto;
+  margin: 1.25rem 0 0.75rem;
+  mix-blend-mode: multiply;
+}
+
+.nommi-world__claim {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #374151;
+  max-width: 34rem;
+  margin: 0.85rem 0 1.25rem;
+}
+
+.nommi-world__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.nommi-world__cta a {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  background: var(--nm-blue);
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+}
+
+.nommi-world__cta a:last-child {
+  background: transparent;
+  color: var(--nm-blue);
+  border: 1px solid var(--nm-blue);
+}
+
+.nommi-world__phone-slot {
+  position: relative;
+}
+
+@media (min-width: 960px) {
+  .nommi-world__phone-slot {
+    position: sticky;
+    top: 5.5rem;
+    height: calc(100vh - 7rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.nommi-world__phone-note {
+  font-size: 0.75rem;
+  color: var(--nm-muted);
+  text-align: center;
+  max-width: 16rem;
+  margin: 0.85rem auto 0;
+  line-height: 1.4;
+}
+
+.nommi-world__chapters {
+  padding-top: 0.5rem;
+}
+
+.nommi-phone__logo {
+  height: 14px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.nommi-still {
+  position: relative;
+  height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.nommi-still img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.nommi-still__badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: var(--nm-blue);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+}
+
+.nommi-still__caption {
+  padding: 0.55rem 0.65rem;
+  background: #fff;
+}
+
+.nommi-still__caption strong {
+  display: block;
+  font-size: 0.72rem;
+  margin-bottom: 0.2rem;
+}
+
+.nommi-still__caption p {
+  margin: 0;
+  font-size: 0.65rem;
+  line-height: 1.35;
+  color: var(--nm-muted);
+}
+
+.nommi-chat-real {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  height: 100%;
+  padding: 0.35rem 0.15rem;
+  background: linear-gradient(180deg, var(--nm-blue-light), var(--nm-bg));
+  border-radius: 14px;
+}
+
+.nommi-chat-real__title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nm-blue);
+  margin: 0 0 0.25rem;
+}
+
+.nommi-chat-real__hint,
+.nommi-chat-real__warn {
+  font-size: 0.65rem;
+  line-height: 1.35;
+  margin: 0.35rem 0 0;
+  color: var(--nm-muted);
+}
+
+.nommi-chat-real.is-fading .nommi-bubble {
+  opacity: 0.45;
+}
+
+.nommi-chat-real__warn {
+  color: var(--nm-pink);
+  font-weight: 600;
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nommi-scene,
   .nommi-pin {

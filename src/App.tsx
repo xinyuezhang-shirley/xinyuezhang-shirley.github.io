@@ -18,6 +18,7 @@ import DifferRoom from "@/pages/DifferRoom";
 import AirbnbRoom from "@/pages/AirbnbRoom";
 import PoemSongRoom from "@/pages/PoemSongRoom";
 import PomdpRoom from "@/pages/PomdpRoom";
+import ImecRoom from "@/pages/ImecRoom";
 import CreativeIndex from "@/pages/CreativeIndex";
 import CreativeArt from "@/pages/CreativeArt";
 import CreativePhotography from "@/pages/CreativePhotography";
@@ -51,6 +52,10 @@ function AnimatedRoutes() {
         <Route
           path="/research/pomdp-aid-allocation"
           element={<PageTransition><PomdpRoom /></PageTransition>}
+        />
+        <Route
+          path="/research/imec-drones"
+          element={<PageTransition><ImecRoom /></PageTransition>}
         />
         <Route path="/research/:slug" element={<PageTransition><ResearchDetail /></PageTransition>} />
         <Route path="/creative" element={<PageTransition><CreativeIndex /></PageTransition>} />

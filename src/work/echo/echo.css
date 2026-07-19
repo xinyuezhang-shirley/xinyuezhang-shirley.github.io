@@ -391,25 +391,48 @@
 
 .echo-sound {
   position: fixed;
-  right: 1.25rem;
-  bottom: 1.25rem;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
   z-index: 40;
 }
 
 .echo-sound-toggle {
   font-family: var(--mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.16em;
-  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  text-transform: none;
   color: var(--text);
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(0, 0, 0, 0.78);
   border: 1px solid var(--line);
-  padding: 0.55rem 0.85rem;
+  padding: 0.65rem 0.95rem;
   cursor: pointer;
+  max-width: min(16rem, calc(100vw - 2rem));
+  line-height: 1.3;
 }
 
 .echo-sound-toggle:hover {
   border-color: rgba(255, 255, 255, 0.45);
+}
+
+.echo-sound-toggle:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+@media (max-width: 640px) {
+  .echo-title {
+    font-size: clamp(2.5rem, 14vw, 3.5rem);
+  }
+
+  .echo-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .echo-sound {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
 }
 
 .echo-poem {

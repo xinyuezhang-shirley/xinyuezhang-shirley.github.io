@@ -1,41 +1,96 @@
-export type NommiScene = "feed" | "chat" | "map" | "insight" | "reflect";
+export type NommiScene =
+  | "chat"
+  | "fade"
+  | "compose"
+  | "feed"
+  | "map"
+  | "thread"
+  | "save"
+  | "memory";
 
 const NAV = [
   { id: "map", label: "Map" },
   { id: "feed", label: "Feed" },
   { id: "chat", label: "Social" },
-  { id: "insight", label: "You" },
+  { id: "you", label: "You" },
 ] as const;
 
 function navActive(scene: NommiScene): string {
   if (scene === "map") return "map";
-  if (scene === "chat") return "chat";
-  if (scene === "insight" || scene === "reflect") return "insight";
+  if (scene === "chat" || scene === "fade" || scene === "thread") return "chat";
+  if (scene === "save" || scene === "memory") return "you";
   return "feed";
 }
 
+const STILLS = {
+  feed: "/work/nommi/stills/feed_populated.jpg",
+  skeleton: "/work/nommi/stills/feed_skeleton.jpg",
+} as const;
+
+/**
+ * Sticky phone preview — real Nommi stills + faithful chrome, not invented cards.
+ */
 export function NommiPhone({ scene }: { scene: NommiScene }) {
   const active = navActive(scene);
 
   return (
-    <div className="nommi-phone" aria-hidden={false} aria-label="Nommi living product preview">
+    <div className="nommi-phone" aria-label="Nommi product preview">
       <div className="nommi-phone__bezel">
         <div className="nommi-phone__notch" />
         <div className="nommi-phone__status">
           <span>9:41</span>
-          <span>Nommi</span>
+          <img src="/work/nommi/nommi-logo.png" alt="" className="nommi-phone__logo" />
         </div>
         <div className="nommi-phone__screen">
           <div className="nommi-scene is-live" key={scene}>
-            {scene === "feed" && <FeedScene />}
-            {scene === "chat" && <ChatScene />}
-            {scene === "map" && <MapScene />}
-            {(scene === "insight" || scene === "reflect") && (
-              <InsightScene reflect={scene === "reflect"} />
+            {scene === "chat" && <ChatOverlay fading={false} />}
+            {scene === "fade" && <ChatOverlay fading />}
+            {scene === "compose" && (
+              <StillScene
+                src={STILLS.skeleton}
+                label="Structured Nommi post"
+                caption="The same tip becomes a post with place, time, and type — not another disappearing message."
+              />
+            )}
+            {scene === "feed" && (
+              <StillScene
+                src={STILLS.feed}
+                label="Community feed"
+                caption="Real Nommi feed UI from the CS278 deployment."
+              />
+            )}
+            {scene === "map" && (
+              <StillScene
+                src={STILLS.feed}
+                label="Map surface"
+                caption="Location is first-class: the same contribution can appear as a pin (see live app for interactive map)."
+                badge="Map"
+              />
+            )}
+            {scene === "thread" && (
+              <StillScene
+                src={STILLS.feed}
+                label="Conversation on a post"
+                caption="Peers add context without forcing the knowledge back into a private chat."
+              />
+            )}
+            {scene === "save" && (
+              <StillScene
+                src={STILLS.skeleton}
+                label="Saved resource"
+                caption="Students keep useful campus knowledge for later — reciprocity starts with reuse."
+              />
+            )}
+            {scene === "memory" && (
+              <StillScene
+                src={STILLS.feed}
+                label="Community memory"
+                caption="The post remains reachable as shared infrastructure, not a buried screenshot."
+              />
             )}
           </div>
         </div>
-        <div className="nommi-phone__nav">
+        <div className="nommi-phone__nav" aria-hidden="true">
           {NAV.map((tab) => (
             <span key={tab.id} className={active === tab.id ? "is-active" : undefined}>
               <i />
@@ -48,89 +103,40 @@ export function NommiPhone({ scene }: { scene: NommiScene }) {
   );
 }
 
-function FeedScene() {
+function StillScene({
+  src,
+  label,
+  caption,
+  badge,
+}: {
+  src: string;
+  label: string;
+  caption: string;
+  badge?: string;
+}) {
   return (
-    <>
-      <div className="nommi-card">
-        <div className="nommi-card__meta">
-          <div className="nommi-avatar" />
-          <div>
-            <div className="nommi-card__who">alexis · CS278</div>
-            <div className="nommi-card__when">12m ago · Tresidder</div>
-          </div>
-          <span className="nommi-pill free">Free food</span>
-        </div>
-        <div className="nommi-card__media" />
-        <p className="nommi-card__body">
-          Leftover catering from the design review — sandwiches + fruit, next to the south doors.
-          Going fast.
-        </p>
-        <div className="nommi-card__actions">
-          <span>♥ 18</span>
-          <span>💬 6</span>
-          <span>🔖 Save</span>
-        </div>
-      </div>
-      <div className="nommi-card">
-        <div className="nommi-card__meta">
-          <div className="nommi-avatar" />
-          <div>
-            <div className="nommi-card__who">aditya</div>
-            <div className="nommi-card__when">1h ago · Coupa</div>
-          </div>
-          <span className="nommi-pill">Rec</span>
-        </div>
-        <p className="nommi-card__body">
-          Quiet corner + reliable oat latte. Best place to rewrite a section without Wi-Fi drama.
-        </p>
-        <div className="nommi-card__actions">
-          <span>♥ 9</span>
-          <span>📍 Map</span>
-        </div>
-      </div>
-    </>
-  );
-}
-
-function ChatScene() {
-  return (
-    <div className="nommi-chat">
-      <div className="nommi-bubble them">anyone near Huang? free pizza from a club fair leftover</div>
-      <div className="nommi-bubble me">on my way — pinning it</div>
-      <div className="nommi-bubble them">posted in Free Food Radar too so it doesn’t die in the chat</div>
-      <div className="nommi-bubble me">that’s the whole point of Nommi 🧋</div>
-      <div className="nommi-bubble them">circle: Stanford Free Food Radar · 14 online</div>
-    </div>
-  );
-}
-
-function MapScene() {
-  return (
-    <div className="nommi-map">
-      <span className="nommi-pin nommi-pin--a" />
-      <span className="nommi-pin nommi-pin--b" />
-      <div className="nommi-map-sheet">
-        <strong>Free food · Tresidder south</strong>
-        <div style={{ color: "#6b7280", marginTop: 4 }}>0.2 mi · ends ~20m · 18 saves</div>
+    <div className="nommi-still">
+      <img src={src} alt={label} />
+      {badge ? <span className="nommi-still__badge">{badge}</span> : null}
+      <div className="nommi-still__caption">
+        <strong>{label}</strong>
+        <p>{caption}</p>
       </div>
     </div>
   );
 }
 
-function InsightScene({ reflect }: { reflect: boolean }) {
+function ChatOverlay({ fading }: { fading: boolean }) {
   return (
-    <div className="nommi-insight">
-      <strong>{reflect ? "What shipped taught us" : "Launch pulse"}</strong>
-      {reflect ? (
-        <>
-          Recommendations were 74% of posts. Free-food was only 16% — and still won engagement per
-          post. Circles never reached critical mass. Schema is easy. Community is the product.
-        </>
+    <div className={`nommi-chat-real${fading ? " is-fading" : ""}`}>
+      <p className="nommi-chat-real__title">CS278 group chat</p>
+      <div className="nommi-bubble them">anyone near Huang? free pizza leftover from a club fair</div>
+      <div className="nommi-bubble them">going fast — south doors</div>
+      <div className="nommi-bubble me">screenshotting before it scrolls away…</div>
+      {fading ? (
+        <p className="nommi-chat-real__warn">Newer messages push useful tips out of reach.</p>
       ) : (
-        <>
-          31 organic users · 30 verified · 20 took a real action. Every post carried location.
-          Location wasn’t a filter — it was the content.
-        </>
+        <p className="nommi-chat-real__hint">Temporary knowledge — not yet community infrastructure.</p>
       )}
     </div>
   );

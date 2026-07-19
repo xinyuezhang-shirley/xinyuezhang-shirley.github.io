@@ -219,3 +219,269 @@
 .stan-bar-row.is-low .stan-bar-fill {
   background: #b83a3a;
 }
+
+/* Interactive instruments + real figures */
+.stan-pub img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.stan-fig img {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--st-line);
+}
+
+.stan-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.stan-pdf-secondary {
+  display: inline-flex;
+  font-family: var(--st-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--st-cardinal);
+  background: transparent;
+  border: 1px solid var(--st-cardinal);
+  padding: 0.85rem 1.25rem;
+}
+
+.stan-pdf-secondary:hover {
+  background: var(--st-cardinal-soft);
+}
+
+.stan-instrument {
+  margin: 1.5rem 0 2rem;
+  background: var(--st-panel);
+  border: 1px solid var(--st-line);
+  padding: 1.25rem;
+}
+
+.stan-instrument__label {
+  font-family: var(--st-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--st-cardinal);
+  margin: 0 0 0.85rem;
+}
+
+.stan-instrument__hint {
+  font-family: var(--st-sans);
+  font-size: 0.9rem;
+  color: var(--st-muted);
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.stan-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.stan-chip {
+  font-family: var(--st-sans);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  border: 1px solid var(--st-line);
+  background: var(--st-bg);
+  color: var(--st-ink);
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.stan-chip:hover {
+  border-color: var(--st-cardinal);
+}
+
+.stan-chip.is-on {
+  background: var(--st-cardinal);
+  border-color: var(--st-cardinal);
+  color: #fff;
+}
+
+.stan-chip:focus-visible {
+  outline: 2px solid var(--st-cardinal);
+  outline-offset: 2px;
+}
+
+.stan-chip:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.stan-city-pick {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .stan-city-pick {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stan-city-pick__group p {
+  font-family: var(--st-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+  margin: 0 0 0.45rem;
+}
+
+.stan-compare {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: stretch;
+  margin: 0 0 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .stan-compare {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stan-compare__card {
+  border: 1px solid var(--st-line);
+  background: var(--st-bg);
+  padding: 1rem;
+  text-align: center;
+}
+
+.stan-compare__card strong {
+  display: block;
+  font-family: var(--st-serif);
+  font-size: 1.1rem;
+  margin-bottom: 0.35rem;
+}
+
+.stan-compare__pct {
+  font-family: var(--st-mono);
+  font-size: 1.75rem;
+  color: var(--st-cardinal);
+  line-height: 1.2;
+}
+
+.stan-compare__meta {
+  font-family: var(--st-sans);
+  font-size: 0.8rem;
+  color: var(--st-muted);
+  margin-top: 0.35rem;
+}
+
+.stan-compare__delta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--st-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+  padding: 0.5rem;
+}
+
+.stan-compare__delta span {
+  font-size: 1.1rem;
+  color: var(--st-ink);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: 0.25rem;
+}
+
+.stan-step-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.stan-step-btn {
+  font-family: var(--st-sans);
+  font-size: 0.78rem;
+  line-height: 1.3;
+  text-align: left;
+  border: 1px solid var(--st-line);
+  background: var(--st-bg);
+  color: var(--st-ink);
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  border-radius: 2px;
+  max-width: 100%;
+}
+
+.stan-step-btn:hover {
+  border-color: var(--st-cardinal);
+}
+
+.stan-step-btn.is-on {
+  background: var(--st-cardinal);
+  border-color: var(--st-cardinal);
+  color: #fff;
+}
+
+.stan-step-btn:focus-visible {
+  outline: 2px solid var(--st-cardinal);
+  outline-offset: 2px;
+}
+
+.stan-step-copy {
+  font-family: var(--st-serif);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #3a3732;
+  margin: 0 0 1rem;
+}
+
+.stan-findings {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.stan-findings li {
+  background: var(--st-panel);
+  border: 1px solid var(--st-line);
+  padding: 0.9rem 1.1rem;
+  font-size: 1.05rem;
+}
+
+.stan-fig-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 760px) {
+  .stan-fig-grid.is-two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stan-bar-fill,
+  .stan-chip,
+  .stan-step-btn,
+  .stan-pdf,
+  .stan-pdf-secondary {
+    transition: none !important;
+  }
+}

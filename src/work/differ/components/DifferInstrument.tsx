@@ -1,182 +1,202 @@
 import { useMemo, useState } from "react";
 
-type Experience = "first-date" | "thrifting" | "late-night" | "without-car";
-type Perspective = "age" | "neighborhood" | "budget" | "accessibility";
-type Issue = "fit" | "safety" | "affordability" | "prevalence";
+type Case = {
+  id: string;
+  experience: string;
+  perspective: string;
+  issue: string;
+  src: string;
+  caption: string;
+  notice: string;
+  variables: string;
+};
 
-const EXPERIENCES: { id: Experience; label: string }[] = [
-  { id: "first-date", label: "First date" },
-  { id: "thrifting", label: "Thrifting" },
-  { id: "late-night", label: "Late-night food" },
-  { id: "without-car", label: "Travel without a car" },
+/** Only curated triples with real figures — unsupported combinations are disabled. */
+const CASES: Case[] = [
+  {
+    id: "travel",
+    experience: "Travel without a car",
+    perspective: "Urban vs rural",
+    issue: "Business / venue availability",
+    src: "/research/differ/plots/travelWithoutCar_business.png",
+    caption:
+      "Selected study plot: travel-without-car experience under an urban/rural perspective, scored for venue availability.",
+    variables: "Experience = travel without a car · Perspective = urban/rural · Issue = prevalence of supporting businesses",
+    notice:
+      "Urban settings show substantially denser supporting businesses than rural ones. The plot makes the geographic split visible before a designer assumes the experience is universally available.",
+  },
+  {
+    id: "watch",
+    experience: "Watch a sports game",
+    perspective: "Adult vs youth",
+    issue: "Age-appropriate venues",
+    src: "/research/differ/plots/watchGameBars_Age.png",
+    caption:
+      "Selected study plot: watching a sports game, compared across adult and youth perspectives for bar-type venues.",
+    variables: "Experience = watch sports · Perspective = age cohort · Issue = venue appropriateness / availability",
+    notice:
+      "Adult-oriented venues dominate; youth access collapses. The figure shows how the same “watch a game” concept fractures once age is the accountable perspective.",
+  },
+  {
+    id: "thrift",
+    experience: "Thrifting",
+    perspective: "Neighborhood / business context",
+    issue: "Business availability",
+    src: "/research/differ/plots/thrifting_business.png",
+    caption: "Selected study plot: thrifting experience scored for business availability across reference venues.",
+    variables: "Experience = thrifting · Perspective = local business landscape · Issue = prevalence",
+    notice:
+      "Thrifting is not evenly distributed across the city fabric. The bar structure shows where the experience is supported versus sparse.",
+  },
+  {
+    id: "photo",
+    experience: "Photography outing",
+    perspective: "Pennsylvania vs Florida",
+    issue: "State-level difference",
+    src: "/research/differ/plots/photo_PA_FL.png",
+    caption: "Selected study plot: photography-related experience compared between Pennsylvania and Florida.",
+    variables: "Experience = photo outing · Perspective = state geography · Issue = comparative availability",
+    notice:
+      "State-level context changes what “going out to take photos” can mean in practice. The comparison is evidence of geographic difference, not a live recomputation.",
+  },
+  {
+    id: "historic",
+    experience: "Historical immersive visit",
+    perspective: "Business landscape",
+    issue: "Venue support",
+    src: "/research/differ/plots/historicalImmersive_business.png",
+    caption: "Selected study plot: historical immersive experience under a business-availability issue function.",
+    variables: "Experience = historical immersive · Perspective = venue ecology · Issue = business support",
+    notice:
+      "Immersive historical experiences depend on specific venue types. The plot surfaces where that ecology is present or thin.",
+  },
+  {
+    id: "first-date",
+    experience: "First date (food & drinks)",
+    perspective: "Multi-perspective plate",
+    issue: "Case-study visualizations",
+    src: "/research/differ/fig09_first_date_eight_viz.jpeg",
+    caption:
+      "Fig. 9. A set of eight visualizations generated using Differ for the experience of having a first date over food and drinks.",
+    variables: "Experience = first date · Multiple accountable perspectives and issue functions on one plate",
+    notice:
+      "One experience, many visualizations: the plate shows how Differ’s linear pipeline (concept → perspective → issue → viz) produces a family of evidence rather than a single score.",
+  },
 ];
-
-const PERSPECTIVES: { id: Perspective; label: string }[] = [
-  { id: "age", label: "Age cohort" },
-  { id: "neighborhood", label: "Neighborhood" },
-  { id: "budget", label: "Budget" },
-  { id: "accessibility", label: "Accessibility" },
-];
-
-const ISSUES: { id: Issue; label: string }[] = [
-  { id: "fit", label: "Conceptual fit" },
-  { id: "safety", label: "Safety" },
-  { id: "affordability", label: "Affordability" },
-  { id: "prevalence", label: "Prevalence" },
-];
-
-/** Deterministic demo scores — illustrates Differ's claim, not live Chicago compute. */
-function scores(exp: Experience, persp: Perspective, issue: Issue) {
-  const seed = `${exp}|${persp}|${issue}`;
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) h = (h * 33 + seed.charCodeAt(i)) >>> 0;
-  const groups =
-    persp === "neighborhood"
-      ? ["Near North", "South Side", "West Loop", "Rogers Park"]
-      : persp === "age"
-        ? ["18–24", "25–34", "35–49", "50+"]
-        : persp === "budget"
-          ? ["Low", "Mid", "High", "Flexible"]
-          : ["Step-free", "Transit", "Car-dependent", "Mixed"];
-
-  return groups.map((label, i) => {
-    const n = ((h >> (i * 5)) & 31) / 31;
-    const base = 0.28 + n * 0.62;
-    const skew =
-      (exp === "late-night" && issue === "safety" && i === 1 ? -0.18 : 0) +
-      (exp === "without-car" && issue === "prevalence" && i === 2 ? -0.22 : 0) +
-      (exp === "first-date" && issue === "affordability" && i === 0 ? 0.12 : 0);
-    return { label, value: Math.max(0.08, Math.min(0.96, base + skew)) };
-  });
-}
-
-function readout(exp: Experience, persp: Perspective, issue: Issue, rows: { label: string; value: number }[]) {
-  const worst = [...rows].sort((a, b) => a.value - b.value)[0];
-  const best = [...rows].sort((a, b) => b.value - a.value)[0];
-  return `For “${EXPERIENCES.find((e) => e.id === exp)?.label}”, ${issue} under ${persp} splits sharply: ${best?.label} holds up; ${worst?.label} is where the experience is most likely to break. Differ exists to make that split accountable before a designer ships.`;
-}
 
 /**
- * Living Differ instrument — experience × perspective × issue → evidence field.
+ * Selected-cases instrument — only real figures; no live compute language.
  */
-export function DifferInstrument() {
-  const [exp, setExp] = useState<Experience>("first-date");
-  const [persp, setPersp] = useState<Perspective>("neighborhood");
-  const [issue, setIssue] = useState<Issue>("safety");
-  const [mode, setMode] = useState<"bars" | "map">("bars");
+export default function DifferInstrument() {
+  const [caseId, setCaseId] = useState(CASES[0].id);
+  const active = useMemo(() => CASES.find((c) => c.id === caseId) ?? CASES[0], [caseId]);
 
-  const rows = useMemo(() => scores(exp, persp, issue), [exp, persp, issue]);
+  const experiences = [...new Set(CASES.map((c) => c.experience))];
+  const perspectivesForExp = CASES.filter((c) => c.experience === active.experience).map((c) => c.perspective);
+  const issuesForPair = CASES.filter(
+    (c) => c.experience === active.experience && c.perspective === active.perspective,
+  ).map((c) => c.issue);
+
+  function pickExperience(experience: string) {
+    const next = CASES.find((c) => c.experience === experience) ?? CASES[0];
+    setCaseId(next.id);
+  }
+
+  function pickPerspective(perspective: string) {
+    const next =
+      CASES.find((c) => c.experience === active.experience && c.perspective === perspective) ??
+      CASES.find((c) => c.experience === active.experience) ??
+      CASES[0];
+    setCaseId(next.id);
+  }
+
+  function pickIssue(issue: string) {
+    const next =
+      CASES.find(
+        (c) =>
+          c.experience === active.experience &&
+          c.perspective === active.perspective &&
+          c.issue === issue,
+      ) ?? active;
+    setCaseId(next.id);
+  }
 
   return (
     <div className="differ-instrument">
-      <div className="differ-controls">
-        <label htmlFor="df-exp">Experience</label>
-        <select id="df-exp" value={exp} onChange={(e) => setExp(e.target.value as Experience)}>
-          {EXPERIENCES.map((e) => (
-            <option key={e.id} value={e.id}>
-              {e.label}
-            </option>
-          ))}
-        </select>
+      <div className="differ-instrument__controls">
+        <h3>Selected cases from the study</h3>
+        <p style={{ fontSize: "0.82rem", lineHeight: 1.45, margin: "0 0 1rem", color: "#5c5666" }}>
+          Choose only combinations that have a corresponding figure. Unsupported choices stay disabled — nothing is
+          computed live on this page.
+        </p>
 
-        <label>Accountable perspective</label>
-        <div className="differ-chip-row">
-          {PERSPECTIVES.map((p) => (
-            <button
-              key={p.id}
-              type="button"
-              className={`chip${persp === p.id ? " is-on" : ""}`}
-              onClick={() => setPersp(p.id)}
-            >
-              {p.label}
-            </button>
-          ))}
+        <div className="differ-instrument__group">
+          <p>1 · Experience</p>
+          <div className="differ-chip-row">
+            {experiences.map((exp) => (
+              <button
+                key={exp}
+                type="button"
+                className={`differ-chip${active.experience === exp ? " is-on" : ""}`}
+                onClick={() => pickExperience(exp)}
+              >
+                {exp}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <label>Issue of concern</label>
-        <div className="differ-chip-row">
-          {ISSUES.map((i) => (
-            <button
-              key={i.id}
-              type="button"
-              className={`chip${issue === i.id ? " is-on" : ""}`}
-              onClick={() => setIssue(i.id)}
-            >
-              {i.label}
-            </button>
-          ))}
+        <div className="differ-instrument__group">
+          <p>2 · Perspective</p>
+          <div className="differ-chip-row">
+            {[...new Set(perspectivesForExp)].map((p) => (
+              <button
+                key={p}
+                type="button"
+                className={`differ-chip${active.perspective === p ? " is-on" : ""}`}
+                onClick={() => pickPerspective(p)}
+              >
+                {p}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <label>Visualization</label>
-        <div className="differ-chip-row">
-          <button
-            type="button"
-            className={`chip${mode === "bars" ? " is-on" : ""}`}
-            onClick={() => setMode("bars")}
-          >
-            Comparison
-          </button>
-          <button
-            type="button"
-            className={`chip${mode === "map" ? " is-on" : ""}`}
-            onClick={() => setMode("map")}
-          >
-            Geography
-          </button>
+        <div className="differ-instrument__group">
+          <p>3 · Issue</p>
+          <div className="differ-chip-row">
+            {[...new Set(issuesForPair)].map((issue) => (
+              <button
+                key={issue}
+                type="button"
+                className={`differ-chip${active.issue === issue ? " is-on" : ""}`}
+                onClick={() => pickIssue(issue)}
+              >
+                {issue}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="differ-instrument__group">
+          <p>4 · Visualization</p>
+          <p style={{ textTransform: "none", letterSpacing: 0, fontSize: "0.8rem", color: "#1a1520" }}>
+            Real figure from the study (shown at right)
+          </p>
         </div>
       </div>
 
-      <div className="differ-viz">
-        <div className="differ-viz__head">
-          Live field · demo instrument (illustrative scores)
-        </div>
-        {mode === "bars" ? (
-          <div className="differ-bars">
-            {rows.map((r) => (
-              <div key={r.label} className="differ-bar-row">
-                <span>{r.label}</span>
-                <div className="differ-bar-track">
-                  <div className="differ-bar-fill" style={{ width: `${r.value * 100}%` }} />
-                </div>
-                <span>{Math.round(r.value * 100)}</span>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="differ-map">
-            <svg viewBox="0 0 400 260" role="img" aria-label="Perspective geography schematic">
-              <rect width="400" height="260" fill="transparent" />
-              {rows.map((r, i) => {
-                const cx = 70 + (i % 2) * 180;
-                const cy = 70 + Math.floor(i / 2) * 110;
-                const rad = 28 + r.value * 36;
-                return (
-                  <g key={r.label}>
-                    <circle
-                      cx={cx}
-                      cy={cy}
-                      r={rad}
-                      fill={`rgba(232,160,176,${0.15 + r.value * 0.45})`}
-                      stroke="#8366b3"
-                      strokeWidth="1.2"
-                    />
-                    <text
-                      x={cx}
-                      y={cy + 4}
-                      textAnchor="middle"
-                      fill="#f4eef8"
-                      fontFamily="IBM Plex Mono, monospace"
-                      fontSize="10"
-                    >
-                      {r.label}
-                    </text>
-                  </g>
-                );
-              })}
-            </svg>
-          </div>
-        )}
-        <p className="differ-readout">{readout(exp, persp, issue, rows)}</p>
+      <div className="differ-instrument__stage">
+        <img src={active.src} alt={active.caption} />
+        <p className="differ-instrument__caption">{active.caption}</p>
+        <p className="differ-instrument__note">
+          <strong>Variables compared. </strong>
+          {active.variables}
+        </p>
+        <p className="differ-instrument__note">
+          <strong>What to notice. </strong>
+          {active.notice}
+        </p>
       </div>
     </div>
   );

@@ -1,20 +1,25 @@
-/* Ironclad world — contract lifecycle as intelligent infrastructure */
+/* Ironclad · brand greens/teals/golds — contract lifecycle as living infrastructure */
 
 .iron-world {
-  --ir-bg: #f4f6f8;
+  --ir-green: #5bc68c;
+  --ir-teal: #325d62;
+  --ir-gold: #9d8859;
+  --ir-ink: #1d2930;
+  --ir-mint: #cdf2c6;
+  --ir-sage: #749f9d;
+  --ir-peach: #f8d2b9;
+  --ir-stone: #e7e6df;
+  --ir-bg: #f3f6f4;
   --ir-panel: #ffffff;
-  --ir-ink: #0f172a;
-  --ir-muted: #64748b;
-  --ir-line: #dbe2ea;
-  --ir-navy: #0b1f33;
-  --ir-teal: #0f766e;
-  --ir-gold: #c4a35a;
+  --ir-muted: #5a6b72;
+  --ir-line: #d5ddd8;
   --ir-sans: "Inter", system-ui, sans-serif;
   --ir-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   background:
-    linear-gradient(180deg, #e8eef4 0%, var(--ir-bg) 30%),
-    var(--ir-bg);
+    radial-gradient(ellipse 70% 45% at 0% 0%, rgba(91, 198, 140, 0.16), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 100% 10%, rgba(248, 210, 185, 0.35), transparent 50%),
+    linear-gradient(180deg, #eef5f1 0%, var(--ir-bg) 45%, var(--ir-stone) 100%);
   color: var(--ir-ink);
   margin: 0 calc(50% - 50vw);
   width: 100vw;
@@ -34,172 +39,566 @@
 }
 
 .iron-world__back {
+  display: inline-block;
   font-family: var(--ir-mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ir-muted);
   text-decoration: none;
 }
 
-.iron-world__eyebrow {
+.iron-world__back:hover {
+  color: var(--ir-teal);
+}
+
+.iron-hero {
+  margin: 2rem 0 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--ir-line);
+}
+
+.iron-hero__eyebrow {
   font-family: var(--ir-mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ir-teal);
-  margin: 1.75rem 0 0.6rem;
-}
-
-.iron-world__title {
-  font-size: clamp(2.25rem, 5vw, 3.25rem);
-  font-weight: 650;
-  letter-spacing: -0.03em;
-  margin: 0;
-  color: var(--ir-navy);
-}
-
-.iron-world__claim {
-  font-size: 1.1rem;
-  color: var(--ir-muted);
-  max-width: 34rem;
-  line-height: 1.55;
-  margin: 0.85rem 0 2.25rem;
-}
-
-.iron-pipeline {
-  display: grid;
-  gap: 0.65rem;
-  margin-bottom: 2rem;
-}
-
-@media (min-width: 800px) {
-  .iron-pipeline {
-    grid-template-columns: repeat(5, 1fr);
-    align-items: stretch;
-  }
-}
-
-.iron-step {
-  background: var(--ir-panel);
-  border: 1px solid var(--ir-line);
-  border-radius: 10px;
-  padding: 0.9rem 0.85rem;
-  position: relative;
-  min-height: 120px;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.iron-step.is-hot {
-  border-color: var(--ir-teal);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(15, 118, 110, 0.12);
-}
-
-.iron-step__id {
-  font-family: var(--ir-mono);
-  font-size: 0.6rem;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ir-gold);
-  margin: 0 0 0.4rem;
-}
-
-.iron-step h3 {
-  font-size: 0.95rem;
-  margin: 0 0 0.35rem;
-  color: var(--ir-navy);
-}
-
-.iron-step p {
-  font-size: 0.78rem;
-  color: var(--ir-muted);
-  line-height: 1.4;
-  margin: 0;
-}
-
-.iron-doc {
-  margin: 1.5rem 0 2rem;
-  background: var(--ir-panel);
-  border: 1px solid var(--ir-line);
-  border-radius: 12px;
-  padding: 1.25rem 1.35rem;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
-  position: relative;
-  overflow: hidden;
-}
-
-.iron-doc::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(180deg, var(--ir-teal), var(--ir-gold));
-}
-
-.iron-doc__meta {
-  font-family: var(--ir-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ir-muted);
-  margin-bottom: 0.75rem;
-}
-
-.iron-doc__title {
-  font-size: 1.15rem;
-  font-weight: 650;
-  color: var(--ir-navy);
-  margin: 0 0 0.5rem;
-}
-
-.iron-doc__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.85rem;
-}
-
-.iron-doc__tags span {
-  font-family: var(--ir-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border: 1px solid var(--ir-line);
-  border-radius: 999px;
-  padding: 0.3rem 0.55rem;
-  color: var(--ir-teal);
-}
-
-.iron-chapter {
-  margin-top: 2.75rem;
-  max-width: 40rem;
-  border-top: 1px solid var(--ir-line);
-  padding-top: 1.75rem;
-}
-
-.iron-chapter h2 {
-  font-size: 0.75rem;
-  font-family: var(--ir-mono);
-  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ir-teal);
   margin: 0 0 0.75rem;
 }
 
-.iron-chapter p {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: #334155;
-  margin: 0 0 1rem;
+.iron-hero__title {
+  font-size: clamp(1.95rem, 4.6vw, 2.9rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 0.85rem;
+  max-width: 14ch;
+  color: var(--ir-ink);
 }
 
-.iron-note {
-  font-size: 0.85rem;
+.iron-hero__lede {
+  font-size: 1.08rem;
+  line-height: 1.6;
   color: var(--ir-muted);
-  border-left: 2px solid var(--ir-gold);
-  padding-left: 0.85rem;
-  margin-top: 1.5rem;
+  max-width: 40rem;
+  margin: 0 0 1.1rem;
+}
+
+.iron-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.5rem;
+}
+
+.iron-badge {
+  font-family: var(--ir-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.65rem;
+  border-radius: 4px;
+}
+
+.iron-badge--live {
+  background: var(--ir-mint);
+  color: var(--ir-teal);
+  border: 1px solid #a8dfb2;
+}
+
+.iron-badge--plan {
+  background: var(--ir-peach);
+  color: #6a4e35;
+  border: 1px solid #efc4a8;
+}
+
+.iron-meta {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--ir-line);
+}
+
+@media (min-width: 720px) {
+  .iron-meta {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.iron-meta dt {
+  font-family: var(--ir-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ir-gold);
+  margin: 0 0 0.3rem;
+}
+
+.iron-meta dd {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.iron-section {
+  margin: 2.75rem 0;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--ir-line);
+}
+
+.iron-section h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.65rem;
+  color: var(--ir-ink);
+}
+
+.iron-section__intro,
+.iron-section > p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ir-muted);
+  max-width: 42rem;
+  margin: 0 0 1.1rem;
+}
+
+.iron-chat {
+  background: var(--ir-panel);
+  border: 1px solid var(--ir-line);
+  border-left: 4px solid var(--ir-green);
+  border-radius: 8px;
+  padding: 1.2rem 1.3rem;
+  margin: 1.25rem 0;
+  box-shadow: 0 14px 36px rgba(29, 41, 48, 0.06);
+}
+
+.iron-chat__label {
+  font-family: var(--ir-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ir-teal);
+  margin: 0 0 0.55rem;
+}
+
+.iron-chat__text {
+  font-size: 1.08rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0 0 1.1rem;
+  color: var(--ir-ink);
+}
+
+.iron-chat__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.iron-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  background: var(--ir-teal);
+  color: #fff;
+  border: 1px solid var(--ir-teal);
+  border-radius: 4px;
+  font-family: var(--ir-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.iron-btn:hover:not(:disabled) {
+  background: #27484c;
+  border-color: #27484c;
+}
+
+.iron-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.iron-btn--ghost {
+  background: transparent;
+  color: var(--ir-teal);
+}
+
+.iron-btn--ghost:hover:not(:disabled) {
+  background: var(--ir-mint);
+  color: var(--ir-teal);
+  border-color: var(--ir-green);
+}
+
+.iron-btn--soft {
+  background: var(--ir-stone);
+  color: var(--ir-ink);
+  border-color: var(--ir-gold);
+}
+
+.iron-btn--soft:hover:not(:disabled) {
+  background: var(--ir-peach);
+  border-color: var(--ir-gold);
+  color: var(--ir-ink);
+}
+
+.iron-stages {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1.25rem 0 1rem;
+}
+
+@media (min-width: 960px) {
+  .iron-stages {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 959px) {
+  .iron-stages {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.iron-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  text-align: left;
+  width: 100%;
+  min-height: 7.5rem;
+  padding: 0.9rem 0.85rem;
+  background: var(--ir-panel);
+  border: 1px solid var(--ir-line);
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.iron-stage:hover {
+  border-color: var(--ir-sage);
+}
+
+.iron-stage--planned {
+  background: #fbf7f2;
+}
+
+.iron-stage.is-open {
+  border-color: var(--ir-green);
+  box-shadow: 0 12px 30px rgba(50, 93, 98, 0.12);
+  transform: translateY(-2px);
+}
+
+.iron-stage--planned.is-open {
+  border-color: var(--ir-gold);
+}
+
+.iron-stage__step {
+  font-family: var(--ir-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ir-sage);
+}
+
+.iron-stage--planned .iron-stage__step {
+  color: var(--ir-gold);
+}
+
+.iron-stage.is-open .iron-stage__step {
+  color: var(--ir-teal);
+}
+
+.iron-stage__title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.iron-stage__hint {
+  margin-top: auto;
+  font-size: 0.7rem;
+  line-height: 1.3;
+  color: var(--ir-muted);
+}
+
+.iron-workspace {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .iron-workspace {
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: start;
+  }
+}
+
+.iron-stage-panel {
+  background: var(--ir-panel);
+  border: 1px solid var(--ir-line);
+  border-radius: 10px;
+  padding: 1.25rem 1.3rem;
+}
+
+.iron-stage-panel__kicker {
+  font-family: var(--ir-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ir-teal);
+  margin: 0 0 0.4rem;
+}
+
+.iron-stage-panel h3 {
+  font-size: 1.15rem;
+  margin: 0 0 0.55rem;
+}
+
+.iron-stage-panel > p {
+  margin: 0 0 1rem;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--ir-muted);
+}
+
+.iron-gate {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.85rem 0.95rem;
+  background: linear-gradient(135deg, var(--ir-mint), #e8f7ef);
+  border: 1px solid #b5e3c0;
+  border-radius: 6px;
+}
+
+.iron-gate strong {
+  font-family: var(--ir-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ir-teal);
+}
+
+.iron-gate span {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ir-ink);
+}
+
+.iron-object {
+  background: var(--ir-panel);
+  border: 1px solid var(--ir-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.iron-object__head {
+  padding: 1rem 1.2rem;
+  background: linear-gradient(90deg, #eef7f1, var(--ir-stone));
+  border-bottom: 1px solid var(--ir-line);
+}
+
+.iron-object__head h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.iron-object__head p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ir-muted);
+}
+
+.iron-fields {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  display: grid;
+  gap: 0.4rem;
+  max-height: 34rem;
+  overflow: auto;
+}
+
+.iron-field {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--ir-line);
+  border-radius: 6px;
+  background: #fbfcfb;
+}
+
+.iron-field--empty {
+  opacity: 0.55;
+}
+
+.iron-field--draft {
+  border-left: 3px solid var(--ir-sage);
+}
+
+.iron-field--review {
+  border-left: 3px solid var(--ir-gold);
+  background: #fffaf3;
+}
+
+.iron-field--accepted {
+  border-left: 3px solid var(--ir-green);
+  background: #f3fbf5;
+}
+
+.iron-field--planned {
+  border-left: 3px solid var(--ir-peach);
+  background: #fff8f3;
+}
+
+.iron-field__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+}
+
+.iron-field__label {
+  font-family: var(--ir-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ir-teal);
+}
+
+.iron-field__status {
+  font-family: var(--ir-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ir-muted);
+}
+
+.iron-field__value {
+  margin: 0 0 0.25rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.iron-field__note {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--ir-muted);
+}
+
+.iron-list {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  max-width: 42rem;
+}
+
+.iron-list li {
+  margin-bottom: 0.55rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--ir-muted);
+}
+
+.iron-caveat {
+  border-left: 3px solid var(--ir-gold);
+  padding: 0.85rem 1rem;
+  background: #fff8ef;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.92rem !important;
+  max-width: 44rem !important;
+}
+
+.iron-system {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 720px) {
+  .iron-system {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.iron-system > div {
+  background: var(--ir-panel);
+  border: 1px solid var(--ir-line);
+  border-radius: 8px;
+  padding: 1.05rem 1.15rem;
+}
+
+.iron-system h3 {
+  font-family: var(--ir-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0 0 0.7rem;
+  color: var(--ir-teal);
+}
+
+.iron-system > div:last-child h3 {
+  color: var(--ir-gold);
+}
+
+.iron-system ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.iron-system li {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ir-muted);
+  margin-bottom: 0.35rem;
+}
+
+.iron-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.iron-skills li {
+  font-family: var(--ir-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  padding: 0.45rem 0.7rem;
+  background: var(--ir-panel);
+  border: 1px solid var(--ir-line);
+  border-radius: 4px;
+  color: var(--ir-ink);
+}
+
+.iron-nda {
+  background: var(--ir-stone);
+  border: 1px solid var(--ir-line);
+  border-radius: 8px;
+  padding: 1.35rem 1.4rem;
+}
+
+.iron-nda h2 {
+  color: var(--ir-teal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iron-stage,
+  .iron-btn {
+    transition: none;
+  }
+
+  .iron-stage.is-open {
+    transform: none;
+  }
 }

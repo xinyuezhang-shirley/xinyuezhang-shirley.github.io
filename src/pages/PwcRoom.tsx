@@ -2,136 +2,329 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "@/work/pwc/pwc-world.css";
 
-const QUERIES = [
+type StageId =
+  | "query"
+  | "translate-in"
+  | "supervisor"
+  | "retrieval"
+  | "rag"
+  | "translate-out"
+  | "eval";
+
+const SANITIZED_QUERY =
+  "Where can I find the updated onboarding checklist for my reorganized business unit?";
+
+const STAGES: {
+  id: StageId;
+  step: string;
+  title: string;
+  body: string;
+  artifact: string;
+}[] = [
   {
-    q: "What changed in the Q3 risk memo hierarchy?",
-    route: "retrieval",
-    agents: [
-      { kind: "route", text: "Supervisor → retrieval agent (Azure AI Search)" },
-      { kind: "ok", text: "Retriever ranked 12 chunks · top source: risk_memo_v3.pdf §4" },
-      { kind: "ok", text: "Citation attach · grounding check · eval flag clear" },
-    ],
+    id: "query",
+    step: "01",
+    title: "Sanitized employee query",
+    body: "A single public-safe example stands in for real workforce questions after an org restructure. Employees need documentation they no longer know how to find.",
+    artifact:
+      "Query (sanitized): “Where can I find the updated onboarding checklist for my reorganized business unit?”",
   },
   {
-    q: "Summarize how the team explains cascading UI failures",
-    route: "response",
-    agents: [
-      { kind: "route", text: "Supervisor → response-generation (synthesis)" },
-      { kind: "ok", text: "Context: hierarchical store + nested render bugs" },
-      { kind: "ok", text: "Answer drafted · hallucination detector on unsupported claims" },
-    ],
+    id: "translate-in",
+    step: "02",
+    title: "Preprocess · translate to English",
+    body: "Translation moved out of the answer prompt. In-prompt translation was breaking citation blocks. The query is translated to English first so retrieval and RAG see a stable language surface.",
+    artifact:
+      "Preprocess output: English query string ready for routing · original locale retained for response packaging.",
+  },
+  {
+    id: "supervisor",
+    step: "03",
+    title: "Supervisor routes the path",
+    body: "Langflow multi-agent orchestration: a supervisor decides chatbot-style handling versus knowledge retrieval. Documentation questions take the knowledge path.",
+    artifact:
+      "Supervisor decision: knowledge retrieval · not freeform chat · handoff to Azure AI Search tool.",
+  },
+  {
+    id: "retrieval",
+    step: "04",
+    title: "Azure AI Search · semantic retrieval",
+    body: "The knowledge agent calls Azure AI Search for semantic retrieval over internal documentation — the grounding layer meant to minimize hallucinations for a 300K+ workforce design target.",
+    artifact:
+      "Retrieval: ranked chunks with document IDs and section anchors (citations preserved as structured fields).",
+  },
+  {
+    id: "rag",
+    step: "05",
+    title: "RAG answer with citations",
+    body: "Retrieved context grounds the answer. Citations stay attached as structured metadata rather than fragile inlined prose that translation used to scramble.",
+    artifact:
+      "Draft answer + citation list · each claim pointed at a retrieved source span.",
+  },
+  {
+    id: "translate-out",
+    step: "06",
+    title: "Translate structured output back",
+    body: "After generation, structured output (answer + citations) is translated back to the user language. Separating translate-in / pipeline / translate-out kept citation integrity intact.",
+    artifact:
+      "Localized answer package · citation blocks unchanged as structured references.",
+  },
+  {
+    id: "eval",
+    step: "07",
+    title: "Eval · coverage & hallucination flags",
+    body: "Benchmark questions carry expected answer points. An AI eval checks topic coverage and raises hallucination flags when the answer drifts from retrieved evidence.",
+    artifact:
+      "Eval result (schematic): topic coverage pass · hallucination flag clear · citation present.",
   },
 ];
 
+const INTERN_WORK = [
+  {
+    title: "Prompt templates",
+    text: "Templates for supervisor routing, retrieval tool use, and grounded response generation.",
+  },
+  {
+    title: "Translation layer",
+    text: "Moved translate-from-in-prompt to preprocess English + postprocess structured output.",
+  },
+  {
+    title: "Azure AI Search routing",
+    text: "Tool routing so knowledge questions hit semantic retrieval instead of ungrounded chat.",
+  },
+];
+
+/**
+ * PwC · multi-agent knowledge assistant
+ * Light / off-white surface with official warm palette — not a dark dashboard.
+ */
 export default function PwcRoom() {
-  const [idx, setIdx] = useState(0);
-  const active = QUERIES[idx];
+  const [active, setActive] = useState<StageId>("query");
+  const stage = STAGES.find((s) => s.id === active) ?? STAGES[0];
+  const activeIndex = STAGES.findIndex((s) => s.id === active);
+
+  function go(delta: number) {
+    const next = Math.min(STAGES.length - 1, Math.max(0, activeIndex + delta));
+    setActive(STAGES[next].id);
+  }
 
   return (
     <article className="pwc-world">
       <div className="pwc-world__inner">
         <Link to="/work" className="pwc-world__back">
-          ← Work
+          ← Back to Work
         </Link>
-        <p className="pwc-world__eyebrow">Mission control · PwC · Jun–Aug 2025</p>
-        <h1 className="pwc-world__title">Multi-agent knowledge assistant</h1>
-        <p className="pwc-world__claim">
-          Langflow orchestration over Azure AI Search — supervisor, retrieval, and response agents
-          sized for a global workforce, with evaluation that checks grounding, not confidence.
-        </p>
 
-        <div className="pwc-console">
-          <div className="pwc-console__search">
-            <input
-              readOnly
-              value={active.q}
-              aria-label="Sample enterprise query"
-            />
-            <button
-              type="button"
-              onClick={() => setIdx((i) => (i + 1) % QUERIES.length)}
-            >
-              Run
-            </button>
-          </div>
-          <div className="pwc-console__grid">
-            <div className="pwc-pane">
-              <h3>Agent trace · {active.route}</h3>
-              {active.agents.map((a) => (
-                <div key={a.text} className="pwc-agent">
-                  <i className={a.kind === "route" ? "route" : undefined} />
-                  <span>{a.text}</span>
-                </div>
-              ))}
+        <header className="pwc-hero">
+          <p className="pwc-hero__eyebrow">
+            PwC (PricewaterhouseCoopers) · Software Engineering Intern · Jun–Aug 2025
+          </p>
+          <h1 className="pwc-hero__title">Multi-agent knowledge assistant</h1>
+          <p className="pwc-hero__lede">
+            An internal AI assistant that helps employees navigate documentation after
+            organizational restructure — grounded in docs, routed by a Langflow supervisor, and
+            checked for hallucinations.
+          </p>
+          <dl className="pwc-meta">
+            <div>
+              <dt>Company</dt>
+              <dd>PwC</dd>
             </div>
-            <div className="pwc-pane">
-              <h3>Knowledge topology</h3>
-              <div className="pwc-graph">
-                <svg viewBox="0 0 320 200" role="img" aria-label="Retrieval graph schematic">
-                  <circle cx="160" cy="100" r="18" fill="#d04a02" />
-                  <text x="160" y="104" textAnchor="middle" fill="#fff" fontSize="9" fontFamily="IBM Plex Mono, monospace">
-                    Q
-                  </text>
-                  {[
-                    [60, 40, "Doc"],
-                    [260, 40, "Doc"],
-                    [50, 150, "Eval"],
-                    [270, 150, "UI"],
-                    [160, 30, "Route"],
-                  ].map(([x, y, label], i) => (
-                    <g key={String(label) + i}>
-                      <line
-                        x1="160"
-                        y1="100"
-                        x2={Number(x)}
-                        y2={Number(y)}
-                        stroke="#3db8c5"
-                        strokeOpacity="0.55"
-                      />
-                      <circle cx={Number(x)} cy={Number(y)} r="14" fill="#141b24" stroke="#3db8c5" />
-                      <text
-                        x={Number(x)}
-                        y={Number(y) + 3}
-                        textAnchor="middle"
-                        fill="#e7eef6"
-                        fontSize="8"
-                        fontFamily="IBM Plex Mono, monospace"
-                      >
-                        {label}
-                      </text>
-                    </g>
-                  ))}
-                </svg>
+            <div>
+              <dt>Role</dt>
+              <dd>Software Engineering Intern</dd>
+            </div>
+            <div>
+              <dt>Design target</dt>
+              <dd>300K+ global workforce</dd>
+            </div>
+            <div>
+              <dt>Eval corpus</dt>
+              <dd>50+ internal docs · hundreds of queries</dd>
+            </div>
+          </dl>
+        </header>
+
+        <section className="pwc-section" aria-labelledby="pwc-trace">
+          <h2 id="pwc-trace">Central interaction · follow one sanitized query</h2>
+          <p className="pwc-section__intro">
+            Step through the path of a single sanitized question. No proprietary screenshots — only
+            a public schematic of routing, retrieval, translation, and eval.
+          </p>
+
+          <div className="pwc-query-card">
+            <p className="pwc-query-card__label">Sanitized query under inspection</p>
+            <p className="pwc-query-card__text">{SANITIZED_QUERY}</p>
+            <div className="pwc-query-card__actions">
+              <button
+                type="button"
+                className="pwc-btn pwc-btn--ghost"
+                onClick={() => go(-1)}
+                disabled={activeIndex === 0}
+              >
+                Previous stage
+              </button>
+              <button
+                type="button"
+                className="pwc-btn"
+                onClick={() => go(1)}
+                disabled={activeIndex === STAGES.length - 1}
+              >
+                Advance to next stage
+              </button>
+              <button
+                type="button"
+                className="pwc-btn pwc-btn--soft"
+                onClick={() => setActive("query")}
+              >
+                Reset to query start
+              </button>
+            </div>
+          </div>
+
+          <div className="pwc-stages" role="list">
+            {STAGES.map((s, i) => {
+              const open = s.id === active;
+              const done = i < activeIndex;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  role="listitem"
+                  className={`pwc-stage${open ? " is-open" : ""}${done ? " is-done" : ""}`}
+                  aria-expanded={open}
+                  onClick={() => setActive(s.id)}
+                >
+                  <span className="pwc-stage__step">Stage {s.step}</span>
+                  <span className="pwc-stage__title">{s.title}</span>
+                  <span className="pwc-stage__hint">
+                    {open ? "Currently viewing this stage" : "Click to open this stage"}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="pwc-stage-panel" aria-live="polite">
+            <p className="pwc-stage-panel__kicker">
+              Stage {stage.step} of {String(STAGES.length).padStart(2, "0")}
+            </p>
+            <h3>{stage.title}</h3>
+            <p>{stage.body}</p>
+            <div className="pwc-artifact">
+              <p className="pwc-artifact__label">Stage artifact</p>
+              <p>{stage.artifact}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="pwc-section" aria-labelledby="pwc-arch">
+          <h2 id="pwc-arch">Architecture</h2>
+          <div className="pwc-arch">
+            <div className="pwc-arch__node">
+              <h3>Supervisor</h3>
+              <p>Routes chatbot vs knowledge retrieval in Langflow.</p>
+            </div>
+            <div className="pwc-arch__node">
+              <h3>Knowledge path</h3>
+              <p>Azure AI Search semantic retrieval → RAG answer with citations.</p>
+            </div>
+            <div className="pwc-arch__node">
+              <h3>Translation layer</h3>
+              <p>Translate query in → run pipeline → translate structured output out.</p>
+            </div>
+            <div className="pwc-arch__node">
+              <h3>Evaluation</h3>
+              <p>QA benchmark + expected points · coverage and hallucination flags.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="pwc-section" aria-labelledby="pwc-context">
+          <h2 id="pwc-context">Context</h2>
+          <p>
+            After organizational restructure, employees needed help finding documentation that had
+            moved. The assistant&apos;s job was navigation with grounding — minimize hallucinations
+            by answering from docs, not from model memory alone.
+          </p>
+        </section>
+
+        <section className="pwc-section" aria-labelledby="pwc-resp">
+          <h2 id="pwc-resp">Responsibilities · intern scope</h2>
+          <div className="pwc-cards">
+            {INTERN_WORK.map((item) => (
+              <div key={item.title} className="pwc-card">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
+        </section>
 
-        <section className="pwc-chapter">
-          <h2>Context</h2>
+        <section className="pwc-section" aria-labelledby="pwc-system">
+          <h2 id="pwc-system">System</h2>
           <p>
-            Designed a multi-agent enterprise knowledge assistant on Langflow — supervisor,
-            retrieval, and response-generation workflows routing employee questions through Azure AI
-            Search and citation-grounded RAG over internal documentation, architected to support
-            PwC&apos;s global workforce of 300K+ employees.
+            Langflow multi-agent design: supervisor routes between chatbot handling and knowledge
+            retrieval. Knowledge questions use Azure AI Search for semantic retrieval, then a
+            citation-grounded RAG response. Translation is a preprocess / postprocess layer so
+            citation structure is not rewritten inside the generation prompt.
+          </p>
+          <p>
+            Separate from the agent path, backend storage and frontend rendering were refactored to
+            fix hierarchical consistency and cascading UI failures after documentation hierarchies
+            changed with the restructure.
           </p>
         </section>
-        <section className="pwc-chapter">
-          <h2>Technical decisions</h2>
+
+        <section className="pwc-section" aria-labelledby="pwc-outcomes">
+          <h2 id="pwc-outcomes">Outcomes</h2>
+          <ul className="pwc-outcomes">
+            <li>
+              <strong>Grounded answers</strong>
+              <span>Architecture aimed at doc-grounded responses with citations for workforce scale.</span>
+            </li>
+            <li>
+              <strong>Citation-safe translation</strong>
+              <span>Query/result translation no longer destroyed citation blocks.</span>
+            </li>
+            <li>
+              <strong>Measurable eval</strong>
+              <span>
+                Human-curated benchmark over 50+ documents and hundreds of representative queries —
+                topic coverage and hallucination detection in the loop.
+              </span>
+            </li>
+          </ul>
+        </section>
+
+        <section className="pwc-section" aria-labelledby="pwc-skills">
+          <h2 id="pwc-skills">Skills</h2>
+          <ul className="pwc-skills">
+            <li>Langflow multi-agent orchestration</li>
+            <li>Azure AI Search tool routing</li>
+            <li>Citation-grounded RAG</li>
+            <li>Prompt template design</li>
+            <li>Translation preprocessing / postprocessing</li>
+            <li>Benchmark-driven evaluation</li>
+            <li>Hierarchical data + UI reliability fixes</li>
+          </ul>
+        </section>
+
+        <section className="pwc-section" aria-labelledby="pwc-xf">
+          <h2 id="pwc-xf">Cross-functional</h2>
           <p>
-            Automated evaluation pipelines on a human-curated benchmark spanning 50+ internal
-            documents and hundreds of representative queries — edge-case testing and prompt
-            refinement for retrieval recall, answer grounding, and hallucination detection. Backend
-            storage and frontend rendering were refactored to fix hierarchical consistency and
-            cascading UI failures after organizational restructures.
+            The design target was PwC&apos;s global workforce of 300K+ employees navigating newly
+            restructured documentation. Reliability meant both retrieval quality and whether the
+            documentation UI still rendered hierarchy correctly after org changes.
           </p>
         </section>
-        <section className="pwc-chapter">
-          <h2>Reflection</h2>
+
+        <section className="pwc-section pwc-nda" aria-labelledby="pwc-nda">
+          <h2 id="pwc-nda">NDA &amp; disclosure</h2>
           <p>
-            Terracotta is a quiet nod to PwC identity; the room is mission control because that is
-            the feeling of watching agents hand work between systems. Reliability is orchestration
-            plus whether the UI can still render the hierarchy after the org chart moves.
+            Only a sanitized query appears here. No fake proprietary screenshots, no real internal
+            document text, and no confidential evaluation items. Stage artifacts are schematic
+            descriptions of the public architecture narrative.
           </p>
         </section>
       </div>

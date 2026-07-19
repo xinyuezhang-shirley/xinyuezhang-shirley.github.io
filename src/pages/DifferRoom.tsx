@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { DifferInstrument } from "@/work/differ/components/DifferInstrument";
+import DifferInstrument from "@/work/differ/components/DifferInstrument";
 import "@/work/differ/differ-world.css";
 
 /**
- * Differ world — Northwestern night lab; the instrument is the page.
+ * Differ — Northwestern academic case study.
+ * Manuscript PDF remains private; figures and public project language only.
  */
 export default function DifferRoom() {
   return (
@@ -13,83 +14,223 @@ export default function DifferRoom() {
           ← Research
         </Link>
 
-        <p className="differ-world__eyebrow">Delta Lab · Northwestern · CHI 2026 (submitted)</p>
-        <h1 className="differ-world__title">Differ</h1>
-        <p className="differ-world__claim">
-          The same experience fails differently across people and places. Make that failure
-          accountable — before you ship.
+        <p className="differ-world__eyebrow">
+          CHI 2026 submission · Delta Lab · Northwestern University
+        </p>
+        <h1 className="differ-world__title">Differ: A Platform for Experiential Computing</h1>
+        <p className="differ-world__meta">
+          Xinyue (Shirley) Zhang · First author · Dec 2023 – Sep 2025
+          <br />
+          Design, Technology, and Research · Delta Lab
         </p>
 
-        <div className="differ-world__prose">
-          <p>
-            Context-aware systems often assume that matching context means matching meaning. Differ
-            starts from the opposite premise. Meaning breaks along geography, demographics, and
-            setting — and designers should be able to see where.
-          </p>
-        </div>
+        <p className="differ-world__lede">
+          The same context-aware experience can succeed for one person in one place and fail for
+          another nearby. Differ turns that intuition into a linear computational pipeline —
+          concept, perspective, issue, visualization — so designers can see where meaning breaks
+          before they ship.
+        </p>
 
-        <section className="differ-world__section" aria-labelledby="df-play">
-          <h2 id="df-play">Play the instrument</h2>
-          <div className="differ-world__prose">
-            <p>
-              Choose an experience, an accountable perspective, and an issue. The field updates.
-              This is a portfolio instrument — illustrative scores that demonstrate Differ&apos;s
-              argument, not a live Chicago compute job.
-            </p>
+        <section className="differ-chapter">
+          <h2>Overview</h2>
+          <p>
+            Differ is a platform for reasoning about contextual differences in human experience
+            design. It takes a machine-interpretable definition of an experience and returns
+            visualizations that surface where that experience might break down for particular
+            populations or settings. The work grew out of Northwestern’s Design, Technology, and
+            Research program inside the Delta Lab and was developed across nearly two years of
+            case studies grounded in real reference systems rather than toy datasets.
+          </p>
+        </section>
+
+        <section className="differ-chapter">
+          <h2>Motivation &amp; research question</h2>
+          <p>
+            Context-aware systems often encode a single idea of “the user” and “the place.” When
+            those encodings are wrong for a neighborhood, age group, or setting, the failure is
+            usually discovered after launch. Differ asks: can we make differences in machine
+            representations of human experiences measurable and visible early enough to change
+            design decisions?
+          </p>
+        </section>
+
+        <section className="differ-chapter">
+          <h2>Method</h2>
+          <p>
+            Differ’s analysis is intentionally linear. A designer (or researcher) specifies four
+            linked abstractions; each stage depends on the previous one. The platform then
+            generates visualizations over reference data (including venue, neighborhood, and
+            demographic sources used in the study).
+          </p>
+          <div className="differ-pipeline" aria-label="Linear Differ pipeline">
+            <div className="differ-pipeline__step">
+              <strong>1 · Concept</strong>
+              <span>Machine-interpretable definition of the experience</span>
+            </div>
+            <div className="differ-pipeline__step">
+              <strong>2 · Perspective</strong>
+              <span>Accountable viewpoint: geography, demographics, setting</span>
+            </div>
+            <div className="differ-pipeline__step">
+              <strong>3 · Issue</strong>
+              <span>What to score: prevalence, fit, safety, affordability…</span>
+            </div>
+            <div className="differ-pipeline__step">
+              <strong>4 · Visualization</strong>
+              <span>Bars, maps, and comparative plates for designers</span>
+            </div>
           </div>
+          <figure className="differ-figure">
+            <img
+              src="/research/differ/fig03_abstractions.png"
+              alt="Fig. 3. Overview of Differ computational abstractions and how they work together."
+            />
+            <figcaption>
+              Fig. 3. An overview of the computational abstractions Differ provides, and how they
+              work together to enable the desired analysis. The structure is linear — not a freeform
+              graph.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section className="differ-chapter">
+          <h2>Platform &amp; visualization types</h2>
+          <figure className="differ-figure">
+            <img
+              src="/research/differ/fig01_platform_overview.png"
+              alt="Fig. 1. Differ platform overview."
+            />
+            <figcaption>
+              Fig. 1. Differ as an experiential computing platform for analyzing human experiences
+              and their computational encodings.
+            </figcaption>
+          </figure>
+          <figure className="differ-figure">
+            <img
+              src="/research/differ/fig07_visualization_types.png"
+              alt="Fig. 7. Three visualization types Differ implements."
+            />
+            <figcaption>
+              Fig. 7. Three example types of visualizations Differ implements for displaying
+              potential issues to designers (including bar and map forms).
+            </figcaption>
+          </figure>
+        </section>
+
+        <section className="differ-chapter">
+          <h2>Selected cases from the study</h2>
+          <p>
+            The instrument below only offers experience × perspective × issue combinations that
+            map to a real figure from the study. Selecting a case reveals the original plot and
+            what difference it is meant to surface.
+          </p>
           <DifferInstrument />
         </section>
 
-        <section className="differ-world__section" aria-labelledby="df-model">
-          <h2 id="df-model">The model beneath</h2>
-          <div className="differ-stack-inline">
-            <div>
-              <span>01 · Concept expression</span>
-              A machine-interpretable definition of the experience — structure, not slogan.
-            </div>
-            <div>
-              <span>02 · Accountable perspective</span>
-              Who and where: neighborhood, age, budget, accessibility, time of day.
-            </div>
-            <div>
-              <span>03 · Issue of concern</span>
-              Fit, safety, affordability, prevalence — functions that ask where meaning breaks.
-            </div>
-            <div>
-              <span>04 · Visualization</span>
-              Comparison and geography as evidence for a designer, not a vanity dashboard.
-            </div>
+        <section className="differ-chapter">
+          <h2>Evidence gallery</h2>
+          <div className="differ-gallery">
+            <figure className="differ-figure">
+              <img
+                src="/research/differ/fig08_case_study_eight_viz.jpeg"
+                alt="Fig. 8. Multi-experience case study plate."
+              />
+              <figcaption>
+                Fig. 8. A case study of eight visualizations generated using Differ, surfacing
+                potential issues across multiple experiences.
+              </figcaption>
+            </figure>
+            <figure className="differ-figure">
+              <img
+                src="/research/differ/fig09_first_date_eight_viz.jpeg"
+                alt="Fig. 9. First-date visualization plate."
+              />
+              <figcaption>
+                Fig. 9. Eight visualizations for the experience of having a first date over food and
+                drinks.
+              </figcaption>
+            </figure>
           </div>
         </section>
 
-        <section className="differ-world__section" aria-labelledby="df-why">
-          <h2 id="df-why">Why it took two years</h2>
-          <div className="differ-world__prose">
-            <p>
-              Case studies use real reference systems — Yelp, Foursquare, crime, neighborhood,
-              census — not toy tables. A difference that only shows up across actual Chicago
-              neighborhoods is harder to render responsibly than one that shows up in synthetic
-              data. That difficulty is the point.
-            </p>
-          </div>
+        <section className="differ-chapter">
+          <h2>Participant results</h2>
+          <figure className="differ-figure">
+            <img
+              src="/research/differ/fig10_participant_breakdown.jpeg"
+              alt="Fig. 10. How visualizations helped participants."
+            />
+            <figcaption>
+              Fig. 10. Breakdown of how each visualization helped participants form new hypotheses
+              and strengthen understanding.
+            </figcaption>
+          </figure>
+          <figure className="differ-figure">
+            <img
+              src="/research/differ/fig11_hypotheses_stages.jpeg"
+              alt="Fig. 11. Hypotheses generated by stage."
+            />
+            <figcaption>
+              Fig. 11. The number of new hypotheses participants generated after each stage of the
+              study.
+            </figcaption>
+          </figure>
         </section>
 
-        <section className="differ-world__learn" aria-labelledby="df-learn">
-          <h2 id="df-learn" style={{ fontFamily: "var(--df-serif)", fontSize: "1.5rem", margin: "0 0 1rem" }}>
-            Reflection
-          </h2>
-          <div className="differ-world__prose">
-            <p>
-              Inclusive design is not a checklist of personas. It is a computational question about
-              where meaning diverges. Differ is the fidelity twin of Echo and MuseLab — purple night
-              lab instead of cream dossier or black constellation — same obsession, different dialect.
-            </p>
-            <p>
-              The CHI manuscript remains private. What you interact with here is the idea, made
-              operable.
-            </p>
-          </div>
+        <section className="differ-chapter">
+          <h2>Findings</h2>
+          <ul>
+            <li>
+              Four core abstractions — concept expressions, accountable perspectives, issues of
+              concern, and visualizations — are enough to structure experiential difference as
+              analysis rather than anecdote.
+            </li>
+            <li>
+              Accountable perspectives capture meaning differences across geography (urban/rural,
+              state, neighborhood), demographics (age, budget, accessibility), and setting.
+            </li>
+            <li>
+              Issue functions score a perspective for concerns such as prevalence, conceptual fit,
+              popularity, safety, and affordability.
+            </li>
+            <li>
+              In the participant study, visualizations supported both new hypothesis generation and
+              stronger understanding of where experiences break — with stage-wise gains visible in
+              Fig. 11.
+            </li>
+          </ul>
         </section>
+
+        <section className="differ-chapter">
+          <h2>Limitations</h2>
+          <p>
+            Differ depends on the quality and coverage of its reference systems; absences in venue
+            or demographic data can silence real differences. Visualizations surface potential
+            issues for designers — they do not automatically prescribe fixes. The interactive cases
+            on this page are curated excerpts from the study, not a live recompute of the full
+            pipeline.
+          </p>
+        </section>
+
+        <section className="differ-chapter">
+          <h2>Contribution</h2>
+          <p>
+            Differ contributes a practical computational frame for experiential difference: a
+            linear path from how an experience is defined, through who and where it is evaluated
+            for, to visualizations that make divergence accountable before shipping.
+          </p>
+        </section>
+
+        <div className="differ-status">
+          <p>
+            <strong>Publication status.</strong> The CHI 2026 manuscript remains private and is not
+            available for download on this site. Figures shown here are exhibition extracts from the
+            research; they are not a substitute for the full paper.
+          </p>
+          <a href="mailto:xinyuezhang.shirley@gmail.com">Contact me about this research</a>
+          {" · "}
+          <a href="mailto:xinyuezhang.shirley@gmail.com">Paper available on request</a>
+        </div>
       </div>
     </article>
   );
