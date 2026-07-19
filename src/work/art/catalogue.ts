@@ -1,23 +1,6 @@
 import { artworks } from "@/content/creative";
 import type { Artwork } from "@/content/types";
 
-export type CropFocus =
-  | "center"
-  | "face"
-  | "hands"
-  | "upper"
-  | "lower"
-  | "left"
-  | "right";
-
-/** How a piece should enter the monograph (not a reusable art card). */
-export type Presentation =
-  | "full-spread"
-  | "narrow-column"
-  | "diptych"
-  | "detail-crop"
-  | "archive-thumb";
-
 export type Orientation = "landscape" | "portrait" | "square";
 
 export interface CatalogueEntry extends Artwork {
@@ -28,8 +11,6 @@ export interface CatalogueEntry extends Artwork {
   width: number;
   height: number;
   orientation: Orientation;
-  /** Default editorial presentation for this plate. */
-  presentation: Presentation;
   note?: string;
   lore?: string[];
   edition?: string;
@@ -51,9 +32,7 @@ const bySlug = Object.fromEntries(artworks.map((a) => [a.slug, a]));
 
 function entry(
   slug: string,
-  extras: Partial<
-    Pick<CatalogueEntry, "note" | "lore" | "alt" | "edition" | "presentation">
-  > & {
+  extras: Partial<Pick<CatalogueEntry, "note" | "lore" | "alt" | "edition">> & {
     plate: string;
     width: number;
     height: number;
@@ -63,14 +42,6 @@ function entry(
   if (!base) {
     throw new Error(`Unknown artwork slug: ${slug}`);
   }
-  const orientation = orientationOf(extras.width, extras.height);
-  const presentation =
-    extras.presentation ??
-    (orientation === "landscape"
-      ? "full-spread"
-      : orientation === "square"
-        ? "diptych"
-        : "narrow-column");
 
   return {
     ...base,
@@ -79,21 +50,19 @@ function entry(
     alt: extras.alt ?? `${base.title}, ${base.medium}`,
     width: extras.width,
     height: extras.height,
-    orientation,
-    presentation,
+    orientation: orientationOf(extras.width, extras.height),
     note: extras.note,
     lore: extras.lore,
     edition: extras.edition,
   };
 }
 
-/** Full catalogue — plate order for archive + viewer. */
+/** Full catalogue — plate order for archive + viewer. Layout is decided per spread in CreativeArt. */
 export const catalogue: CatalogueEntry[] = [
   entry("zion-introduction", {
     plate: "01",
     width: 3800,
     height: 2400,
-    presentation: "full-spread",
     alt: "Zion, an apprentice god with white wings, holding a blood-stained apple",
     lore: [
       "An apprentice god.",
@@ -106,7 +75,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "02",
     width: 1620,
     height: 2160,
-    presentation: "narrow-column",
     alt: "Surrender — portrait with glowing gold adornments against a rose ground",
     lore: ["After Italy.", "The first piece back."],
     edition: "OC · August 2024",
@@ -115,7 +83,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "03",
     width: 810,
     height: 1080,
-    presentation: "narrow-column",
     alt: "Fear Me — figure with violet hair and a radiant golden halo",
     lore: ["If I cannot inspire love,", "I will cause fear."],
     edition: "OC · January 2025",
@@ -124,7 +91,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "04",
     width: 1620,
     height: 2025,
-    presentation: "narrow-column",
     alt: "Mycoto — original character portrait",
     lore: ["Hi there.", "I am Mycoto."],
     edition: "OC · May 2025",
@@ -133,7 +99,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "05",
     width: 1620,
     height: 2160,
-    presentation: "narrow-column",
     alt: "Ivan from Alien Stage — digital fanart portrait",
     edition: "Fan study · June 2025",
   }),
@@ -141,7 +106,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "06",
     width: 1620,
     height: 2160,
-    presentation: "narrow-column",
     alt: "郑北 and 姜小海 fanart from 雪迷宫",
     note: "For @jackiehe.",
     edition: "Fan study · July 2025",
@@ -150,7 +114,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "07",
     width: 3600,
     height: 3600,
-    presentation: "diptych",
     alt: "Love me, Hate me — Jeonghan album design study",
     note: "Album study.",
     edition: "Design · March 2023",
@@ -159,7 +122,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "08",
     width: 3600,
     height: 3600,
-    presentation: "diptych",
     alt: "Describe what you see — Vernon album design inspired by Dead Poets Society",
     note: "Dead Poets Society.",
     edition: "Design · March 2023",
@@ -168,7 +130,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "09",
     width: 1968,
     height: 2560,
-    presentation: "narrow-column",
     alt: "Commission 1 — purple horn character portrait",
     edition: "Commission · August 2024",
   }),
@@ -176,7 +137,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "10",
     width: 1620,
     height: 2160,
-    presentation: "narrow-column",
     alt: "Commission 2 — idol character portrait",
     edition: "Commission · August 2024",
   }),
@@ -184,7 +144,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "11",
     width: 1582,
     height: 2117,
-    presentation: "narrow-column",
     alt: "Commission 3 — fairy character portrait",
     edition: "Commission · August 2024",
   }),
@@ -192,7 +151,6 @@ export const catalogue: CatalogueEntry[] = [
     plate: "12",
     width: 1620,
     height: 2160,
-    presentation: "narrow-column",
     alt: "Commission 4 — schoolgirl character portrait",
     edition: "Commission · August 2024",
   }),

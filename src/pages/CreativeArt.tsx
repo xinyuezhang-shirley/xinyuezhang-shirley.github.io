@@ -1,72 +1,120 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import "@/work/art/art-monograph.css";
-import { catalogue, catalogueBySlug, getCatalogueIndex } from "@/work/art/catalogue";
-import { FullBleedArtwork } from "@/work/art/components/FullBleedArtwork";
-import { EditorialSpread } from "@/work/art/components/EditorialSpread";
-import { DetailDuo } from "@/work/art/components/DetailCrop";
-import { ProcessInsert } from "@/work/art/components/ProcessInsert";
+import {
+  catalogue,
+  catalogueBySlug,
+  getCatalogueIndex,
+  type CatalogueEntry,
+} from "@/work/art/catalogue";
 import { ArchiveSheet } from "@/work/art/components/ArchiveSheet";
 import { FullscreenArtworkViewer } from "@/work/art/components/FullscreenArtworkViewer";
-import { ArtworkPlate } from "@/work/art/components/ArtworkPlate";
 import { useInView } from "@/work/art/components/useInView";
 
-function LoreInterlude({ lines }: { lines: string[] }) {
-  const { ref, inView } = useInView<HTMLDivElement>();
+/** Thin contain wrapper — not a layout factory. */
+function Plate({
+  work,
+  onOpen,
+  className = "",
+  priority = false,
+}: {
+  work: CatalogueEntry;
+  onOpen?: () => void;
+  className?: string;
+  priority?: boolean;
+}) {
+  const img = (
+    <img
+      src={work.image}
+      alt={work.alt}
+      width={work.width}
+      height={work.height}
+      className="art-plate__img"
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+    />
+  );
+
+  if (!onOpen) {
+    return <div className={`art-plate art-plate--flush ${className}`.trim()}>{img}</div>;
+  }
+
   return (
-    <div ref={ref} className="art-interlude">
-      <div className={inView ? "art-reveal is-inview" : "art-reveal"}>
-        {lines.map((line) => (
-          <p key={line}>{line}</p>
-        ))}
+    <button
+      type="button"
+      className="art-object-btn"
+      onClick={onOpen}
+      aria-label={`Open ${work.title}`}
+    >
+      <div className={`art-plate art-plate--flush ${className}`.trim()}>{img}</div>
+    </button>
+  );
+}
+
+function MuseumLabel({
+  work,
+  lines,
+  tone = "light",
+  onOpen,
+}: {
+  work: CatalogueEntry;
+  lines?: string[];
+  tone?: "light" | "dark";
+  onOpen?: () => void;
+}) {
+  const body = (
+    <>
+      <div className="art-caption__row">
+        <span className="art-mono__plate">Pl. {work.plate}</span>
+        <span className="art-mono__meta">
+          {work.year} · {work.medium}
+        </span>
       </div>
+      <h2 className="art-mono__title">{work.title}</h2>
+      {work.edition ? (
+        <p className="art-mono__meta art-caption__edition">{work.edition}</p>
+      ) : null}
+      {lines?.length ? (
+        <div className="art-mono__lore">
+          {lines.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
+      ) : null}
+    </>
+  );
+
+  return (
+    <div className={tone === "dark" ? "art-caption art-caption--dark" : "art-caption"}>
+      {onOpen ? (
+        <button type="button" onClick={onOpen} aria-label={`View ${work.title} fullscreen`}>
+          {body}
+        </button>
+      ) : (
+        body
+      )}
     </div>
   );
 }
 
-function CommissionSequence({
-  works,
-  onOpen,
+function Reveal({
+  children,
+  className = "",
+  delay,
 }: {
-  works: typeof catalogue;
-  onOpen: (slug: string) => void;
+  children: ReactNode;
+  className?: string;
+  delay?: 1 | 2;
 }) {
-  const { ref, inView } = useInView<HTMLElement>();
-
+  const { ref, inView } = useInView<HTMLDivElement>();
+  const delayClass = delay === 1 ? " art-reveal--delay-1" : delay === 2 ? " art-reveal--delay-2" : "";
   return (
-    <section ref={ref} className="art-commissions" aria-label="Commissions">
-      <header className="art-commissions__head">
-        <p className="art-mono__meta">Commissions</p>
-        <h2 className="art-mono__title" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
-          Four portraits
-        </h2>
-        <p className="art-mono__note">For online friends. August 2024. Natural plates — not a matched set.</p>
-      </header>
-      <div className="art-commissions__row">
-        {works.map((work, i) => (
-          <figure
-            key={work.slug}
-            className={
-              inView
-                ? `art-commissions__item art-reveal is-inview${i ? ` art-reveal--delay-${Math.min(i, 2)}` : ""}`
-                : "art-commissions__item art-reveal"
-            }
-          >
-            <ArtworkPlate
-              work={work}
-              onOpen={() => onOpen(work.slug)}
-              size="narrow"
-              tone="paper"
-            />
-            <figcaption className="art-commissions__cap">
-              <span className="art-mono__plate">Pl. {work.plate}</span>
-              <span className="art-archive__name">{work.title}</span>
-              <span className="art-mono__meta">{work.year}</span>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </section>
+    <div
+      ref={ref}
+      className={`art-reveal${delayClass}${inView ? " is-inview" : ""}${className ? ` ${className}` : ""}`}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -89,11 +137,14 @@ export default function CreativeArt() {
   const xue = catalogueBySlug["zheng-bei-x-jiang-xiaohai"];
   const jeonghan = catalogueBySlug["love-me-hate-me"];
   const vernon = catalogueBySlug["describe-what-you-see"];
-  const commissions = catalogue.filter((w) => w.tags.includes("commission"));
+  const c1 = catalogueBySlug["commission-1"];
+  const c2 = catalogueBySlug["commission-2"];
+  const c3 = catalogueBySlug["commission-3"];
+  const c4 = catalogueBySlug["commission-4"];
 
   return (
     <div className="art-mono">
-      {/* Title page — complete as a half-title, then straight into Pl. 01 */}
+      {/* Half-title — then straight into Zion */}
       <header className="art-open">
         <Link to="/creative" className="art-mono__back">
           ← Creative
@@ -116,93 +167,266 @@ export default function CreativeArt() {
         <p className="art-open__hint">Begins with Zion.</p>
       </header>
 
-      {/* Pl. 01 Zion — full-spread landscape, natural aspect, label docked under */}
-      <FullBleedArtwork
-        work={zion}
-        onOpen={() => openSlug(zion.slug)}
-        lines={zion.lore}
-      />
+      {/*
+        Pl. 01 Zion — complete landscape composition.
+        Restraint: the painting alone, edge-to-edge on ink. No companion image.
+      */}
+      <figure className="spread-zion" aria-label={zion.title}>
+        <Reveal className="spread-zion__media">
+          <Plate work={zion} onOpen={() => openSlug(zion.slug)} priority />
+        </Reveal>
+        <figcaption className="spread-zion__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={zion}
+              lines={zion.lore}
+              tone="dark"
+              onOpen={() => openSlug(zion.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
 
-      {/* Second appearance: intentional detail crops only — never the full painting again */}
-      <DetailDuo
-        left={{
-          work: zion,
-          focus: "face",
-          caption: "The tear",
-          onOpen: () => openSlug(zion.slug),
-        }}
-        right={{
-          work: zion,
-          focus: "hands",
-          caption: "The apple",
-          onOpen: () => openSlug(zion.slug),
-        }}
-        note={zion.note}
-      />
+      {/*
+        Zion hinge — one detail crop alone (the bloodied apple).
+        Not a duo. The tear is already in the full plate; this is the narrative hinge only.
+      */}
+      <section className="spread-zion-hinge" aria-label="Detail from Zion">
+        <Reveal className="spread-zion-hinge__crop">
+          <button
+            type="button"
+            className="art-object-btn"
+            onClick={() => openSlug(zion.slug)}
+            aria-label="Zion: the apple"
+          >
+            <div className="spread-zion-hinge__frame">
+              <img src={zion.image} alt={zion.alt} loading="lazy" decoding="async" />
+            </div>
+          </button>
+        </Reveal>
+        <Reveal delay={1}>
+          <p className="spread-zion-hinge__note">{zion.note}</p>
+        </Reveal>
+      </section>
 
-      {/* Pl. 02 Surrender — narrow rose portrait, caption docked to plate */}
-      <EditorialSpread
-        work={surrender}
-        layout="offset"
-        figureSize="narrow"
-        ground="paper"
-        lines={surrender.lore}
-        onOpen={() => openSlug(surrender.slug)}
-      />
+      {/*
+        Pl. 02 Surrender — intimate rose portrait, already finished.
+        Alone, narrow, caption docked under. No second visual.
+      */}
+      <figure className="spread-surrender" aria-label={surrender.title}>
+        <Reveal className="spread-surrender__plate">
+          <Plate work={surrender} onOpen={() => openSlug(surrender.slug)} />
+        </Reveal>
+        <figcaption className="spread-surrender__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={surrender}
+              lines={surrender.lore}
+              onOpen={() => openSlug(surrender.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
 
-      {/* Pl. 03 Fear Me — ink ground, tall narrow presence */}
-      <EditorialSpread
-        work={fearMe}
-        layout="tall-right"
-        figureSize="narrow"
-        ground="ink"
-        lines={fearMe.lore}
-        onOpen={() => openSlug(fearMe.slug)}
-      />
+      {/*
+        Pl. 03 Fear Me — iconographic; the halo needs darkness.
+        Site disappears into ink. Painting alone; one line of lore under.
+      */}
+      <figure className="spread-fear" aria-label={fearMe.title}>
+        <Reveal className="spread-fear__plate">
+          <Plate work={fearMe} onOpen={() => openSlug(fearMe.slug)} />
+        </Reveal>
+        <figcaption className="spread-fear__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={fearMe}
+              lines={fearMe.lore}
+              tone="dark"
+              onOpen={() => openSlug(fearMe.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
 
-      {/* Pl. 04 Mycoto — greeting, caption beside portrait */}
-      <EditorialSpread
-        work={mycoto}
-        layout="split-reverse"
-        figureSize="column"
-        ground="mist"
-        lines={mycoto.lore}
-        onOpen={() => openSlug(mycoto.slug)}
-      />
+      {/*
+        Pl. 04 Mycoto — greeting character.
+        Painting + one sentence. The sentence is the dialogue; no second image.
+      */}
+      <section className="spread-mycoto" aria-label={mycoto.title}>
+        <Reveal className="spread-mycoto__plate">
+          <Plate work={mycoto} onOpen={() => openSlug(mycoto.slug)} />
+        </Reveal>
+        <Reveal delay={1} className="spread-mycoto__voice">
+          <p className="art-mono__plate">Pl. {mycoto.plate}</p>
+          <p className="spread-mycoto__hello">Hi there.</p>
+          <p className="spread-mycoto__hello">I am Mycoto.</p>
+          <button
+            type="button"
+            className="spread-mycoto__name"
+            onClick={() => openSlug(mycoto.slug)}
+          >
+            {mycoto.title}
+          </button>
+          <p className="art-mono__meta">
+            {mycoto.year} · {mycoto.medium}
+          </p>
+        </Reveal>
+      </section>
 
-      <LoreInterlude lines={["Fan studies.", "Borrowed names, kept hands."]} />
+      <div className="art-interlude">
+        <Reveal>
+          <p>Fan studies.</p>
+          <p>Borrowed names, kept hands.</p>
+        </Reveal>
+      </div>
 
-      {/* Pl. 05 Ivan — dark portrait, label anchored to plate */}
-      <EditorialSpread
-        work={ivan}
-        layout="anchor"
-        figureSize="narrow"
-        ground="ink"
-        lines={[]}
-        onOpen={() => openSlug(ivan.slug)}
-      />
+      {/*
+        Pl. 05 Ivan — violent, complete, needs silence.
+        Alone on ink. No lore. The website should almost not be there.
+      */}
+      <figure className="spread-ivan" aria-label={ivan.title}>
+        <Reveal className="spread-ivan__plate">
+          <Plate work={ivan} onOpen={() => openSlug(ivan.slug)} />
+        </Reveal>
+        <figcaption className="spread-ivan__label">
+          <Reveal delay={1}>
+            <div className="art-caption art-caption--dark">
+              <span className="art-mono__plate">Pl. {ivan.plate}</span>
+              <button
+                type="button"
+                className="spread-ivan__title"
+                onClick={() => openSlug(ivan.slug)}
+              >
+                {ivan.title}
+              </button>
+              <span className="art-mono__meta">
+                {ivan.year} · {ivan.medium}
+              </span>
+            </div>
+          </Reveal>
+        </figcaption>
+      </figure>
 
-      {/* Pl. 06 Xue — dedication annotation by the plate */}
-      <EditorialSpread
-        work={xue}
-        layout="split"
-        figureSize="column"
-        ground="paper"
-        lines={xue.note ? [xue.note] : []}
-        annotation="雪迷宫"
-        onOpen={() => openSlug(xue.slug)}
-      />
+      {/*
+        Pl. 06 Xue — narrative diptych already inside the painting (two figures, one sword).
+        Do not invent a second plate. Dedication only.
+      */}
+      <figure className="spread-xue" aria-label={xue.title}>
+        <Reveal className="spread-xue__plate">
+          <Plate work={xue} onOpen={() => openSlug(xue.slug)} />
+        </Reveal>
+        <figcaption className="spread-xue__label">
+          <Reveal delay={1}>
+            <MuseumLabel work={xue} onOpen={() => openSlug(xue.slug)} />
+            <p className="art-annotation">雪迷宫</p>
+            {xue.note ? <p className="art-mono__note">{xue.note}</p> : null}
+          </Reveal>
+        </figcaption>
+      </figure>
 
-      {/* Pl. 07–08 — square diptych; squares stay square */}
-      <ProcessInsert
-        label="Process · Album studies"
-        deck="Square plates. Design first, then character."
-        works={[jeonghan, vernon]}
-        onOpen={openSlug}
-      />
+      <div className="art-interlude">
+        <Reveal>
+          <p>Album studies.</p>
+          <p>Each square is already a cover.</p>
+        </Reveal>
+      </div>
 
-      {/* Pl. 09–12 — commission sequence at natural heights */}
-      <CommissionSequence works={commissions} onOpen={openSlug} />
+      {/*
+        Pl. 07 Jeonghan — dense square collage; already a magazine cover.
+        Alone. Never paired with Vernon just because both are square.
+      */}
+      <figure className="spread-square spread-square--jeonghan" aria-label={jeonghan.title}>
+        <Reveal className="spread-square__plate">
+          <Plate work={jeonghan} onOpen={() => openSlug(jeonghan.slug)} />
+        </Reveal>
+        <figcaption className="spread-square__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={jeonghan}
+              lines={jeonghan.note ? [jeonghan.note] : undefined}
+              onOpen={() => openSlug(jeonghan.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 08 Vernon — square alone; the prompt is already painted into the work.
+      */}
+      <figure className="spread-square spread-square--vernon" aria-label={vernon.title}>
+        <Reveal className="spread-square__plate">
+          <Plate work={vernon} onOpen={() => openSlug(vernon.slug)} />
+        </Reveal>
+        <figcaption className="spread-square__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={vernon}
+              lines={vernon.note ? [vernon.note] : undefined}
+              onOpen={() => openSlug(vernon.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 09–12 Commissions — four portraits for friends.
+        Not a matched card row. Four solitary beats in sequence, each breathing differently.
+      */}
+      <header className="spread-commissions-head">
+        <Reveal>
+          <p className="art-mono__meta">Commissions</p>
+          <h2 className="art-mono__title" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
+            Four portraits
+          </h2>
+          <p className="art-mono__note">
+            For online friends. August 2024. Natural plates — not a matched set.
+          </p>
+        </Reveal>
+      </header>
+
+      <figure className="spread-commission spread-commission--a" aria-label={c1.title}>
+        <Reveal className="spread-commission__plate">
+          <Plate work={c1} onOpen={() => openSlug(c1.slug)} />
+        </Reveal>
+        <figcaption className="spread-commission__cap">
+          <span className="art-mono__plate">Pl. {c1.plate}</span>
+          <span className="art-archive__name">{c1.title}</span>
+          <span className="art-mono__meta">{c1.year}</span>
+        </figcaption>
+      </figure>
+
+      <figure className="spread-commission spread-commission--b" aria-label={c2.title}>
+        <Reveal className="spread-commission__plate">
+          <Plate work={c2} onOpen={() => openSlug(c2.slug)} />
+        </Reveal>
+        <figcaption className="spread-commission__cap">
+          <span className="art-mono__plate">Pl. {c2.plate}</span>
+          <span className="art-archive__name">{c2.title}</span>
+          <span className="art-mono__meta">{c2.year}</span>
+        </figcaption>
+      </figure>
+
+      <figure className="spread-commission spread-commission--c" aria-label={c3.title}>
+        <Reveal className="spread-commission__plate">
+          <Plate work={c3} onOpen={() => openSlug(c3.slug)} />
+        </Reveal>
+        <figcaption className="spread-commission__cap">
+          <span className="art-mono__plate">Pl. {c3.plate}</span>
+          <span className="art-archive__name">{c3.title}</span>
+          <span className="art-mono__meta">{c3.year}</span>
+        </figcaption>
+      </figure>
+
+      <figure className="spread-commission spread-commission--d" aria-label={c4.title}>
+        <Reveal className="spread-commission__plate">
+          <Plate work={c4} onOpen={() => openSlug(c4.slug)} />
+        </Reveal>
+        <figcaption className="spread-commission__cap">
+          <span className="art-mono__plate">Pl. {c4.plate}</span>
+          <span className="art-archive__name">{c4.title}</span>
+          <span className="art-mono__meta">{c4.year}</span>
+        </figcaption>
+      </figure>
 
       {/* Catalogue — museum sheet, not gallery grid */}
       <ArchiveSheet

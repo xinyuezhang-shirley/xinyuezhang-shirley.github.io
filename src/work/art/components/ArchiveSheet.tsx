@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import type { CatalogueEntry } from "../catalogue";
-import { ArtworkPlate } from "./ArtworkPlate";
 
 interface ArchiveSheetProps {
   works: CatalogueEntry[];
@@ -49,7 +48,17 @@ export function ArchiveSheet({
               <span className="art-mono__plate art-archive__plate">
                 Pl. {work.plate}
               </span>
-              <ArtworkPlate work={work} size="thumb" tone="mist" />
+              <span className="art-plate art-plate--thumb art-plate--mist">
+                <img
+                  src={work.image}
+                  alt=""
+                  width={work.width}
+                  height={work.height}
+                  className="art-plate__img"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
               <span className="art-archive__meta">
                 <span className="art-archive__name">{work.title}</span>
                 <span className="art-mono__meta">
