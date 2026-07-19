@@ -135,6 +135,82 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
         </EditorialCluster>
       ) : null}
 
+      {collection.layout === "film-roll" ? (
+        <EditorialCluster className="layout-film">
+          <div className="layout-film__lead">
+            <FloatingPrint print={byId(p, "film-lead")} onOpen={onOpen} priority />
+          </div>
+          <div className="layout-film__roll">
+            <ContactSheet
+              prints={[
+                byId(p, "film-01"),
+                byId(p, "film-02"),
+                byId(p, "film-03"),
+                byId(p, "film-04"),
+                byId(p, "film-05"),
+                byId(p, "film-06"),
+              ]}
+              onOpen={onOpen}
+              label="Contact — one afternoon"
+              sheetClassName="layout-film__sheet"
+            />
+          </div>
+          <div className="layout-film__wider">
+            <FloatingPrint print={byId(p, "film-07")} onOpen={onOpen} delayMs={120} />
+          </div>
+          <div className="layout-film__coda">
+            <ContactSheet
+              prints={[
+                byId(p, "film-coda-01"),
+                byId(p, "film-coda-02"),
+                byId(p, "film-coda-03"),
+                byId(p, "film-coda-04"),
+              ]}
+              onOpen={onOpen}
+              label="Also film"
+              sheetClassName="layout-film__coda-sheet"
+            />
+          </div>
+          <div className="layout-film__note">
+            <PhotoNote>Same roll. Different frames still talking.</PhotoNote>
+          </div>
+        </EditorialCluster>
+      ) : null}
+
+      {collection.layout === "concert-night" ? (
+        <EditorialCluster className="layout-concert">
+          <div className="layout-concert__hero">
+            <FloatingPrint print={byId(p, "raye-01")} onOpen={onOpen} priority />
+          </div>
+          <div className="layout-concert__second">
+            <FloatingPrint print={byId(p, "raye-04")} onOpen={onOpen} delayMs={70} />
+          </div>
+          <div className="layout-concert__cake">
+            <FloatingPrint print={byId(p, "raye-02")} onOpen={onOpen} delayMs={110} />
+          </div>
+          <div className="layout-concert__peek">
+            <FloatingPrint print={byId(p, "raye-03")} onOpen={onOpen} delayMs={150} />
+          </div>
+          <div className="layout-concert__reach">
+            <FloatingPrint print={byId(p, "raye-05")} onOpen={onOpen} delayMs={180} />
+          </div>
+          <div className="layout-concert__shoulder">
+            <FloatingPrint print={byId(p, "raye-06")} onOpen={onOpen} delayMs={210} />
+          </div>
+          <div className="layout-concert__proofs">
+            <ContactSheet
+              prints={[byId(p, "raye-07"), byId(p, "raye-08")]}
+              onOpen={onOpen}
+              label="Loose"
+              sheetClassName="layout-concert__sheet"
+            />
+          </div>
+          <div className="layout-concert__note">
+            <PhotoNote warm>Still ringing after the lights.</PhotoNote>
+          </div>
+        </EditorialCluster>
+      ) : null}
+
       {collection.layout === "suspended" ? (
         <EditorialCluster className="layout-suspended">
           <div className="layout-suspended__anchor">
@@ -171,6 +247,45 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
           </div>
           <div className="layout-city__note">
             <PhotoNote>Rust. Fence. Looking down at a camera.</PhotoNote>
+          </div>
+        </EditorialCluster>
+      ) : null}
+
+      {collection.layout === "campus-scatter" ? (
+        <EditorialCluster className="layout-campus">
+          <div className="layout-campus__anchor">
+            <FloatingPrint print={byId(p, "stanford-01")} onOpen={onOpen} priority />
+          </div>
+          <div className="layout-campus__rock">
+            <FloatingPrint print={byId(p, "stanford-02")} onOpen={onOpen} delayMs={70} />
+          </div>
+          <div className="layout-campus__close">
+            <FloatingPrint print={byId(p, "stanford-03")} onOpen={onOpen} delayMs={110} />
+          </div>
+          <div className="layout-campus__lean">
+            <FloatingPrint print={byId(p, "stanford-04")} onOpen={onOpen} delayMs={140} />
+          </div>
+          <div className="layout-campus__wide">
+            <FloatingPrint print={byId(p, "stanford-05")} onOpen={onOpen} delayMs={170} />
+          </div>
+          <div className="layout-campus__tall">
+            <FloatingPrint print={byId(p, "stanford-06")} onOpen={onOpen} delayMs={200} />
+          </div>
+          <div className="layout-campus__proofs">
+            <ContactSheet
+              prints={[
+                byId(p, "stanford-07"),
+                byId(p, "stanford-08"),
+                byId(p, "stanford-09"),
+                byId(p, "stanford-10"),
+              ]}
+              onOpen={onOpen}
+              label="Same day"
+              sheetClassName="layout-campus__sheet"
+            />
+          </div>
+          <div className="layout-campus__note">
+            <PhotoNote warm>Room light. A campus day that stayed inside.</PhotoNote>
           </div>
         </EditorialCluster>
       ) : null}

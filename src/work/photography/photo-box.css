@@ -496,6 +496,141 @@
   margin-left: 4%;
 }
 
+/* —— Layout: film-roll (same-day proof sheet) —— */
+.layout-film {
+  max-width: 78rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.75rem);
+  align-items: start;
+}
+
+.layout-film__lead {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  margin-top: 1.5rem;
+  margin-left: 4%;
+}
+
+.layout-film__roll {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.layout-film__sheet {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem 0.65rem;
+  align-items: end;
+}
+
+.layout-film__sheet .photo-print {
+  width: 100%;
+}
+
+.layout-film__wider {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+  margin-right: 8%;
+  margin-top: -0.5rem;
+}
+
+.layout-film__coda {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--pb-line);
+}
+
+.layout-film__coda-sheet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.7rem;
+  align-items: flex-end;
+}
+
+.layout-film__coda-sheet .photo-print {
+  width: clamp(6.5rem, 14vw, 10rem);
+}
+
+.layout-film__note {
+  grid-column: 1 / -1;
+  margin-left: 2%;
+}
+
+/* —— Layout: concert-night —— */
+.layout-concert {
+  position: relative;
+  min-height: clamp(34rem, 88vw, 50rem);
+  max-width: 78rem;
+  margin: 0 auto;
+}
+
+.layout-concert__hero {
+  margin-left: 2%;
+  margin-top: 1rem;
+}
+
+.layout-concert__second {
+  position: absolute;
+  top: 4%;
+  right: 4%;
+  z-index: 2;
+}
+
+.layout-concert__cake {
+  position: absolute;
+  top: 38%;
+  left: 48%;
+  z-index: 3;
+}
+
+.layout-concert__peek {
+  position: absolute;
+  bottom: 22%;
+  left: 6%;
+  z-index: 2;
+}
+
+.layout-concert__reach {
+  position: absolute;
+  bottom: 8%;
+  left: 36%;
+  z-index: 2;
+}
+
+.layout-concert__shoulder {
+  position: absolute;
+  bottom: 4%;
+  right: 10%;
+  z-index: 3;
+}
+
+.layout-concert__proofs {
+  position: absolute;
+  top: 52%;
+  right: 28%;
+  z-index: 2;
+}
+
+.layout-concert__sheet {
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-end;
+}
+
+.layout-concert__sheet .photo-print {
+  width: clamp(4.5rem, 10vw, 6.5rem);
+}
+
+.layout-concert__note {
+  position: absolute;
+  top: 28%;
+  left: 38%;
+}
+
 /* —— Layout: suspended —— */
 .layout-suspended {
   position: relative;
@@ -573,6 +708,79 @@
   position: absolute;
   top: 38%;
   right: 36%;
+}
+
+/* —— Layout: campus-scatter —— */
+.layout-campus {
+  position: relative;
+  min-height: clamp(36rem, 92vw, 52rem);
+  max-width: 78rem;
+  margin: 0 auto;
+}
+
+.layout-campus__anchor {
+  margin-left: 4%;
+  margin-top: 1rem;
+}
+
+.layout-campus__rock {
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  z-index: 2;
+}
+
+.layout-campus__close {
+  position: absolute;
+  top: 32%;
+  left: 46%;
+  z-index: 3;
+}
+
+.layout-campus__lean {
+  position: absolute;
+  top: 48%;
+  left: 8%;
+  z-index: 2;
+}
+
+.layout-campus__wide {
+  position: absolute;
+  bottom: 28%;
+  right: 22%;
+  z-index: 2;
+}
+
+.layout-campus__tall {
+  position: absolute;
+  bottom: 18%;
+  right: 4%;
+  z-index: 3;
+}
+
+.layout-campus__proofs {
+  position: absolute;
+  bottom: 2%;
+  left: 28%;
+  z-index: 2;
+}
+
+.layout-campus__sheet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+  align-items: flex-end;
+  max-width: 28rem;
+}
+
+.layout-campus__sheet .photo-print {
+  width: clamp(5rem, 11vw, 7.25rem);
+}
+
+.layout-campus__note {
+  position: absolute;
+  top: 40%;
+  left: 30%;
 }
 
 /* —— Layout: facing-wall —— */
@@ -767,14 +975,38 @@
   .layout-glass,
   .layout-coastal,
   .layout-festival,
+  .layout-concert,
   .layout-suspended,
   .layout-city,
+  .layout-campus,
   .layout-facing {
     min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 1.15rem;
     align-items: flex-start;
+  }
+
+  .layout-film {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-film__lead,
+  .layout-film__roll,
+  .layout-film__wider,
+  .layout-film__coda,
+  .layout-film__note {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .layout-film__sheet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layout-film__wider {
+    justify-self: flex-end;
+    margin-right: 4%;
   }
 
   .layout-glass__mirror,
@@ -784,12 +1016,24 @@
   .layout-coastal__crop,
   .layout-festival__pin,
   .layout-festival__crop,
+  .layout-concert__second,
+  .layout-concert__cake,
+  .layout-concert__peek,
+  .layout-concert__reach,
+  .layout-concert__shoulder,
+  .layout-concert__proofs,
   .layout-suspended__a,
   .layout-suspended__b,
   .layout-suspended__c,
   .layout-city__texture,
   .layout-city__anna,
   .layout-city__crop,
+  .layout-campus__rock,
+  .layout-campus__close,
+  .layout-campus__lean,
+  .layout-campus__wide,
+  .layout-campus__tall,
+  .layout-campus__proofs,
   .layout-facing__people,
   .layout-facing__shutter,
   .layout-facing__deer,
@@ -805,8 +1049,10 @@
   .layout-glass__note,
   .layout-coastal__note,
   .layout-festival__note,
+  .layout-concert__note,
   .layout-suspended__note,
   .layout-city__note,
+  .layout-campus__note,
   .layout-facing__note {
     position: relative;
     top: auto;
@@ -850,6 +1096,22 @@
   .layout-city__texture { align-self: flex-end; margin-top: -2rem; }
   .layout-city__anna { align-self: center; margin-top: -1rem; }
   .layout-city__crop { align-self: flex-start; margin-left: 8%; margin-top: -0.5rem; }
+
+  .layout-concert__hero { margin-left: 0; }
+  .layout-concert__second { align-self: flex-end; margin-top: -1.75rem; margin-right: 4%; }
+  .layout-concert__cake { align-self: flex-start; margin-left: 16%; margin-top: -0.75rem; }
+  .layout-concert__peek { align-self: flex-end; margin-right: 8%; margin-top: -0.5rem; }
+  .layout-concert__reach { align-self: flex-start; margin-left: 6%; }
+  .layout-concert__shoulder { align-self: flex-end; margin-right: 12%; margin-top: -1rem; }
+  .layout-concert__proofs { align-self: flex-start; margin-left: 10%; }
+
+  .layout-campus__anchor { margin-left: 0; }
+  .layout-campus__rock { align-self: flex-end; margin-top: -1.75rem; margin-right: 3%; }
+  .layout-campus__close { align-self: flex-start; margin-left: 18%; margin-top: -0.5rem; }
+  .layout-campus__lean { align-self: flex-end; margin-right: 10%; margin-top: -0.75rem; }
+  .layout-campus__wide { align-self: flex-start; margin-left: 4%; }
+  .layout-campus__tall { align-self: flex-end; margin-right: 6%; margin-top: -1rem; }
+  .layout-campus__proofs { align-self: flex-start; margin-left: 8%; }
 
   .layout-facing__molly { margin-left: 0; }
   .layout-facing__people { align-self: flex-end; margin-top: -1.75rem; }
