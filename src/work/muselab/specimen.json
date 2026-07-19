@@ -1,0 +1,68 @@
+{
+  "title": "Romantic Death",
+  "poem": "That words flow from the tip of my tongue,\nLolita\ns spell upon me. Each stair case another drawn\nOut syllable, dancing, seducing my loss. Romantic.\nTragedy.\nI speak not your language. I cannot\nWaltz your steps, you curious soul.\nI cannot caress the paragraphs like some long lost home,\nFor every grain of sand marks me foreign\nalone in the wilderness, a mournful tone.\nYou will be the death of me, if not my lover\nEach syllable a perfect rhyme with mine\nEach sentence a centimeter more somber\nUntil I lie forever under your spells\nUntil I forever mistreat you as well. Still,\nYour step a little lighter, and I willingly close\nmy eyes forever.\nTo live a romantic death, to suffer a beautiful tragedy.\nIs this not the beauty of language? To die,\nyet live, eternally?",
+  "poetic_features": {
+    "line_count": 20,
+    "non_empty_line_count": 20,
+    "average_line_length_chars": 37.25,
+    "stanza_count": 1,
+    "word_count": 138,
+    "repeated_content_words": [
+      {
+        "word": "forever",
+        "count": 3
+      },
+      {
+        "word": "cannot",
+        "count": 2
+      },
+      {
+        "word": "death",
+        "count": 2
+      },
+      {
+        "word": "language",
+        "count": 2
+      },
+      {
+        "word": "live",
+        "count": 2
+      },
+      {
+        "word": "romantic",
+        "count": 2
+      },
+      {
+        "word": "syllable",
+        "count": 2
+      },
+      {
+        "word": "tragedy",
+        "count": 2
+      },
+      {
+        "word": "until",
+        "count": 2
+      }
+    ],
+    "abstract_word_hits": [
+      "beauty",
+      "death",
+      "loss",
+      "soul"
+    ],
+    "emotional_word_hits": [],
+    "sensory_word_hits_by_channel": {},
+    "punctuation_intensity_per_100_chars": 3.141,
+    "pronoun_counts": {
+      "my": 4,
+      "me": 3,
+      "i": 6,
+      "your": 4,
+      "you": 3,
+      "mine": 1
+    },
+    "pronoun_density_per_100_words": 15.217,
+    "method_note": "Lexicon-based abstract/emotion/sensory tags are heuristic, not clinical."
+  }
+}

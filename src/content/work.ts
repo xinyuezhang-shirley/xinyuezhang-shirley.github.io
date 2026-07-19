@@ -2,6 +2,20 @@ import type { WorkProject } from "./types";
 
 export const workProjects: WorkProject[] = [
   {
+    slug: "muselab",
+    title: "MuseLab",
+    role: "Designer & Developer",
+    org: "Independent project",
+    dates: "2025–2026",
+    tags: ["ai-ml", "generative-systems", "writing", "nlp"],
+    teaser:
+      "A literary workshop that returns a dossier, not a chat — interpretation over generation.",
+    claim: "Charts and graphs are evidence. The reading is the product.",
+    story: [
+      "Authored room at /work/muselab — live Pulse figure, hybrid pipeline, walkthrough. Not a screenshot gallery.",
+    ],
+  },
+  {
     slug: "echo",
     title: "Echo",
     role: "Designer & Developer",
@@ -36,69 +50,6 @@ export const workProjects: WorkProject[] = [
     githubUrl: "https://github.com/xinyuezhang-shirley/cs278FoodRecommender",
     demoVideoUrl:
       "https://drive.google.com/file/d/1cKhn_LGc8OKSMK_N_nMVoV6_aah97AK8/preview",
-  },
-  {
-    slug: "muselab",
-    title: "MuseLab",
-    role: "Designer & Developer",
-    org: "Independent project",
-    dates: "2025–2026",
-    tags: ["ai-ml", "generative-systems", "writing", "nlp"],
-    teaser:
-      "A literary workshop that returns a dossier, not a chat — interpretation over generation.",
-    claim: "Charts and graphs are evidence. The reading is the product.",
-    story: [
-      "Most AI writing tools treat a poem like a support ticket: summarize, rewrite, generate more. MuseLab starts from a different premise — that what a writer needs is interpretation, not more text. Without consistent workshop feedback, chat interfaces gave me the same surface praise. The question was whether a multi-agent system could behave like a workshop packet instead.",
-      "A manuscript arrives. Deterministic analysis runs first — repetition, imagery, emotional language — then emotion classification and literary reference retrieval. Specialized agents read in parallel (critic, emotion, metaphor, development, similar works); a synthesis agent reconciles them. The output is a folio: Draft for anchors, Pulse for the semantic field, Margins for contested readings, Paths and Revision for next moves, Imprint for residue after the argument.",
-    ],
-    figures: [
-      {
-        plate: "Plate 01 · Intake",
-        src: "/work/muselab/01-landing.jpg",
-        alt: "MuseLab landing page for depositing a manuscript",
-        caption:
-          "Deposit a manuscript. The archive opens a dossier — not a conversation thread.",
-      },
-      {
-        plate: "Plate 02 · Handoff",
-        src: "/work/muselab/02-loading.jpg",
-        alt: "MuseLab archive loading state with manuscript excerpt",
-        caption:
-          "While analysis runs, the interface stays editorial: a scan across the page, not a spinner.",
-      },
-      {
-        plate: "Plate 03 · Draft",
-        src: "/work/muselab/03-draft.jpg",
-        alt: "MuseLab Draft folio with manuscript and literary anchors",
-        caption:
-          "Draft keeps the poem legible. Underlines mark real categories — repetition, emotion, sensory — never alarm chrome.",
-      },
-      {
-        plate: "Plate 04 · Pulse",
-        src: "/work/muselab/04-pulse.jpg",
-        alt: "MuseLab Pulse semantic force graph",
-        caption:
-          "Pulse is a force field of lexical weight — evidence for the reading underneath, not the product itself.",
-      },
-      {
-        plate: "Plate 05 · Margins",
-        src: "/work/muselab/05-margins.jpg",
-        alt: "MuseLab Margins with interpretation stacks from agent lenses",
-        caption:
-          "Margins hold distinct lenses. Agents may disagree; synthesis does not average them into mush.",
-      },
-      {
-        plate: "Plate 06 · Imprint",
-        src: "/work/muselab/06-imprint.jpg",
-        alt: "MuseLab Imprint residue panels after workshop",
-        caption:
-          "Imprint closes the dossier: words loosen from the manuscript into vortex, drift, and type residue.",
-      },
-    ],
-    showInterpretationStack: true,
-    closing: [
-      "A second workshop watches the product. Builder agents critique MuseLab against a written taste profile — still screenshots, still human approval — so the interface cannot quietly become a SaaS template. Both halves share one rule: move from evidence to claim, and leave judgment with the writer.",
-    ],
   },
   {
     slug: "pwc",
