@@ -1,172 +1,320 @@
 /**
- * About — Representation Field × Specimens
- * 12-column compositional field. Typography carries identity.
+ * About — essay walk
+ * Literary manuscript × exhibition wall text.
+ * Composition via type, measure, alignment, and breath — not decoration.
  */
 
 .about-field {
   --af-ink: #16140f;
-  --af-soft: #56534c;
-  --af-mute: #8c887e;
+  --af-soft: #4f4c45;
+  --af-mute: #8a867c;
+  --af-faint: #b0aca2;
   --af-paper: #faf9f6;
-  --af-line: #e3dfd4;
-  --af-accent: #8a3324;
   --af-serif: "Fraunces", Georgia, serif;
   --af-sans: "Inter", system-ui, sans-serif;
 
   background: var(--af-paper);
   color: var(--af-ink);
-  /* Active concept driven by React data attribute */
 }
 
 .about-field__board {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1120px;
   margin-inline: auto;
-  padding: clamp(2.25rem, 5vw, 3.5rem) clamp(1.25rem, 3.5vw, 3rem)
-    clamp(3.5rem, 8vw, 5.5rem);
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3.5rem)
+    clamp(4rem, 10vw, 7rem);
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(0.65rem, 1.4vw, 1.25rem);
+  column-gap: clamp(0.75rem, 1.6vw, 1.5rem);
   row-gap: 0;
 }
 
-/* —— Blocks —— */
-.af-block {
+/* —— Rooms: paced arrivals —— */
+.af-room {
   min-width: 0;
-  padding-block: 1.15rem;
+  position: relative;
   opacity: 1;
-  transition: opacity 0.45s ease;
+  transform: none;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 
-.af-block.is-pending {
-  opacity: 0.9;
+.af-room.is-pending {
+  opacity: 0.72;
+  transform: translateY(0.3rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .af-block {
+  .af-room {
     transition: none;
   }
 
-  .af-block.is-pending {
+  .af-room.is-pending {
     opacity: 1;
+    transform: none;
   }
 }
 
-/* Opening — expansive, cols 1–11 */
-.af-block--open {
-  grid-column: 1 / 12;
-  padding-top: 0.5rem;
-  padding-bottom: 1.75rem;
-}
-
+/* —— Type roles —— */
 .af-kicker {
   font-family: var(--af-sans);
-  font-size: 0.8125rem;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--af-mute);
-  margin: 0 0 1.25rem;
+  color: var(--af-faint);
+  margin: 0 0 1.75rem;
 }
 
 .af-lede {
   font-family: var(--af-serif);
   font-weight: 300;
-  font-size: clamp(1.45rem, 2.6vw, 2.05rem);
-  line-height: 1.28;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+  line-height: 1.32;
+  letter-spacing: -0.018em;
   color: var(--af-ink);
   margin: 0;
-  max-width: 22em; /* ~3–4 lines at desktop, still natural */
+  max-width: 18em;
   text-wrap: pretty;
-}
-
-/* Analytical body — start col 2, span ~6 → ~70ch */
-.af-block--body {
-  grid-column: 2 / 8;
-  padding-block: 1rem 1.35rem;
 }
 
 .af-prose {
   font-family: var(--af-sans);
   font-size: 1.0625rem;
-  line-height: 1.7;
-  letter-spacing: -0.006em;
+  line-height: 1.78;
+  letter-spacing: -0.005em;
   color: var(--af-soft);
   margin: 0;
-  max-width: 40rem; /* ~72ch */
+  max-width: 36rem;
   text-wrap: pretty;
 }
 
-/* Instinct pause — only major pause; shifted span */
-.af-block--pause {
-  grid-column: 3 / 10;
-  padding-block: 2rem 2.15rem;
+.af-prose--quiet {
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--af-mute);
+  max-width: 34rem;
 }
 
-.af-pause {
+.af-prose--lemma {
+  margin-bottom: 1.15rem;
+}
+
+.af-prose--close {
+  margin-top: 1.75rem;
+}
+
+.af-lemma {
+  font-family: var(--af-serif);
+  font-style: italic;
+  color: var(--af-ink);
+}
+
+/* Pulled sentences — breathe */
+.af-pull {
   font-family: var(--af-serif);
   font-weight: 400;
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  line-height: 1.45;
-  letter-spacing: -0.015em;
+  font-size: clamp(1.15rem, 1.7vw, 1.35rem);
+  line-height: 1.48;
+  letter-spacing: -0.014em;
   color: var(--af-ink);
-  margin: 0;
-  max-width: 28rem;
+  margin: 1.35rem 0 0;
+  max-width: 26rem;
   text-wrap: pretty;
 }
 
-/* Amateurism — second movement, not a new article */
-.af-block--essay-head {
-  grid-column: 3 / 10;
-  padding-top: 2.25rem;
-  padding-bottom: 0.35rem;
+.af-pull--compact {
+  margin-top: 1.6rem;
+  max-width: 28rem;
+}
+
+.af-pull--end {
+  margin-top: 1.5rem;
+  max-width: 22rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Landmarks — ideas, not posters */
+.af-landmark {
+  font-family: var(--af-serif);
+  font-weight: 300;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  line-height: 1.38;
+  letter-spacing: -0.02em;
+  color: var(--af-ink);
+  margin: 0;
+  max-width: 16em;
+  text-wrap: pretty;
+}
+
+.af-landmark--soft {
+  font-size: clamp(1.25rem, 1.9vw, 1.55rem);
+  max-width: 14em;
+  margin-top: 0.25rem;
+}
+
+/* Single oversized word — rare, wall-text scale */
+.af-word {
+  font-family: var(--af-serif);
+  font-weight: 300;
+  font-size: clamp(2.85rem, 5.5vw, 4.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--af-ink);
+  margin: 0;
+  padding: 0;
+}
+
+/* Quiet marginal notes */
+.af-margin {
+  font-family: var(--af-sans);
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--af-faint);
+  margin: 0;
+}
+
+.af-margin--essay {
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  max-width: 12rem;
 }
 
 .af-essay-title {
   font-family: var(--af-serif);
   font-weight: 400;
   font-style: italic;
-  font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+  font-size: clamp(1.2rem, 1.7vw, 1.4rem);
   line-height: 1.3;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.01em;
   color: var(--af-ink);
-  margin: 0 0 0.4rem;
-}
-
-.af-essay-note {
-  font-family: var(--af-sans);
-  font-size: 0.875rem;
-  line-height: 1.45;
-  color: var(--af-mute);
   margin: 0;
 }
 
-.af-block--essay {
-  grid-column: 3 / 9;
-  padding-block: 0.85rem;
-}
-
-.af-block--essay-shift {
-  grid-column: 4 / 10;
-  padding-block: 0.85rem;
-}
-
-.af-block--close {
-  grid-column: 3 / 9;
-  padding-top: 0.85rem;
-  padding-bottom: 0.25rem;
-}
-
 .af-sign {
-  grid-column: 3 / 9;
+  grid-column: 2 / 7;
   font-family: var(--af-sans);
   font-size: 0.8125rem;
-  color: var(--af-mute);
-  margin: 1.75rem 0 0;
+  color: var(--af-faint);
+  margin: 3.5rem 0 0;
   padding: 0;
 }
 
-/* —— Concept anchors: invisible until activated —— */
+/* —— Placement: walk, not column —— */
+
+/* 1. Threshold — open left */
+.af-room--threshold {
+  grid-column: 1 / 11;
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+
+/* 2. Intersection — inset reading measure */
+.af-room--intersection {
+  grid-column: 2 / 9;
+  padding-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+/* 3. Examples — same reading band, quieter voice */
+.af-room--examples {
+  grid-column: 3 / 10;
+  padding-bottom: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+/* 4. Question landmark — with left margin note */
+.af-room--question {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  padding-block: clamp(1.5rem, 4vw, 2.75rem);
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.af-room--question .af-margin {
+  grid-column: 1 / 3;
+  padding-top: 0.35rem;
+}
+
+.af-room--question .af-landmark {
+  grid-column: 3 / 11;
+}
+
+/* 5. Instinct — left of center, pull sits under */
+.af-room--instinct {
+  grid-column: 2 / 9;
+  padding-bottom: clamp(3.5rem, 8vw, 5.5rem);
+}
+
+.af-room--instinct .af-pull {
+  margin-top: 1.5rem;
+  max-width: 24rem;
+}
+
+/* 6. Essay head — title + true margin note */
+.af-room--essay-head {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  align-items: start;
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.af-room--essay-head .af-essay-title {
+  grid-column: 2 / 8;
+}
+
+.af-room--essay-head .af-margin--essay {
+  grid-column: 9 / 13;
+  padding-top: 0.35rem;
+  text-align: right;
+}
+
+/* 7. Definition — word left, prose right */
+.af-room--definition {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  align-items: start;
+  padding-bottom: clamp(2.75rem, 6vw, 4rem);
+}
+
+.af-room--definition .af-word {
+  grid-column: 1 / 5;
+  padding-top: 0.15rem;
+}
+
+.af-room--definition .af-definition {
+  grid-column: 5 / 13;
+  padding-top: 0.55rem;
+}
+
+/* 8. Competition — shifted */
+.af-room--competition {
+  grid-column: 3 / 11;
+  padding-bottom: clamp(2.75rem, 6vw, 4rem);
+}
+
+/* 9. Close — settle left again */
+.af-room--close {
+  grid-column: 2 / 10;
+  padding-bottom: 0.5rem;
+}
+
+.af-room--close .af-landmark--soft {
+  margin-top: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+/* —— Concept anchors: quiet clarification —— */
 .af-anchor {
   font: inherit;
   color: inherit;
@@ -179,14 +327,9 @@
   margin: 0;
   display: inline;
   cursor: default;
-  border-radius: 0;
-  transition:
-    color 0.35s ease,
-    opacity 0.35s ease,
-    font-weight 0.35s ease;
+  transition: color 0.35s ease;
 }
 
-/* When a concept is active: only that family clarifies — no page-wide dimming */
 .about-field[data-concept="machine"] .af-anchor[data-concept="machine"],
 .about-field[data-concept="person"] .af-anchor[data-concept="person"],
 .about-field[data-concept="representation"] .af-anchor[data-concept="representation"],
@@ -194,130 +337,167 @@
 .about-field[data-concept="writing"] .af-anchor[data-concept="writing"],
 .about-field[data-concept="amateur"] .af-anchor[data-concept="amateur"] {
   color: var(--af-ink);
-  font-weight: 500;
 }
 
-/* Touch / coarse: no cross-linking behavior styling hooks needed — JS gated */
-
+/* —— Tablet —— */
 @media (max-width: 1024px) {
-  .af-block--open {
+  .about-field__board {
+    max-width: 920px;
+  }
+
+  .af-room--threshold {
     grid-column: 1 / 13;
   }
 
-  .af-block--body {
+  .af-room--intersection {
     grid-column: 1 / 10;
   }
 
-  .af-block--pause {
+  .af-room--examples {
+    grid-column: 2 / 11;
+  }
+
+  .af-room--question {
+    display: block;
+    grid-column: 1 / 12;
+    padding-left: 0;
+  }
+
+  .af-room--question .af-margin {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .af-room--instinct {
+    grid-column: 1 / 10;
+  }
+
+  .af-room--essay-head {
+    display: block;
+    grid-column: 1 / 12;
+  }
+
+  .af-room--essay-head .af-margin--essay {
+    text-align: left;
+    margin-top: 0.65rem;
+    max-width: 20rem;
+  }
+
+  .af-room--definition {
+    display: block;
+    grid-column: 1 / 12;
+  }
+
+  .af-room--definition .af-word {
+    margin-bottom: 1.25rem;
+  }
+
+  .af-room--competition {
     grid-column: 2 / 12;
   }
 
-  .af-block--essay-head,
-  .af-block--essay,
-  .af-block--close,
+  .af-room--close,
   .af-sign {
-    grid-column: 2 / 12;
-  }
-
-  .af-block--essay-shift {
     grid-column: 1 / 11;
   }
 
-  .af-lede {
-    max-width: 20em;
+  .af-pull--end {
+    margin-left: 0;
+    text-align: left;
   }
 }
 
-/* Mobile: progression via scale, measure, and inset — not one blog column */
+/* —— Mobile: still a walk, via scale + inset + breath —— */
 @media (max-width: 768px) {
   .about-field__board {
     display: flex;
     flex-direction: column;
-    padding: 1.75rem 1.15rem 3.25rem;
-    gap: 0;
+    padding: 2rem 1.2rem 4rem;
   }
 
-  .af-block {
+  .af-room {
     width: 100%;
-    padding-block: 0.85rem;
-    box-sizing: border-box;
   }
 
-  .af-block--open {
-    padding-bottom: 1.15rem;
+  .af-room--threshold {
+    padding-bottom: 2.75rem;
     padding-right: 0.5rem;
   }
 
   .af-lede {
-    font-size: 1.38rem;
-    line-height: 1.3;
-    max-width: 15.5em;
+    font-size: 1.42rem;
+    max-width: 14.5em;
   }
 
-  .af-block--body {
-    padding-left: 0.85rem;
-    padding-right: 0.25rem;
-  }
-
-  .af-block--body .af-prose {
-    max-width: 28rem;
-    font-size: 1.02rem;
-  }
-
-  .af-block--pause {
-    padding-block: 1.4rem 1.5rem;
-    padding-left: 1.35rem;
+  .af-room--intersection {
+    padding-bottom: 1.5rem;
     padding-right: 0.75rem;
-    margin-top: 0.15rem;
   }
 
-  .af-pause {
-    font-size: 1.18rem;
-    line-height: 1.42;
-    max-width: 19rem;
+  .af-room--examples {
+    padding-left: 0.85rem;
+    padding-bottom: 2.25rem;
   }
 
-  .af-block--essay-head {
-    padding-top: 1.6rem;
-    padding-left: 0.35rem;
+  .af-room--question {
+    padding-block: 1.25rem 2rem;
+    margin-bottom: 1.5rem;
+    padding-left: 0.15rem;
   }
 
-  .af-block--essay {
-    padding-left: 0.35rem;
-    max-width: 30rem;
+  .af-landmark {
+    font-size: 1.3rem;
+    max-width: 14em;
   }
 
-  .af-block--essay-shift {
-    padding-left: 1.15rem;
-    max-width: 28rem;
+  .af-room--instinct {
+    padding-bottom: 3rem;
+    padding-right: 0.5rem;
   }
 
-  .af-block--close {
-    padding-left: 0.35rem;
-    max-width: 30rem;
+  .af-room--essay-head {
+    padding-top: 2.25rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .af-word {
+    font-size: clamp(2.75rem, 14vw, 3.75rem);
+  }
+
+  .af-room--definition {
+    padding-bottom: 2.25rem;
+  }
+
+  .af-room--competition {
+    padding-left: 0.75rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .af-pull--end {
+    max-width: 18rem;
+  }
+
+  .af-room--close {
+    padding-right: 0.35rem;
   }
 
   .af-sign {
-    margin-top: 1.25rem;
-    padding-left: 0.35rem;
+    margin-top: 2.5rem;
   }
 }
 
 @media (max-width: 390px) {
   .af-lede {
-    font-size: 1.28rem;
+    font-size: 1.32rem;
     max-width: none;
   }
 
-  .af-block--body {
-    padding-left: 0.5rem;
+  .af-room--examples,
+  .af-room--competition {
+    padding-left: 0.4rem;
   }
 
-  .af-block--pause {
-    padding-left: 0.85rem;
-  }
-
-  .af-block--essay-shift {
-    padding-left: 0.75rem;
+  .af-landmark {
+    font-size: 1.22rem;
   }
 }

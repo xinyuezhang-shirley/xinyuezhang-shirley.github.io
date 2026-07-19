@@ -12,6 +12,61 @@ import {
 } from "@/work/about/conceptAnchors";
 import "@/work/about/about-field.css";
 
+/** Composition splits only — source strings in content/about.ts stay untouched. */
+function beforeAfter(text: string, marker: string): [string, string] {
+  const i = text.indexOf(marker);
+  if (i === -1) return [text, ""];
+  return [text.slice(0, i).trimEnd(), text.slice(i).trimStart()];
+}
+
+function throughAfter(text: string, marker: string): [string, string] {
+  const i = text.indexOf(marker);
+  if (i === -1) return [text, ""];
+  const end = i + marker.length;
+  return [text.slice(0, end).trimEnd(), text.slice(end).trimStart()];
+}
+
+const [intersection, afterIntersection] = throughAfter(
+  philosophy.intro[0],
+  "on the other.",
+);
+const [examples, question] = beforeAfter(
+  afterIntersection,
+  "what does it take",
+);
+
+const [instinctSetup, instinctClose] = beforeAfter(
+  philosophy.intro[1],
+  "They're the same instinct",
+);
+
+const amateurPara = amateurismEssay.paragraphs[0];
+const [, afterAmateurWord] = throughAfter(amateurPara, "Amateur, n.");
+const [amateurCritic, afterAmateurCritic] = throughAfter(
+  afterAmateurWord.replace(/^[\s—–-]+/, ""),
+  "unprofessional performance.",
+);
+const [amateurEtymology, amateurDefinition] = beforeAfter(
+  afterAmateurCritic,
+  "To be an amateur literally means",
+);
+
+const competitionPara = amateurismEssay.paragraphs[1];
+const [competitionBody, competitionShame] = beforeAfter(
+  competitionPara,
+  "I had never felt good enough",
+);
+
+const closePara = amateurismEssay.paragraphs[2];
+const closeLoveSentence =
+  "one could be bad at what they love and still love it.";
+const closeLead = closePara
+  .slice(0, closePara.indexOf(closeLoveSentence))
+  .trimEnd();
+const closeJourney = closePara
+  .slice(closePara.indexOf(closeLoveSentence) + closeLoveSentence.length)
+  .trimStart();
+
 function useFineHover(): boolean {
   const [fine, setFine] = useState(false);
 
@@ -46,7 +101,7 @@ function useInViewProgressive<T extends HTMLElement>() {
           io.disconnect();
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.08 },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -96,7 +151,7 @@ function AnchoredText({
   );
 }
 
-function FieldBlock({
+function Room({
   className,
   children,
 }: {
@@ -107,7 +162,7 @@ function FieldBlock({
   return (
     <section
       ref={ref}
-      className={`af-block ${className}${pending ? " is-pending" : ""}`}
+      className={`af-room ${className}${pending ? " is-pending" : ""}`}
     >
       {children}
     </section>
@@ -129,54 +184,95 @@ export default function About() {
   };
 
   return (
-    <article
-      className="about-field"
-      data-concept={active ?? undefined}
-    >
+    <article className="about-field" data-concept={active ?? undefined}>
       <div className="about-field__board">
-        <FieldBlock className="af-block--open">
+        <Room className="af-room--threshold">
           <p className="af-kicker">About</p>
           <h1 className="af-lede">
             <AnchoredText text={philosophy.statement} {...bind} />
           </h1>
-        </FieldBlock>
+        </Room>
 
-        <FieldBlock className="af-block--body">
+        <Room className="af-room--intersection">
           <p className="af-prose">
-            <AnchoredText text={philosophy.intro[0]} {...bind} />
+            <AnchoredText text={intersection} {...bind} />
           </p>
-        </FieldBlock>
+        </Room>
 
-        <FieldBlock className="af-block--pause">
-          <p className="af-pause">
-            <AnchoredText text={philosophy.intro[1]} {...bind} />
+        <Room className="af-room--examples">
+          <p className="af-prose af-prose--quiet">
+            <AnchoredText text={examples} {...bind} />
           </p>
-        </FieldBlock>
+        </Room>
 
-        <FieldBlock className="af-block--essay-head">
+        <Room className="af-room--question">
+          <aside className="af-margin" aria-hidden="true">
+            same question
+          </aside>
+          <p className="af-landmark">
+            <AnchoredText text={question} {...bind} />
+          </p>
+        </Room>
+
+        <Room className="af-room--instinct">
+          <p className="af-prose">
+            <AnchoredText text={instinctSetup} {...bind} />
+          </p>
+          <p className="af-pull">
+            <AnchoredText text={instinctClose} {...bind} />
+          </p>
+        </Room>
+
+        <Room className="af-room--essay-head">
           <h2 className="af-essay-title">
             <AnchoredText text={amateurismEssay.title} {...bind} />
           </h2>
-          <p className="af-essay-note">{amateurismEssay.note}</p>
-        </FieldBlock>
+          <aside className="af-margin af-margin--essay">
+            {amateurismEssay.note}
+          </aside>
+        </Room>
 
-        <FieldBlock className="af-block--essay">
-          <p className="af-prose">
-            <AnchoredText text={amateurismEssay.paragraphs[0]} {...bind} />
+        <Room className="af-room--definition">
+          <p className="af-word" aria-hidden="true">
+            Amateur
           </p>
-        </FieldBlock>
+          <div className="af-definition">
+            <p className="af-prose af-prose--lemma">
+              <span className="af-lemma">
+                <AnchoredText text="Amateur, n." {...bind} />
+              </span>
+              {" — "}
+              <AnchoredText text={amateurCritic.trim()} {...bind} />
+            </p>
+            <p className="af-prose">
+              <AnchoredText text={amateurEtymology} {...bind} />
+            </p>
+            <p className="af-pull af-pull--compact">
+              <AnchoredText text={amateurDefinition} {...bind} />
+            </p>
+          </div>
+        </Room>
 
-        <FieldBlock className="af-block--essay-shift">
+        <Room className="af-room--competition">
           <p className="af-prose">
-            <AnchoredText text={amateurismEssay.paragraphs[1]} {...bind} />
+            <AnchoredText text={competitionBody} {...bind} />
           </p>
-        </FieldBlock>
+          <p className="af-pull af-pull--end">
+            <AnchoredText text={competitionShame} {...bind} />
+          </p>
+        </Room>
 
-        <FieldBlock className="af-block--close">
+        <Room className="af-room--close">
           <p className="af-prose">
-            <AnchoredText text={amateurismEssay.paragraphs[2]} {...bind} />
+            <AnchoredText text={closeLead} {...bind} />
           </p>
-        </FieldBlock>
+          <p className="af-landmark af-landmark--soft">
+            <AnchoredText text={closeLoveSentence} {...bind} />
+          </p>
+          <p className="af-prose af-prose--close">
+            <AnchoredText text={closeJourney} {...bind} />
+          </p>
+        </Room>
 
         <p className="af-sign">Xinyue (Shirley) Zhang</p>
       </div>
