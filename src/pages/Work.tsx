@@ -21,6 +21,11 @@ export default function Work() {
               <h2 className="font-serif text-heading-1 text-ink mb-3 group-hover:text-accent transition-colors">
                 {project.title}
               </h2>
+              {project.collaborators?.length ? (
+                <p className="font-serif text-ink-soft mb-3">
+                  with {project.collaborators.join(" & ")}
+                </p>
+              ) : null}
               <Body lg className="max-w-2xl">
                 {project.teaser}
               </Body>

@@ -460,6 +460,14 @@
   mix-blend-mode: multiply;
 }
 
+.nommi-world__collaborators {
+  margin: 0.55rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--nm-blue);
+  letter-spacing: 0.01em;
+}
+
 .nommi-world__claim {
   font-size: 1.2rem;
   line-height: 1.5;

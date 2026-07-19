@@ -68,7 +68,15 @@
   font-style: italic;
   font-size: 1.25rem;
   color: var(--st-muted);
-  margin: 0 0 1.5rem;
+  margin: 0 0 0.75rem;
+  line-height: 1.4;
+}
+
+.stan-pub__collaborators {
+  font-family: var(--st-serif);
+  font-size: 1.05rem;
+  color: var(--st-cardinal);
+  margin: 0 0 1.25rem;
   line-height: 1.4;
 }
 

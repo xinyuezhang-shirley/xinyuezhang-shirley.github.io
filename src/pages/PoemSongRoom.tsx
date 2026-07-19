@@ -80,12 +80,11 @@ export default function PoemSongRoom() {
         <p className="stan-pub__subtitle">
           Poem–song similarity lives in affect more than in vocabulary.
         </p>
+        <p className="stan-pub__collaborators">
+          with Cheney Sang &amp; Amelia Sarah Bloom
+        </p>
         <p className="stan-pub__byline">
-          <strong>Xinyue (Shirley) Zhang</strong>
-          {project.authors?.length
-            ? ` · with ${project.authors.join(" & ")}`
-            : ""}{" "}
-          · Spring 2026
+          <strong>Xinyue (Shirley) Zhang</strong> · CS 229 · Stanford · Spring 2026
         </p>
 
         <h2>Abstract</h2>

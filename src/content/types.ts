@@ -11,6 +11,8 @@ export interface WorkProject {
   role: string;
   org: string;
   dates: string;
+  /** Named collaborators to cite on the project page / index. */
+  collaborators?: string[];
   tags: string[];
   teaser: string;
   /** Short claim shown as pull-quote when present. */

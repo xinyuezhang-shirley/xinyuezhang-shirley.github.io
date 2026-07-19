@@ -132,6 +132,7 @@ export default function NommiRoom() {
           <img src="/work/nommi/nommi-logo.png" alt="Nommi" className="nommi-world__logo" />
           <p className="nommi-world__eyebrow">CS278 · Stanford · Social computing</p>
           <h1 className="nommi-world__title">Nommi</h1>
+          <p className="nommi-world__collaborators">with Aditya Garg &amp; Alexis Young</p>
           <p className="nommi-world__claim">
             College communities already know things. Nommi keeps that knowledge from disappearing
             into the chat.

@@ -51,7 +51,8 @@ export default function EchoRoom() {
           <p className="echo-eyebrow">Case study · Computational text art</p>
           <h1 className="echo-title">ECHO</h1>
           <p className="echo-tagline">words that continue breathing</p>
-          <p className="echo-meta">Designer &amp; Developer · Independent · 2024–2025</p>
+          <p className="echo-collaborators">with Clare Lei &amp; Rita Xiang</p>
+          <p className="echo-meta">Designer &amp; Developer · CS146J · Stanford · 2024–2025</p>
         </div>
       </div>
 

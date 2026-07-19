@@ -75,9 +75,10 @@ export default function PomdpRoom() {
           When housing recovery is structurally slow, better algorithms hit the same wall as more
           budget.
         </p>
+        <p className="stan-pub__collaborators">with Abi Lopez</p>
         <p className="stan-pub__byline">
-          <strong>Xinyue (Shirley) Zhang</strong>
-          {project.authors?.length ? ` · with ${project.authors.join(" & ")}` : ""} · Spring 2026
+          <strong>Xinyue (Shirley) Zhang</strong> · Decision Making Under Uncertainty · Stanford ·
+          Spring 2026
         </p>
 
         <h2>Abstract</h2>
