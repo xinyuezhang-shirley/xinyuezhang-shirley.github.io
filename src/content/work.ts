@@ -23,13 +23,13 @@ export const workProjects: WorkProject[] = [
     dates: "2024–2025",
     tags: ["generative-systems", "nlp", "data-viz", "frontend", "writing"],
     teaser:
-      "A text-to-visualization tool that reads a poem the way an editor would, then renders it five different ways.",
+      "A computational text art studio — words that continue breathing across five afterlives.",
+    claim: "Language is not static information. It is movement.",
     story: [
-      "Echo takes a piece of writing — a poem, a journal entry, anything — and turns it into more than one kind of picture. You paste in text, and the system reads it the way a careful editor might: tokenizing and cleaning it, stripping stopwords, counting frequencies, and finding the words that actually carry the piece. From there it builds a co-occurrence graph of words that appear near each other, the same structure that powers the project's most technically ambitious mode: Network, a D3 force-directed graph where core words become primary nodes and related words — pulled in partly through local heuristics and partly through the Datamuse API's synonym and association data — extend outward as secondary nodes you can drag, zoom, and pan through.",
-      "Network is one of five ways Echo can render the same analyzed text. Soup scatters the words into a floating field; Vortex arranges that same particle data around a spiral; Orbit sets it moving around central concepts; ASCII turns repetition and spacing into text-art built from fragments of the original passage. All five modes share one analysis pipeline on the backend — an Express server with endpoints for text analysis and each art form, backed by a small SQLite table that stores every saved work as JSON — but diverge completely once the data reaches the frontend, because a network graph and a spiral of particles need fundamentally different rendering logic even when they're describing the same poem.",
-      "The frontend has a deliberate fallback built in: if the backend is unreachable, local versions of the same text-processing and art-generation logic keep the app working anyway, just with less sophistication. Two themes — Night and Paper — and a persistent background-music toggle carry across every page via localStorage, and the whole thing is built to be used by more than a mouse: semantic HTML, ARIA labels, keyboard-accessible controls, and visible focus states throughout.",
-      "Echo is also the project this entire portfolio borrows its spirit from — the conviction that a force-directed graph of relationships can say something a paragraph can't.",
+      "Authored room at /work/echo — live Constellation figure, Echo dialect, soundtrack, walkthrough. Live studio linked.",
     ],
+    liveUrl: "https://cs146j-finalproject.onrender.com/",
+    demoVideoUrl: "https://youtu.be/DXuX2TFZ5ro",
   },
   {
     slug: "nommi",

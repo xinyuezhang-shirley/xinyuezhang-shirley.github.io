@@ -1,0 +1,435 @@
+/* Scoped Echo dialect — Moonlight black field, Cormorant / IBM Plex Mono. */
+
+.echo-room {
+  --bg: #000;
+  --text: #f5f5f5;
+  --muted: #888;
+  --line: rgba(255, 255, 255, 0.2);
+  --panel: rgba(255, 255, 255, 0.05);
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  background: var(--bg);
+  color: var(--text);
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+  padding: 0 0 6rem;
+  font-family: var(--mono);
+  position: relative;
+}
+
+.echo-room a {
+  color: inherit;
+}
+
+.echo-hero {
+  position: relative;
+  min-height: min(72vh, 640px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.echo-hero__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.82) 70%, #000 100%),
+    url("/work/echo/celestial.jpg") center / cover no-repeat;
+}
+
+.echo-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding: 5rem 0 2.75rem;
+}
+
+.echo-back {
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.echo-back:hover {
+  color: var(--text);
+}
+
+.echo-eyebrow {
+  margin: 2rem 0 0.75rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.echo-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 12vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.echo-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  margin: 1rem 0 0;
+  color: #ddd;
+  max-width: 28rem;
+}
+
+.echo-meta {
+  margin: 1.25rem 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.echo-inner {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding-top: 3.5rem;
+}
+
+.echo-claim {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  line-height: 1.3;
+  max-width: 34rem;
+  margin: 0 0 2.5rem;
+  border-left: 1px solid var(--line);
+  padding-left: 1.25rem;
+  color: #eee;
+}
+
+.echo-prose {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  max-width: 38rem;
+  color: #ddd;
+}
+
+.echo-prose p {
+  margin: 0 0 1.25rem;
+}
+
+.echo-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.echo-prose em {
+  font-style: italic;
+  color: var(--text);
+}
+
+.echo-section {
+  margin-top: 4.5rem;
+}
+
+.echo-section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+  font-weight: 400;
+  margin: 0 0 1.25rem;
+}
+
+.echo-figure {
+  margin: 0;
+}
+
+.echo-plate-label {
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.echo-specimen-meta {
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.echo-specimen-meta em {
+  font-family: var(--serif);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.echo-caption {
+  font-family: var(--serif);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 38rem;
+  margin: 0.9rem 0 0;
+}
+
+.echo-pipeline {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 1.25rem;
+}
+
+.echo-pipeline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+@media (min-width: 768px) {
+  .echo-pipeline-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.echo-pipeline-step {
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  gap: 0.6rem;
+  padding: 0.85rem 0.4rem;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  .echo-pipeline-step {
+    border-top: none;
+    border-left: 1px solid var(--line);
+    padding: 0.25rem 0.7rem;
+  }
+  .echo-pipeline-step:first-child {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+.echo-pipeline-id {
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  padding-top: 0.2rem;
+}
+
+.echo-pipeline-title {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.echo-pipeline-note {
+  font-family: var(--serif);
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin: 0.25rem 0 0;
+  line-height: 1.4;
+}
+
+.echo-network-stage {
+  border: 1px solid var(--line);
+  background: #050505;
+  min-height: min(52vh, 560px);
+  height: min(52vh, 560px);
+}
+
+.echo-network-host {
+  width: 100%;
+  height: 100%;
+}
+
+/* Network node/link styles from Echo studio */
+.echo-room .network-empty {
+  padding: 4rem 2rem;
+  text-align: center;
+  font-family: var(--serif);
+  color: var(--muted);
+}
+
+.echo-room .network-link {
+  stroke: var(--line);
+}
+
+.echo-room .network-link.is-active {
+  stroke: var(--text);
+}
+
+.echo-room .network-link.is-dimmed {
+  opacity: 0.15;
+}
+
+.echo-room .network-node {
+  cursor: grab;
+}
+
+.echo-room .network-node.is-dimmed {
+  opacity: 0.2;
+}
+
+.echo-room .network-node circle.node-circle {
+  fill: none;
+  stroke: var(--line);
+}
+
+.echo-room .network-node.is-active circle {
+  stroke: var(--text);
+}
+
+.echo-room .network-node text {
+  font-family: var(--serif);
+  fill: var(--text);
+  pointer-events: none;
+}
+
+.echo-room .network-node--related text {
+  fill: var(--muted);
+}
+
+.echo-room .network-node--related circle.node-circle {
+  stroke-dasharray: 2 3;
+}
+
+.echo-forms {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 700px) {
+  .echo-forms {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.echo-form {
+  border: 1px solid var(--line);
+  padding: 1.1rem 1.15rem;
+  background: var(--panel);
+}
+
+.echo-form h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0 0 0.4rem;
+}
+
+.echo-form p {
+  font-family: var(--serif);
+  font-size: 0.9375rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.echo-form--active {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.echo-video {
+  border: 1px solid var(--line);
+  background: #050505;
+  overflow: hidden;
+}
+
+.echo-video video,
+.echo-video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #050505;
+}
+
+.echo-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.echo-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.echo-link:hover {
+  color: #fff;
+}
+
+.echo-learn {
+  margin-top: 4.5rem;
+  max-width: 38rem;
+  border-top: 1px solid var(--line);
+  padding-top: 2.5rem;
+}
+
+.echo-learn h2 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0 0 1rem;
+}
+
+.echo-sound {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 40;
+}
+
+.echo-sound-toggle {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: lowercase;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid var(--line);
+  padding: 0.55rem 0.85rem;
+  cursor: pointer;
+}
+
+.echo-sound-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.echo-poem {
+  margin: 1.5rem 0 0;
+  max-width: 28rem;
+  border-left: 1px solid var(--line);
+  padding-left: 1.25rem;
+}
+
+.echo-poem p {
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #ccc;
+  margin: 0 0 0.15rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .echo-room * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

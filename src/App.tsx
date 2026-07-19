@@ -6,6 +6,7 @@ import Home from "@/pages/Home";
 import Work from "@/pages/Work";
 import WorkDetail from "@/pages/WorkDetail";
 import MuseLabRoom from "@/pages/MuseLabRoom";
+import EchoRoom from "@/pages/EchoRoom";
 import Research from "@/pages/Research";
 import ResearchDetail from "@/pages/ResearchDetail";
 import CreativeIndex from "@/pages/CreativeIndex";
@@ -24,6 +25,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<PageTransition><Home /></PageTransition>} />
         <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
         <Route path="/work/muselab" element={<PageTransition><MuseLabRoom /></PageTransition>} />
+        <Route path="/work/echo" element={<PageTransition><EchoRoom /></PageTransition>} />
         <Route path="/work/:slug" element={<PageTransition><WorkDetail /></PageTransition>} />
         <Route path="/research" element={<PageTransition><Research /></PageTransition>} />
         <Route path="/research/:slug" element={<PageTransition><ResearchDetail /></PageTransition>} />
