@@ -14,16 +14,16 @@ import {
 } from "@/work/poetry/components/pieces";
 
 /*
-  Portrait usage (each once, composites shown whole):
-  crownClose     → Cover
-  sepiaCrown     → That Flowers Fall
-  closeEyes      → Love is the Language of Strangers
-  crownCake      → Happy Birthday
-  layeredCollage → Silence (image-only page)
-  candleGaze     → Ode to Life
-  shadowTurn     → Sleepless
-  flashBw        → The Silent Thief
-  handReach      → Fear
+  Curated contact sheet (each file once; composites whole):
+  crownHeld        → Cover
+  crownHands       → That Flowers Fall
+  ruffleLean       → Love is the Language of Strangers
+  crownCakeSingle  → Happy Birthday
+  headphonesSmile  → Silence (image-only)
+  flameTeeth       → Ode to Life
+  motionBlur       → Sleepless
+  stanfordProfile  → The Silent Thief
+  handReach        → Fear (prior batch — still the strongest for abyss)
 
   Text / silence (no photo):
   Poetry · Alone in the Landscape · Romantic Death · The Renaissance Man · Colophon
@@ -46,8 +46,8 @@ function Cover() {
       </div>
       <Reveal delay={1}>
         <Plate
-          src={portraits.crownClose}
-          alt="Two self-portraits: a direct gaze, and a paper crown behind a blurred hand"
+          src={portraits.crownHeld}
+          alt="Self-portrait holding a ring of folded paper stars around the face"
           priority
           className="zine-cover__plate"
         />
@@ -56,7 +56,6 @@ function Cover() {
   );
 }
 
-/** Text only — wonder / craft */
 function SpreadPoetry() {
   const poem = getPoem("poetry");
   return (
@@ -70,15 +69,14 @@ function SpreadPoetry() {
   );
 }
 
-/** Small plate + sonnet */
 function SpreadFlowers() {
   const poem = getPoem("that-flowers-fall");
   return (
     <PoemSpread tone="cream" id="that-flowers-fall" className="spread-duo">
       <Reveal>
         <Plate
-          src={portraits.sepiaCrown}
-          alt="Sepia self-portrait wearing a paper crown"
+          src={portraits.crownHands}
+          alt="Grainy sepia self-portrait, hands framing the face under a paper crown"
           className="spread-duo__plate"
         />
       </Reveal>
@@ -91,7 +89,6 @@ function SpreadFlowers() {
   );
 }
 
-/** Chinese aesthetic — typography only */
 function SpreadLandscape() {
   const poem = getPoem("alone-in-the-landscape");
   const chinese = ["雨落江岸没人履", "欲掩一朝杏花清", "墨晕山水湿人意", "篱下饮酒问己心"].join("\n");
@@ -111,7 +108,6 @@ function SpreadLandscape() {
   );
 }
 
-/** Plate + love poem */
 function SpreadLove() {
   const poem = getPoem("love-is-the-language-of-strangers");
   return (
@@ -123,8 +119,8 @@ function SpreadLove() {
       </Reveal>
       <Reveal delay={1}>
         <Plate
-          src={portraits.closeEyes}
-          alt="Self-portrait reclining in a paper crown, with a detail of the hand"
+          src={portraits.ruffleLean}
+          alt="Self-portrait in a white ruffled blouse, leaning into the frame"
           className="spread-duo__plate"
         />
       </Reveal>
@@ -132,7 +128,6 @@ function SpreadLove() {
   );
 }
 
-/** Text only — burgundy */
 function SpreadRomantic() {
   const poem = getPoem("romantic-death-linguistic-tragedy");
   const stanzas = poem.content.split(/\n\n+/);
@@ -153,15 +148,14 @@ function SpreadRomantic() {
   );
 }
 
-/** Birthday plate + poem */
 function SpreadBirthday() {
   const poem = getPoem("happy-birthday");
   return (
     <PoemSpread tone="cream" id="happy-birthday" className="spread-birthday">
       <Reveal>
         <Plate
-          src={portraits.crownCake}
-          alt="Paper crown and birthday cake — nested portrait"
+          src={portraits.crownCakeSingle}
+          alt="Paper crown and strawberry cake — a single complete portrait"
           className="spread-birthday__plate"
         />
       </Reveal>
@@ -175,14 +169,14 @@ function SpreadBirthday() {
   );
 }
 
-/** Image silence — complete collage, no poem */
+/** Image silence — headphones candid, no poem */
 function SpreadSilence() {
   return (
-    <PoemSpread tone="cream" className="spread-image" aria-label="Editorial collage">
+    <PoemSpread tone="cream" className="spread-image" aria-label="Portrait">
       <Reveal>
         <Plate
-          src={portraits.layeredCollage}
-          alt="Black-and-white collage of cake, headphones, and a wide-eyed bite"
+          src={portraits.headphonesSmile}
+          alt="Self-portrait smiling in headphones"
           className="spread-image__plate"
         />
       </Reveal>
@@ -190,7 +184,6 @@ function SpreadSilence() {
   );
 }
 
-/** Candle diptych + ode */
 function SpreadOde() {
   const poem = getPoem("ode-to-life");
   const body = poem.content
@@ -202,8 +195,8 @@ function SpreadOde() {
     <PoemSpread tone="charcoal" id="ode-to-life" className="spread-duo">
       <Reveal>
         <Plate
-          src={portraits.candleGaze}
-          alt="Two frames with a birthday candle — looking away, then holding the flame"
+          src={portraits.flameTeeth}
+          alt="Self-portrait with a lit flame held between the teeth"
           className="spread-duo__plate"
         />
       </Reveal>
@@ -219,15 +212,14 @@ function SpreadOde() {
   );
 }
 
-/** Night triptych + sleepless */
 function SpreadSleepless() {
   const poem = getPoem("sleepless");
   return (
     <PoemSpread tone="ink" id="sleepless" className="spread-sleepless">
       <Reveal>
         <Plate
-          src={portraits.shadowTurn}
-          alt="Three frames of a paper crown — sharp, colored, then blurred"
+          src={portraits.motionBlur}
+          alt="Motion-blurred self-portrait in a black bow blouse"
           className="spread-sleepless__plate"
         />
       </Reveal>
@@ -240,7 +232,6 @@ function SpreadSleepless() {
   );
 }
 
-/** Identity — one B&W plate */
 function SpreadThief() {
   const poem = getPoem("the-silent-thief");
   return (
@@ -252,8 +243,8 @@ function SpreadThief() {
       </Reveal>
       <Reveal delay={1}>
         <Plate
-          src={portraits.flashBw}
-          alt="Black-and-white self-portrait looking back, wearing a paper crown"
+          src={portraits.stanfordProfile}
+          alt="Profile self-portrait in a dorm room with a Stanford pennant"
           className="spread-duo__plate"
         />
       </Reveal>
@@ -261,7 +252,6 @@ function SpreadThief() {
   );
 }
 
-/** Dark page — hand/shadow plate + poem */
 function SpreadFear() {
   const poem = getPoem("fear");
   return (
@@ -282,7 +272,6 @@ function SpreadFear() {
   );
 }
 
-/** Text only — hope */
 function SpreadRenaissance() {
   const poem = getPoem("the-renaissance-man");
   return (
