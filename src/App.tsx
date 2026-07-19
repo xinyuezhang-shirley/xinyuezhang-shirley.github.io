@@ -7,8 +7,14 @@ import Work from "@/pages/Work";
 import WorkDetail from "@/pages/WorkDetail";
 import MuseLabRoom from "@/pages/MuseLabRoom";
 import EchoRoom from "@/pages/EchoRoom";
+import NommiRoom from "@/pages/NommiRoom";
+import SystemsSignalsRoom from "@/pages/SystemsSignalsRoom";
 import Research from "@/pages/Research";
 import ResearchDetail from "@/pages/ResearchDetail";
+import DifferRoom from "@/pages/DifferRoom";
+import AirbnbRoom from "@/pages/AirbnbRoom";
+import PoemSongRoom from "@/pages/PoemSongRoom";
+import PomdpRoom from "@/pages/PomdpRoom";
 import CreativeIndex from "@/pages/CreativeIndex";
 import CreativeArt from "@/pages/CreativeArt";
 import CreativePhotography from "@/pages/CreativePhotography";
@@ -26,8 +32,20 @@ function AnimatedRoutes() {
         <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
         <Route path="/work/muselab" element={<PageTransition><MuseLabRoom /></PageTransition>} />
         <Route path="/work/echo" element={<PageTransition><EchoRoom /></PageTransition>} />
+        <Route path="/work/nommi" element={<PageTransition><NommiRoom /></PageTransition>} />
+        <Route path="/work/systems-signals" element={<PageTransition><SystemsSignalsRoom /></PageTransition>} />
         <Route path="/work/:slug" element={<PageTransition><WorkDetail /></PageTransition>} />
         <Route path="/research" element={<PageTransition><Research /></PageTransition>} />
+        <Route path="/research/differ" element={<PageTransition><DifferRoom /></PageTransition>} />
+        <Route
+          path="/research/airbnb-rating-calibration"
+          element={<PageTransition><AirbnbRoom /></PageTransition>}
+        />
+        <Route path="/research/poem-to-song" element={<PageTransition><PoemSongRoom /></PageTransition>} />
+        <Route
+          path="/research/pomdp-aid-allocation"
+          element={<PageTransition><PomdpRoom /></PageTransition>}
+        />
         <Route path="/research/:slug" element={<PageTransition><ResearchDetail /></PageTransition>} />
         <Route path="/creative" element={<PageTransition><CreativeIndex /></PageTransition>} />
         <Route path="/creative/art" element={<PageTransition><CreativeArt /></PageTransition>} />

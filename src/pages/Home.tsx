@@ -6,21 +6,21 @@ import { FloatingCircles } from "@/components/decor/FloatingCircles";
 const featured = [
   {
     eyebrow: "Work",
-    title: "Echo",
-    description: "A text-to-visualization tool that renders a poem five different ways.",
-    href: "/work/echo",
+    title: "MuseLab",
+    description: "A literary workshop that returns a dossier — interpretation over generation.",
+    href: "/work/muselab",
   },
   {
     eyebrow: "Research",
     title: "Differ",
-    description: "A platform for reasoning about contextual differences in human experience design.",
+    description: "Accountable perspectives — who and where meaning breaks.",
     href: "/research/differ",
   },
   {
-    eyebrow: "Creative",
-    title: "Poetry",
-    description: "Eleven poems, 2020–2024, on language, identity, and forever.",
-    href: "/creative/poetry",
+    eyebrow: "Work",
+    title: "Echo",
+    description: "Words that continue breathing across five afterlives.",
+    href: "/work/echo",
   },
 ];
 
