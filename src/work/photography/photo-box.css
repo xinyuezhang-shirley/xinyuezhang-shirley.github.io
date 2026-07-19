@@ -182,38 +182,28 @@
 
 .photo-print__paper {
   position: relative;
-  background: var(--pb-paper);
-  padding: clamp(0.35rem, 0.8vw, 0.55rem);
+  background: #f3f0e8;
+  padding: 0.28rem;
   box-shadow:
-    0 1px 1px var(--pb-shadow),
-    0 6px 18px var(--pb-shadow),
-    0 0 0 1px var(--pb-line);
+    0 1px 2px rgba(40, 36, 28, 0.12),
+    0 8px 22px rgba(40, 36, 28, 0.14);
   transition:
     box-shadow var(--pb-dur) var(--pb-ease),
     transform var(--pb-dur) var(--pb-ease);
 }
 
-.photo-print__paper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-  opacity: 0.5;
-}
-
 .photo-print__img-wrap {
   position: relative;
   overflow: hidden;
-  background: #1a1917;
   line-height: 0;
+  background: transparent;
 }
 
 .photo-print__img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 }
 
 .photo-print__caption {
@@ -278,12 +268,11 @@
   padding: 0.28rem;
 }
 
-.photo-print__img-wrap--landscape { aspect-ratio: 4 / 3; }
-.photo-print__img-wrap--portrait { aspect-ratio: 3 / 4; }
-.photo-print__img-wrap--square { aspect-ratio: 1 / 1; }
-
-.photo-print--crop .photo-print__img-wrap {
-  aspect-ratio: var(--crop-aspect, 1 / 1);
+/* Natural aspect ratios — prints keep their own proportions */
+.photo-print__img-wrap--landscape,
+.photo-print__img-wrap--portrait,
+.photo-print__img-wrap--square {
+  aspect-ratio: auto;
 }
 
 /* Reveal */
@@ -317,44 +306,35 @@
 
 /* —— Layout: glass-stack —— */
 .layout-glass {
-  position: relative;
-  min-height: clamp(28rem, 70vw, 40rem);
   max-width: 72rem;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: end;
 }
 
 .layout-glass__anchor {
-  position: relative;
-  z-index: 1;
-  margin-left: 4%;
+  grid-column: 1;
+  grid-row: 1 / span 2;
 }
 
 .layout-glass__mirror {
-  position: absolute;
-  top: 8%;
-  right: 6%;
-  z-index: 2;
+  grid-column: 2;
+  justify-self: end;
+  max-width: 90%;
 }
 
 .layout-glass__window {
-  position: absolute;
-  bottom: 4%;
-  left: 42%;
-  z-index: 3;
-}
-
-.layout-glass__crop {
-  position: absolute;
-  bottom: 18%;
-  left: 8%;
-  z-index: 2;
+  grid-column: 2;
+  justify-self: start;
+  max-width: 72%;
+  margin-left: 8%;
 }
 
 .layout-glass__note {
-  position: absolute;
-  top: 42%;
-  right: 28%;
-  z-index: 1;
+  grid-column: 1 / -1;
+  margin-left: 4%;
 }
 
 /* —— Layout: macro-sheet —— */
@@ -629,6 +609,167 @@
   right: 40%;
 }
 
+/* —— Layout: film-roll —— */
+.layout-film {
+  max-width: 74rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.layout-film__anchor {
+  align-self: flex-start;
+  margin-left: 4%;
+  max-width: min(28rem, 72vw);
+}
+
+.layout-film__pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-right: 6%;
+  margin-top: -2rem;
+}
+
+.layout-film__pair .photo-print {
+  width: clamp(8rem, 22vw, 14rem);
+}
+
+.layout-film__sheet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.85rem;
+  align-items: flex-end;
+  padding: 0;
+}
+
+.layout-film__sheet .photo-print {
+  width: clamp(6.5rem, 14vw, 10rem);
+}
+
+.layout-film__note {
+  align-self: flex-start;
+  margin-left: 8%;
+}
+
+/* —— Layout: concert-haze —— */
+.layout-concert {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: end;
+}
+
+.layout-concert__anchor {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.layout-concert__second {
+  grid-column: 2;
+  justify-self: end;
+  max-width: 85%;
+}
+
+.layout-concert__third {
+  grid-column: 2;
+  justify-self: start;
+  max-width: 70%;
+  margin-top: -1.5rem;
+  margin-left: 8%;
+}
+
+.layout-concert__sheet {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.6rem;
+  align-items: flex-end;
+}
+
+.layout-concert__sheet .photo-print {
+  width: clamp(5.5rem, 14vw, 9rem);
+}
+
+.layout-concert__note {
+  grid-column: 1 / -1;
+  margin-left: 3%;
+}
+
+/* —— Layout: campus-quad —— */
+.layout-campus {
+  max-width: 78rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.layout-campus__anchor {
+  align-self: center;
+  max-width: min(32rem, 88vw);
+}
+
+.layout-campus__row,
+.layout-campus__modern {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.layout-campus__row .photo-print {
+  width: clamp(9rem, 24vw, 16rem);
+}
+
+.layout-campus__modern .photo-print {
+  width: clamp(7rem, 18vw, 12rem);
+}
+
+.layout-campus__sheet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.layout-campus__sheet .photo-print {
+  width: clamp(5rem, 11vw, 7.75rem);
+}
+
+.layout-campus__note {
+  align-self: flex-end;
+  margin-right: 10%;
+}
+
+@media (max-width: 720px) {
+  .layout-concert {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-concert__anchor,
+  .layout-concert__second,
+  .layout-concert__third {
+    grid-column: 1;
+    max-width: 100%;
+    margin: 0;
+    justify-self: stretch;
+  }
+
+  .layout-film__pair {
+    margin-top: 0;
+    justify-content: flex-start;
+    margin-right: 0;
+  }
+}
+
 /* —— Handwritten note —— */
 .photo-note {
   font-family: var(--pb-note);
@@ -779,11 +920,8 @@
 
   .layout-glass__mirror,
   .layout-glass__window,
-  .layout-glass__crop,
   .layout-coastal__second,
-  .layout-coastal__crop,
   .layout-festival__pin,
-  .layout-festival__crop,
   .layout-suspended__a,
   .layout-suspended__b,
   .layout-suspended__c,
@@ -816,10 +954,18 @@
     order: -1;
   }
 
-  .layout-glass__anchor { margin-left: 0; align-self: flex-start; }
-  .layout-glass__mirror { align-self: flex-end; margin-right: 4%; margin-top: -1.5rem; z-index: 2; }
-  .layout-glass__window { align-self: center; margin-top: -0.75rem; }
-  .layout-glass__crop { align-self: flex-start; margin-left: 10%; margin-top: -1rem; }
+  .layout-glass {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-glass__anchor,
+  .layout-glass__mirror,
+  .layout-glass__window {
+    grid-column: 1;
+    max-width: 100%;
+    margin: 0;
+    justify-self: stretch;
+  }
 
   .layout-macro {
     grid-template-columns: 1fr;

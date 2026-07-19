@@ -1,6 +1,5 @@
 import type { PhotoCollectionData, PhotoPrint } from "../collections";
 import { ContactSheet } from "./ContactSheet";
-import { DetailCrop } from "./DetailCrop";
 import { EditorialCluster } from "./EditorialCluster";
 import { FloatingPrint } from "./FloatingPrint";
 import { PhotoNote } from "./PhotoCaption";
@@ -47,9 +46,6 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
           <div className="layout-glass__window">
             <FloatingPrint print={byId(p, "coca-cola")} onOpen={onOpen} delayMs={140} />
           </div>
-          <div className="layout-glass__crop">
-            <DetailCrop print={byId(p, "portal-fingers")} onOpen={onOpen} delayMs={200} />
-          </div>
           <div className="layout-glass__note">
             <PhotoNote>Windows. Fog. A hand asking to be seen.</PhotoNote>
           </div>
@@ -71,9 +67,6 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
               label="Proofs"
               sheetClassName="layout-macro__sheet"
             />
-            <div className="layout-macro__loose">
-              <DetailCrop print={byId(p, "cabbage-vein")} onOpen={onOpen} delayMs={160} />
-            </div>
           </div>
         </EditorialCluster>
       ) : null}
@@ -85,9 +78,6 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
           </div>
           <div className="layout-coastal__second">
             <FloatingPrint print={byId(p, "shiny-beach")} onOpen={onOpen} delayMs={90} />
-          </div>
-          <div className="layout-coastal__crop">
-            <DetailCrop print={byId(p, "glitter-crop")} onOpen={onOpen} delayMs={160} />
           </div>
           <div className="layout-coastal__note">
             <PhotoNote warm>Salt. Glitter. Someone facing the water.</PhotoNote>
@@ -102,9 +92,6 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
           </div>
           <div className="layout-festival__pin">
             <FloatingPrint print={byId(p, "dragon-boat")} onOpen={onOpen} delayMs={100} />
-          </div>
-          <div className="layout-festival__crop">
-            <DetailCrop print={byId(p, "characters-bulb")} onOpen={onOpen} delayMs={160} />
           </div>
           <div className="layout-festival__note">
             <PhotoNote warm>Night. Paper. Passing silhouettes.</PhotoNote>
@@ -124,7 +111,6 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
               byId(p, "dance-leap"),
               byId(p, "dance-trail"),
               byId(p, "dance-arc"),
-              byId(p, "hands-crop"),
             ]}
             onOpen={onOpen}
             label="Contact — stage"
@@ -166,9 +152,6 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
           <div className="layout-city__anna">
             <FloatingPrint print={byId(p, "anna")} onOpen={onOpen} delayMs={150} />
           </div>
-          <div className="layout-city__crop">
-            <DetailCrop print={byId(p, "rust-crop")} onOpen={onOpen} delayMs={200} />
-          </div>
           <div className="layout-city__note">
             <PhotoNote>Rust. Fence. Looking down at a camera.</PhotoNote>
           </div>
@@ -192,11 +175,98 @@ export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
           <div className="layout-facing__hero">
             <FloatingPrint print={byId(p, "hero-portrait")} onOpen={onOpen} delayMs={200} />
           </div>
-          <div className="layout-facing__crop">
-            <DetailCrop print={byId(p, "type-crop")} onOpen={onOpen} delayMs={240} />
-          </div>
           <div className="layout-facing__note">
             <PhotoNote>Light on a face. Someone looking back.</PhotoNote>
+          </div>
+        </EditorialCluster>
+      ) : null}
+
+      {collection.layout === "film-roll" ? (
+        <EditorialCluster className="layout-film">
+          <div className="layout-film__anchor">
+            <FloatingPrint print={p[0]} onOpen={onOpen} priority />
+          </div>
+          <div className="layout-film__pair">
+            {p.slice(1, 3).map((print, i) => (
+              <FloatingPrint
+                key={print.id}
+                print={print}
+                onOpen={onOpen}
+                delayMs={60 + i * 50}
+              />
+            ))}
+          </div>
+          <ContactSheet
+            prints={p.slice(3).map((print) => ({ ...print, size: print.size ?? "proof" }))}
+            onOpen={onOpen}
+            label={
+              collection.id === "one-roll"
+                ? "Contact — film"
+                : collection.id === "shore-light"
+                  ? "Contact — shore"
+                  : "Contact"
+            }
+            sheetClassName="layout-film__sheet"
+          />
+          <div className="layout-film__note">
+            <PhotoNote warm>{collection.whisper}</PhotoNote>
+          </div>
+        </EditorialCluster>
+      ) : null}
+
+      {collection.layout === "concert-haze" ? (
+        <EditorialCluster className="layout-concert">
+          <div className="layout-concert__anchor">
+            <FloatingPrint print={byId(p, "raye-02")} onOpen={onOpen} priority />
+          </div>
+          <div className="layout-concert__second">
+            <FloatingPrint print={byId(p, "raye-06")} onOpen={onOpen} delayMs={90} />
+          </div>
+          <div className="layout-concert__third">
+            <FloatingPrint print={byId(p, "raye-01")} onOpen={onOpen} delayMs={140} />
+          </div>
+          <ContactSheet
+            prints={[byId(p, "raye-03"), byId(p, "raye-04"), byId(p, "raye-05")]}
+            onOpen={onOpen}
+            label="Contact — Raye"
+            sheetClassName="layout-concert__sheet"
+          />
+          <div className="layout-concert__note">
+            <PhotoNote>From the floor. Purple air.</PhotoNote>
+          </div>
+        </EditorialCluster>
+      ) : null}
+
+      {collection.layout === "campus-quad" ? (
+        <EditorialCluster className="layout-campus">
+          <div className="layout-campus__anchor">
+            <FloatingPrint print={byId(p, "stanford-11")} onOpen={onOpen} priority />
+          </div>
+          <div className="layout-campus__row">
+            <FloatingPrint print={byId(p, "stanford-01")} onOpen={onOpen} delayMs={70} />
+            <FloatingPrint print={byId(p, "stanford-10")} onOpen={onOpen} delayMs={110} />
+            <FloatingPrint print={byId(p, "stanford-13")} onOpen={onOpen} delayMs={150} />
+          </div>
+          <div className="layout-campus__modern">
+            <FloatingPrint print={byId(p, "stanford-04")} onOpen={onOpen} delayMs={120} />
+            <FloatingPrint print={byId(p, "stanford-06")} onOpen={onOpen} delayMs={160} />
+            <FloatingPrint print={byId(p, "stanford-12")} onOpen={onOpen} delayMs={200} />
+          </div>
+          <ContactSheet
+            prints={[
+              byId(p, "stanford-02"),
+              byId(p, "stanford-03"),
+              byId(p, "stanford-05"),
+              byId(p, "stanford-07"),
+              byId(p, "stanford-08"),
+              byId(p, "stanford-09"),
+            ]}
+            onOpen={onOpen}
+            label="Contact — campus"
+            sheetClassName="layout-campus__sheet"
+          />
+          <div className="layout-campus__note">
+            <PhotoNote warm>Stone remembers the sun.</PhotoNote>
           </div>
         </EditorialCluster>
       ) : null}
