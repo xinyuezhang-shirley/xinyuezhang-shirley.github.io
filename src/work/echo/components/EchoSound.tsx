@@ -37,7 +37,7 @@ export function EchoSound() {
 
   return (
     <div className="echo-sound">
-      <audio ref={audioRef} src="/work/echo/soundtrack.mp3" preload="metadata" loop />
+      <audio ref={audioRef} src="/media/work/echo/soundtrack.mp3" preload="metadata" loop />
       <button
         type="button"
         className="echo-sound-toggle"

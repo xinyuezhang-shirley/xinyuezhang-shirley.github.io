@@ -9,7 +9,7 @@ const EXPERIMENTS = [
     label: "Belief evolution",
     title: "Belief evolution over time",
     body: "Household stability is hidden state. The agent maintains a belief distribution and updates it from noisy observations as aid decisions unfold.",
-    src: "/research/pomdp/belief_evolution.png",
+    src: "/media/research/pomdp/belief_evolution.png",
     caption: "Belief trajectories under planning — crisis mass concentrates or dissipates depending on early aid.",
   },
   {
@@ -17,7 +17,7 @@ const EXPERIMENTS = [
     label: "Policy comparison (budget = 50k)",
     title: "PBVI vs baselines at $50k",
     body: "Point-based value iteration is compared against myopic, greedy, random, and spread-allocation baselines under a shared $50k budget (20 households, 8-family planning view in the figure).",
-    src: "/research/pomdp/policy_comparison_budget=50k,20H,8F.png",
+    src: "/media/research/pomdp/policy_comparison_budget=50k,20H,8F.png",
     caption: "Policy comparison at budget = $50k: PBVI achieves higher median reward and more stable crisis beliefs.",
   },
   {
@@ -25,7 +25,7 @@ const EXPERIMENTS = [
     label: "PBVI budget to control crisis",
     title: "Budget needed to control crisis rate",
     body: "The budget required to keep crisis rates down rises sharply with more families but falls with a longer planning horizon — from roughly $85k (15 families, 8-month horizon) down to $15k at the same family count with a 16-month horizon.",
-    src: "/research/pomdp/pbvi_budget_needed_to_control_crisis_rate.png",
+    src: "/media/research/pomdp/pbvi_budget_needed_to_control_crisis_rate.png",
     caption: "PBVI cost-of-control surface: family count vs horizon vs budget needed.",
   },
   {
@@ -33,7 +33,7 @@ const EXPERIMENTS = [
     label: "Heatmap of aid",
     title: "Aid allocation heatmap",
     body: "PBVI consistently front-loads aid toward a subset of families early rather than spreading evenly — a pattern visible in family×time heatmaps of allocated assistance.",
-    src: "/research/pomdp/heatmap_aid.png",
+    src: "/media/research/pomdp/heatmap_aid.png",
     caption: "Heatmap of aid allocation across families and time under the learned policy.",
   },
   {
@@ -41,7 +41,7 @@ const EXPERIMENTS = [
     label: "Food / housing trajectory",
     title: "Food vs housing recovery asymmetry",
     body: "Households sit on two axes — food and housing need, each Crisis / Moderate / Stable. Food responds quickly to aid; housing responds slowly and regresses easily. That asymmetry shapes every belief update.",
-    src: "/research/pomdp/food_housing_trajectory.png",
+    src: "/media/research/pomdp/food_housing_trajectory.png",
     caption: "Food and housing need trajectories — recovery speeds differ enough to dominate policy structure.",
   },
   {
@@ -49,7 +49,7 @@ const EXPERIMENTS = [
     label: "Reward vs crisis",
     title: "Reward and crisis under budget",
     body: "Even optimal planning has limits: when housing recovery is structurally slow, no realistic budget reliably keeps crisis rates down — the bottleneck shifts from the policy to the environment itself.",
-    src: "/research/pomdp/avg_reward_crisis_budget.png",
+    src: "/media/research/pomdp/avg_reward_crisis_budget.png",
     caption: "Average reward and crisis rates as a function of budget — planning helps until the environment binds.",
   },
 ] as const;
@@ -182,7 +182,7 @@ export default function PomdpRoom() {
         <div className="stan-cta-row">
           <a
             className="stan-pdf"
-            href="/research/pomdp-aid-allocation-paper.pdf"
+            href="/media/research/pomdp-aid-allocation-paper.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >

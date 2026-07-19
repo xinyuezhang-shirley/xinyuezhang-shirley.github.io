@@ -42,7 +42,7 @@ export const researchProjects: ResearchProject[] = [
     story: [
       "The analysis runs five complementary steps, moving from descriptive rating distributions to a ranking simulation that swaps Airbnb's own ranking logic for a city-normalized version — not because the normalized ranking is obviously correct, but as a counterfactual for measuring how much calibration differences actually matter once they reach a ranking algorithm.",
     ],
-    pdfUrl: "/research/airbnb-rating-calibration-poster.pdf",
+    pdfUrl: "/media/research/airbnb-rating-calibration-poster.pdf",
   },
   {
     slug: "poem-to-song",
@@ -64,7 +64,7 @@ export const researchProjects: ResearchProject[] = [
     story: [
       "It's the project where the two halves of this site overlap most directly: a retrieval system that has to learn, computationally, something like what makes a poem and a song feel like they belong together — tone, structure, affect — rather than what words they happen to share.",
     ],
-    pdfUrl: "/research/poem-to-song-poster.pdf",
+    pdfUrl: "/media/research/poem-to-song-poster.pdf",
   },
   {
     slug: "pomdp-aid-allocation",
@@ -86,6 +86,6 @@ export const researchProjects: ResearchProject[] = [
     story: [
       "The most interesting result wasn't that smarter planning helps — it does — but where it stops helping: once housing recovery is slow and structurally fragile enough, more budget and better algorithms both hit the same wall, which is less a finding about POMDPs than about what algorithmic allocation can and can't substitute for.",
     ],
-    pdfUrl: "/research/pomdp-aid-allocation-paper.pdf",
+    pdfUrl: "/media/research/pomdp-aid-allocation-paper.pdf",
   },
 ];

@@ -19,49 +19,49 @@ const FIGURES = [
   {
     id: "hist",
     label: "Ratings histogram by city",
-    src: "/research/airbnb/ratings_hist_by_city.png",
+    src: "/media/research/airbnb/ratings_hist_by_city.png",
     caption:
       "Raw rating distributions differ across markets — the same star sits at different heights in each city’s local mass.",
   },
   {
     id: "ecdf",
     label: "Rating ECDF by city",
-    src: "/research/airbnb/rating_ecdf_by_city.png",
+    src: "/media/research/airbnb/rating_ecdf_by_city.png",
     caption:
       "Empirical CDFs make the calibration claim geometric: identical cutoffs cross different cumulative shares.",
   },
   {
     id: "threshold",
     label: "Threshold pass rates",
-    src: "/research/airbnb/threshold_pass_rates_grouped_by_city.png",
+    src: "/media/research/airbnb/threshold_pass_rates_grouped_by_city.png",
     caption:
       "Grouped pass rates at common cutoffs (4.7–5.0). Chicago and Berlin clear 4.9 far more often than Hong Kong.",
   },
   {
     id: "style",
     label: "Multilingual review style",
-    src: "/research/airbnb/multilingual_style_by_city.png",
+    src: "/media/research/airbnb/multilingual_style_by_city.png",
     caption:
       "Even at matched star bands, review language differs by city — politeness and expressiveness are not universal.",
   },
   {
     id: "jaccard",
     label: "Ranking Jaccard by tier",
-    src: "/research/airbnb/ranking_global_jaccard_by_tier.png",
+    src: "/media/research/airbnb/ranking_global_jaccard_by_tier.png",
     caption:
       "Re-ranking by within-city percentile reshapes the elite tier: Jaccard overlap with raw-star ranking falls in the top percentiles.",
   },
   {
     id: "cohort",
     label: "Cohort city-deviation heatmap",
-    src: "/research/airbnb/cohort_city_deviation_heatmap.png",
+    src: "/media/research/airbnb/cohort_city_deviation_heatmap.png",
     caption:
       "Within matched cohorts of comparable listings, city deviations persist — composition alone does not erase the gap.",
   },
   {
     id: "complaint",
     label: "Complaint vs rating correlation",
-    src: "/research/airbnb/complaint_vs_rating_correlation.png",
+    src: "/media/research/airbnb/complaint_vs_rating_correlation.png",
     caption:
       "Complaint language correlates with ratings differently across cities, another signal that stars encode local norms.",
   },
@@ -241,22 +241,22 @@ export default function AirbnbRoom() {
         <div className="stan-fig-grid is-two" id="explore-figures">
           {[
             {
-              src: "/research/airbnb/city_threshold_summary.png",
+              src: "/media/research/airbnb/city_threshold_summary.png",
               label: "City threshold summary",
               cap: "Summary of threshold clearance across the four markets.",
             },
             {
-              src: "/research/airbnb/city_mean_rating_unadjusted.png",
+              src: "/media/research/airbnb/city_mean_rating_unadjusted.png",
               label: "Unadjusted mean rating by city",
               cap: "Mean ratings before composition controls — a first look at market-level inflation.",
             },
             {
-              src: "/research/airbnb/politeness_coef_all_vs_english.png",
+              src: "/media/research/airbnb/politeness_coef_all_vs_english.png",
               label: "Politeness coefficients",
               cap: "All-language vs English-only politeness coefficients by city.",
             },
             {
-              src: "/research/airbnb/ranking_delta_rank_hist.png",
+              src: "/media/research/airbnb/ranking_delta_rank_hist.png",
               label: "Ranking delta histogram",
               cap: "How far listings move when raw stars are replaced by city-normalized standing.",
             },
@@ -297,7 +297,7 @@ export default function AirbnbRoom() {
         <div className="stan-cta-row">
           <a
             className="stan-pdf"
-            href="/research/airbnb-rating-calibration-poster.pdf"
+            href="/media/research/airbnb-rating-calibration-poster.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >

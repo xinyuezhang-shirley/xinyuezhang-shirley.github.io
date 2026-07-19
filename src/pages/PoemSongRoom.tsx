@@ -9,7 +9,7 @@ const STEPS = [
     label: "Poems & songs",
     title: "Corpus: poems and songs",
     body: "3,413 poems from PoetryDB and 2,934 song lyrics from Genius with Spotify metadata. No labeled poem–song pairs exist, so the retrieval problem starts from unpaired text in two domains.",
-    src: "/research/poem-to-song/data.png",
+    src: "/media/research/poem-to-song/data.png",
     caption: "Dataset overview — poem and song corpora used for pseudo-supervision and evaluation.",
   },
   {
@@ -17,7 +17,7 @@ const STEPS = [
     label: "Pseudo pairs",
     title: "Training pairs from heuristics",
     body: "Because labels are missing, training pairs come from a weighted-cosine heuristic over MPNet embeddings, zero-shot emotion/theme classifiers, and structural/lexical features. Those pseudo-labels seed contrastive learning.",
-    src: "/research/poem-to-song/features.png",
+    src: "/media/research/poem-to-song/features.png",
     caption: "Feature branches that feed pair construction and the dual encoder.",
   },
   {
@@ -25,7 +25,7 @@ const STEPS = [
     label: "Five branches",
     title: "Five-branch dual encoder",
     body: "Poems and songs each pass through five branches — MPNet, emotion, theme, other semantic, and structural/lexical — so similarity can live in affect and form rather than literal word overlap alone.",
-    src: "/research/poem-to-song/dual_encoder.png",
+    src: "/media/research/poem-to-song/dual_encoder.png",
     caption: "Dual-encoder architecture with five modality branches projecting into a shared space.",
   },
   {
@@ -33,7 +33,7 @@ const STEPS = [
     label: "Shared space",
     title: "Shared 128-d embedding space",
     body: "Each branch projects into a shared 128-dimensional space where poems and songs become comparable. Retrieval is nearest-neighbor search in that space.",
-    src: "/research/poem-to-song/top_n_accuracy.png",
+    src: "/media/research/poem-to-song/top_n_accuracy.png",
     caption: "Top-N retrieval accuracy as the shared space is used to rank candidate songs for a poem.",
   },
   {
@@ -41,7 +41,7 @@ const STEPS = [
     label: "InfoNCE",
     title: "Symmetric InfoNCE training",
     body: "The encoders are trained with symmetric InfoNCE contrastive loss: matched poem–song pairs are pulled together; in-batch negatives are pushed apart. Temperature and batch size matter for stability.",
-    src: "/research/poem-to-song/weight_strategy_comparison.png",
+    src: "/media/research/poem-to-song/weight_strategy_comparison.png",
     caption: "Weight-strategy comparison across training configurations for the contrastive objective.",
   },
   {
@@ -49,7 +49,7 @@ const STEPS = [
     label: "Human triplets",
     title: "Human triplet judgments",
     body: "Evaluation asks humans: given a poem and two candidate songs, which fits better in tone, structure, and affect? A second annotator’s agreement with the first (~80%) sets the practical ceiling for any model.",
-    src: "/research/poem-to-song/modality_weight_heatmap.png",
+    src: "/media/research/poem-to-song/modality_weight_heatmap.png",
     caption: "Modality-weight heatmap — which branches the model leans on when matching poems to songs.",
   },
   {
@@ -57,7 +57,7 @@ const STEPS = [
     label: "Comparison",
     title: "Results vs baseline & ceiling",
     body: "Best feature-aware encoders reach 78–80% agreement with human judgment — matching human-level consistency and beating an MPNet-only cosine baseline (~67%). Models that lean on emotional tone and structure outperform literal overlap.",
-    src: "/research/poem-to-song/accuracy.png",
+    src: "/media/research/poem-to-song/accuracy.png",
     caption: "Accuracy against human triplets: feature-aware encoders approach the ~80% human ceiling.",
   },
 ] as const;
@@ -191,7 +191,7 @@ export default function PoemSongRoom() {
         <div className="stan-cta-row">
           <a
             className="stan-pdf"
-            href="/research/poem-to-song-poster.pdf"
+            href="/media/research/poem-to-song-poster.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >

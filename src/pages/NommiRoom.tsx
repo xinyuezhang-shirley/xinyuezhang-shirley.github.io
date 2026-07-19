@@ -129,7 +129,7 @@ export default function NommiRoom() {
           <Link to="/work" className="nommi-world__back">
             ← Work
           </Link>
-          <img src="/work/nommi/nommi-logo.png" alt="Nommi" className="nommi-world__logo" />
+          <img src="/media/work/nommi/nommi-logo.png" alt="Nommi" className="nommi-world__logo" />
           <p className="nommi-world__eyebrow">CS278 · Stanford · Social computing</p>
           <h1 className="nommi-world__title">Nommi</h1>
           <p className="nommi-world__collaborators">with Aditya Garg &amp; Alexis Young</p>

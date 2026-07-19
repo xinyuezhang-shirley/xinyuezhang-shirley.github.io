@@ -13,7 +13,7 @@
 
   background:
     linear-gradient(180deg, rgba(250, 246, 241, 0.92), rgba(250, 246, 241, 0.97)),
-    url("/work/nommi/nommi-bg-pattern.png") center / 420px repeat;
+    url("/media/work/nommi/nommi-bg-pattern.png") center / 420px repeat;
   color: var(--nm-ink);
   margin: 0 calc(50% - 50vw);
   width: 100vw;

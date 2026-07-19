@@ -436,7 +436,7 @@
   position: absolute;
   inset: 0;
   background:
-    url("/work/nommi/nommi-bg-pattern.png") center / 420px repeat,
+    url("/media/work/nommi/nommi-bg-pattern.png") center / 420px repeat,
     var(--nm-bg);
   opacity: 0.22;
   pointer-events: none;

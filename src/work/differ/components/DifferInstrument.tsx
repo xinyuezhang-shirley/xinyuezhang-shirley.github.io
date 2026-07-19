@@ -18,7 +18,7 @@ const CASES: Case[] = [
     experience: "Travel without a car",
     perspective: "Urban vs rural",
     issue: "Business / venue availability",
-    src: "/research/differ/plots/travelWithoutCar_business.png",
+    src: "/media/research/differ/plots/travelWithoutCar_business.png",
     caption:
       "Selected study plot: travel-without-car experience under an urban/rural perspective, scored for venue availability.",
     variables: "Experience = travel without a car · Perspective = urban/rural · Issue = prevalence of supporting businesses",
@@ -30,7 +30,7 @@ const CASES: Case[] = [
     experience: "Watch a sports game",
     perspective: "Adult vs youth",
     issue: "Age-appropriate venues",
-    src: "/research/differ/plots/watchGameBars_Age.png",
+    src: "/media/research/differ/plots/watchGameBars_Age.png",
     caption:
       "Selected study plot: watching a sports game, compared across adult and youth perspectives for bar-type venues.",
     variables: "Experience = watch sports · Perspective = age cohort · Issue = venue appropriateness / availability",
@@ -42,7 +42,7 @@ const CASES: Case[] = [
     experience: "Thrifting",
     perspective: "Neighborhood / business context",
     issue: "Business availability",
-    src: "/research/differ/plots/thrifting_business.png",
+    src: "/media/research/differ/plots/thrifting_business.png",
     caption: "Selected study plot: thrifting experience scored for business availability across reference venues.",
     variables: "Experience = thrifting · Perspective = local business landscape · Issue = prevalence",
     notice:
@@ -53,7 +53,7 @@ const CASES: Case[] = [
     experience: "Photography outing",
     perspective: "Pennsylvania vs Florida",
     issue: "State-level difference",
-    src: "/research/differ/plots/photo_PA_FL.png",
+    src: "/media/research/differ/plots/photo_PA_FL.png",
     caption: "Selected study plot: photography-related experience compared between Pennsylvania and Florida.",
     variables: "Experience = photo outing · Perspective = state geography · Issue = comparative availability",
     notice:
@@ -64,7 +64,7 @@ const CASES: Case[] = [
     experience: "Historical immersive visit",
     perspective: "Business landscape",
     issue: "Venue support",
-    src: "/research/differ/plots/historicalImmersive_business.png",
+    src: "/media/research/differ/plots/historicalImmersive_business.png",
     caption: "Selected study plot: historical immersive experience under a business-availability issue function.",
     variables: "Experience = historical immersive · Perspective = venue ecology · Issue = business support",
     notice:
@@ -75,7 +75,7 @@ const CASES: Case[] = [
     experience: "First date (food & drinks)",
     perspective: "Multi-perspective plate",
     issue: "Case-study visualizations",
-    src: "/research/differ/fig09_first_date_eight_viz.jpeg",
+    src: "/media/research/differ/fig09_first_date_eight_viz.jpeg",
     caption:
       "Fig. 9. A set of eight visualizations generated using Differ for the experience of having a first date over food and drinks.",
     variables: "Experience = first date · Multiple accountable perspectives and issue functions on one plate",

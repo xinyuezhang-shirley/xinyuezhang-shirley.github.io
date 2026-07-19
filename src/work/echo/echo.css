@@ -36,7 +36,7 @@
   inset: 0;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.82) 70%, #000 100%),
-    url("/work/echo/celestial.jpg") center / cover no-repeat;
+    url("/media/work/echo/celestial.jpg") center / cover no-repeat;
 }
 
 .echo-hero__inner {

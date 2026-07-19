@@ -109,7 +109,7 @@ export default function MuseLabRoom() {
                 poster=""
                 aria-label="MuseLab walkthrough — manuscript to dossier"
               >
-                <source src="/work/muselab/walkthrough.mp4" type="video/mp4" />
+                <source src="/media/work/muselab/walkthrough.mp4" type="video/mp4" />
               </video>
             </div>
             <figcaption className="muselab-caption">

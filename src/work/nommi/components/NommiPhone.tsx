@@ -9,8 +9,8 @@ export type NommiScene =
   | "memory";
 
 const STILLS = {
-  feed: "/work/nommi/stills/feed_populated.jpg",
-  skeleton: "/work/nommi/stills/feed_skeleton.jpg",
+  feed: "/media/work/nommi/stills/feed_populated.jpg",
+  skeleton: "/media/work/nommi/stills/feed_skeleton.jpg",
 } as const;
 
 const SCENE: Record<
