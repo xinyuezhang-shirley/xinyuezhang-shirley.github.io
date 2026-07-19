@@ -164,9 +164,12 @@
   position: relative;
   display: block;
   width: 100%;
+  margin: 0;
   padding: 0;
   border: none;
   background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
   cursor: zoom-in;
   text-align: left;
   transform: rotate(var(--print-rot));
@@ -180,13 +183,13 @@
   cursor: default;
 }
 
+/* No paper mat / white frame — the photograph is the object */
 .photo-print__paper {
   position: relative;
-  background: #f3f0e8;
-  padding: 0.28rem;
-  box-shadow:
-    0 1px 2px rgba(40, 36, 28, 0.12),
-    0 8px 22px rgba(40, 36, 28, 0.14);
+  display: block;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
   transition:
     box-shadow var(--pb-dur) var(--pb-ease),
     transform var(--pb-dur) var(--pb-ease);
@@ -194,9 +197,14 @@
 
 .photo-print__img-wrap {
   position: relative;
+  display: block;
   overflow: hidden;
   line-height: 0;
   background: transparent;
+  box-shadow:
+    0 1px 2px rgba(40, 36, 28, 0.16),
+    0 10px 28px rgba(40, 36, 28, 0.18);
+  transition: box-shadow var(--pb-dur) var(--pb-ease);
 }
 
 .photo-print__img {
@@ -225,13 +233,11 @@
   text-shadow: 0 0 12px var(--pb-paper);
 }
 
-.photo-print:hover .photo-print__paper,
-.photo-print:focus-visible .photo-print__paper {
+.photo-print:hover .photo-print__img-wrap,
+.photo-print:focus-visible .photo-print__img-wrap {
   box-shadow:
-    0 2px 4px var(--pb-shadow-deep),
-    0 14px 36px var(--pb-shadow-deep),
-    0 0 0 1px var(--pb-line);
-  transform: translateY(-3px);
+    0 2px 6px rgba(40, 36, 28, 0.22),
+    0 16px 40px rgba(40, 36, 28, 0.28);
 }
 
 .photo-print:hover,
@@ -250,7 +256,7 @@
   outline: none;
 }
 
-.photo-print:focus-visible .photo-print__paper {
+.photo-print:focus-visible .photo-print__img-wrap {
   outline: 2px solid var(--pb-ink);
   outline-offset: 3px;
 }
@@ -262,11 +268,6 @@
 .photo-print--md { width: clamp(12rem, 30vw, 20rem); }
 .photo-print--lg { width: clamp(16rem, 42vw, 28rem); }
 .photo-print--xl { width: clamp(18rem, 58vw, 38rem); }
-
-.photo-print--tiny .photo-print__paper,
-.photo-print--proof .photo-print__paper {
-  padding: 0.28rem;
-}
 
 /* Natural aspect ratios — prints keep their own proportions */
 .photo-print__img-wrap--landscape,
