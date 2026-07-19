@@ -1,0 +1,82 @@
+.contact-section {
+  width: 100%;
+  border-top: 1px solid #e3dfd4;
+  margin-top: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%, rgba(232, 220, 200, 0.35), transparent 55%),
+    #faf9f6;
+}
+
+.contact-section__inner {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: clamp(2.5rem, 6vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem);
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+@media (min-width: 768px) {
+  .contact-section__inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+}
+
+.contact-section__eyebrow {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8c887e;
+  margin: 0 0 0.65rem;
+}
+
+.contact-section__lede {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.4;
+  color: #56534c;
+  margin: 0;
+  max-width: 22rem;
+}
+
+.contact-section__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-section__private {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e3dfd4;
+}
+
+.contact-section__public {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.75rem;
+}
+
+.contact-section__link {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.875rem;
+  color: #56534c;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-section__link:hover {
+  color: #8a3324;
+  border-bottom-color: #8a3324;
+}
+
+.contact-section__link:focus-visible {
+  outline: 1px solid #16140f;
+  outline-offset: 3px;
+}

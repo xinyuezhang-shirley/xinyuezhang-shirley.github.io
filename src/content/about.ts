@@ -1,3 +1,8 @@
+/**
+ * About — personal statement.
+ * Words only; the page exists to be read.
+ */
+
 export const philosophy = {
   statement:
     "I build systems that help people understand information — sometimes that's an AI agent, sometimes a research pipeline, sometimes a poem.",

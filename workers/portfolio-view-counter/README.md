@@ -6,9 +6,9 @@ Private session counter for the GitHub Pages portfolio. The frontend posts once 
 
 | Piece | Role |
 | --- | --- |
-| Portfolio (`VITE_VIEW_COUNTER_ENDPOINT`) | Silent `POST /view` once per `sessionStorage` key |
-| Cloudflare Worker | CORS, rate limit, increment, threshold email |
-| Cloudflare D1 | Atomic `total` + `last_notified` |
+| Portfolio (`VITE_VIEW_COUNTER_ENDPOINT`) | Silent `POST /view` once per `sessionStorage` key; `POST /event` for `contact_reveal` |
+| Cloudflare Worker | CORS, rate limit, increment, threshold email, event store |
+| Cloudflare D1 | Atomic `total` + `last_notified`; optional `events` rows |
 | Resend | Transactional email |
 
 Secrets never ship in the frontend bundle.

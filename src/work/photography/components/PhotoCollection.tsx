@@ -1,8 +1,5 @@
 import type { PhotoCollectionData, PhotoPrint } from "../collections";
-import { ContactSheet } from "./ContactSheet";
-import { EditorialCluster } from "./EditorialCluster";
-import { FloatingPrint } from "./FloatingPrint";
-import { PhotoNote } from "./PhotoCaption";
+import { FloatingPrint, type PrintPose } from "./FloatingPrint";
 import { useInView } from "./useInView";
 
 interface PhotoCollectionProps {
@@ -16,260 +13,370 @@ function byId(prints: PhotoPrint[], id: string): PhotoPrint {
   return found;
 }
 
+const stripPoses: PrintPose[] = [
+  "tilt-l-soft",
+  "drop",
+  "tilt-r-soft",
+  "lift",
+  "tilt-l-soft",
+  "nudge-r",
+  "tilt-r-soft",
+  "drop",
+  "tilt-l-soft",
+  "lift",
+  "nudge-l",
+  "tilt-r-soft",
+];
+
+function OffsetStrip({
+  prints,
+  onOpen,
+  className = "",
+}: {
+  prints: PhotoPrint[];
+  onOpen: (src: string) => void;
+  className?: string;
+}) {
+  if (!prints.length) return null;
+  return (
+    <div className={`photo-strip photo-strip--alive ${className}`.trim()}>
+      {prints.map((print, i) => (
+        <FloatingPrint
+          key={print.id}
+          print={print}
+          role="sequence"
+          pose={stripPoses[i % stripPoses.length]}
+          onOpen={onOpen}
+          delayMs={40 + i * 40}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function PhotoCollection({ collection, onOpen }: PhotoCollectionProps) {
-  const { ref, inView } = useInView<HTMLElement>(0.08);
+  const { ref, inView } = useInView<HTMLElement>(0.06);
   const toneClass = collection.tone ? `photo-collection--${collection.tone}` : "";
   const p = collection.prints;
+  const [hero, ...rest] = p;
 
   return (
     <section
       ref={ref}
-      className={`photo-collection ${toneClass}`.trim()}
+      className={`photo-collection photo-collection--${collection.id} ${toneClass}`.trim()}
       aria-labelledby={`photo-col-${collection.id}`}
       data-in={inView ? "1" : "0"}
     >
-      <header className="photo-collection__head">
-        <h2 id={`photo-col-${collection.id}`} className="photo-collection__title">
-          {collection.title}
-        </h2>
-        <p className="photo-collection__whisper">{collection.whisper}</p>
-      </header>
+      <div className="photo-rail">
+        <header className="photo-collection__head">
+          <h2 id={`photo-col-${collection.id}`} className="photo-collection__title">
+            {collection.title}
+          </h2>
+          <p className="photo-collection__rationale">{collection.rationale}</p>
+        </header>
 
-      {collection.layout === "glass-stack" ? (
-        <EditorialCluster className="layout-glass">
-          <div className="layout-glass__anchor">
-            <FloatingPrint print={byId(p, "portal")} onOpen={onOpen} priority />
-          </div>
-          <div className="layout-glass__mirror">
-            <FloatingPrint print={byId(p, "hello")} onOpen={onOpen} delayMs={80} />
-          </div>
-          <div className="layout-glass__window">
-            <FloatingPrint print={byId(p, "coca-cola")} onOpen={onOpen} delayMs={140} />
-          </div>
-          <div className="layout-glass__note">
-            <PhotoNote>Windows. Fog. A hand asking to be seen.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
-
-      {collection.layout === "macro-sheet" ? (
-        <EditorialCluster className="layout-macro">
-          <div className="layout-macro__anchor">
-            <FloatingPrint print={byId(p, "cabbage")} onOpen={onOpen} priority />
-            <div style={{ marginTop: "1.25rem" }}>
-              <PhotoNote>Still life, if you lean in.</PhotoNote>
-            </div>
-          </div>
-          <div>
-            <ContactSheet
-              prints={[byId(p, "pepper"), byId(p, "bok-choy"), byId(p, "cupcake")]}
+        {/* Through Glass — wide triangular collage (hero UL, mirror UR, cola LC) */}
+        {collection.id === "through-glass" ? (
+          <div className="collage collage--satellite">
+            <FloatingPrint
+              print={byId(p, "portal")}
+              role="hero"
+              pose="none"
               onOpen={onOpen}
-              label="Proofs"
-              sheetClassName="layout-macro__sheet"
+              priority
+              className="collage__main"
+            />
+            <FloatingPrint
+              print={byId(p, "hello")}
+              role="support"
+              pose="tilt-r-soft"
+              onOpen={onOpen}
+              delayMs={90}
+              className="collage__sat"
+            />
+            <FloatingPrint
+              print={byId(p, "coca-cola")}
+              role="sequence"
+              pose="none"
+              onOpen={onOpen}
+              delayMs={140}
+              className="collage__trail"
             />
           </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
 
-      {collection.layout === "coastal" ? (
-        <EditorialCluster className="layout-coastal">
-          <div className="layout-coastal__anchor">
-            <FloatingPrint print={byId(p, "michelle-beach")} onOpen={onOpen} priority />
+        {/* Salt Light — uneven 60/40 with vertical tension */}
+        {collection.id === "salt-light" ? (
+          <div className="collage collage--uneven">
+            <FloatingPrint
+              print={byId(p, "michelle-beach")}
+              role="hero"
+              pose="tilt-l-soft"
+              onOpen={onOpen}
+              priority
+              className="collage__wide"
+            />
+            <FloatingPrint
+              print={byId(p, "shiny-beach")}
+              role="support"
+              pose="tilt-r"
+              onOpen={onOpen}
+              delayMs={80}
+              className="collage__narrow"
+            />
           </div>
-          <div className="layout-coastal__second">
-            <FloatingPrint print={byId(p, "shiny-beach")} onOpen={onOpen} delayMs={90} />
-          </div>
-          <div className="layout-coastal__note">
-            <PhotoNote warm>Salt. Glitter. Someone facing the water.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
 
-      {collection.layout === "festival-pin" ? (
-        <EditorialCluster className="layout-festival">
-          <div className="layout-festival__anchor">
-            <FloatingPrint print={byId(p, "characters")} onOpen={onOpen} priority />
+        {/* One Roll — tilted hero, then offset film strip */}
+        {collection.id === "one-roll" && hero ? (
+          <div className="collage collage--film">
+            <FloatingPrint
+              print={hero}
+              role="hero"
+              pose="tilt-l-soft"
+              onOpen={onOpen}
+              priority
+              className="collage__film-hero"
+            />
+            <OffsetStrip prints={rest} onOpen={onOpen} className="collage__film-strip" />
           </div>
-          <div className="layout-festival__pin">
-            <FloatingPrint print={byId(p, "dragon-boat")} onOpen={onOpen} delayMs={100} />
-          </div>
-          <div className="layout-festival__note">
-            <PhotoNote warm>Night. Paper. Passing silhouettes.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
 
-      {collection.layout === "rhythm-strip" ? (
-        <EditorialCluster className="layout-rhythm">
-          <div className="layout-rhythm__color">
-            <FloatingPrint print={byId(p, "red-dancers")} onOpen={onOpen} priority />
+        {/* Shore Light — hero overhang + stepped strip */}
+        {collection.id === "shore-light" && hero ? (
+          <div className="collage collage--overhang">
+            <FloatingPrint
+              print={hero}
+              role="hero"
+              pose="tilt-r-soft"
+              onOpen={onOpen}
+              priority
+              className="collage__overhang-hero"
+            />
+            <OffsetStrip prints={rest} onOpen={onOpen} className="collage__step-strip" />
           </div>
-          <ContactSheet
-            prints={[
-              byId(p, "dance-again"),
-              byId(p, "dance-cluster"),
-              byId(p, "dance-leap"),
-              byId(p, "dance-trail"),
-              byId(p, "dance-arc"),
-            ]}
-            onOpen={onOpen}
-            label="Contact — stage"
-          />
-          <div className="layout-rhythm__note">
-            <PhotoNote>Same breath. Different frames.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
 
-      {collection.layout === "suspended" ? (
-        <EditorialCluster className="layout-suspended">
-          <div className="layout-suspended__anchor">
-            <FloatingPrint print={byId(p, "pool-jump")} onOpen={onOpen} priority />
+        {/* Close Looking — hero + stacked pair overlapping edge */}
+        {collection.id === "close-looking" ? (
+          <div className="collage collage--stack">
+            <FloatingPrint
+              print={byId(p, "cabbage")}
+              role="hero"
+              pose="tilt-l-soft"
+              onOpen={onOpen}
+              priority
+              className="collage__stack-main"
+            />
+            <div className="collage__stack-side">
+              <FloatingPrint
+                print={byId(p, "pepper")}
+                role="support"
+                pose="tilt-r"
+                onOpen={onOpen}
+                delayMs={70}
+              />
+              <FloatingPrint
+                print={byId(p, "bok-choy")}
+                role="sequence"
+                pose="tilt-l"
+                onOpen={onOpen}
+                delayMs={120}
+              />
+              <FloatingPrint
+                print={byId(p, "cupcake")}
+                role="sequence"
+                pose="drop"
+                onOpen={onOpen}
+                delayMs={160}
+              />
+            </div>
           </div>
-          <div className="layout-suspended__a">
-            <FloatingPrint print={byId(p, "butterfly")} onOpen={onOpen} delayMs={80} />
-          </div>
-          <div className="layout-suspended__b">
-            <FloatingPrint print={byId(p, "car-blur")} onOpen={onOpen} delayMs={140} />
-          </div>
-          <div className="layout-suspended__c">
-            <FloatingPrint print={byId(p, "blurry-petals")} onOpen={onOpen} delayMs={200} />
-          </div>
-          <div className="layout-suspended__note">
-            <PhotoNote>Held in air — then gone.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
 
-      {collection.layout === "city-scatter" ? (
-        <EditorialCluster className="layout-city">
-          <div className="layout-city__train">
-            <FloatingPrint print={byId(p, "train")} onOpen={onOpen} priority />
+        {/* Lantern Night — support crossing hero corner */}
+        {collection.id === "lantern-night" ? (
+          <div className="collage collage--cross">
+            <FloatingPrint
+              print={byId(p, "characters")}
+              role="hero"
+              pose="tilt-l-soft"
+              onOpen={onOpen}
+              priority
+              className="collage__cross-main"
+            />
+            <FloatingPrint
+              print={byId(p, "dragon-boat")}
+              role="support"
+              pose="tilt-r"
+              onOpen={onOpen}
+              delayMs={100}
+              className="collage__cross-pin"
+            />
           </div>
-          <div className="layout-city__texture">
-            <FloatingPrint print={byId(p, "texture")} onOpen={onOpen} delayMs={90} />
-          </div>
-          <div className="layout-city__anna">
-            <FloatingPrint print={byId(p, "anna")} onOpen={onOpen} delayMs={150} />
-          </div>
-          <div className="layout-city__note">
-            <PhotoNote>Rust. Fence. Looking down at a camera.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
 
-      {collection.layout === "facing-wall" ? (
-        <EditorialCluster className="layout-facing">
-          <div className="layout-facing__molly">
-            <FloatingPrint print={byId(p, "molly")} onOpen={onOpen} priority />
+        {/* Raye — left hero, stacked pair, then offset strip */}
+        {collection.id === "raye" ? (
+          <div className="collage collage--pair-stack">
+            <div className="collage__pair-top">
+              <FloatingPrint
+                print={byId(p, "raye-02")}
+                role="hero"
+                pose="tilt-l-soft"
+                onOpen={onOpen}
+                priority
+                className="collage__pair-main"
+              />
+              <div className="collage__pair-stack">
+                <FloatingPrint
+                  print={byId(p, "raye-06")}
+                  role="support"
+                  pose="tilt-r"
+                  onOpen={onOpen}
+                  delayMs={70}
+                />
+                <FloatingPrint
+                  print={byId(p, "raye-01")}
+                  role="sequence"
+                  pose="tilt-l"
+                  onOpen={onOpen}
+                  delayMs={120}
+                />
+              </div>
+            </div>
+            <OffsetStrip
+              prints={[byId(p, "raye-03"), byId(p, "raye-04"), byId(p, "raye-05")]}
+              onOpen={onOpen}
+            />
           </div>
-          <div className="layout-facing__people">
-            <FloatingPrint print={byId(p, "we-the-people")} onOpen={onOpen} delayMs={70} />
-          </div>
-          <div className="layout-facing__shutter">
-            <FloatingPrint print={byId(p, "portrait-shutter")} onOpen={onOpen} delayMs={120} />
-          </div>
-          <div className="layout-facing__deer">
-            <FloatingPrint print={byId(p, "deer")} onOpen={onOpen} delayMs={160} />
-          </div>
-          <div className="layout-facing__hero">
-            <FloatingPrint print={byId(p, "hero-portrait")} onOpen={onOpen} delayMs={200} />
-          </div>
-          <div className="layout-facing__note">
-            <PhotoNote>Light on a face. Someone looking back.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
 
-      {collection.layout === "film-roll" ? (
-        <EditorialCluster className="layout-film">
-          <div className="layout-film__anchor">
-            <FloatingPrint print={p[0]} onOpen={onOpen} priority />
+        {/* Bodies — hero then diagonal path strip */}
+        {collection.id === "bodies-keep-time" && hero ? (
+          <div className="collage collage--path">
+            <FloatingPrint
+              print={hero}
+              role="hero"
+              pose="tilt-r-soft"
+              onOpen={onOpen}
+              priority
+              className="collage__path-hero"
+            />
+            <OffsetStrip prints={rest} onOpen={onOpen} className="collage__path-strip" />
           </div>
-          <div className="layout-film__pair">
-            {p.slice(1, 3).map((print, i) => (
+        ) : null}
+
+        {/* Suspended — hero with overlapping motion studies */}
+        {collection.id === "suspended" ? (
+          <div className="collage collage--overlap-row">
+            <FloatingPrint
+              print={byId(p, "pool-jump")}
+              role="hero"
+              pose="tilt-l-soft"
+              onOpen={onOpen}
+              priority
+              className="collage__overlap-hero"
+            />
+            <div className="collage__overlap-band">
+              <FloatingPrint
+                print={byId(p, "butterfly")}
+                role="sequence"
+                pose="tilt-r"
+                onOpen={onOpen}
+                delayMs={60}
+              />
+              <FloatingPrint
+                print={byId(p, "car-blur")}
+                role="sequence"
+                pose="lift"
+                onOpen={onOpen}
+                delayMs={110}
+              />
+              <FloatingPrint
+                print={byId(p, "blurry-petals")}
+                role="sequence"
+                pose="tilt-l"
+                onOpen={onOpen}
+                delayMs={160}
+              />
+            </div>
+          </div>
+        ) : null}
+
+        {/* City Lines — stepped diagonal triptych */}
+        {collection.id === "city-lines" ? (
+          <div className="collage collage--steps">
+            <FloatingPrint
+              print={byId(p, "train")}
+              role="frame"
+              pose="tilt-l"
+              onOpen={onOpen}
+              priority
+              className="collage__step collage__step--a"
+            />
+            <FloatingPrint
+              print={byId(p, "texture")}
+              role="frame"
+              pose="tilt-r-soft"
+              onOpen={onOpen}
+              delayMs={70}
+              className="collage__step collage__step--b"
+            />
+            <FloatingPrint
+              print={byId(p, "anna")}
+              role="frame"
+              pose="tilt-l-soft"
+              onOpen={onOpen}
+              delayMs={130}
+              className="collage__step collage__step--c"
+            />
+          </div>
+        ) : null}
+
+        {/* Stanford — full-bleed hero, then loose contact strip */}
+        {collection.id === "stanford" && hero ? (
+          <div className="collage collage--campus">
+            <FloatingPrint
+              print={hero}
+              role="hero"
+              pose="tilt-l-soft"
+              onOpen={onOpen}
+              priority
+              className="collage__campus-hero"
+            />
+            <OffsetStrip prints={rest} onOpen={onOpen} className="collage__campus-strip" />
+          </div>
+        ) : null}
+
+        {/* Facing — loose closing contact sheet */}
+        {collection.id === "facing" ? (
+          <div className="collage collage--loose-sheet">
+            {p.map((print, i) => (
               <FloatingPrint
                 key={print.id}
                 print={print}
+                role="frame"
+                pose={stripPoses[i % stripPoses.length]}
                 onOpen={onOpen}
-                delayMs={60 + i * 50}
+                priority={i === 0}
+                delayMs={i * 50}
+                className={`collage__loose collage__loose--${i + 1}`}
               />
             ))}
           </div>
-          <ContactSheet
-            prints={p.slice(3).map((print) => ({ ...print, size: print.size ?? "proof" }))}
-            onOpen={onOpen}
-            label={
-              collection.id === "one-roll"
-                ? "Contact — film"
-                : collection.id === "shore-light"
-                  ? "Contact — shore"
-                  : "Contact"
-            }
-            sheetClassName="layout-film__sheet"
-          />
-          <div className="layout-film__note">
-            <PhotoNote warm>{collection.whisper}</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
 
-      {collection.layout === "concert-haze" ? (
-        <EditorialCluster className="layout-concert">
-          <div className="layout-concert__anchor">
-            <FloatingPrint print={byId(p, "raye-02")} onOpen={onOpen} priority />
+        {/* Fallback for any other layout */}
+        {!["through-glass", "salt-light", "one-roll", "shore-light", "close-looking", "lantern-night", "raye", "bodies-keep-time", "suspended", "city-lines", "stanford", "facing"].includes(
+          collection.id
+        ) && hero ? (
+          <div className="collage collage--film">
+            <FloatingPrint print={hero} role="hero" pose="tilt-l-soft" onOpen={onOpen} priority />
+            <OffsetStrip prints={rest} onOpen={onOpen} />
           </div>
-          <div className="layout-concert__second">
-            <FloatingPrint print={byId(p, "raye-06")} onOpen={onOpen} delayMs={90} />
-          </div>
-          <div className="layout-concert__third">
-            <FloatingPrint print={byId(p, "raye-01")} onOpen={onOpen} delayMs={140} />
-          </div>
-          <ContactSheet
-            prints={[byId(p, "raye-03"), byId(p, "raye-04"), byId(p, "raye-05")]}
-            onOpen={onOpen}
-            label="Contact — Raye"
-            sheetClassName="layout-concert__sheet"
-          />
-          <div className="layout-concert__note">
-            <PhotoNote>From the floor. Purple air.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
-
-      {collection.layout === "campus-quad" ? (
-        <EditorialCluster className="layout-campus">
-          <div className="layout-campus__anchor">
-            <FloatingPrint print={byId(p, "stanford-11")} onOpen={onOpen} priority />
-          </div>
-          <div className="layout-campus__row">
-            <FloatingPrint print={byId(p, "stanford-01")} onOpen={onOpen} delayMs={70} />
-            <FloatingPrint print={byId(p, "stanford-10")} onOpen={onOpen} delayMs={110} />
-            <FloatingPrint print={byId(p, "stanford-13")} onOpen={onOpen} delayMs={150} />
-          </div>
-          <div className="layout-campus__modern">
-            <FloatingPrint print={byId(p, "stanford-04")} onOpen={onOpen} delayMs={120} />
-            <FloatingPrint print={byId(p, "stanford-06")} onOpen={onOpen} delayMs={160} />
-            <FloatingPrint print={byId(p, "stanford-12")} onOpen={onOpen} delayMs={200} />
-          </div>
-          <ContactSheet
-            prints={[
-              byId(p, "stanford-02"),
-              byId(p, "stanford-03"),
-              byId(p, "stanford-05"),
-              byId(p, "stanford-07"),
-              byId(p, "stanford-08"),
-              byId(p, "stanford-09"),
-            ]}
-            onOpen={onOpen}
-            label="Contact — campus"
-            sheetClassName="layout-campus__sheet"
-          />
-          <div className="layout-campus__note">
-            <PhotoNote warm>Stone remembers the sun.</PhotoNote>
-          </div>
-        </EditorialCluster>
-      ) : null}
+        ) : null}
+      </div>
     </section>
   );
 }

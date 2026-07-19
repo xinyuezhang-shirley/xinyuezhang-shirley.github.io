@@ -200,21 +200,21 @@ export const catalogue: CatalogueEntry[] = [
   }),
   entry("age-younger", {
     plate: "18",
-    width: 2360,
-    height: 1640,
-    alt: "Age Younger — Vernon in two lights, one tearlit at a microphone",
-    lore: [
-      "A stage still bright enough to cry.",
-      "The quieter face that follows.",
-    ],
+    width: 768,
+    height: 1024,
+    alt: "Age Younger — purple-lit portrait against black",
+    lore: ["Looking younger in the dark.", "Still lit from the side."],
     edition: "Fan study · 2026",
   }),
   entry("my-bside", {
     plate: "19",
-    width: 768,
-    height: 1024,
-    alt: "My B-Side — purple-lit portrait against black",
-    lore: ["Still playing when the room goes dark."],
+    width: 2360,
+    height: 1640,
+    alt: "My B-Side — Vernon in two lights, one tearlit at a microphone",
+    lore: [
+      "A stage still bright enough to cry.",
+      "The quieter face that follows.",
+    ],
     edition: "Fan study · 2026",
   }),
   entry("romemok", {

@@ -2,40 +2,34 @@ import { useEffect, useState, type RefObject } from "react";
 import { motion } from "framer-motion";
 
 interface Fragment {
-  x: number; // position on screen, % of hero width
-  y: number; // position on screen, % of hero height
-  d: number; // diameter, px
+  x: number;
+  y: number;
+  d: number;
   opacity: number;
   blur?: number;
+  /** paint under the portrait plane */
+  behindPhoto?: boolean;
 }
 
-// Hand-placed: dense right where the photo's edge sits, thinning out into the
-// whitespace, with a few stragglers traveling deep into the text region.
-// Curated diameters — small 20-30, medium 40-70, large 80-120, one oversized.
+/** Intentional diagonal orbit — fewer discs, print-like spacing. */
 const fragments: Fragment[] = [
-  { x: 44, y: 8, d: 35, opacity: 0.85 },
-  { x: 48, y: 18, d: 90, opacity: 0.95 },
-  { x: 56, y: 12, d: 60, opacity: 0.9 },
-  { x: 40, y: 30, d: 45, opacity: 0.8 },
-  { x: 52, y: 40, d: 120, opacity: 1 },
-  { x: 60, y: 34, d: 50, opacity: 0.9 },
-  { x: 35, y: 50, d: 28, opacity: 0.65, blur: 1 },
-  { x: 46, y: 60, d: 70, opacity: 0.85 },
-  { x: 58, y: 66, d: 40, opacity: 0.85 },
-  { x: 50, y: 78, d: 55, opacity: 0.85 },
-  { x: 62, y: 80, d: 30, opacity: 0.8 },
-  { x: 28, y: 22, d: 25, opacity: 0.55, blur: 1.5 },
-  { x: 22, y: 68, d: 24, opacity: 0.5, blur: 1.5 },
-  { x: 14, y: 45, d: 20, opacity: 0.4, blur: 2 },
-  { x: 32, y: 86, d: 26, opacity: 0.45, blur: 1.5 },
+  { x: 58, y: 14, d: 96, opacity: 0.92, behindPhoto: true },
+  { x: 49, y: 28, d: 58, opacity: 0.78 },
+  { x: 42, y: 42, d: 118, opacity: 0.95 },
+  { x: 36, y: 56, d: 36, opacity: 0.42, blur: 1.5 },
+  { x: 52, y: 62, d: 72, opacity: 0.7, behindPhoto: true },
+  { x: 30, y: 72, d: 48, opacity: 0.55, blur: 0.5 },
+  { x: 22, y: 38, d: 26, opacity: 0.28, blur: 2 },
+  { x: 46, y: 84, d: 40, opacity: 0.5, blur: 1 },
 ];
 
 interface FloatingCirclesProps {
   heroRef: RefObject<HTMLDivElement>;
   photoRef: RefObject<HTMLDivElement>;
   photoSrc: string;
-  objectPosition: { x: number; y: number }; // %, must match the <img>'s object-position
+  objectPosition: { x: number; y: number };
   naturalSize: { width: number; height: number };
+  layer?: "front" | "back";
 }
 
 interface Geometry {
@@ -43,11 +37,18 @@ interface Geometry {
   heroH: number;
   bgW: number;
   bgH: number;
-  imageOriginX: number; // hero-space px where the (scaled) source image's top-left corner sits
+  imageOriginX: number;
   imageOriginY: number;
 }
 
-export function FloatingCircles({ heroRef, photoRef, photoSrc, objectPosition, naturalSize }: FloatingCirclesProps) {
+export function FloatingCircles({
+  heroRef,
+  photoRef,
+  photoSrc,
+  objectPosition,
+  naturalSize,
+  layer = "front",
+}: FloatingCirclesProps) {
   const [geo, setGeo] = useState<Geometry | null>(null);
 
   useEffect(() => {
@@ -59,7 +60,6 @@ export function FloatingCircles({ heroRef, photoRef, photoSrc, objectPosition, n
       const heroRect = hero.getBoundingClientRect();
       const photoRect = photo.getBoundingClientRect();
 
-      // object-fit: cover scale — same scale the real <img> renders at
       const scale = Math.max(photoRect.width / naturalSize.width, photoRect.height / naturalSize.height);
       const bgW = naturalSize.width * scale;
       const bgH = naturalSize.height * scale;
@@ -82,9 +82,17 @@ export function FloatingCircles({ heroRef, photoRef, photoSrc, objectPosition, n
 
   if (!geo) return null;
 
+  const items = fragments.filter((f) => (layer === "back" ? f.behindPhoto : !f.behindPhoto));
+  if (!items.length) return null;
+
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {fragments.map((f, i) => {
+    <div
+      className={`absolute inset-0 overflow-hidden pointer-events-none ${
+        layer === "back" ? "z-0" : "z-10"
+      }`}
+      aria-hidden="true"
+    >
+      {items.map((f, i) => {
         const r = f.d / 2;
         const heroX = (f.x / 100) * geo.heroW;
         const heroY = (f.y / 100) * geo.heroH;
@@ -93,7 +101,7 @@ export function FloatingCircles({ heroRef, photoRef, photoSrc, objectPosition, n
 
         return (
           <motion.div
-            key={i}
+            key={`${layer}-${i}-${f.x}-${f.y}-${f.d}`}
             className="absolute rounded-full"
             style={{
               left: `${f.x}%`,
@@ -109,14 +117,14 @@ export function FloatingCircles({ heroRef, photoRef, photoSrc, objectPosition, n
               filter: f.blur ? `blur(${f.blur}px)` : undefined,
             }}
             animate={{
-              x: [0, (i % 3) - 1, 0, (i % 2 === 0 ? -1 : 1) * 1.5, 0],
-              y: [0, (i % 4) - 1.5, 0, (i % 3 === 0 ? -1 : 1) * 2, 0],
+              x: [0, i % 2 === 0 ? 0.8 : -0.8, 0],
+              y: [0, (i % 3 === 0 ? -1 : 1) * 1.1, 0],
             }}
             transition={{
-              duration: 26 + (i % 8) * 2,
+              duration: 32 + (i % 5) * 3,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: (i % 9) * 0.8,
+              delay: (i % 6) * 1.1,
             }}
           />
         );

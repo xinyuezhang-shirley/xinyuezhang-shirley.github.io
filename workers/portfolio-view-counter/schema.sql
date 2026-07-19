@@ -11,3 +11,12 @@ CREATE TABLE IF NOT EXISTS rate_limits (
   hits INTEGER NOT NULL DEFAULT 0,
   window_start INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  event TEXT NOT NULL,
+  type TEXT,
+  created_at INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS events_event_created ON events (event, created_at);

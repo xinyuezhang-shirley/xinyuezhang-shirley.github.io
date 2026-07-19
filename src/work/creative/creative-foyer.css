@@ -1,0 +1,449 @@
+/* Creative foyer — exhibition entrances, not equal nav cards. */
+
+.creative-foyer {
+  --fy-paper: #faf9f6;
+  --fy-ink: #16140f;
+  --fy-soft: #56534c;
+  --fy-faint: #8c887e;
+  --fy-line: #e3dfd4;
+  --fy-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  color: var(--fy-ink);
+  overflow-x: clip;
+}
+
+.creative-foyer__rail {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 4vw, 2.5rem) clamp(4rem, 10vw, 7rem);
+}
+
+/* —— Statement —— */
+.creative-foyer__head {
+  max-width: 48rem;
+  margin-bottom: clamp(3.5rem, 9vw, 6.5rem);
+  position: relative;
+}
+
+.creative-foyer__eyebrow {
+  display: block;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fy-soft);
+  margin-bottom: 1.5rem;
+}
+
+.creative-foyer__statement {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(2.75rem, 8vw, 5.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--fy-ink);
+  margin: 0;
+  max-width: 14ch;
+}
+
+.creative-foyer__statement em {
+  font-style: italic;
+  font-weight: 300;
+  display: inline-block;
+  margin-left: 0.08em;
+}
+
+.creative-foyer__rule {
+  width: min(6rem, 22vw);
+  height: 1px;
+  background: var(--fy-ink);
+  margin: 1.75rem 0 1.25rem;
+}
+
+.creative-foyer__deck {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--fy-soft);
+  max-width: 26rem;
+  margin: 0;
+}
+
+.creative-foyer__colophon {
+  margin-top: 1.75rem;
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fy-faint);
+}
+
+/* —— Rooms —— */
+.creative-foyer__rooms {
+  display: grid;
+  gap: clamp(3.5rem, 8vw, 5.5rem);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .creative-foyer__rooms {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    min-height: 28rem;
+  }
+}
+
+.foyer-room {
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  min-height: 16rem;
+}
+
+.foyer-room:hover,
+.foyer-room:focus-visible {
+  opacity: 1;
+}
+
+.foyer-room:focus-visible {
+  outline: 2px solid var(--fy-ink);
+  outline-offset: 6px;
+}
+
+/* Uneven foyer rhythm */
+@media (min-width: 900px) {
+  .foyer-room--art {
+    margin-top: 0;
+    padding-right: 0.5rem;
+  }
+
+  .foyer-room--photo {
+    margin-top: 3.5rem;
+  }
+
+  .foyer-room--poetry {
+    margin-top: 1.25rem;
+    margin-left: 0.75rem;
+  }
+}
+
+/* —— Shared label block —— */
+.foyer-room__meta {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fy-faint);
+  margin: 0 0 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+}
+
+.foyer-room__title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.85rem;
+  transition: color 0.45s var(--fy-ease);
+}
+
+.foyer-room:hover .foyer-room__title,
+.foyer-room:focus-visible .foyer-room__title {
+  color: #8a3324;
+}
+
+.foyer-room__desc {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--fy-soft);
+  margin: 0;
+  max-width: 22rem;
+}
+
+.foyer-room__enter {
+  margin-top: 1.25rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fy-faint);
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.45s var(--fy-ease),
+    transform 0.45s var(--fy-ease),
+    color 0.45s var(--fy-ease);
+}
+
+.foyer-room:hover .foyer-room__enter,
+.foyer-room:focus-visible .foyer-room__enter {
+  opacity: 1;
+  transform: translateY(0);
+  color: var(--fy-soft);
+}
+
+/* —— ART room: illustration bleed —— */
+.foyer-room--art .foyer-room__stage {
+  position: relative;
+  height: clamp(11rem, 22vw, 14rem);
+  margin: 0 0 1.5rem -0.75rem;
+  width: calc(100% + 1.5rem);
+}
+
+.foyer-room--art .foyer-bleed {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 72%;
+  overflow: hidden;
+  background: #efece8;
+}
+
+.foyer-room--art .foyer-bleed img {
+  width: 140%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 42% 28%;
+  display: block;
+  opacity: 0.92;
+  transition: transform 0.7s var(--fy-ease), opacity 0.5s var(--fy-ease);
+}
+
+.foyer-room--art .foyer-swatch {
+  position: absolute;
+  right: 8%;
+  bottom: 12%;
+  width: 28%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(8px, 10px) rotate(1.2deg);
+  transition:
+    opacity 0.55s var(--fy-ease),
+    transform 0.55s var(--fy-ease);
+  z-index: 2;
+}
+
+.foyer-room--art .foyer-swatch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  display: block;
+}
+
+.foyer-room--art:hover .foyer-bleed img,
+.foyer-room--art:focus-visible .foyer-bleed img {
+  transform: translateX(-3%);
+  opacity: 1;
+}
+
+.foyer-room--art:hover .foyer-swatch,
+.foyer-room--art:focus-visible .foyer-swatch {
+  opacity: 0.95;
+  transform: translate(0, 0) rotate(0.8deg);
+}
+
+/* —— PHOTO room: print language —— */
+.foyer-room--photo .foyer-room__stage {
+  position: relative;
+  height: clamp(12rem, 24vw, 15.5rem);
+  margin: 0 -1rem 1.75rem;
+  width: calc(100% + 1.5rem);
+}
+
+.foyer-room--photo .foyer-print {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 78%;
+  height: 88%;
+  background: #f3f0e9;
+  padding: 8px 8px 10px;
+  box-shadow:
+    2px 4px 14px rgba(28, 27, 25, 0.08),
+    1px 2px 5px rgba(28, 27, 25, 0.05);
+  transform: rotate(-0.6deg);
+  z-index: 1;
+  transition: transform 0.6s var(--fy-ease);
+}
+
+.foyer-room--photo .foyer-print img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 38% 35%;
+  display: block;
+}
+
+.foyer-room--photo .foyer-contact {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 0.35rem;
+  width: 42%;
+  z-index: 2;
+  opacity: 0.55;
+  transform: translateY(6px) rotate(0.8deg);
+  transition:
+    opacity 0.55s var(--fy-ease),
+    transform 0.55s var(--fy-ease);
+}
+
+.foyer-room--photo .foyer-contact span {
+  flex: 1;
+  aspect-ratio: 3 / 4;
+  background: #f3f0e9;
+  padding: 4px;
+  box-shadow: 1px 2px 8px rgba(28, 27, 25, 0.08);
+  overflow: hidden;
+}
+
+.foyer-room--photo .foyer-contact img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.foyer-room--photo:hover .foyer-print,
+.foyer-room--photo:focus-visible .foyer-print {
+  transform: rotate(-0.3deg) translate(-2px, -3px);
+}
+
+.foyer-room--photo:hover .foyer-contact,
+.foyer-room--photo:focus-visible .foyer-contact {
+  opacity: 1;
+  transform: translateY(0) rotate(0.5deg);
+}
+
+.foyer-room--photo .foyer-room__title {
+  position: relative;
+  z-index: 3;
+  margin-top: -0.35rem;
+}
+
+/* —— POETRY room: typography spill —— */
+.foyer-room--poetry .foyer-room__stage {
+  position: relative;
+  min-height: clamp(10rem, 20vw, 13rem);
+  margin: 0 0 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.foyer-room--poetry .foyer-cn {
+  font-family: "Fraunces", "Songti SC", "Noto Serif SC", Georgia, serif;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  line-height: 1.55;
+  letter-spacing: 0.12em;
+  color: var(--fy-ink);
+  margin: 0;
+  max-width: 12em;
+  opacity: 0.88;
+}
+
+.foyer-room--poetry .foyer-cn span {
+  display: block;
+}
+
+.foyer-room--poetry .foyer-stanza {
+  position: absolute;
+  right: -0.5rem;
+  bottom: 0.25rem;
+  width: min(14rem, 85%);
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--fy-soft);
+  margin: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.55s var(--fy-ease),
+    transform 0.55s var(--fy-ease);
+}
+
+.foyer-room--poetry .foyer-annotate {
+  position: absolute;
+  left: 0;
+  top: -0.25rem;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--fy-faint);
+  transform: rotate(-2deg);
+  opacity: 0.7;
+}
+
+.foyer-room--poetry:hover .foyer-stanza,
+.foyer-room--poetry:focus-visible .foyer-stanza {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.foyer-room--poetry:hover .foyer-cn,
+.foyer-room--poetry:focus-visible .foyer-cn {
+  opacity: 1;
+}
+
+/* —— Mobile —— */
+@media (max-width: 899px) {
+  .foyer-room--art .foyer-room__stage,
+  .foyer-room--photo .foyer-room__stage {
+    margin-inline: 0;
+    width: 100%;
+  }
+
+  .foyer-room--photo .foyer-contact {
+    opacity: 0.85;
+    transform: rotate(0.4deg);
+  }
+
+  .foyer-room--art .foyer-swatch {
+    opacity: 0.7;
+    transform: rotate(0.6deg);
+  }
+
+  .foyer-room--poetry .foyer-stanza {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 1rem;
+    opacity: 0.85;
+    transform: none;
+  }
+
+  .foyer-room__enter {
+    opacity: 0.7;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .foyer-room--art .foyer-bleed img,
+  .foyer-room--art .foyer-swatch,
+  .foyer-room--photo .foyer-print,
+  .foyer-room--photo .foyer-contact,
+  .foyer-room--poetry .foyer-stanza,
+  .foyer-room__enter,
+  .foyer-room__title {
+    transition: none;
+  }
+
+  .foyer-room--art .foyer-swatch,
+  .foyer-room--photo .foyer-contact,
+  .foyer-room--poetry .foyer-stanza,
+  .foyer-room__enter {
+    opacity: 0.9;
+    transform: none;
+  }
+}

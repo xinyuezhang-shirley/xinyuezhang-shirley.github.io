@@ -5,6 +5,20 @@ export interface CaseFigure {
   caption: string;
 }
 
+export type WorkStatus =
+  | "Production"
+  | "Active"
+  | "Research"
+  | "Prototype"
+  | "Course Project"
+  | "Archive";
+
+export interface WorkRelation {
+  slug: string;
+  /** Quiet connector — e.g. "Related", "Built alongside" */
+  note?: string;
+}
+
 export interface WorkProject {
   slug: string;
   title: string;
@@ -27,6 +41,19 @@ export interface WorkProject {
   liveUrl?: string;
   githubUrl?: string;
   demoVideoUrl?: string;
+
+  /** Catalogue metadata — quiet index fields for the Work listing. */
+  catalogId?: string;
+  status?: WorkStatus;
+  type?: string;
+  year?: string;
+  duration?: string;
+  teamSize?: string;
+  discipline?: string[];
+  /** Short engineering signals shown under the teaser */
+  signals?: string[];
+  tools?: string[];
+  related?: WorkRelation[];
 }
 
 export interface Artwork {

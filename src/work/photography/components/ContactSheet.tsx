@@ -6,28 +6,26 @@ interface ContactSheetProps {
   onOpen?: (src: string) => void;
   label?: string;
   className?: string;
-  /** Defaults to the flexible rhythm strip; pass `layout-macro__sheet` for a 2× grid. */
-  sheetClassName?: string;
 }
 
-/** Dense strip of tiny proofs — not equal heroes. */
+/** Same-study grid — cells large enough to read, never decorative thumbnails. */
 export function ContactSheet({
   prints,
   onOpen,
-  label = "Contact",
+  label,
   className = "",
-  sheetClassName = "layout-rhythm__sheet",
 }: ContactSheetProps) {
   return (
-    <div className={className}>
-      {label ? <div className="photo-sheet-label">{label}</div> : null}
-      <div className={sheetClassName}>
+    <div className={`photo-sheet ${className}`.trim()}>
+      {label ? <p className="photo-sheet__label">{label}</p> : null}
+      <div className="photo-sheet__grid">
         {prints.map((print, i) => (
           <FloatingPrint
             key={print.id}
-            print={{ ...print, size: print.size ?? "proof" }}
+            print={print}
+            role="frame"
             onOpen={onOpen}
-            delayMs={i * 40}
+            delayMs={i * 35}
           />
         ))}
       </div>

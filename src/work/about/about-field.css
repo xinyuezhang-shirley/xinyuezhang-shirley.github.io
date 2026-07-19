@@ -1,0 +1,323 @@
+/**
+ * About — Representation Field × Specimens
+ * 12-column compositional field. Typography carries identity.
+ */
+
+.about-field {
+  --af-ink: #16140f;
+  --af-soft: #56534c;
+  --af-mute: #8c887e;
+  --af-paper: #faf9f6;
+  --af-line: #e3dfd4;
+  --af-accent: #8a3324;
+  --af-serif: "Fraunces", Georgia, serif;
+  --af-sans: "Inter", system-ui, sans-serif;
+
+  background: var(--af-paper);
+  color: var(--af-ink);
+  /* Active concept driven by React data attribute */
+}
+
+.about-field__board {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: clamp(2.25rem, 5vw, 3.5rem) clamp(1.25rem, 3.5vw, 3rem)
+    clamp(3.5rem, 8vw, 5.5rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(0.65rem, 1.4vw, 1.25rem);
+  row-gap: 0;
+}
+
+/* —— Blocks —— */
+.af-block {
+  min-width: 0;
+  padding-block: 1.15rem;
+  opacity: 1;
+  transition: opacity 0.45s ease;
+}
+
+.af-block.is-pending {
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .af-block {
+    transition: none;
+  }
+
+  .af-block.is-pending {
+    opacity: 1;
+  }
+}
+
+/* Opening — expansive, cols 1–11 */
+.af-block--open {
+  grid-column: 1 / 12;
+  padding-top: 0.5rem;
+  padding-bottom: 1.75rem;
+}
+
+.af-kicker {
+  font-family: var(--af-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--af-mute);
+  margin: 0 0 1.25rem;
+}
+
+.af-lede {
+  font-family: var(--af-serif);
+  font-weight: 300;
+  font-size: clamp(1.45rem, 2.6vw, 2.05rem);
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--af-ink);
+  margin: 0;
+  max-width: 22em; /* ~3–4 lines at desktop, still natural */
+  text-wrap: pretty;
+}
+
+/* Analytical body — start col 2, span ~6 → ~70ch */
+.af-block--body {
+  grid-column: 2 / 8;
+  padding-block: 1rem 1.35rem;
+}
+
+.af-prose {
+  font-family: var(--af-sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  letter-spacing: -0.006em;
+  color: var(--af-soft);
+  margin: 0;
+  max-width: 40rem; /* ~72ch */
+  text-wrap: pretty;
+}
+
+/* Instinct pause — only major pause; shifted span */
+.af-block--pause {
+  grid-column: 3 / 10;
+  padding-block: 2rem 2.15rem;
+}
+
+.af-pause {
+  font-family: var(--af-serif);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--af-ink);
+  margin: 0;
+  max-width: 28rem;
+  text-wrap: pretty;
+}
+
+/* Amateurism — second movement, not a new article */
+.af-block--essay-head {
+  grid-column: 3 / 10;
+  padding-top: 2.25rem;
+  padding-bottom: 0.35rem;
+}
+
+.af-essay-title {
+  font-family: var(--af-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--af-ink);
+  margin: 0 0 0.4rem;
+}
+
+.af-essay-note {
+  font-family: var(--af-sans);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--af-mute);
+  margin: 0;
+}
+
+.af-block--essay {
+  grid-column: 3 / 9;
+  padding-block: 0.85rem;
+}
+
+.af-block--essay-shift {
+  grid-column: 4 / 10;
+  padding-block: 0.85rem;
+}
+
+.af-block--close {
+  grid-column: 3 / 9;
+  padding-top: 0.85rem;
+  padding-bottom: 0.25rem;
+}
+
+.af-sign {
+  grid-column: 3 / 9;
+  font-family: var(--af-sans);
+  font-size: 0.8125rem;
+  color: var(--af-mute);
+  margin: 1.75rem 0 0;
+  padding: 0;
+}
+
+/* —— Concept anchors: invisible until activated —— */
+.af-anchor {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: inline;
+  cursor: default;
+  border-radius: 0;
+  transition:
+    color 0.35s ease,
+    opacity 0.35s ease,
+    font-weight 0.35s ease;
+}
+
+/* When a concept is active: only that family clarifies — no page-wide dimming */
+.about-field[data-concept="machine"] .af-anchor[data-concept="machine"],
+.about-field[data-concept="person"] .af-anchor[data-concept="person"],
+.about-field[data-concept="representation"] .af-anchor[data-concept="representation"],
+.about-field[data-concept="research"] .af-anchor[data-concept="research"],
+.about-field[data-concept="writing"] .af-anchor[data-concept="writing"],
+.about-field[data-concept="amateur"] .af-anchor[data-concept="amateur"] {
+  color: var(--af-ink);
+  font-weight: 500;
+}
+
+/* Touch / coarse: no cross-linking behavior styling hooks needed — JS gated */
+
+@media (max-width: 1024px) {
+  .af-block--open {
+    grid-column: 1 / 13;
+  }
+
+  .af-block--body {
+    grid-column: 1 / 10;
+  }
+
+  .af-block--pause {
+    grid-column: 2 / 12;
+  }
+
+  .af-block--essay-head,
+  .af-block--essay,
+  .af-block--close,
+  .af-sign {
+    grid-column: 2 / 12;
+  }
+
+  .af-block--essay-shift {
+    grid-column: 1 / 11;
+  }
+
+  .af-lede {
+    max-width: 20em;
+  }
+}
+
+/* Mobile: progression via scale, measure, and inset — not one blog column */
+@media (max-width: 768px) {
+  .about-field__board {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.15rem 3.25rem;
+    gap: 0;
+  }
+
+  .af-block {
+    width: 100%;
+    padding-block: 0.85rem;
+    box-sizing: border-box;
+  }
+
+  .af-block--open {
+    padding-bottom: 1.15rem;
+    padding-right: 0.5rem;
+  }
+
+  .af-lede {
+    font-size: 1.38rem;
+    line-height: 1.3;
+    max-width: 15.5em;
+  }
+
+  .af-block--body {
+    padding-left: 0.85rem;
+    padding-right: 0.25rem;
+  }
+
+  .af-block--body .af-prose {
+    max-width: 28rem;
+    font-size: 1.02rem;
+  }
+
+  .af-block--pause {
+    padding-block: 1.4rem 1.5rem;
+    padding-left: 1.35rem;
+    padding-right: 0.75rem;
+    margin-top: 0.15rem;
+  }
+
+  .af-pause {
+    font-size: 1.18rem;
+    line-height: 1.42;
+    max-width: 19rem;
+  }
+
+  .af-block--essay-head {
+    padding-top: 1.6rem;
+    padding-left: 0.35rem;
+  }
+
+  .af-block--essay {
+    padding-left: 0.35rem;
+    max-width: 30rem;
+  }
+
+  .af-block--essay-shift {
+    padding-left: 1.15rem;
+    max-width: 28rem;
+  }
+
+  .af-block--close {
+    padding-left: 0.35rem;
+    max-width: 30rem;
+  }
+
+  .af-sign {
+    margin-top: 1.25rem;
+    padding-left: 0.35rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .af-lede {
+    font-size: 1.28rem;
+    max-width: none;
+  }
+
+  .af-block--body {
+    padding-left: 0.5rem;
+  }
+
+  .af-block--pause {
+    padding-left: 0.85rem;
+  }
+
+  .af-block--essay-shift {
+    padding-left: 0.75rem;
+  }
+}

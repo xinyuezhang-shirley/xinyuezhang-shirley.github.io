@@ -115,19 +115,19 @@ export const artworks: Artwork[] = [
     title: "Age Younger",
     medium: "Digital Art",
     image: "/art/age-younger.png",
-    description:
-      "Vernon in two lights — a stage still bright enough to cry, and the quieter face that follows.",
+    description: "Looking younger in the dark — a quieter face, still lit from the side.",
     date: "2026",
-    tags: ["fanart", "seventeen"],
+    tags: ["fanart"],
   },
   {
     slug: "my-bside",
     title: "My B-Side",
     medium: "Digital Art",
     image: "/art/my-bside.png",
-    description: "The quieter track — still playing when the room goes dark.",
+    description:
+      "Vernon in two lights — a stage still bright enough to cry, and the quieter face that follows.",
     date: "2026",
-    tags: ["fanart"],
+    tags: ["fanart", "seventeen"],
   },
   {
     slug: "am-i-pretty-now",

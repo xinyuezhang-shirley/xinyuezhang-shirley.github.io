@@ -228,9 +228,9 @@ export default function DifferRoom() {
             available for download on this site. Figures shown here are exhibition extracts from the
             research; they are not a substitute for the full paper.
           </p>
-          <a href="mailto:xinyuezhang.shirley@gmail.com">Contact me about this research</a>
+          <a href="#contact">Contact me about this research</a>
           {" · "}
-          <a href="mailto:xinyuezhang.shirley@gmail.com">Paper available on request</a>
+          <a href="#contact">Paper available on request</a>
         </div>
       </div>
     </article>

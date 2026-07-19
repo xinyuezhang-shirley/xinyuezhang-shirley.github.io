@@ -25,7 +25,7 @@ const featured = [
 ];
 
 const PHOTO_SRC = "/photography/Zhang_hero-portrait.jpg";
-const PHOTO_OBJECT_POSITION = { x: 38, y: 18 }; // must match object-[38%_18%] on the <img> below
+const PHOTO_OBJECT_POSITION = { x: 38, y: 18 };
 const PHOTO_NATURAL_SIZE = { width: 1920, height: 1080 };
 
 export default function Home() {
@@ -34,18 +34,29 @@ export default function Home() {
 
   return (
     <div>
-      <section ref={heroRef} className="relative w-full overflow-hidden md:h-[85vh] md:min-h-[600px]">
-        {/* Editorial photograph — full-bleed to the viewport edge, sits behind
-            the floating circles so they drift across it instead of stopping
-            at a clean rectangle. */}
+      <section
+        ref={heroRef}
+        className="relative w-full overflow-hidden md:h-[86vh] md:min-h-[620px]"
+      >
+        <div className="hidden md:block">
+          <FloatingCircles
+            heroRef={heroRef}
+            photoRef={photoRef}
+            photoSrc={PHOTO_SRC}
+            objectPosition={PHOTO_OBJECT_POSITION}
+            naturalSize={PHOTO_NATURAL_SIZE}
+            layer="back"
+          />
+        </div>
+
         <div
           ref={photoRef}
-          className="relative z-0 w-full aspect-[4/3] md:aspect-auto md:absolute md:inset-y-0 md:right-0 md:w-[46%] overflow-hidden bg-ink/5"
+          className="relative z-[1] w-full aspect-[4/3] md:aspect-auto md:absolute md:inset-y-[-1.5%] md:right-[-1.25%] md:w-[47%] overflow-visible bg-transparent"
         >
           <img
             src={PHOTO_SRC}
             alt="Shirley Zhang"
-            className="w-full h-full object-cover object-[38%_18%]"
+            className="w-full h-full object-cover object-[38%_18%] md:shadow-[0_18px_48px_rgba(28,27,25,0.14)]"
           />
         </div>
 
@@ -56,25 +67,25 @@ export default function Home() {
             photoSrc={PHOTO_SRC}
             objectPosition={PHOTO_OBJECT_POSITION}
             naturalSize={PHOTO_NATURAL_SIZE}
+            layer="front"
           />
         </div>
 
-        {/* Text — the name is treated as the dominant visual object, not a heading */}
-        <div className="container relative z-20 pt-10 md:pt-16 pb-12 md:pb-0 md:absolute md:inset-y-0 md:left-0 md:flex md:flex-col md:justify-center">
-          <p className="pointer-events-none font-sans text-xs uppercase tracking-[0.08em] text-ink-faint leading-relaxed mb-8 md:mb-10">
+        <div className="container relative z-20 pt-8 md:pt-12 pb-14 md:pb-0 md:absolute md:inset-y-0 md:left-0 md:flex md:flex-col md:justify-center md:pt-[6vh]">
+          <p className="pointer-events-none font-sans text-xs uppercase tracking-[0.1em] text-ink-faint leading-relaxed mb-7 md:mb-9">
             Stanford University
             <br />
             M.S. Computer Science
           </p>
 
-          <h1 className="pointer-events-none font-serif font-semibold uppercase leading-[0.8] tracking-tight text-ink text-[clamp(4.5rem,15vw,13.5rem)]">
-            <span className="block">Shirley</span>
-            <span className="block font-sans text-sm md:text-base normal-case tracking-[0.14em] text-ink-soft mt-3 md:mt-5 ml-1">
+          <h1 className="pointer-events-none font-serif font-semibold uppercase leading-[0.78] text-ink text-[clamp(4.5rem,15vw,13.5rem)]">
+            <span className="block tracking-[-0.02em]">Shirley</span>
+            <span className="block font-sans text-sm md:text-[0.95rem] font-medium normal-case tracking-[0.1em] text-ink-soft mt-4 md:mt-6 ml-0.5">
               Engineer, Researcher, Daydreamer
             </span>
-            <span className="block ml-[6vw] md:ml-[8vw] mt-3 md:mt-5">
+            <span className="block ml-[6vw] md:ml-[8vw] mt-4 md:mt-6 tracking-[0.01em]">
               Zhang
-              <span className="font-serif italic text-ink-faint text-[0.18em] tracking-normal normal-case ml-3 align-middle">
+              <span className="font-serif italic text-ink-faint/70 text-[0.16em] tracking-normal normal-case ml-2.5 align-middle">
                 (Xinyue)
               </span>
             </span>
@@ -82,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="container pb-32 md:pb-40">
+      <section className="container pb-32 md:pb-40 pt-6 md:pt-14">
         <div className="grid md:grid-cols-3 gap-10 md:gap-8">
           {featured.map((item) => (
             <Link key={item.href} to={item.href} className="group block">

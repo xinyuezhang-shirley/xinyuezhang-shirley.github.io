@@ -159,7 +159,6 @@ export default function CreativeArt() {
 
   return (
     <div className="art-mono">
-      {/* Half-title — then straight into Zion */}
       <header className="art-open">
         <Link to="/creative" className="art-mono__back">
           ← Creative
@@ -182,10 +181,7 @@ export default function CreativeArt() {
         <p className="art-open__hint">Begins with Zion.</p>
       </header>
 
-      {/*
-        Pl. 01 Zion — complete landscape composition.
-        Restraint: the painting alone, edge-to-edge on ink. No companion image.
-      */}
+      {/* Hero — Zion alone, full composition */}
       <figure className="spread-zion" aria-label={zion.title}>
         <Reveal className="spread-zion__media">
           <Plate work={zion} onOpen={() => openSlug(zion.slug)} priority />
@@ -202,86 +198,52 @@ export default function CreativeArt() {
         </figcaption>
       </figure>
 
-      {/*
-        Zion hinge — one detail crop alone (the bloodied apple).
-        Not a duo. The tear is already in the full plate; this is the narrative hinge only.
-      */}
-      <section className="spread-zion-hinge" aria-label="Detail from Zion">
-        <Reveal className="spread-zion-hinge__crop">
+      {/* Aftermath — hinge detail + Zion, Again as one room */}
+      <section className="spread-zion-room" aria-label="After Zion">
+        <Reveal className="spread-zion-room__detail">
           <button
             type="button"
             className="art-object-btn"
             onClick={() => openSlug(zion.slug)}
             aria-label="Zion: the apple"
           >
-            <div className="spread-zion-hinge__frame">
+            <div className="spread-zion-room__crop">
               <img src={zion.image} alt={zion.alt} loading="lazy" decoding="async" />
             </div>
           </button>
+          <p className="spread-zion-room__note">{zion.note}</p>
         </Reveal>
-        <Reveal delay={1}>
-          <p className="spread-zion-hinge__note">{zion.note}</p>
+        <Reveal delay={1} className="spread-zion-room__again">
+          <Plate work={zionAgain} onOpen={() => openSlug(zionAgain.slug)} />
+          <MuseumLabel
+            work={zionAgain}
+            lines={zionAgain.lore}
+            tone="dark"
+            onOpen={() => openSlug(zionAgain.slug)}
+          />
         </Reveal>
       </section>
 
-      {/*
-        Pl. 02 Zion, Again — angelic glitch companion to Zion.
-        Alone on ink; never crop the static wings.
-      */}
-      <figure className="spread-zion-again" aria-label={zionAgain.title}>
-        <Reveal className="spread-zion-again__plate">
-          <Plate work={zionAgain} onOpen={() => openSlug(zionAgain.slug)} />
-        </Reveal>
-        <figcaption className="spread-zion-again__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={zionAgain}
-              lines={zionAgain.lore}
-              tone="dark"
-              onOpen={() => openSlug(zionAgain.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 03 Surrender — intimate rose portrait, already finished.
-        Alone, narrow, caption docked under. No second visual.
-      */}
-      <figure className="spread-surrender" aria-label={surrender.title}>
-        <Reveal className="spread-surrender__plate">
+      {/* OC pair — Surrender dominant, Fear Me supporting */}
+      <section className="spread-oc-pair" aria-label="Original characters">
+        <Reveal className="spread-oc-pair__main">
           <Plate work={surrender} onOpen={() => openSlug(surrender.slug)} />
+          <MuseumLabel
+            work={surrender}
+            lines={surrender.lore}
+            onOpen={() => openSlug(surrender.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-surrender__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={surrender}
-              lines={surrender.lore}
-              onOpen={() => openSlug(surrender.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 04 Fear Me — iconographic; the halo needs darkness.
-        Site disappears into ink. Painting alone; one line of lore under.
-      */}
-      <figure className="spread-fear" aria-label={fearMe.title}>
-        <Reveal className="spread-fear__plate">
+        <Reveal delay={1} className="spread-oc-pair__side">
           <Plate work={fearMe} onOpen={() => openSlug(fearMe.slug)} />
+          <MuseumLabel
+            work={fearMe}
+            lines={fearMe.lore}
+            tone="dark"
+            onOpen={() => openSlug(fearMe.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-fear__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={fearMe}
-              lines={fearMe.lore}
-              tone="dark"
-              onOpen={() => openSlug(fearMe.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
+      </section>
 
       <div className="art-interlude">
         <Reveal>
@@ -290,103 +252,64 @@ export default function CreativeArt() {
         </Reveal>
       </div>
 
-      {/*
-        Pl. 05 Creep — lyrics collage; WHOLE sheet, never cropped.
-      */}
-      <figure className="spread-sheet spread-sheet--creep" aria-label={creep.title}>
-        <Reveal className="spread-sheet__media">
+      {/* Salon — Creep, Soul, Empty as one wall */}
+      <section className="spread-salon" aria-label="Self studies">
+        <Reveal className="spread-salon__a">
           <Plate work={creep} onOpen={() => openSlug(creep.slug)} />
+          <MuseumLabel work={creep} lines={creep.lore} onOpen={() => openSlug(creep.slug)} />
         </Reveal>
-        <figcaption className="spread-sheet__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={creep}
-              lines={creep.lore}
-              onOpen={() => openSlug(creep.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 06 Soul Rotting — self-portrait with hands at the throat.
-      */}
-      <figure className="spread-soul" aria-label={soulRotting.title}>
-        <Reveal className="spread-soul__plate">
+        <Reveal delay={1} className="spread-salon__b">
           <Plate work={soulRotting} onOpen={() => openSlug(soulRotting.slug)} />
+          <MuseumLabel
+            work={soulRotting}
+            lines={soulRotting.lore}
+            onOpen={() => openSlug(soulRotting.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-soul__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={soulRotting}
-              lines={soulRotting.lore}
-              onOpen={() => openSlug(soulRotting.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 07 Empty, Empty, Empty — New Year notes collage; WHOLE sheet.
-      */}
-      <figure className="spread-sheet spread-sheet--empty" aria-label={empty.title}>
-        <Reveal className="spread-sheet__media">
+        <Reveal delay={2} className="spread-salon__c">
           <Plate work={empty} onOpen={() => openSlug(empty.slug)} />
-        </Reveal>
-        <figcaption className="spread-sheet__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={empty}
-              lines={empty.lore}
-              onOpen={() => openSlug(empty.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 08 Mycoto — greeting character.
-        Painting + one sentence. The sentence is the dialogue; no second image.
-      */}
-      <section className="spread-mycoto" aria-label={mycoto.title}>
-        <Reveal className="spread-mycoto__plate">
-          <Plate work={mycoto} onOpen={() => openSlug(mycoto.slug)} />
-        </Reveal>
-        <Reveal delay={1} className="spread-mycoto__voice">
-          <p className="art-mono__plate">Pl. {mycoto.plate}</p>
-          <p className="spread-mycoto__hello">Hi there.</p>
-          <p className="spread-mycoto__hello">I am Mycoto.</p>
-          <button
-            type="button"
-            className="spread-mycoto__name"
-            onClick={() => openSlug(mycoto.slug)}
-          >
-            {mycoto.title}
-          </button>
-          <p className="art-mono__meta">
-            {mycoto.year} · {mycoto.medium}
-          </p>
+          <MuseumLabel work={empty} lines={empty.lore} onOpen={() => openSlug(empty.slug)} />
         </Reveal>
       </section>
 
-      {/*
-        Pl. 09 Still Her — Mycoto shapeshift; landscape dual, whole plate.
-      */}
-      <figure className="spread-shift" aria-label={mycotoShift.title}>
-        <Reveal className="spread-shift__media">
-          <Plate work={mycotoShift} onOpen={() => openSlug(mycotoShift.slug)} />
-        </Reveal>
-        <figcaption className="spread-shift__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={mycotoShift}
-              lines={mycotoShift.lore}
-              tone="dark"
-              onOpen={() => openSlug(mycotoShift.slug)}
-            />
+      {/* Mycoto — greeting + shapeshift landscape */}
+      <section className="spread-mycoto-suite" aria-label="Mycoto">
+        <div className="spread-mycoto-suite__intro">
+          <Reveal className="spread-mycoto-suite__plate">
+            <Plate work={mycoto} onOpen={() => openSlug(mycoto.slug)} />
           </Reveal>
-        </figcaption>
-      </figure>
+          <Reveal delay={1} className="spread-mycoto-suite__voice">
+            <p className="art-mono__plate">Pl. {mycoto.plate}</p>
+            <p className="spread-mycoto-suite__hello">Hi there.</p>
+            <p className="spread-mycoto-suite__hello">I am Mycoto.</p>
+            <button
+              type="button"
+              className="spread-mycoto-suite__name"
+              onClick={() => openSlug(mycoto.slug)}
+            >
+              {mycoto.title}
+            </button>
+            <p className="art-mono__meta">
+              {mycoto.year} · {mycoto.medium}
+            </p>
+          </Reveal>
+        </div>
+        <figure className="spread-mycoto-suite__shift" aria-label={mycotoShift.title}>
+          <Reveal>
+            <Plate work={mycotoShift} onOpen={() => openSlug(mycotoShift.slug)} />
+          </Reveal>
+          <figcaption>
+            <Reveal delay={1}>
+              <MuseumLabel
+                work={mycotoShift}
+                lines={mycotoShift.lore}
+                tone="dark"
+                onOpen={() => openSlug(mycotoShift.slug)}
+              />
+            </Reveal>
+          </figcaption>
+        </figure>
+      </section>
 
       <div className="art-interlude">
         <Reveal>
@@ -395,10 +318,7 @@ export default function CreativeArt() {
         </Reveal>
       </div>
 
-      {/*
-        Pl. 10 Ivan — violent, complete, needs silence.
-        Alone on ink. No lore. The website should almost not be there.
-      */}
+      {/* Quiet hero — Ivan alone */}
       <figure className="spread-ivan" aria-label={ivan.title}>
         <Reveal className="spread-ivan__plate">
           <Plate work={ivan} onOpen={() => openSlug(ivan.slug)} />
@@ -422,94 +342,56 @@ export default function CreativeArt() {
         </figcaption>
       </figure>
 
-      {/*
-        Pl. 11 Am I Pretty Now — Alien Stage kin to Ivan.
-        Light ground for the paint splatters; portrait alone, restrained.
-      */}
-      <figure className="spread-pretty" aria-label={pretty.title}>
-        <Reveal className="spread-pretty__plate">
+      {/* Kin — Pretty + Ocean Eyes */}
+      <section className="spread-kin" aria-label="Stage kin">
+        <Reveal className="spread-kin__portrait">
           <Plate work={pretty} onOpen={() => openSlug(pretty.slug)} />
+          <MuseumLabel
+            work={pretty}
+            lines={pretty.lore}
+            onOpen={() => openSlug(pretty.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-pretty__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={pretty}
-              lines={pretty.lore}
-              onOpen={() => openSlug(pretty.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 12 Ocean Eyes — William eye study; letterbox landscape, whole plate.
-      */}
-      <figure className="spread-ocean" aria-label={oceanEyes.title}>
-        <Reveal className="spread-ocean__media">
+        <Reveal delay={1} className="spread-kin__wide">
           <Plate work={oceanEyes} onOpen={() => openSlug(oceanEyes.slug)} />
+          <MuseumLabel
+            work={oceanEyes}
+            lines={oceanEyes.lore}
+            tone="dark"
+            onOpen={() => openSlug(oceanEyes.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-ocean__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={oceanEyes}
-              lines={oceanEyes.lore}
-              tone="dark"
-              onOpen={() => openSlug(oceanEyes.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
+      </section>
 
-      {/*
-        Pl. 13 Xue — narrative diptych already inside the painting (two figures, one sword).
-        Do not invent a second plate. Dedication only.
-      */}
-      <figure className="spread-xue" aria-label={xue.title}>
-        <Reveal className="spread-xue__plate">
+      {/* Narrative pair — Xue + Journey */}
+      <section className="spread-narrative" aria-label="Narrative studies">
+        <Reveal className="spread-narrative__a">
           <Plate work={xue} onOpen={() => openSlug(xue.slug)} />
-        </Reveal>
-        <figcaption className="spread-xue__label">
-          <Reveal delay={1}>
+          <div className="spread-narrative__cap">
             <MuseumLabel work={xue} onOpen={() => openSlug(xue.slug)} />
             <p className="art-annotation">雪迷宫</p>
             {xue.note ? <p className="art-mono__note">{xue.note}</p> : null}
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 14 A Journey Towards Death — cosmic crown dual-face; narrative kin to Xue.
-      */}
-      <figure className="spread-journey" aria-label={journey.title}>
-        <Reveal className="spread-journey__plate">
-          <Plate work={journey} onOpen={() => openSlug(journey.slug)} />
+          </div>
         </Reveal>
-        <figcaption className="spread-journey__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={journey}
-              lines={journey.lore}
-              tone="dark"
-              onOpen={() => openSlug(journey.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
+        <Reveal delay={1} className="spread-narrative__b">
+          <Plate work={journey} onOpen={() => openSlug(journey.slug)} />
+          <MuseumLabel
+            work={journey}
+            lines={journey.lore}
+            tone="dark"
+            onOpen={() => openSlug(journey.slug)}
+          />
+        </Reveal>
+      </section>
 
-      {/*
-        Pl. 15 Li Qi — warm scrapbook collage; WHOLE sheet, never cropped.
-      */}
+      {/* Li Qi — warm pause, single sheet */}
       <figure className="spread-sheet spread-sheet--liqi" aria-label={liQi.title}>
         <Reveal className="spread-sheet__media">
           <Plate work={liQi} onOpen={() => openSlug(liQi.slug)} />
         </Reveal>
         <figcaption className="spread-sheet__label">
           <Reveal delay={1}>
-            <MuseumLabel
-              work={liQi}
-              lines={liQi.lore}
-              onOpen={() => openSlug(liQi.slug)}
-            />
+            <MuseumLabel work={liQi} lines={liQi.lore} onOpen={() => openSlug(liQi.slug)} />
           </Reveal>
         </figcaption>
       </figure>
@@ -521,86 +403,49 @@ export default function CreativeArt() {
         </Reveal>
       </div>
 
-      {/*
-        Pl. 16 Jeonghan — dense square collage; already a magazine cover.
-        Alone. Never paired with Vernon just because both are square.
-      */}
-      <figure className="spread-square spread-square--jeonghan" aria-label={jeonghan.title}>
-        <Reveal className="spread-square__plate">
+      {/* Album covers — two squares as a pair */}
+      <section className="spread-albums" aria-label="Album studies">
+        <Reveal className="spread-albums__item">
           <Plate work={jeonghan} onOpen={() => openSlug(jeonghan.slug)} />
+          <MuseumLabel
+            work={jeonghan}
+            lines={jeonghan.note ? [jeonghan.note] : undefined}
+            onOpen={() => openSlug(jeonghan.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-square__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={jeonghan}
-              lines={jeonghan.note ? [jeonghan.note] : undefined}
-              onOpen={() => openSlug(jeonghan.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 17 Vernon — square alone; the prompt is already painted into the work.
-      */}
-      <figure className="spread-square spread-square--vernon" aria-label={vernon.title}>
-        <Reveal className="spread-square__plate">
+        <Reveal delay={1} className="spread-albums__item">
           <Plate work={vernon} onOpen={() => openSlug(vernon.slug)} />
+          <MuseumLabel
+            work={vernon}
+            lines={vernon.note ? [vernon.note] : undefined}
+            onOpen={() => openSlug(vernon.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-square__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={vernon}
-              lines={vernon.note ? [vernon.note] : undefined}
-              onOpen={() => openSlug(vernon.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
+      </section>
 
-      {/*
-        Pl. 18 Age Younger — Vernon again, landscape diptych of light and aftermath.
-        Full plate on ink; never crop the two faces.
-      */}
-      <figure className="spread-age" aria-label={ageYounger.title}>
-        <Reveal className="spread-age__media">
+      {/* Vernon suite — Age Younger (portrait) + My B-Side (landscape) */}
+      <section className="spread-vernon-suite" aria-label="Vernon studies">
+        <Reveal className="spread-vernon-suite__portrait">
           <Plate work={ageYounger} onOpen={() => openSlug(ageYounger.slug)} />
+          <MuseumLabel
+            work={ageYounger}
+            lines={ageYounger.lore}
+            tone="dark"
+            onOpen={() => openSlug(ageYounger.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-age__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={ageYounger}
-              lines={ageYounger.lore}
-              tone="dark"
-              onOpen={() => openSlug(ageYounger.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 19 My B-Side — solitary portrait on black; quieter track.
-      */}
-      <figure className="spread-bside" aria-label={bside.title}>
-        <Reveal className="spread-bside__plate">
+        <Reveal delay={1} className="spread-vernon-suite__wide">
           <Plate work={bside} onOpen={() => openSlug(bside.slug)} />
+          <MuseumLabel
+            work={bside}
+            lines={bside.lore}
+            tone="dark"
+            onOpen={() => openSlug(bside.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-bside__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={bside}
-              lines={bside.lore}
-              tone="dark"
-              onOpen={() => openSlug(bside.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
+      </section>
 
-      {/*
-        Pl. 20 Romemok — vinyl composition already finished.
-        Landscape on ink; whole record, no crop.
-      */}
+      {/* Romemok — vinyl landscape hero */}
       <figure className="spread-romemok" aria-label={romemok.title}>
         <Reveal className="spread-romemok__media">
           <Plate work={romemok} onOpen={() => openSlug(romemok.slug)} />
@@ -617,10 +462,7 @@ export default function CreativeArt() {
         </figcaption>
       </figure>
 
-      {/*
-        Pl. 21 Two Hundred Fifty — white-ground birthday portrait.
-        Alone, narrow; sketchy edges must remain.
-      */}
+      {/* Quiet hero — Two Hundred Fifty */}
       <figure className="spread-twofifty" aria-label={twoFifty.title}>
         <Reveal className="spread-twofifty__plate">
           <Plate work={twoFifty} onOpen={() => openSlug(twoFifty.slug)} />
@@ -643,107 +485,84 @@ export default function CreativeArt() {
         </Reveal>
       </div>
 
-      {/*
-        Pl. 22 Emblems — OC wordmark sheet.
-        Show the entire composition; logo sheets are never cropped.
-      */}
-      <figure className="spread-logos spread-logos--emblems" aria-label={emblems.title}>
-        <Reveal className="spread-logos__sheet">
+      {/* Logo sheets — paired */}
+      <section className="spread-marks" aria-label="Marks">
+        <Reveal className="spread-marks__item spread-marks__item--emblems">
           <Plate work={emblems} onOpen={() => openSlug(emblems.slug)} />
+          <MuseumLabel
+            work={emblems}
+            lines={emblems.lore}
+            tone="dark"
+            onOpen={() => openSlug(emblems.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-logos__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={emblems}
-              lines={emblems.lore}
-              tone="dark"
-              onOpen={() => openSlug(emblems.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
-
-      {/*
-        Pl. 23 Hold Me. Haunt Me. — studio marks sheet.
-        Whole sheet again; companion to Emblems, not a crop of it.
-      */}
-      <figure className="spread-logos spread-logos--marks" aria-label={marks.title}>
-        <Reveal className="spread-logos__sheet">
+        <Reveal delay={1} className="spread-marks__item spread-marks__item--ioakun">
           <Plate work={marks} onOpen={() => openSlug(marks.slug)} />
+          <MuseumLabel
+            work={marks}
+            lines={marks.lore}
+            tone="dark"
+            onOpen={() => openSlug(marks.slug)}
+          />
         </Reveal>
-        <figcaption className="spread-logos__label">
-          <Reveal delay={1}>
-            <MuseumLabel
-              work={marks}
-              lines={marks.lore}
-              tone="dark"
-              onOpen={() => openSlug(marks.slug)}
-            />
-          </Reveal>
-        </figcaption>
-      </figure>
+      </section>
 
-      {/*
-        Pl. 24–27 Commissions — four portraits for friends.
-        Not a matched card row. Four solitary beats in sequence, each breathing differently.
-      */}
-      <header className="spread-commissions-head">
+      {/* Commissions — salon wall, not four lonely columns */}
+      <section className="spread-commissions" aria-label="Commissions">
+        <header className="spread-commissions__head">
+          <Reveal>
+            <p className="art-mono__meta">Commissions</p>
+            <h2 className="art-mono__title spread-commissions__title">Four portraits</h2>
+            <p className="art-mono__note">
+              For online friends. August 2024. Natural plates — not a matched set.
+            </p>
+          </Reveal>
+        </header>
+        <div className="spread-commissions__wall">
+          <Reveal className="spread-commissions__cell spread-commissions__cell--a">
+            <Plate work={c1} onOpen={() => openSlug(c1.slug)} />
+            <figcaption className="spread-commissions__cap">
+              <span className="art-mono__plate">Pl. {c1.plate}</span>
+              <span className="art-archive__name">{c1.title}</span>
+            </figcaption>
+          </Reveal>
+          <Reveal delay={1} className="spread-commissions__cell spread-commissions__cell--b">
+            <Plate work={c2} onOpen={() => openSlug(c2.slug)} />
+            <figcaption className="spread-commissions__cap">
+              <span className="art-mono__plate">Pl. {c2.plate}</span>
+              <span className="art-archive__name">{c2.title}</span>
+            </figcaption>
+          </Reveal>
+          <Reveal delay={1} className="spread-commissions__cell spread-commissions__cell--c">
+            <Plate work={c3} onOpen={() => openSlug(c3.slug)} />
+            <figcaption className="spread-commissions__cap">
+              <span className="art-mono__plate">Pl. {c3.plate}</span>
+              <span className="art-archive__name">{c3.title}</span>
+            </figcaption>
+          </Reveal>
+          <Reveal delay={2} className="spread-commissions__cell spread-commissions__cell--d">
+            <Plate work={c4} onOpen={() => openSlug(c4.slug)} />
+            <figcaption className="spread-commissions__cap">
+              <span className="art-mono__plate">Pl. {c4.plate}</span>
+              <span className="art-archive__name">{c4.title}</span>
+            </figcaption>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Closing folio — final page of the catalogue */}
+      <section className="art-close" aria-label="End of exhibition">
         <Reveal>
-          <p className="art-mono__meta">Commissions</p>
-          <h2 className="art-mono__title" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
-            Four portraits
-          </h2>
-          <p className="art-mono__note">
-            For online friends. August 2024. Natural plates — not a matched set.
+          <p className="art-mono__meta">End of hanging</p>
+          <p className="art-close__line">Twenty-seven plates.</p>
+          <p className="art-close__line">The work continues offline.</p>
+          <div className="art-close__rule" aria-hidden />
+          <p className="art-mono__note art-close__note">
+            Catalogue follows — a contact sheet of every plate in order.
           </p>
         </Reveal>
-      </header>
+      </section>
 
-      <figure className="spread-commission spread-commission--a" aria-label={c1.title}>
-        <Reveal className="spread-commission__plate">
-          <Plate work={c1} onOpen={() => openSlug(c1.slug)} />
-        </Reveal>
-        <figcaption className="spread-commission__cap">
-          <span className="art-mono__plate">Pl. {c1.plate}</span>
-          <span className="art-archive__name">{c1.title}</span>
-          <span className="art-mono__meta">{c1.year}</span>
-        </figcaption>
-      </figure>
-
-      <figure className="spread-commission spread-commission--b" aria-label={c2.title}>
-        <Reveal className="spread-commission__plate">
-          <Plate work={c2} onOpen={() => openSlug(c2.slug)} />
-        </Reveal>
-        <figcaption className="spread-commission__cap">
-          <span className="art-mono__plate">Pl. {c2.plate}</span>
-          <span className="art-archive__name">{c2.title}</span>
-          <span className="art-mono__meta">{c2.year}</span>
-        </figcaption>
-      </figure>
-
-      <figure className="spread-commission spread-commission--c" aria-label={c3.title}>
-        <Reveal className="spread-commission__plate">
-          <Plate work={c3} onOpen={() => openSlug(c3.slug)} />
-        </Reveal>
-        <figcaption className="spread-commission__cap">
-          <span className="art-mono__plate">Pl. {c3.plate}</span>
-          <span className="art-archive__name">{c3.title}</span>
-          <span className="art-mono__meta">{c3.year}</span>
-        </figcaption>
-      </figure>
-
-      <figure className="spread-commission spread-commission--d" aria-label={c4.title}>
-        <Reveal className="spread-commission__plate">
-          <Plate work={c4} onOpen={() => openSlug(c4.slug)} />
-        </Reveal>
-        <figcaption className="spread-commission__cap">
-          <span className="art-mono__plate">Pl. {c4.plate}</span>
-          <span className="art-archive__name">{c4.title}</span>
-          <span className="art-mono__meta">{c4.year}</span>
-        </figcaption>
-      </figure>
-
-      {/* Catalogue — museum sheet, not gallery grid */}
       <ArchiveSheet
         works={catalogue}
         onOpen={openSlug}
@@ -752,10 +571,15 @@ export default function CreativeArt() {
       />
 
       <footer className="art-footer">
-        <p className="art-mono__meta">End of monograph</p>
-        <p className="art-mono__note" style={{ margin: 0 }}>
-          myco.to
-        </p>
+        <div>
+          <p className="art-mono__meta">myco.to</p>
+          <p className="art-mono__note" style={{ margin: "0.5rem 0 0" }}>
+            Thank you for walking through.
+          </p>
+        </div>
+        <a href="#contact" className="art-footer__link">
+          Contact →
+        </a>
       </footer>
 
       <FullscreenArtworkViewer

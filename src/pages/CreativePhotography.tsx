@@ -14,26 +14,30 @@ export default function CreativePhotography() {
   return (
     <div className="photo-box">
       <header className="photo-box__intro">
-        <Link to="/creative" className="photo-box__back">
-          ← Creative
-        </Link>
-        <p className="photo-box__eyebrow">Photography</p>
-        <h1 className="photo-box__title">A box of photographs.</h1>
-        <p className="photo-box__lede">
-          Things noticed — sorted by light, mood, and the way one print leans toward another.
-        </p>
+        <div className="photo-rail">
+          <Link to="/creative" className="photo-box__back">
+            ← Creative
+          </Link>
+          <p className="photo-box__eyebrow">Photography</p>
+          <h1 className="photo-box__title">Selected photographs</h1>
+          <p className="photo-box__lede">
+            Series grouped by what I was studying — light through glass, coastal color,
+            performance motion, campus structure — shown large enough to read.
+          </p>
+        </div>
       </header>
 
       {photoCollections.map((collection) => (
-        <PhotoCollection
-          key={collection.id}
-          collection={collection}
-          onOpen={open}
-        />
+        <PhotoCollection key={collection.id} collection={collection} onOpen={open} />
       ))}
 
       <footer className="photo-box__closer">
-        <p>That&apos;s the box, for now.</p>
+        <div className="photo-rail">
+          <p className="photo-box__closer-meta">End of selection</p>
+          <p className="photo-box__closer-line">
+            The book stops here — more rolls stay in the archive.
+          </p>
+        </div>
       </footer>
 
       <FullscreenViewer

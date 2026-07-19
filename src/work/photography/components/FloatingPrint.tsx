@@ -1,13 +1,26 @@
 import { useRef, useEffect, useState, type CSSProperties, type Ref } from "react";
-import { printKind, type PhotoPrint } from "../collections";
-import { PhotoCaption } from "./PhotoCaption";
+import { printKind, type PhotoPrint, type PrintRole } from "../collections";
+
+export type PrintPose =
+  | "none"
+  | "tilt-l"
+  | "tilt-r"
+  | "tilt-l-soft"
+  | "tilt-r-soft"
+  | "lift"
+  | "drop"
+  | "nudge-l"
+  | "nudge-r";
 
 interface FloatingPrintProps {
   print: PhotoPrint;
   onOpen?: (src: string) => void;
   className?: string;
+  role?: PrintRole;
+  pose?: PrintPose;
   priority?: boolean;
   delayMs?: number;
+  style?: CSSProperties;
 }
 
 function useReveal<T extends HTMLElement>() {
@@ -34,7 +47,7 @@ function useReveal<T extends HTMLElement>() {
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -4% 0px" }
     );
 
     observer.observe(node);
@@ -48,39 +61,26 @@ export function FloatingPrint({
   print,
   onOpen,
   className = "",
+  role,
+  pose = "none",
   priority = false,
   delayMs = 0,
+  style: styleProp,
 }: FloatingPrintProps) {
   const { ref, inView } = useReveal<HTMLElement>();
-  const size = print.size ?? "md";
-  const orient = print.orient ?? "landscape";
-  const rotate = print.rotate ?? 0;
-  const isCrop = Boolean(print.crop);
+  const resolvedRole = role ?? print.role ?? "frame";
   const kind = printKind(print);
-  const canOpen = Boolean(onOpen) && !print.inert;
+  const canOpen = Boolean(onOpen);
 
   const style = {
-    "--print-rot": `${rotate}deg`,
-    ...(isCrop && print.crop ? { "--crop-aspect": print.crop.aspect } : {}),
-    ...(delayMs ? { animationDelay: `${delayMs}ms` } : {}),
+    ...(delayMs ? { transitionDelay: `${delayMs}ms` } : {}),
+    ...styleProp,
   } as CSSProperties;
-
-  const wrapClass = [
-    "photo-print__img-wrap",
-    isCrop ? "" : `photo-print__img-wrap--${orient}`,
-    kind === "video" ? "photo-print__img-wrap--video" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const imgStyle: CSSProperties = {
-    objectPosition: print.crop?.objectPosition ?? print.focus ?? "center",
-  };
 
   const media =
     kind === "video" ? (
       <video
-        className="photo-print__img photo-print__video"
+        className="photo-frame__media"
         src={print.src}
         muted
         loop
@@ -91,35 +91,27 @@ export function FloatingPrint({
       />
     ) : (
       <img
-        className="photo-print__img"
+        className="photo-frame__media"
         src={print.src}
         alt={print.alt}
-        style={imgStyle}
+        style={print.focus ? { objectPosition: print.focus } : undefined}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
       />
     );
 
   const body = (
-    <span className="photo-print__paper">
-      <span
-        className={wrapClass}
-        style={
-          isCrop && print.crop
-            ? ({ aspectRatio: print.crop.aspect } as CSSProperties)
-            : undefined
-        }
-      >
-        {media}
-      </span>
-      {print.note ? <PhotoCaption>{print.note}</PhotoCaption> : null}
-    </span>
+    <>
+      <span className="photo-frame__surface">{media}</span>
+      {print.caption ? <span className="photo-frame__caption">{print.caption}</span> : null}
+    </>
   );
 
   const classes = [
-    "photo-print",
-    `photo-print--${size}`,
-    isCrop ? "photo-print--crop" : "",
+    "photo-frame",
+    `photo-frame--${resolvedRole}`,
+    pose !== "none" ? `photo-frame--${pose}` : "",
+    kind === "video" ? "photo-frame--video" : "",
     inView ? "is-in" : "",
     className,
   ]
@@ -141,7 +133,9 @@ export function FloatingPrint({
       className={classes}
       style={style}
       onClick={() => onOpen?.(print.src)}
-      aria-label={print.note ? `Open: ${print.note}` : `Open photograph: ${print.alt}`}
+      aria-label={
+        print.caption ? `Open: ${print.caption}` : `Open photograph: ${print.alt}`
+      }
     >
       {body}
     </button>
