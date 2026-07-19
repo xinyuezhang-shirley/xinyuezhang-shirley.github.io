@@ -1,8 +1,8 @@
 name: Deploy GitHub Pages
 
 on:
-  push:
-    branches: [main]
+  # Manual only while Pages still serves from the main branch root.
+  # Enable GitHub Pages "GitHub Actions" source before turning push-deploy back on.
   workflow_dispatch:
 
 permissions:
