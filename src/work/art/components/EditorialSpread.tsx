@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { CatalogueEntry } from "../catalogue";
+import { ArtworkPlate } from "./ArtworkPlate";
 import { CaptionBlock } from "./CaptionBlock";
 import { useInView } from "./useInView";
 
@@ -9,37 +10,54 @@ type Layout =
   | "wide-left"
   | "tall-right"
   | "offset"
-  | "stack";
+  | "stack"
+  | "anchor";
 
-type FigureSize = "default" | "wide" | "narrow";
+type FigureSize = "wide" | "column" | "narrow";
+type Ground = "paper" | "mist" | "ink";
 
 interface EditorialSpreadProps {
   work: CatalogueEntry;
   layout?: Layout;
   figureSize?: FigureSize;
+  ground?: Ground;
   lines?: string[];
+  annotation?: string;
   onOpen?: () => void;
   className?: string;
-  objectFit?: "cover" | "contain";
-  aspect?: string;
 }
 
+/**
+ * Editorial spread: artwork dictates column width; caption docks to the plate.
+ * No forced aspect-ratio boxes. No object-fit: cover.
+ */
 export function EditorialSpread({
   work,
   layout = "split",
-  figureSize = "default",
+  figureSize,
+  ground = "paper",
   lines,
+  annotation,
   onOpen,
   className,
-  objectFit = "cover",
-  aspect = "3 / 4",
 }: EditorialSpreadProps) {
   const { ref, inView } = useInView<HTMLElement>();
+  const size: FigureSize =
+    figureSize ??
+    (work.orientation === "landscape"
+      ? "wide"
+      : work.orientation === "square"
+        ? "column"
+        : "narrow");
 
   return (
     <section
       ref={ref}
-      className={cn("art-spread", className)}
+      className={cn(
+        "art-spread",
+        `art-spread--${ground}`,
+        className
+      )}
       aria-label={work.title}
     >
       <div className={cn("art-editorial", `art-editorial--${layout}`)}>
@@ -47,44 +65,18 @@ export function EditorialSpread({
           className={cn(
             "art-editorial__figure art-reveal",
             inView && "is-inview",
-            figureSize === "wide" && "art-editorial__figure--wide",
-            figureSize === "narrow" && "art-editorial__figure--narrow"
+            `art-editorial__figure--${size}`
           )}
         >
-          {onOpen ? (
-            <button
-              type="button"
-              className={cn("art-object-btn", objectFit === "contain" && "art-object--flush")}
-              onClick={onOpen}
-              aria-label={`Open ${work.title}`}
-            >
-              <div
-                className={cn("art-object", objectFit === "contain" && "art-object--flush")}
-                style={{ aspectRatio: aspect }}
-              >
-                <img
-                  src={work.image}
-                  alt={work.alt}
-                  style={{ objectFit }}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </button>
-          ) : (
-            <div
-              className={cn("art-object", objectFit === "contain" && "art-object--flush")}
-              style={{ aspectRatio: aspect }}
-            >
-              <img
-                src={work.image}
-                alt={work.alt}
-                style={{ objectFit }}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          )}
+          <ArtworkPlate
+            work={work}
+            onOpen={onOpen}
+            size={size}
+            tone={ground === "ink" ? "ink" : "paper"}
+          />
+          {annotation ? (
+            <p className="art-annotation">{annotation}</p>
+          ) : null}
         </div>
 
         <aside

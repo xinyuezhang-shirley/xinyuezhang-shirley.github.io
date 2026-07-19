@@ -32,6 +32,7 @@ function CropFrame({
         wide && "art-detail__crop--wide"
       )}
     >
+      {/* Intentional detail crop — cover is allowed only here */}
       <img src={work.image} alt={work.alt} loading="lazy" decoding="async" />
     </div>
   );
@@ -89,20 +90,23 @@ export function DetailCrop({
 interface DetailDuoProps {
   left: DetailCropProps;
   right: DetailCropProps;
+  /** Museum note / lore docked to this detail spread */
+  note?: string;
   className?: string;
 }
 
-export function DetailDuo({ left, right, className }: DetailDuoProps) {
+/** Secondary appearance of a work: close-ups only — never the full painting again. */
+export function DetailDuo({ left, right, note, className }: DetailDuoProps) {
   const { ref, inView } = useInView<HTMLElement>();
 
   return (
     <section
       ref={ref}
-      className={cn("art-spread art-spread--tight", className)}
+      className={cn("art-spread art-spread--tight art-spread--mist", className)}
       aria-label="Details"
     >
       <div className={cn("art-detail art-detail--duo", inView && "is-inview")}>
-        <div>
+        <div className="art-detail__cell">
           <CropFrame
             work={left.work}
             focus={left.focus ?? "center"}
@@ -111,12 +115,10 @@ export function DetailDuo({ left, right, className }: DetailDuoProps) {
             caption={left.caption}
           />
           {left.caption ? (
-            <p className="art-mono__meta" style={{ marginTop: "0.65rem" }}>
-              {left.caption}
-            </p>
+            <p className="art-mono__meta art-detail__cap">{left.caption}</p>
           ) : null}
         </div>
-        <div>
+        <div className="art-detail__cell">
           <CropFrame
             work={right.work}
             focus={right.focus ?? "center"}
@@ -125,12 +127,20 @@ export function DetailDuo({ left, right, className }: DetailDuoProps) {
             caption={right.caption}
           />
           {right.caption ? (
-            <p className="art-mono__meta" style={{ marginTop: "0.65rem" }}>
-              {right.caption}
-            </p>
+            <p className="art-mono__meta art-detail__cap">{right.caption}</p>
           ) : null}
         </div>
       </div>
+      {note ? (
+        <p
+          className={cn(
+            "art-mono__note art-detail__note art-reveal art-reveal--delay-2",
+            inView && "is-inview"
+          )}
+        >
+          {note}
+        </p>
+      ) : null}
     </section>
   );
 }

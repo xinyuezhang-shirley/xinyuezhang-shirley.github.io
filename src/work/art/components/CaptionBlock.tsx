@@ -29,6 +29,7 @@ export function CaptionBlock({
         </span>
       </div>
       <h2 className="art-mono__title">{work.title}</h2>
+      {work.edition ? <p className="art-mono__meta art-caption__edition">{work.edition}</p> : null}
       {body?.length ? (
         <div className="art-mono__lore">
           {body.map((line) => (
@@ -37,6 +38,9 @@ export function CaptionBlock({
         </div>
       ) : null}
       {work.note && !body?.length ? <p className="art-mono__note">{work.note}</p> : null}
+      {work.note && body?.length ? (
+        <p className="art-mono__note art-caption__margin">{work.note}</p>
+      ) : null}
     </>
   );
 
