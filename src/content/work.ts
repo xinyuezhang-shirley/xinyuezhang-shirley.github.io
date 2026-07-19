@@ -57,11 +57,11 @@ export const workProjects: WorkProject[] = [
   {
     slug: "ironclad",
     title: "Ironclad",
-    role: "Contract lifecycle systems",
+    role: "Software Engineering Intern",
     org: "Ironclad",
-    dates: "—",
+    dates: "Jun 2026 – Present",
     tags: ["data-systems", "ai-ml"],
-    teaser: "Legal workflow as intelligent infrastructure.",
+    teaser: "Chat-native procurement into provenance-aware contract workflows.",
     story: ["Immersive pipeline world."],
   },
   {

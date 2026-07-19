@@ -7,18 +7,18 @@ const QUERIES = [
     q: "What changed in the Q3 risk memo hierarchy?",
     route: "retrieval",
     agents: [
-      { kind: "route", text: "Router → retrieval agent (document-grounded)" },
+      { kind: "route", text: "Supervisor → retrieval agent (Azure AI Search)" },
       { kind: "ok", text: "Retriever ranked 12 chunks · top source: risk_memo_v3.pdf §4" },
-      { kind: "ok", text: "Post-process: citation attach + translation pass skipped" },
+      { kind: "ok", text: "Citation attach · grounding check · eval flag clear" },
     ],
   },
   {
     q: "Summarize how the team explains cascading UI failures",
-    route: "conversation",
+    route: "response",
     agents: [
-      { kind: "route", text: "Router → conversational agent (synthesis)" },
+      { kind: "route", text: "Supervisor → response-generation (synthesis)" },
       { kind: "ok", text: "Context: hierarchical store + nested render bugs" },
-      { kind: "ok", text: "Answer drafted with eval flags on unsupported claims" },
+      { kind: "ok", text: "Answer drafted · hallucination detector on unsupported claims" },
     ],
   },
 ];
@@ -33,11 +33,11 @@ export default function PwcRoom() {
         <Link to="/work" className="pwc-world__back">
           ← Work
         </Link>
-        <p className="pwc-world__eyebrow">Mission control · PwC · Summer 2025</p>
-        <h1 className="pwc-world__title">Multi-agent RAG routing</h1>
+        <p className="pwc-world__eyebrow">Mission control · PwC · Jun–Aug 2025</p>
+        <h1 className="pwc-world__title">Multi-agent knowledge assistant</h1>
         <p className="pwc-world__claim">
-          What makes an AI feature feel reliable usually has nothing to do with the model — it is
-          routing, evaluation, and whether the UI can render the hierarchy without collapsing.
+          Langflow orchestration over Azure AI Search — supervisor, retrieval, and response agents
+          sized for a global workforce, with evaluation that checks grounding, not confidence.
         </p>
 
         <div className="pwc-console">
@@ -110,25 +110,28 @@ export default function PwcRoom() {
         <section className="pwc-chapter">
           <h2>Context</h2>
           <p>
-            Inside an internal RAG platform meant to answer plain questions over dense,
-            hierarchical document sets. My lane: a Langflow multi-agent layer in front of retrieval
-            — plus evaluation logic and the full-stack bugs that appear when nested data meets a
-            fragile renderer.
+            Designed a multi-agent enterprise knowledge assistant on Langflow — supervisor,
+            retrieval, and response-generation workflows routing employee questions through Azure AI
+            Search and citation-grounded RAG over internal documentation, architected to support
+            PwC&apos;s global workforce of 300K+ employees.
           </p>
         </section>
         <section className="pwc-chapter">
           <h2>Technical decisions</h2>
           <p>
-            Route each query between retrieval and conversation depending on what the question
-            needs. Translation and response post-processing sit on top. Evaluation checks whether
-            the right documents were retrieved — not whether the prose sounds confident.
+            Automated evaluation pipelines on a human-curated benchmark spanning 50+ internal
+            documents and hundreds of representative queries — edge-case testing and prompt
+            refinement for retrieval recall, answer grounding, and hallucination detection. Backend
+            storage and frontend rendering were refactored to fix hierarchical consistency and
+            cascading UI failures after organizational restructures.
           </p>
         </section>
         <section className="pwc-chapter">
           <h2>Reflection</h2>
           <p>
             Terracotta is a quiet nod to PwC identity; the room is mission control because that is
-            the feeling of watching agents hand work between systems. Reliability is orchestration.
+            the feeling of watching agents hand work between systems. Reliability is orchestration
+            plus whether the UI can still render the hierarchy after the org chart moves.
           </p>
         </section>
       </div>

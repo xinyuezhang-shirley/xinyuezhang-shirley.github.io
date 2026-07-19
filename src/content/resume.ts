@@ -4,13 +4,11 @@ export const education = [
   {
     school: "Stanford University",
     degree: "Master of Science in Computer Science",
-    detail: "Concentration: Information Management and Analytics · GPA 3.90",
+    detail: "Concentration: Information Management and Analytics · GPA 3.97",
     dates: "Anticipated graduation December 2026",
     courses: [
-      "Decision Making Under Uncertainty (Reinforcement Learning)",
+      "Decision Making Under Uncertainty",
       "Machine Learning",
-      "Introduction to Big Data Systems",
-      "Operating Systems",
       "Mining Massive Datasets",
     ],
   },
@@ -23,30 +21,37 @@ export const education = [
       "Scalable Software Architecture",
       "Introduction to Networking",
       "Foundations of Security",
-      "Game Design and Development",
-      "Foundations of Data Science",
-      "Design and Analysis of Algorithms",
     ],
   },
 ];
 
 export const skills = {
-  languages: ["Python", "SQL", "C++", "JavaScript", "Java", "C#", "HTML", "CSS"],
+  languages: [
+    "Python",
+    "SQL",
+    "C++",
+    "JavaScript",
+    "TypeScript",
+    "Java",
+    "C#",
+  ],
   tools: [
-    "React.js",
-    "MySQL",
-    "Pandas",
-    "PySpark",
+    "Kubernetes",
+    "Docker",
+    "Linux",
+    "AWS (EKS, EC2, Lambda, SQS)",
+    "AWS CDK",
+    "Git",
     "Airflow",
-    "NumPy",
-    "Tableau",
-    "MongoDB",
-    "AWS",
-    "scikit-learn",
+    "PyTorch",
     "TensorFlow",
-    "Matplotlib",
-    "Unity",
-    "Arduino",
+    "Langflow",
+    "React",
+    "Node.js",
+    "Express",
+    "REST APIs",
+    "HTML",
+    "CSS",
   ],
   human: ["Native Mandarin Chinese", "Conversational Spanish"],
 };
@@ -54,36 +59,56 @@ export const skills = {
 export const experience = [
   {
     role: "Software Engineering Intern",
+    org: "Ironclad",
+    dates: "Jun 2026 – Present",
+    bullets: [
+      "Architecting an end-to-end contract lifecycle platform that transforms chat-based procurement requests into structured contracting workflows, coordinating agent orchestration, information retrieval, decision-making, and downstream execution processes.",
+      "Developing specialized contract classification and risk assessment agents that leverage retrieved contract metadata and business context to generate provenance-aware recommendations and structured outputs for redlining, execution, and review workflows.",
+    ],
+  },
+  {
+    role: "Software Engineering Intern",
+    org: "Confidential",
+    dates: "Jan 2026 – Jun 2026",
+    bullets: [
+      "Architected an enterprise AI query platform enabling natural language access to structured databases and enterprise documents through a unified Query Router that classified user intent and orchestrated Text-to-SQL, RAG, and hybrid retrieval pipelines with intelligent fallback across heterogeneous data sources.",
+      "Built production Text-to-SQL and citation-grounded RAG systems with automated schema selection for 100+ table databases, grounded retrieval, and LLM guardrails on an internal benchmark suite.",
+      "Optimized production performance through multi-layer Redis caching, multi-tenant security, and request auditing, reducing LLM API calls while improving P95 latency.",
+    ],
+  },
+  {
+    role: "Software Engineering Intern",
     org: "PwC (PricewaterhouseCoopers)",
     dates: "Jun 2025 – Aug 2025",
     bullets: [
-      "Configured a multi-agent Langflow system wrapped around an internal RAG pipeline to route queries between retrieval and conversational agents, with support for translation and response post-processing.",
-      "Contributed to internal Retrieval-Augmented Generation (RAG) prototypes by implementing backend evaluation logic and assisting with data retrieval workflows to improve document relevance and response quality.",
-      "Refactored full-stack data storage and frontend rendering logic to address bugs caused by hierarchical structuring and cascading UI behavior, improving overall platform stability.",
+      "Designed a multi-agent enterprise knowledge assistant using Langflow orchestration, implementing supervisor, retrieval, and response-generation workflows that routed employee questions through Azure AI Search and citation-grounded RAG pipelines over internal documentation, with architecture designed to support PwC's global workforce of 300K+ employees.",
+      "Built automated evaluation pipelines for a citation-grounded RAG system using a human-curated benchmark spanning 50+ internal documents and hundreds of representative queries, and performing manual edge-case testing and prompt refinement to improve retrieval recall, answer grounding, and hallucination detection.",
+      "Refactored backend storage and frontend rendering architecture to resolve hierarchical data consistency issues and cascading UI failures, improving platform reliability and ensuring accurate navigation of documentation across newly restructured organizational workflows.",
     ],
   },
   {
-    role: "Data Analyst Intern (ML & Data Engineering Focus)",
+    role: "Data Analyst Intern",
     org: "Tesla",
     dates: "Mar 2025 – Jun 2025",
     bullets: [
-      "Designed and deployed a production ML pipeline processing fleet-scale time-series vehicle telemetry to predict brake system degradation, with model outputs integrated into live monitoring and diagnostics tools.",
-      "Built an end-to-end data pipeline with a human-in-the-loop workflow to surface high-risk vehicles, accelerating thermal-related issue detection and root-cause investigation.",
-      "Drove cross-functional debugging of production data and firmware regressions, partnering with firmware and engineering teams to identify systemic issues and improve reliability of brake system diagnostics.",
-    ],
-  },
-  {
-    role: "Teaching Assistant",
-    org: "Northwestern University",
-    dates: "Sep 2023 – Dec 2023",
-    bullets: [
-      "Led biweekly exercises and discussions, simplifying core concepts such as recursion and the ethical usage of technology.",
-      "Managed a cohort of 10 students in class, providing personalized support to help them apply basic programming principles.",
+      "Architected a fleet-scale brake deterioration detection platform processing telemetry from 1M+ Model 3 vehicles, designing data ingestion, feature engineering, model inference, and visualizations to identify vehicles at risk of brake fluid leaks.",
+      "Built a Spark-based serving pipeline that automated daily fleet health analysis, generating vehicle-level risk scores and surfacing high-priority cases through internal dashboards used by chassis and service teams.",
+      "Delivered a 96.6% precision model validated on serviced vehicles, identifying approximately 25% of deteriorating brake systems up to two months before service and enabling transition from manual investigations to continuous fleet monitoring.",
     ],
   },
 ];
 
 export const projects = [
+  {
+    name: "MuseLab: a Multi-Agent Literary Intelligence Platform",
+    org: "Independent project",
+    dates: "Mar 2026 – Jun 2026",
+    bullets: [
+      "Designed a full-stack literary analysis platform using React, TypeScript, Express, and PostgreSQL, implementing literary-analysis services, semantic visualization engines, and built evaluation systems to support end-to-end revision workflows.",
+      "Developed a 14-agent reasoning architecture combining literary-analysis agents with human-in-the-loop evaluation agents, enabling autonomous critique of both user manuscripts and the platform itself through specialized workflows for interpretation, software quality, UX evaluation, and design review.",
+      "Built five interactive manuscript visualization engines and autonomous design-review workflows that analyzed generated outputs, screenshots, and proposed feature changes, enabling iterative improvement while preserving human oversight over all product decisions.",
+    ],
+  },
   {
     name: "Differ: A Platform for Experiential Computing",
     org: "Delta Lab, Northwestern University",

@@ -48,7 +48,7 @@ export default function Resume() {
 
         <Section title="Experience">
           {experience.map((job) => (
-            <div key={job.role}>
+            <div key={`${job.org}-${job.dates}`}>
               <div className="flex items-baseline justify-between gap-4 flex-wrap">
                 <h3 className="font-serif text-heading-2 text-ink">{job.role}</h3>
                 <span className="font-sans text-sm text-ink-faint whitespace-nowrap">{job.dates}</span>

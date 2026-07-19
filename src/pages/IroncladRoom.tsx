@@ -3,16 +3,35 @@ import { Link } from "react-router-dom";
 import "@/work/ironclad/ironclad-world.css";
 
 const STEPS = [
-  { id: "01", title: "Intake", note: "Contract arrives with metadata, counterparties, jurisdiction." },
-  { id: "02", title: "Route", note: "Workflow chooses reviewers, playbooks, and escalation paths." },
-  { id: "03", title: "Analyze", note: "Risk clauses, obligations, and anomalies surface for humans." },
-  { id: "04", title: "Negotiate", note: "Redlines move through an orchestrated approval graph." },
-  { id: "05", title: "Execute", note: "Signed artifact + audit trail become institutional memory." },
+  {
+    id: "01",
+    title: "Chat intake",
+    note: "Procurement arrives as conversation — intent, counterparties, constraints.",
+  },
+  {
+    id: "02",
+    title: "Orchestrate",
+    note: "Agents coordinate retrieval, decisions, and downstream execution paths.",
+  },
+  {
+    id: "03",
+    title: "Classify & risk",
+    note: "Specialized agents read metadata and business context for provenance-aware advice.",
+  },
+  {
+    id: "04",
+    title: "Redline",
+    note: "Structured outputs feed review and negotiation without losing the audit trail.",
+  },
+  {
+    id: "05",
+    title: "Execute",
+    note: "Signed artifact + recommendations become institutional memory.",
+  },
 ] as const;
 
 /**
  * Ironclad world — legal workflow as living infrastructure.
- * Personal role bullets were not in the resume archive; visual thesis leads.
  */
 export default function IroncladRoom() {
   const [hot, setHot] = useState(0);
@@ -30,11 +49,13 @@ export default function IroncladRoom() {
         <Link to="/work" className="iron-world__back">
           ← Work
         </Link>
-        <p className="iron-world__eyebrow">Contract lifecycle · Intelligent infrastructure</p>
+        <p className="iron-world__eyebrow">
+          Software Engineering Intern · Ironclad · Jun 2026 – Present
+        </p>
         <h1 className="iron-world__title">Ironclad</h1>
         <p className="iron-world__claim">
-          Legal work is a pipeline of documents, decisions, and risk — not a stack of slides about an
-          internship.
+          Chat-based procurement becomes a structured contract lifecycle — agents for retrieval,
+          classification, risk, and execution, with humans still holding judgment.
         </p>
 
         <div className="iron-pipeline" role="list">
@@ -62,10 +83,10 @@ export default function IroncladRoom() {
             risk, signatory state, audit metadata — until execution turns motion into record.
           </p>
           <div className="iron-doc__tags">
-            <span>Routing</span>
-            <span>AI assist</span>
+            <span>Orchestration</span>
+            <span>Classification</span>
             <span>Risk</span>
-            <span>Audit</span>
+            <span>Provenance</span>
           </div>
         </div>
 
@@ -73,26 +94,29 @@ export default function IroncladRoom() {
           <h2>Context</h2>
           <p>
             Contract lifecycle management is orchestration under uncertainty: which playbook, which
-            reviewer, which clause is dangerous, what must be remembered after the ink dries.
+            reviewer, which clause is dangerous, what must be remembered after the ink dries. The
+            internship is building the end-to-end platform that turns chat into that pipeline.
           </p>
         </section>
         <section className="iron-chapter">
-          <h2>Visual thesis</h2>
+          <h2>Scope</h2>
           <p>
-            This room refuses the internship-PowerPoint pattern. Instead it shows contracts as
-            packets moving through intelligent infrastructure — intake to execute — with humans still
-            holding judgment at every escalation.
+            Architecting an end-to-end contract lifecycle platform that transforms chat-based
+            procurement requests into structured contracting workflows — coordinating agent
+            orchestration, information retrieval, decision-making, and downstream execution.
+          </p>
+          <p>
+            Developing specialized contract classification and risk assessment agents that leverage
+            retrieved contract metadata and business context to generate provenance-aware
+            recommendations and structured outputs for redlining, execution, and review.
           </p>
         </section>
         <section className="iron-chapter">
           <h2>Reflection</h2>
           <p>
             Navy, teal, and gold read as institutional trust without cosplaying a logo. The page
-            should feel like infrastructure you can watch breathe.
-          </p>
-          <p className="iron-note">
-            Owner note: personal Ironclad role bullets were not in the resume archive used for this
-            build. Swap in your exact scope when ready — the visual world is ready to carry them.
+            should feel like infrastructure you can watch breathe — because the work is the
+            infrastructure.
           </p>
         </section>
       </div>
