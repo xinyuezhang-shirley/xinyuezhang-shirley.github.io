@@ -18,10 +18,11 @@ export default function DifferRoom() {
           CHI 2026 submission · Delta Lab · Northwestern University
         </p>
         <h1 className="differ-world__title">Differ: A Platform for Experiential Computing</h1>
+        <p className="differ-world__collaborators">with Jiachen He &amp; Prof. Haoqi Zhang</p>
         <p className="differ-world__meta">
           Xinyue (Shirley) Zhang · First author · Dec 2023 – Sep 2025
           <br />
-          Design, Technology, and Research · Delta Lab
+          Design, Technology, and Research · Delta Lab · Northwestern University
         </p>
 
         <p className="differ-world__lede">

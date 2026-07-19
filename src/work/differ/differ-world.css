@@ -61,6 +61,14 @@
   color: var(--df-purple-deep);
 }
 
+.differ-world__collaborators {
+  font-family: var(--df-serif);
+  font-size: 1.1rem;
+  color: var(--df-purple);
+  margin: 0 0 0.85rem;
+  line-height: 1.4;
+}
+
 .differ-world__meta {
   font-family: var(--df-mono);
   font-size: 0.75rem;

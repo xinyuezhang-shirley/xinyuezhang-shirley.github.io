@@ -7,6 +7,7 @@ export const researchProjects: ResearchProject[] = [
     venue: "CHI 2026 (submitted) · Delta Lab, Northwestern University",
     org: "Delta Lab, Northwestern University",
     dates: "Dec 2023 – Sep 2025",
+    authors: ["Jiachen He", "Prof. Haoqi Zhang"],
     tags: ["hci-research", "data-viz", "data-systems"],
     abstract:
       "Differ is a platform for reasoning about contextual differences in human experience design — built on the idea that the same context-aware experience can mean something different depending on who encounters it and where. It takes a machine-interpretable definition of an experience and returns a set of visualizations that surface where that experience might break down for particular populations or settings, before a designer ships it.",
