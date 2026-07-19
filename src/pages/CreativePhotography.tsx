@@ -1,35 +1,47 @@
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import { Eyebrow, Display, Body } from "@/components/type/Typography";
-import { MediaFigure } from "@/components/media/MediaFigure";
-import { photographs } from "@/content/creative";
+import "@/work/photography/photo-box.css";
+import { photoCollections } from "@/work/photography/collections";
+import { FullscreenViewer } from "@/work/photography/components/FullscreenViewer";
+import { PhotoCollection } from "@/work/photography/components/PhotoCollection";
 
 export default function CreativePhotography() {
+  const [viewerSrc, setViewerSrc] = useState<string | null>(null);
+
+  const open = useCallback((src: string) => setViewerSrc(src), []);
+  const close = useCallback(() => setViewerSrc(null), []);
+
   return (
-    <div className="container py-16 md:py-24">
-      <Link
-        to="/creative"
-        className="font-sans text-sm uppercase tracking-[0.06em] text-ink-soft hover:text-accent transition-colors"
-      >
-        ← Creative
-      </Link>
+    <div className="photo-box">
+      <header className="photo-box__intro">
+        <Link to="/creative" className="photo-box__back">
+          ← Creative
+        </Link>
+        <p className="photo-box__eyebrow">Photography</p>
+        <h1 className="photo-box__title">A box of photographs.</h1>
+        <p className="photo-box__lede">
+          Things noticed — sorted by light, mood, and the way one print leans toward another.
+        </p>
+      </header>
 
-      <Eyebrow className="mt-8 mb-6">Photography</Eyebrow>
-      <Display as="h1" className="text-display-2 max-w-3xl mb-20 md:mb-28">
-        Portraits, dance, and the kind of still life you only notice once.
-      </Display>
+      {photoCollections.map((collection) => (
+        <PhotoCollection
+          key={collection.id}
+          collection={collection}
+          onOpen={open}
+        />
+      ))}
 
-      <div className="space-y-24 md:space-y-32 max-w-2xl mx-auto">
-        {photographs.map((photo) => (
-          <MediaFigure
-            key={photo.slug}
-            src={photo.image}
-            alt={photo.title}
-            caption={`${photo.title} — ${photo.category}`}
-          />
-        ))}
-      </div>
+      <footer className="photo-box__closer">
+        <p>That&apos;s the box, for now.</p>
+      </footer>
 
-      <Body className="text-center mt-20">That's everything, for now.</Body>
+      <FullscreenViewer
+        src={viewerSrc}
+        open={viewerSrc !== null}
+        onClose={close}
+        onChange={setViewerSrc}
+      />
     </div>
   );
 }

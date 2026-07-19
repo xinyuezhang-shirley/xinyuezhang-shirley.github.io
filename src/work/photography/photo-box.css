@@ -1,0 +1,879 @@
+/* Photography dialect — a box of prints on a studio table.
+   Distinct from Art monograph (Bodoni / museum plates / catalogue).
+   Cool darkroom gray, physical paper borders, controlled disorder. */
+
+.photo-box {
+  --pb-table: #d2cec6;
+  --pb-table-2: #c5c0b6;
+  --pb-paper: #f7f5f1;
+  --pb-edge: #ebe7df;
+  --pb-ink: #1c1b19;
+  --pb-mute: #5c574f;
+  --pb-faint: #8a847a;
+  --pb-line: rgba(28, 27, 25, 0.12);
+  --pb-shadow: rgba(28, 27, 25, 0.14);
+  --pb-shadow-deep: rgba(28, 27, 25, 0.28);
+
+  --pb-note: "Literata", "Source Serif 4", Georgia, serif;
+  --pb-ui: "DM Sans", "Helvetica Neue", Helvetica, sans-serif;
+  --pb-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --pb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --pb-dur: 0.55s;
+
+  position: relative;
+  min-height: 100%;
+  color: var(--pb-ink);
+  font-family: var(--pb-ui);
+  background:
+    radial-gradient(ellipse 70% 45% at 85% 8%, rgba(180, 190, 198, 0.35), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 8% 70%, rgba(168, 158, 140, 0.28), transparent 50%),
+    linear-gradient(165deg, var(--pb-table) 0%, var(--pb-table-2) 100%);
+  overflow-x: clip;
+}
+
+.photo-box::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0.045;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.photo-box > * {
+  position: relative;
+  z-index: 1;
+}
+
+.photo-box a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* —— Intro —— */
+.photo-box__intro {
+  max-width: 42rem;
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
+}
+
+.photo-box__back {
+  display: inline-block;
+  font-family: var(--pb-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pb-mute);
+  margin-bottom: 2.5rem;
+  transition: color var(--pb-dur) var(--pb-ease);
+}
+
+.photo-box__back:hover {
+  color: var(--pb-ink);
+}
+
+.photo-box__eyebrow {
+  font-family: var(--pb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pb-faint);
+  margin-bottom: 1rem;
+}
+
+.photo-box__title {
+  font-family: var(--pb-note);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.85rem;
+}
+
+.photo-box__lede {
+  font-family: var(--pb-note);
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.45;
+  color: var(--pb-mute);
+  max-width: 28rem;
+  margin: 0;
+}
+
+/* —— Collection —— */
+.photo-collection {
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 3.5vw, 2.75rem);
+  margin-bottom: clamp(1rem, 3vw, 2.5rem);
+}
+
+.photo-collection__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.65rem 1.5rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 48rem;
+}
+
+.photo-collection__title {
+  font-family: var(--pb-note);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.photo-collection__whisper {
+  font-family: var(--pb-note);
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--pb-mute);
+  margin: 0;
+}
+
+.photo-collection--night {
+  background: linear-gradient(
+    180deg,
+    rgba(28, 32, 40, 0.06) 0%,
+    transparent 40%,
+    transparent 70%,
+    rgba(28, 32, 40, 0.04) 100%
+  );
+}
+
+.photo-collection--golden {
+  background: radial-gradient(
+    ellipse 80% 60% at 70% 30%,
+    rgba(210, 170, 110, 0.12),
+    transparent 60%
+  );
+}
+
+.photo-collection--mono {
+  background: radial-gradient(
+    ellipse 50% 40% at 20% 50%,
+    rgba(28, 27, 25, 0.04),
+    transparent 55%
+  );
+}
+
+/* —— Floating print —— */
+.photo-print {
+  --print-rot: 0deg;
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: left;
+  transform: rotate(var(--print-rot));
+  transition:
+    transform var(--pb-dur) var(--pb-ease),
+    filter var(--pb-dur) var(--pb-ease);
+  will-change: transform;
+}
+
+.photo-print:disabled {
+  cursor: default;
+}
+
+.photo-print__paper {
+  position: relative;
+  background: var(--pb-paper);
+  padding: clamp(0.35rem, 0.8vw, 0.55rem);
+  box-shadow:
+    0 1px 1px var(--pb-shadow),
+    0 6px 18px var(--pb-shadow),
+    0 0 0 1px var(--pb-line);
+  transition:
+    box-shadow var(--pb-dur) var(--pb-ease),
+    transform var(--pb-dur) var(--pb-ease);
+}
+
+.photo-print__paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  opacity: 0.5;
+}
+
+.photo-print__img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: #1a1917;
+  line-height: 0;
+}
+
+.photo-print__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-print__caption {
+  position: absolute;
+  left: 0.55rem;
+  right: 0.55rem;
+  bottom: 0.45rem;
+  font-family: var(--pb-note);
+  font-style: italic;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--pb-mute);
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.4s var(--pb-ease),
+    transform 0.4s var(--pb-ease);
+  pointer-events: none;
+  text-shadow: 0 0 12px var(--pb-paper);
+}
+
+.photo-print:hover .photo-print__paper,
+.photo-print:focus-visible .photo-print__paper {
+  box-shadow:
+    0 2px 4px var(--pb-shadow-deep),
+    0 14px 36px var(--pb-shadow-deep),
+    0 0 0 1px var(--pb-line);
+  transform: translateY(-3px);
+}
+
+.photo-print:hover,
+.photo-print:focus-visible {
+  transform: rotate(var(--print-rot)) translateY(-2px);
+  z-index: 4;
+}
+
+.photo-print:hover .photo-print__caption,
+.photo-print:focus-visible .photo-print__caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photo-print:focus-visible {
+  outline: none;
+}
+
+.photo-print:focus-visible .photo-print__paper {
+  outline: 2px solid var(--pb-ink);
+  outline-offset: 3px;
+}
+
+/* Sizes */
+.photo-print--tiny { width: clamp(4.5rem, 12vw, 7rem); }
+.photo-print--proof { width: clamp(6.5rem, 16vw, 9.5rem); }
+.photo-print--sm { width: clamp(9rem, 22vw, 14rem); }
+.photo-print--md { width: clamp(12rem, 30vw, 20rem); }
+.photo-print--lg { width: clamp(16rem, 42vw, 28rem); }
+.photo-print--xl { width: clamp(18rem, 58vw, 38rem); }
+
+.photo-print--tiny .photo-print__paper,
+.photo-print--proof .photo-print__paper {
+  padding: 0.28rem;
+}
+
+.photo-print__img-wrap--landscape { aspect-ratio: 4 / 3; }
+.photo-print__img-wrap--portrait { aspect-ratio: 3 / 4; }
+.photo-print__img-wrap--square { aspect-ratio: 1 / 1; }
+
+.photo-print--crop .photo-print__img-wrap {
+  aspect-ratio: var(--crop-aspect, 1 / 1);
+}
+
+/* Reveal */
+.photo-print.is-in {
+  animation: photo-lift-in 0.85s var(--pb-ease) both;
+}
+
+@keyframes photo-lift-in {
+  from {
+    opacity: 0;
+    transform: rotate(var(--print-rot)) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--print-rot)) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-print.is-in {
+    animation: none;
+    opacity: 1;
+  }
+
+  .photo-print,
+  .photo-print__paper,
+  .photo-print__caption {
+    transition: none;
+  }
+}
+
+/* —— Layout: glass-stack —— */
+.layout-glass {
+  position: relative;
+  min-height: clamp(28rem, 70vw, 40rem);
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.layout-glass__anchor {
+  position: relative;
+  z-index: 1;
+  margin-left: 4%;
+}
+
+.layout-glass__mirror {
+  position: absolute;
+  top: 8%;
+  right: 6%;
+  z-index: 2;
+}
+
+.layout-glass__window {
+  position: absolute;
+  bottom: 4%;
+  left: 42%;
+  z-index: 3;
+}
+
+.layout-glass__crop {
+  position: absolute;
+  bottom: 18%;
+  left: 8%;
+  z-index: 2;
+}
+
+.layout-glass__note {
+  position: absolute;
+  top: 42%;
+  right: 28%;
+  z-index: 1;
+}
+
+/* —— Layout: macro-sheet —— */
+.layout-macro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: start;
+  max-width: 70rem;
+  margin: 0 auto;
+}
+
+.layout-macro__anchor {
+  justify-self: start;
+  margin-top: 1.5rem;
+}
+
+.layout-macro__sheet {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 0.85rem;
+  padding: 0.85rem;
+  background: rgba(247, 245, 241, 0.55);
+  box-shadow:
+    inset 0 0 0 1px var(--pb-line),
+    0 4px 20px var(--pb-shadow);
+}
+
+.layout-macro__sheet .photo-print {
+  width: 100%;
+}
+
+.layout-macro__loose {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+  margin-right: 8%;
+}
+
+/* —— Layout: coastal —— */
+.layout-coastal {
+  position: relative;
+  min-height: clamp(26rem, 65vw, 38rem);
+  max-width: 74rem;
+  margin: 0 auto;
+}
+
+.layout-coastal__anchor {
+  margin-left: 2%;
+}
+
+.layout-coastal__second {
+  position: absolute;
+  top: 12%;
+  right: 4%;
+  z-index: 2;
+}
+
+.layout-coastal__crop {
+  position: absolute;
+  bottom: 6%;
+  left: 48%;
+  z-index: 3;
+}
+
+.layout-coastal__note {
+  position: absolute;
+  bottom: 22%;
+  left: 10%;
+}
+
+/* —— Layout: festival-pin —— */
+.layout-festival {
+  position: relative;
+  min-height: clamp(24rem, 58vw, 36rem);
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.layout-festival__anchor {
+  margin: 0 auto;
+}
+
+.layout-festival__pin {
+  position: absolute;
+  top: -0.5rem;
+  right: 10%;
+  z-index: 3;
+}
+
+.layout-festival__crop {
+  position: absolute;
+  bottom: 2%;
+  left: 6%;
+  z-index: 2;
+}
+
+.layout-festival__note {
+  position: absolute;
+  bottom: 8%;
+  right: 14%;
+}
+
+/* —— Layout: rhythm-strip —— */
+.layout-rhythm {
+  max-width: 76rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.layout-rhythm__color {
+  align-self: flex-end;
+  margin-right: 6%;
+}
+
+.layout-rhythm__sheet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+  padding: 0.7rem 0.75rem;
+  background: rgba(247, 245, 241, 0.62);
+  box-shadow:
+    inset 0 0 0 1px var(--pb-line),
+    0 3px 16px var(--pb-shadow);
+  align-items: flex-end;
+}
+
+.layout-rhythm__sheet .photo-print {
+  width: clamp(5.5rem, 13vw, 8.75rem);
+}
+
+.layout-rhythm__sheet .photo-print--tiny {
+  width: clamp(3.75rem, 9vw, 5.5rem);
+  margin-bottom: 0.35rem;
+  margin-left: 0.25rem;
+}
+
+.layout-rhythm__note {
+  align-self: flex-start;
+  margin-left: 4%;
+}
+
+/* —— Layout: suspended —— */
+.layout-suspended {
+  position: relative;
+  min-height: clamp(28rem, 72vw, 42rem);
+  max-width: 74rem;
+  margin: 0 auto;
+}
+
+.layout-suspended__anchor {
+  margin-left: 3%;
+  margin-top: 2%;
+}
+
+.layout-suspended__a {
+  position: absolute;
+  top: 4%;
+  right: 3%;
+  z-index: 2;
+}
+
+.layout-suspended__b {
+  position: absolute;
+  bottom: 8%;
+  left: 38%;
+  z-index: 3;
+}
+
+.layout-suspended__c {
+  position: absolute;
+  bottom: 2%;
+  right: 12%;
+  z-index: 2;
+}
+
+.layout-suspended__note {
+  position: absolute;
+  top: 48%;
+  left: 8%;
+}
+
+/* —— Layout: city-scatter —— */
+.layout-city {
+  position: relative;
+  min-height: clamp(28rem, 70vw, 40rem);
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.layout-city__train {
+  margin-left: 8%;
+}
+
+.layout-city__texture {
+  position: absolute;
+  top: 6%;
+  right: 8%;
+  z-index: 2;
+}
+
+.layout-city__anna {
+  position: absolute;
+  bottom: 4%;
+  left: 42%;
+  z-index: 3;
+}
+
+.layout-city__crop {
+  position: absolute;
+  bottom: 28%;
+  left: 6%;
+  z-index: 2;
+}
+
+.layout-city__note {
+  position: absolute;
+  top: 38%;
+  right: 36%;
+}
+
+/* —— Layout: facing-wall —— */
+.layout-facing {
+  position: relative;
+  min-height: clamp(32rem, 80vw, 46rem);
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+.layout-facing__molly {
+  margin-left: 2%;
+  margin-top: 1rem;
+}
+
+.layout-facing__people {
+  position: absolute;
+  top: 2%;
+  right: 6%;
+  z-index: 2;
+}
+
+.layout-facing__shutter {
+  position: absolute;
+  top: 38%;
+  left: 48%;
+  z-index: 3;
+}
+
+.layout-facing__deer {
+  position: absolute;
+  bottom: 18%;
+  left: 8%;
+  z-index: 2;
+}
+
+.layout-facing__hero {
+  position: absolute;
+  bottom: 2%;
+  right: 18%;
+  z-index: 2;
+}
+
+.layout-facing__crop {
+  position: absolute;
+  top: 28%;
+  left: 28%;
+  z-index: 4;
+}
+
+.layout-facing__note {
+  position: absolute;
+  bottom: 36%;
+  right: 40%;
+}
+
+/* —— Handwritten note —— */
+.photo-note {
+  font-family: var(--pb-note);
+  font-style: italic;
+  font-size: clamp(0.8125rem, 1.5vw, 0.9375rem);
+  line-height: 1.4;
+  color: var(--pb-mute);
+  max-width: 11rem;
+  transform: rotate(-1.5deg);
+}
+
+.photo-note--warm {
+  color: #6b5340;
+}
+
+/* —— Contact sheet label —— */
+.photo-sheet-label {
+  font-family: var(--pb-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pb-faint);
+  margin-bottom: 0.45rem;
+}
+
+/* —— Nearby nudge on hover (parent-level) —— */
+.photo-cluster:has(.photo-print:hover) .photo-print:not(:hover) {
+  transition: transform 0.7s var(--pb-ease);
+}
+
+.photo-cluster:has(.photo-print:hover) .photo-print:not(:hover) .photo-print__paper {
+  filter: brightness(0.97);
+}
+
+/* —— Fullscreen viewer —— */
+.photo-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  background: rgba(18, 17, 15, 0.94);
+  color: #f3f0ea;
+  animation: photo-viewer-in 0.35s var(--pb-ease) both;
+}
+
+@keyframes photo-viewer-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.photo-viewer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  font-family: var(--pb-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(243, 240, 234, 0.55);
+}
+
+.photo-viewer__collection {
+  font-family: var(--pb-note);
+  font-style: italic;
+  font-size: 0.9375rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(243, 240, 234, 0.85);
+}
+
+.photo-viewer__btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  padding: 0.35rem 0.5rem;
+  opacity: 0.75;
+  transition: opacity 0.25s var(--pb-ease);
+}
+
+.photo-viewer__btn:hover:not(:disabled) {
+  opacity: 1;
+}
+
+.photo-viewer__btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.photo-viewer__stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem 1.5rem;
+  min-height: 0;
+}
+
+.photo-viewer__stage img {
+  max-width: min(96vw, 1200px);
+  max-height: calc(100vh - 7rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+}
+
+.photo-viewer__nav {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* —— Closer —— */
+.photo-box__closer {
+  padding: 2rem clamp(1.25rem, 4vw, 3rem) clamp(4rem, 10vw, 7rem);
+  text-align: center;
+}
+
+.photo-box__closer p {
+  font-family: var(--pb-note);
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--pb-mute);
+  margin: 0;
+}
+
+/* —— Mobile recomposition —— */
+@media (max-width: 820px) {
+  .layout-glass,
+  .layout-coastal,
+  .layout-festival,
+  .layout-suspended,
+  .layout-city,
+  .layout-facing {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    align-items: flex-start;
+  }
+
+  .layout-glass__mirror,
+  .layout-glass__window,
+  .layout-glass__crop,
+  .layout-coastal__second,
+  .layout-coastal__crop,
+  .layout-festival__pin,
+  .layout-festival__crop,
+  .layout-suspended__a,
+  .layout-suspended__b,
+  .layout-suspended__c,
+  .layout-city__texture,
+  .layout-city__anna,
+  .layout-city__crop,
+  .layout-facing__people,
+  .layout-facing__shutter,
+  .layout-facing__deer,
+  .layout-facing__hero,
+  .layout-facing__crop {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+  }
+
+  .layout-glass__note,
+  .layout-coastal__note,
+  .layout-festival__note,
+  .layout-suspended__note,
+  .layout-city__note,
+  .layout-facing__note {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    order: -1;
+  }
+
+  .layout-glass__anchor { margin-left: 0; align-self: flex-start; }
+  .layout-glass__mirror { align-self: flex-end; margin-right: 4%; margin-top: -1.5rem; z-index: 2; }
+  .layout-glass__window { align-self: center; margin-top: -0.75rem; }
+  .layout-glass__crop { align-self: flex-start; margin-left: 10%; margin-top: -1rem; }
+
+  .layout-macro {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-macro__sheet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layout-coastal__anchor { margin-left: 0; }
+  .layout-coastal__second { align-self: flex-end; margin-top: -2rem; margin-right: 2%; }
+  .layout-coastal__crop { align-self: flex-start; margin-left: 18%; margin-top: -0.5rem; }
+
+  .layout-festival__pin { align-self: flex-end; margin-top: -2.5rem; margin-right: 6%; }
+  .layout-festival__crop { align-self: flex-start; margin-left: 4%; }
+
+  .layout-rhythm__color { align-self: flex-start; margin-right: 0; }
+  .layout-rhythm__sheet .photo-print {
+    width: clamp(5rem, 28vw, 7.5rem);
+  }
+
+  .layout-suspended__anchor { margin-left: 0; }
+  .layout-suspended__a { align-self: flex-end; margin-top: -1.5rem; }
+  .layout-suspended__b { align-self: flex-start; margin-left: 12%; margin-top: -0.75rem; }
+  .layout-suspended__c { align-self: flex-end; margin-right: 8%; margin-top: -1rem; }
+
+  .layout-city__train { margin-left: 0; }
+  .layout-city__texture { align-self: flex-end; margin-top: -2rem; }
+  .layout-city__anna { align-self: center; margin-top: -1rem; }
+  .layout-city__crop { align-self: flex-start; margin-left: 8%; margin-top: -0.5rem; }
+
+  .layout-facing__molly { margin-left: 0; }
+  .layout-facing__people { align-self: flex-end; margin-top: -1.75rem; }
+  .layout-facing__shutter { align-self: flex-start; margin-left: 18%; margin-top: -0.75rem; }
+  .layout-facing__deer { align-self: flex-end; margin-right: 10%; margin-top: -0.5rem; }
+  .layout-facing__hero { align-self: flex-start; margin-left: 6%; }
+  .layout-facing__crop { align-self: flex-end; margin-right: 20%; margin-top: -2.5rem; }
+
+  .photo-print--xl { width: min(92vw, 28rem); }
+  .photo-print--lg { width: min(78vw, 22rem); }
+  .photo-print--md { width: min(62vw, 16rem); }
+}
+
+@media (max-width: 480px) {
+  .layout-macro__sheet {
+    gap: 0.45rem;
+    padding: 0.55rem;
+  }
+
+  .layout-rhythm__sheet {
+    gap: 0.35rem;
+  }
+}

@@ -10,7 +10,7 @@ const strands = [
   {
     title: "Photography",
     href: "/creative/photography",
-    description: "Portraits, dance, and the kind of still life you only notice once.",
+    description: "A box of photographs — light, mood, and the way one print leans toward another.",
   },
   {
     title: "Poetry",
