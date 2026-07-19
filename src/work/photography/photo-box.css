@@ -376,11 +376,9 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.65rem 0.85rem;
-  padding: 0.85rem;
-  background: rgba(247, 245, 241, 0.55);
-  box-shadow:
-    inset 0 0 0 1px var(--pb-line),
-    0 4px 20px var(--pb-shadow);
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .layout-macro__sheet .photo-print {
@@ -477,11 +475,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem 0.55rem;
-  padding: 0.7rem 0.75rem;
-  background: rgba(247, 245, 241, 0.62);
-  box-shadow:
-    inset 0 0 0 1px var(--pb-line),
-    0 3px 16px var(--pb-shadow);
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
   align-items: flex-end;
 }
 
