@@ -6,10 +6,10 @@ Private session counter for the GitHub Pages portfolio. The frontend posts once 
 
 | Piece | Role |
 | --- | --- |
-| Portfolio (`VITE_VIEW_COUNTER_ENDPOINT`) | Silent `POST /view` once per `sessionStorage` key; `POST /event` for `contact_reveal` |
-| Cloudflare Worker | CORS, rate limit, increment, threshold email, event store |
-| Cloudflare D1 | Atomic `total` + `last_notified`; optional `events` rows |
-| Resend | Transactional email |
+| Portfolio (`VITE_VIEW_COUNTER_ENDPOINT`) | Silent `POST /view` once per `sessionStorage` key |
+| Cloudflare Worker | CORS, rate limit, increment, threshold email |
+| Cloudflare D1 | Atomic `total` + `last_notified` |
+| Resend | Transactional email (visit-threshold alerts only; not a contact form) |
 
 Secrets never ship in the frontend bundle.
 
@@ -54,7 +54,7 @@ npm run db:init:local
 wrangler secret put RESEND_API_KEY
 wrangler secret put EMAIL_TO          # your inbox
 wrangler secret put EMAIL_FROM        # e.g. Portfolio <views@your-verified-domain.com>
-wrangler secret put ALLOWED_ORIGIN    # https://xinyuezhang-shirley.github.io
+wrangler secret put ALLOWED_ORIGIN    # https://shirleyxzhang.com
 ```
 
 Confirm production vars in `wrangler.toml`:
@@ -86,7 +86,7 @@ ALLOW_DEV_RESET=true
 DEV_RESET_SECRET=local-test-secret
 ```
 
-> For local frontend testing against a local Worker, `ALLOWED_ORIGIN` must match the Vite origin (e.g. `http://localhost:5173`). Production must use the GitHub Pages origin only.
+> For local frontend testing against a local Worker, `ALLOWED_ORIGIN` must match the Vite origin (e.g. `http://localhost:5173`). Production must use `https://shirleyxzhang.com`.
 
 ---
 

@@ -48,12 +48,42 @@
   gap: 1.5rem;
 }
 
-.contact-section__private {
+.contact-section__channels {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 0.45rem;
   padding-bottom: 1.25rem;
   border-bottom: 1px solid #e3dfd4;
+}
+
+.contact-section__label {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8c887e;
+  margin: 0;
+}
+
+.contact-section__email {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  color: #16140f;
+  text-decoration: none;
+  border-bottom: 1px solid #e3dfd4;
+  width: fit-content;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-section__email:hover {
+  color: #8a3324;
+  border-bottom-color: #8a3324;
+}
+
+.contact-section__email:focus-visible {
+  outline: 1px solid #16140f;
+  outline-offset: 3px;
 }
 
 .contact-section__public {

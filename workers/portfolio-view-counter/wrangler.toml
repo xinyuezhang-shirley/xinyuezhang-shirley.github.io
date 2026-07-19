@@ -13,7 +13,7 @@ database_id = "REPLACE_WITH_D1_DATABASE_ID"
 #   RESEND_API_KEY
 #   EMAIL_TO
 #   EMAIL_FROM
-#   ALLOWED_ORIGIN          e.g. https://xinyuezhang-shirley.github.io
+#   ALLOWED_ORIGIN          e.g. https://shirleyxzhang.com
 #   DEV_RESET_SECRET       only for local/dev testing
 #
 # Vars (non-secret):

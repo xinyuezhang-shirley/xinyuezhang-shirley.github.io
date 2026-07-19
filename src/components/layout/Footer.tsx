@@ -10,7 +10,7 @@ export function Footer() {
             © {new Date().getFullYear()} Xinyue (Shirley) Zhang
           </span>
           <span className="font-sans text-xs text-ink-faint tracking-[0.04em]">
-            Reading room · contact on request
+            Reading room
           </span>
         </div>
       </div>

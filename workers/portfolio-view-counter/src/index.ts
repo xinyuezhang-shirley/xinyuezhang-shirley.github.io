@@ -101,29 +101,6 @@ async function sendThresholdEmail(env: Env, count: number): Promise<void> {
   }
 }
 
-async function handleEvent(request: Request, env: Env): Promise<void> {
-  let body: { event?: unknown; type?: unknown } = {};
-  try {
-    body = (await request.json()) as { event?: unknown; type?: unknown };
-  } catch {
-    return;
-  }
-
-  if (body.event !== "contact_reveal") return;
-  if (body.type !== "email" && body.type !== "phone") return;
-
-  // Best-effort store — never fail the request if the table is missing.
-  try {
-    await env.DB.prepare(
-      "INSERT INTO events (event, type, created_at) VALUES (?, ?, ?)",
-    )
-      .bind("contact_reveal", body.type, Date.now())
-      .run();
-  } catch {
-    console.error("event_store_failed");
-  }
-}
-
 async function handleView(env: Env): Promise<void> {
   const incremented = await env.DB.prepare(
     "UPDATE visit_stats SET total = total + 1 WHERE id = 1 RETURNING total, last_notified",
@@ -237,11 +214,6 @@ export default {
 
       if (!(await allowRequest(env, request))) {
         return json({ ok: false }, 429, origin, allowed);
-      }
-
-      if (url.pathname === "/event" && request.method === "POST") {
-        await handleEvent(request, env);
-        return json({ ok: true }, 200, origin, allowed);
       }
 
       if (url.pathname === "/view" && request.method === "POST") {

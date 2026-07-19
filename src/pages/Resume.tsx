@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { RevealContact } from "@/components/contact/RevealContact";
 import {
   contact,
   education,
@@ -160,22 +159,13 @@ export default function Resume() {
                 Stanford University
               </p>
               <div className="cv-mast__contact">
-                <RevealContact
-                  label="Email"
-                  value={contact.email}
+                <a
                   href={`mailto:${contact.email}`}
-                  analyticsEvent="email"
-                  copyEnabled
-                  compact
-                />
-                <RevealContact
-                  label="Phone"
-                  value={contact.phone}
-                  href={`tel:${contact.phoneTel}`}
-                  analyticsEvent="phone"
-                  copyEnabled
-                  compact
-                />
+                  className="cv-mast__link"
+                  aria-label={`Send email to ${contact.email}`}
+                >
+                  {contact.email}
+                </a>
                 <a
                   href={contact.linkedin}
                   target="_blank"
