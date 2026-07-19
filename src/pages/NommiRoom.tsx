@@ -150,7 +150,7 @@ export default function NommiRoom() {
           <div className="nommi-world__phone-slot">
             <NommiPhone scene={scene} />
             <p className="nommi-world__phone-note">
-              Scroll the story — the phone follows using real Nommi feed stills and product chrome.
+              Scroll the story — the phone shows real Nommi screens (or the chat that precedes them).
             </p>
           </div>
 

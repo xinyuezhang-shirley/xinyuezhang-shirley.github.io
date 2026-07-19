@@ -100,100 +100,67 @@
   }
 }
 
-.nommi-phone {
+.nommi-phone-wrap {
   width: min(320px, 78vw);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.nommi-phone {
+  width: 100%;
   aspect-ratio: 9 / 19.2;
   border-radius: 36px;
   background: #111;
   padding: 10px;
   box-shadow: var(--nm-shadow), 0 0 0 1px rgba(0, 0, 0, 0.08);
   position: relative;
-  margin: 0 auto;
 }
 
 .nommi-phone__bezel {
   height: 100%;
   border-radius: 28px;
-  background: var(--nm-bg);
+  background: #fff;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   position: relative;
 }
 
-.nommi-phone__notch {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 96px;
-  height: 22px;
-  background: #111;
-  border-radius: 999px;
-  z-index: 5;
+/* Screenshot fills the device — no nested chrome */
+.nommi-phone--shot .nommi-phone__shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
-.nommi-phone__status {
-  display: flex;
-  justify-content: space-between;
-  padding: 2.1rem 1rem 0.4rem;
-  font-size: 0.65rem;
-  font-weight: 600;
+.nommi-phone--chat .nommi-phone__bezel {
+  background: linear-gradient(180deg, var(--nm-blue-light), var(--nm-bg));
+  padding: 1.1rem 0.85rem 0.85rem;
+}
+
+.nommi-phone__caption {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--nm-border);
+  border-radius: 14px;
+  padding: 0.7rem 0.85rem;
+  box-shadow: 0 8px 20px rgba(47, 95, 196, 0.08);
+}
+
+.nommi-phone__caption strong {
+  display: block;
+  font-size: 0.78rem;
+  margin-bottom: 0.2rem;
   color: var(--nm-text);
 }
 
-.nommi-phone__screen {
-  flex: 1;
-  overflow: hidden;
-  padding: 0 0.65rem 0.5rem;
-  position: relative;
-}
-
-.nommi-phone__nav {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--nm-border);
-  background: #fff;
-  padding: 0.45rem 0.25rem calc(0.45rem + env(safe-area-inset-bottom, 0px));
-}
-
-.nommi-phone__nav span {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.15rem;
-  font-size: 0.55rem;
-  font-weight: 600;
-  color: #9ca3af;
-}
-
-.nommi-phone__nav span.is-active {
-  color: var(--nm-pink);
-}
-
-.nommi-phone__nav i {
-  width: 18px;
-  height: 18px;
-  border-radius: 6px;
-  border: 1.5px solid currentColor;
-  display: block;
-}
-
-.nommi-scene {
-  position: absolute;
-  inset: 0;
-  padding: 0.35rem 0.15rem;
-  opacity: 0;
-  transform: translateY(12px);
-  pointer-events: none;
-  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.nommi-scene.is-live {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-  position: relative;
+.nommi-phone__caption p {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--nm-muted);
 }
 
 .nommi-card {
@@ -555,67 +522,11 @@
   padding-top: 0.5rem;
 }
 
-.nommi-phone__logo {
-  height: 14px;
-  width: auto;
-  object-fit: contain;
-  mix-blend-mode: multiply;
-}
-
-.nommi-still {
-  position: relative;
-  height: 100%;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #fff;
-}
-
-.nommi-still img {
-  width: 100%;
-  height: 70%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
-}
-
-.nommi-still__badge {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: var(--nm-blue);
-  color: #fff;
-  font-size: 0.6rem;
-  font-weight: 700;
-  padding: 0.25rem 0.5rem;
-  border-radius: 999px;
-}
-
-.nommi-still__caption {
-  padding: 0.55rem 0.65rem;
-  background: #fff;
-}
-
-.nommi-still__caption strong {
-  display: block;
-  font-size: 0.72rem;
-  margin-bottom: 0.2rem;
-}
-
-.nommi-still__caption p {
-  margin: 0;
-  font-size: 0.65rem;
-  line-height: 1.35;
-  color: var(--nm-muted);
-}
-
 .nommi-chat-real {
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
   height: 100%;
-  padding: 0.35rem 0.15rem;
-  background: linear-gradient(180deg, var(--nm-blue-light), var(--nm-bg));
-  border-radius: 14px;
 }
 
 .nommi-chat-real__title {
@@ -646,7 +557,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nommi-scene,
   .nommi-pin {
     animation: none !important;
     transition: none !important;
