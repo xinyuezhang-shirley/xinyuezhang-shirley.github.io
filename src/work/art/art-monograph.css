@@ -820,6 +820,246 @@
   color: rgba(247, 245, 242, 0.78);
 }
 
+/* Zion, Again — angelic glitch companion on ink */
+.spread-zion-again {
+  margin: 0;
+  padding: clamp(4rem, 12vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  background: #050505;
+  color: #f7f5f2;
+}
+
+.spread-zion-again__plate {
+  width: min(100%, 20rem);
+}
+
+.spread-zion-again__plate .art-plate {
+  background: #050505;
+  box-shadow: none;
+}
+
+.spread-zion-again__label {
+  width: min(100%, 20rem);
+}
+
+.spread-zion-again__label .art-mono__meta,
+.spread-zion-again__label .art-mono__plate {
+  color: rgba(247, 245, 242, 0.45);
+}
+
+.spread-zion-again__label .art-mono__title,
+.spread-zion-again__label .art-mono__lore {
+  color: #f7f5f2;
+}
+
+.spread-zion-again__label .art-mono__lore {
+  color: rgba(247, 245, 242, 0.78);
+}
+
+/* Collage sheets — Creep / Empty / Li Qi — WHOLE sheet, never cropped */
+.spread-sheet {
+  margin: 0;
+  padding: clamp(3.5rem, 10vw, 6.5rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  justify-items: center;
+  gap: 1.35rem;
+}
+
+.spread-sheet--creep {
+  background:
+    radial-gradient(ellipse 50% 40% at 45% 35%, rgba(90, 120, 160, 0.1), transparent 70%),
+    var(--art-paper);
+}
+
+.spread-sheet--empty {
+  background:
+    radial-gradient(ellipse 55% 45% at 55% 40%, rgba(70, 110, 180, 0.1), transparent 70%),
+    var(--art-paper-2);
+}
+
+.spread-sheet--liqi {
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 30%, rgba(232, 180, 200, 0.28), transparent 70%),
+    var(--art-paper);
+}
+
+.spread-sheet__media {
+  width: min(100%, 26rem);
+}
+
+.spread-sheet__media .art-plate {
+  background: transparent;
+  box-shadow: 0 18px 48px var(--art-shadow);
+}
+
+.spread-sheet__media .art-plate__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.spread-sheet__label {
+  width: min(100%, 26rem);
+}
+
+/* Soul Rotting — self-portrait on cool paper */
+.spread-soul {
+  margin: 0;
+  padding: clamp(3.5rem, 10vw, 6.5rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 35%, rgba(100, 160, 200, 0.14), transparent 70%),
+    var(--art-paper);
+}
+
+.spread-soul__plate {
+  width: min(100%, 22rem);
+}
+
+.spread-soul__plate .art-plate {
+  box-shadow: 0 18px 48px var(--art-shadow);
+}
+
+.spread-soul__label {
+  width: min(100%, 22rem);
+}
+
+/* Still Her — Mycoto shapeshift landscape on ink */
+.spread-shift {
+  margin: 0;
+  background: #0a0a12;
+  color: #f7f5f2;
+}
+
+.spread-shift__media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1rem, 3vw, 2rem) 0;
+}
+
+.spread-shift__media .art-plate {
+  width: 100%;
+  max-width: min(100%, 48rem);
+  background: #0a0a12;
+  box-shadow: none;
+}
+
+.spread-shift__media .art-plate__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.spread-shift__label {
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(2.5rem, 6vw, 3.75rem);
+  max-width: 32rem;
+}
+
+.spread-shift__label .art-mono__meta,
+.spread-shift__label .art-mono__plate {
+  color: rgba(247, 245, 242, 0.55);
+}
+
+.spread-shift__label .art-mono__title,
+.spread-shift__label .art-mono__lore {
+  color: #f7f5f2;
+}
+
+.spread-shift__label .art-mono__lore {
+  color: rgba(247, 245, 242, 0.78);
+}
+
+/* Ocean Eyes — letterboxed grayscale landscape */
+.spread-ocean {
+  margin: 0;
+  background: #1a1a1a;
+  color: #f7f5f2;
+}
+
+.spread-ocean__media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1rem, 3vw, 2rem) 0;
+}
+
+.spread-ocean__media .art-plate {
+  width: 100%;
+  max-width: min(100%, 48rem);
+  background: #1a1a1a;
+  box-shadow: none;
+}
+
+.spread-ocean__media .art-plate__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.spread-ocean__label {
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(2.5rem, 6vw, 3.75rem);
+  max-width: 32rem;
+}
+
+.spread-ocean__label .art-mono__meta,
+.spread-ocean__label .art-mono__plate {
+  color: rgba(247, 245, 242, 0.55);
+}
+
+.spread-ocean__label .art-mono__title,
+.spread-ocean__label .art-mono__lore {
+  color: #f7f5f2;
+}
+
+.spread-ocean__label .art-mono__lore {
+  color: rgba(247, 245, 242, 0.78);
+}
+
+/* Journey Towards Death — cosmic dual-face on ink */
+.spread-journey {
+  margin: 0;
+  padding: clamp(4rem, 12vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  background: #050505;
+  color: #f7f5f2;
+}
+
+.spread-journey__plate {
+  width: min(100%, 28rem);
+}
+
+.spread-journey__plate .art-plate {
+  background: #050505;
+  box-shadow: none;
+}
+
+.spread-journey__label {
+  width: min(100%, 28rem);
+}
+
+.spread-journey__label .art-mono__meta,
+.spread-journey__label .art-mono__plate {
+  color: rgba(247, 245, 242, 0.45);
+}
+
+.spread-journey__label .art-mono__title,
+.spread-journey__label .art-mono__lore {
+  color: #f7f5f2;
+}
+
+.spread-journey__label .art-mono__lore {
+  color: rgba(247, 245, 242, 0.78);
+}
+
 /* Commissions — four solitary beats, not a card row */
 .spread-commissions-head {
   padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem) 0;

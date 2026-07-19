@@ -130,12 +130,20 @@ export default function CreativeArt() {
   }, []);
 
   const zion = catalogueBySlug["zion-introduction"];
+  const zionAgain = catalogueBySlug["zion-again"];
   const surrender = catalogueBySlug.surrender;
   const fearMe = catalogueBySlug["fear-me"];
+  const creep = catalogueBySlug.creep;
+  const soulRotting = catalogueBySlug["soul-rotting"];
+  const empty = catalogueBySlug["empty-empty-empty"];
   const mycoto = catalogueBySlug.mycoto;
+  const mycotoShift = catalogueBySlug["mycoto-shapeshift"];
   const ivan = catalogueBySlug.ivan;
   const pretty = catalogueBySlug["am-i-pretty-now"];
+  const oceanEyes = catalogueBySlug["ocean-eyes"];
   const xue = catalogueBySlug["zheng-bei-x-jiang-xiaohai"];
+  const journey = catalogueBySlug["journey-towards-death"];
+  const liQi = catalogueBySlug["li-qi"];
   const jeonghan = catalogueBySlug["love-me-hate-me"];
   const vernon = catalogueBySlug["describe-what-you-see"];
   const ageYounger = catalogueBySlug["age-younger"];
@@ -217,7 +225,27 @@ export default function CreativeArt() {
       </section>
 
       {/*
-        Pl. 02 Surrender — intimate rose portrait, already finished.
+        Pl. 02 Zion, Again — angelic glitch companion to Zion.
+        Alone on ink; never crop the static wings.
+      */}
+      <figure className="spread-zion-again" aria-label={zionAgain.title}>
+        <Reveal className="spread-zion-again__plate">
+          <Plate work={zionAgain} onOpen={() => openSlug(zionAgain.slug)} />
+        </Reveal>
+        <figcaption className="spread-zion-again__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={zionAgain}
+              lines={zionAgain.lore}
+              tone="dark"
+              onOpen={() => openSlug(zionAgain.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 03 Surrender — intimate rose portrait, already finished.
         Alone, narrow, caption docked under. No second visual.
       */}
       <figure className="spread-surrender" aria-label={surrender.title}>
@@ -236,7 +264,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 03 Fear Me — iconographic; the halo needs darkness.
+        Pl. 04 Fear Me — iconographic; the halo needs darkness.
         Site disappears into ink. Painting alone; one line of lore under.
       */}
       <figure className="spread-fear" aria-label={fearMe.title}>
@@ -255,8 +283,69 @@ export default function CreativeArt() {
         </figcaption>
       </figure>
 
+      <div className="art-interlude">
+        <Reveal>
+          <p>Self studies.</p>
+          <p>Whole sheets. Quieter confessions.</p>
+        </Reveal>
+      </div>
+
       {/*
-        Pl. 04 Mycoto — greeting character.
+        Pl. 05 Creep — lyrics collage; WHOLE sheet, never cropped.
+      */}
+      <figure className="spread-sheet spread-sheet--creep" aria-label={creep.title}>
+        <Reveal className="spread-sheet__media">
+          <Plate work={creep} onOpen={() => openSlug(creep.slug)} />
+        </Reveal>
+        <figcaption className="spread-sheet__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={creep}
+              lines={creep.lore}
+              onOpen={() => openSlug(creep.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 06 Soul Rotting — self-portrait with hands at the throat.
+      */}
+      <figure className="spread-soul" aria-label={soulRotting.title}>
+        <Reveal className="spread-soul__plate">
+          <Plate work={soulRotting} onOpen={() => openSlug(soulRotting.slug)} />
+        </Reveal>
+        <figcaption className="spread-soul__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={soulRotting}
+              lines={soulRotting.lore}
+              onOpen={() => openSlug(soulRotting.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 07 Empty, Empty, Empty — New Year notes collage; WHOLE sheet.
+      */}
+      <figure className="spread-sheet spread-sheet--empty" aria-label={empty.title}>
+        <Reveal className="spread-sheet__media">
+          <Plate work={empty} onOpen={() => openSlug(empty.slug)} />
+        </Reveal>
+        <figcaption className="spread-sheet__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={empty}
+              lines={empty.lore}
+              onOpen={() => openSlug(empty.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 08 Mycoto — greeting character.
         Painting + one sentence. The sentence is the dialogue; no second image.
       */}
       <section className="spread-mycoto" aria-label={mycoto.title}>
@@ -280,6 +369,25 @@ export default function CreativeArt() {
         </Reveal>
       </section>
 
+      {/*
+        Pl. 09 Still Her — Mycoto shapeshift; landscape dual, whole plate.
+      */}
+      <figure className="spread-shift" aria-label={mycotoShift.title}>
+        <Reveal className="spread-shift__media">
+          <Plate work={mycotoShift} onOpen={() => openSlug(mycotoShift.slug)} />
+        </Reveal>
+        <figcaption className="spread-shift__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={mycotoShift}
+              lines={mycotoShift.lore}
+              tone="dark"
+              onOpen={() => openSlug(mycotoShift.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
       <div className="art-interlude">
         <Reveal>
           <p>Fan studies.</p>
@@ -288,7 +396,7 @@ export default function CreativeArt() {
       </div>
 
       {/*
-        Pl. 05 Ivan — violent, complete, needs silence.
+        Pl. 10 Ivan — violent, complete, needs silence.
         Alone on ink. No lore. The website should almost not be there.
       */}
       <figure className="spread-ivan" aria-label={ivan.title}>
@@ -315,7 +423,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 06 Am I Pretty Now — Alien Stage kin to Ivan.
+        Pl. 11 Am I Pretty Now — Alien Stage kin to Ivan.
         Light ground for the paint splatters; portrait alone, restrained.
       */}
       <figure className="spread-pretty" aria-label={pretty.title}>
@@ -334,7 +442,26 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 07 Xue — narrative diptych already inside the painting (two figures, one sword).
+        Pl. 12 Ocean Eyes — William eye study; letterbox landscape, whole plate.
+      */}
+      <figure className="spread-ocean" aria-label={oceanEyes.title}>
+        <Reveal className="spread-ocean__media">
+          <Plate work={oceanEyes} onOpen={() => openSlug(oceanEyes.slug)} />
+        </Reveal>
+        <figcaption className="spread-ocean__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={oceanEyes}
+              lines={oceanEyes.lore}
+              tone="dark"
+              onOpen={() => openSlug(oceanEyes.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 13 Xue — narrative diptych already inside the painting (two figures, one sword).
         Do not invent a second plate. Dedication only.
       */}
       <figure className="spread-xue" aria-label={xue.title}>
@@ -350,6 +477,43 @@ export default function CreativeArt() {
         </figcaption>
       </figure>
 
+      {/*
+        Pl. 14 A Journey Towards Death — cosmic crown dual-face; narrative kin to Xue.
+      */}
+      <figure className="spread-journey" aria-label={journey.title}>
+        <Reveal className="spread-journey__plate">
+          <Plate work={journey} onOpen={() => openSlug(journey.slug)} />
+        </Reveal>
+        <figcaption className="spread-journey__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={journey}
+              lines={journey.lore}
+              tone="dark"
+              onOpen={() => openSlug(journey.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 15 Li Qi — warm scrapbook collage; WHOLE sheet, never cropped.
+      */}
+      <figure className="spread-sheet spread-sheet--liqi" aria-label={liQi.title}>
+        <Reveal className="spread-sheet__media">
+          <Plate work={liQi} onOpen={() => openSlug(liQi.slug)} />
+        </Reveal>
+        <figcaption className="spread-sheet__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={liQi}
+              lines={liQi.lore}
+              onOpen={() => openSlug(liQi.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
       <div className="art-interlude">
         <Reveal>
           <p>Album studies.</p>
@@ -358,7 +522,7 @@ export default function CreativeArt() {
       </div>
 
       {/*
-        Pl. 08 Jeonghan — dense square collage; already a magazine cover.
+        Pl. 16 Jeonghan — dense square collage; already a magazine cover.
         Alone. Never paired with Vernon just because both are square.
       */}
       <figure className="spread-square spread-square--jeonghan" aria-label={jeonghan.title}>
@@ -377,7 +541,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 09 Vernon — square alone; the prompt is already painted into the work.
+        Pl. 17 Vernon — square alone; the prompt is already painted into the work.
       */}
       <figure className="spread-square spread-square--vernon" aria-label={vernon.title}>
         <Reveal className="spread-square__plate">
@@ -395,7 +559,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 10 Age Younger — Vernon again, landscape diptych of light and aftermath.
+        Pl. 18 Age Younger — Vernon again, landscape diptych of light and aftermath.
         Full plate on ink; never crop the two faces.
       */}
       <figure className="spread-age" aria-label={ageYounger.title}>
@@ -415,7 +579,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 11 My B-Side — solitary portrait on black; quieter track.
+        Pl. 19 My B-Side — solitary portrait on black; quieter track.
       */}
       <figure className="spread-bside" aria-label={bside.title}>
         <Reveal className="spread-bside__plate">
@@ -434,7 +598,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 12 Romemok — vinyl composition already finished.
+        Pl. 20 Romemok — vinyl composition already finished.
         Landscape on ink; whole record, no crop.
       */}
       <figure className="spread-romemok" aria-label={romemok.title}>
@@ -454,7 +618,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 13 Two Hundred Fifty — white-ground birthday portrait.
+        Pl. 21 Two Hundred Fifty — white-ground birthday portrait.
         Alone, narrow; sketchy edges must remain.
       */}
       <figure className="spread-twofifty" aria-label={twoFifty.title}>
@@ -480,7 +644,7 @@ export default function CreativeArt() {
       </div>
 
       {/*
-        Pl. 14 Emblems — OC wordmark sheet.
+        Pl. 22 Emblems — OC wordmark sheet.
         Show the entire composition; logo sheets are never cropped.
       */}
       <figure className="spread-logos spread-logos--emblems" aria-label={emblems.title}>
@@ -500,7 +664,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 15 Hold Me. Haunt Me. — studio marks sheet.
+        Pl. 23 Hold Me. Haunt Me. — studio marks sheet.
         Whole sheet again; companion to Emblems, not a crop of it.
       */}
       <figure className="spread-logos spread-logos--marks" aria-label={marks.title}>
@@ -520,7 +684,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 16–19 Commissions — four portraits for friends.
+        Pl. 24–27 Commissions — four portraits for friends.
         Not a matched card row. Four solitary beats in sequence, each breathing differently.
       */}
       <header className="spread-commissions-head">
