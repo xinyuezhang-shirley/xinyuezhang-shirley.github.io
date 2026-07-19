@@ -590,6 +590,236 @@
   width: min(100%, 28rem);
 }
 
+/* Am I Pretty Now — light ground for paint; portrait alone near Ivan */
+.spread-pretty {
+  margin: 0;
+  padding: clamp(3.5rem, 10vw, 6.5rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  background:
+    radial-gradient(ellipse 55% 45% at 60% 35%, rgba(120, 170, 200, 0.12), transparent 70%),
+    var(--art-paper);
+}
+
+.spread-pretty__plate {
+  width: min(100%, 22rem);
+}
+
+.spread-pretty__plate .art-plate {
+  box-shadow: 0 18px 48px var(--art-shadow);
+}
+
+.spread-pretty__label {
+  width: min(100%, 22rem);
+}
+
+/* Age Younger — landscape fan study on ink; full diptych, never cropped */
+.spread-age {
+  margin: 0;
+  background: var(--art-ink);
+  color: #f7f5f2;
+}
+
+.spread-age__media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #050505;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem) 0;
+}
+
+.spread-age__media .art-plate {
+  width: 100%;
+  max-width: min(100%, 56rem);
+  background: #050505;
+  box-shadow: none;
+}
+
+.spread-age__media .art-plate__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.spread-age__label {
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(2.5rem, 6vw, 3.75rem);
+  max-width: 36rem;
+}
+
+.spread-age__label .art-mono__meta,
+.spread-age__label .art-mono__plate {
+  color: rgba(247, 245, 242, 0.55);
+}
+
+.spread-age__label .art-mono__title,
+.spread-age__label .art-mono__lore {
+  color: #f7f5f2;
+}
+
+.spread-age__label .art-mono__lore {
+  color: rgba(247, 245, 242, 0.78);
+}
+
+/* My B-Side — quieter track on ink */
+.spread-bside {
+  margin: 0;
+  padding: clamp(4rem, 12vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  background: #050505;
+  color: #f7f5f2;
+}
+
+.spread-bside__plate {
+  width: min(100%, 20rem);
+}
+
+.spread-bside__plate .art-plate {
+  background: #050505;
+  box-shadow: none;
+}
+
+.spread-bside__label {
+  width: min(100%, 20rem);
+}
+
+.spread-bside__label .art-mono__meta,
+.spread-bside__label .art-mono__plate {
+  color: rgba(247, 245, 242, 0.45);
+}
+
+.spread-bside__label .art-mono__title,
+.spread-bside__label .art-mono__lore {
+  color: #f7f5f2;
+}
+
+.spread-bside__label .art-mono__lore {
+  color: rgba(247, 245, 242, 0.78);
+}
+
+/* Romemok — vinyl landscape on ink; whole record */
+.spread-romemok {
+  margin: 0;
+  background: #050505;
+  color: #f7f5f2;
+}
+
+.spread-romemok__media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1rem, 3vw, 2rem) 0;
+}
+
+.spread-romemok__media .art-plate {
+  width: 100%;
+  max-width: min(100%, 48rem);
+  background: #050505;
+  box-shadow: none;
+}
+
+.spread-romemok__media .art-plate__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.spread-romemok__label {
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(2.5rem, 6vw, 3.75rem);
+  max-width: 32rem;
+}
+
+.spread-romemok__label .art-mono__meta,
+.spread-romemok__label .art-mono__plate {
+  color: rgba(247, 245, 242, 0.55);
+}
+
+.spread-romemok__label .art-mono__title,
+.spread-romemok__label .art-mono__lore {
+  color: #f7f5f2;
+}
+
+.spread-romemok__label .art-mono__lore {
+  color: rgba(247, 245, 242, 0.78);
+}
+
+/* Two Hundred Fifty — white-ground birthday portrait */
+.spread-twofifty {
+  margin: 0;
+  padding: clamp(3.5rem, 10vw, 6.5rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  background: var(--art-paper);
+}
+
+.spread-twofifty__plate {
+  width: min(100%, 18rem);
+}
+
+.spread-twofifty__plate .art-plate {
+  box-shadow: 0 1px 0 var(--art-line), 0 14px 36px var(--art-shadow);
+}
+
+.spread-twofifty__label {
+  width: min(100%, 18rem);
+}
+
+/* Logo sheets — WHOLE compositions, never cropped */
+.spread-logos {
+  margin: 0;
+  padding: clamp(3.5rem, 10vw, 6.5rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  justify-items: center;
+  gap: 1.35rem;
+  color: #f7f5f2;
+}
+
+.spread-logos--emblems {
+  background: #2a1410;
+}
+
+.spread-logos--marks {
+  background: #121212;
+}
+
+.spread-logos__sheet {
+  width: min(100%, 36rem);
+}
+
+.spread-logos__sheet .art-plate {
+  background: transparent;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+
+.spread-logos__sheet .art-plate__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.spread-logos__label {
+  width: min(100%, 36rem);
+}
+
+.spread-logos__label .art-mono__meta,
+.spread-logos__label .art-mono__plate {
+  color: rgba(247, 245, 242, 0.5);
+}
+
+.spread-logos__label .art-mono__title,
+.spread-logos__label .art-mono__lore {
+  color: #f7f5f2;
+}
+
+.spread-logos__label .art-mono__lore {
+  color: rgba(247, 245, 242, 0.78);
+}
+
 /* Commissions — four solitary beats, not a card row */
 .spread-commissions-head {
   padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem) 0;

@@ -134,9 +134,16 @@ export default function CreativeArt() {
   const fearMe = catalogueBySlug["fear-me"];
   const mycoto = catalogueBySlug.mycoto;
   const ivan = catalogueBySlug.ivan;
+  const pretty = catalogueBySlug["am-i-pretty-now"];
   const xue = catalogueBySlug["zheng-bei-x-jiang-xiaohai"];
   const jeonghan = catalogueBySlug["love-me-hate-me"];
   const vernon = catalogueBySlug["describe-what-you-see"];
+  const ageYounger = catalogueBySlug["age-younger"];
+  const bside = catalogueBySlug["my-bside"];
+  const romemok = catalogueBySlug.romemok;
+  const twoFifty = catalogueBySlug["two-hundred-fifty"];
+  const emblems = catalogueBySlug["oc-emblems"];
+  const marks = catalogueBySlug["ioakun-mycoto-marks"];
   const c1 = catalogueBySlug["commission-1"];
   const c2 = catalogueBySlug["commission-2"];
   const c3 = catalogueBySlug["commission-3"];
@@ -160,8 +167,8 @@ export default function CreativeArt() {
           A quiet monograph of digital paintings, original characters, and design studies.
         </p>
         <div className="art-open__colophon">
-          <span className="art-mono__meta">12 plates</span>
-          <span className="art-mono__meta">2023 — 2025</span>
+          <span className="art-mono__meta">{catalogue.length} plates</span>
+          <span className="art-mono__meta">2023 — 2026</span>
           <span className="art-mono__meta">Digital</span>
         </div>
         <p className="art-open__hint">Begins with Zion.</p>
@@ -308,7 +315,26 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 06 Xue — narrative diptych already inside the painting (two figures, one sword).
+        Pl. 06 Am I Pretty Now — Alien Stage kin to Ivan.
+        Light ground for the paint splatters; portrait alone, restrained.
+      */}
+      <figure className="spread-pretty" aria-label={pretty.title}>
+        <Reveal className="spread-pretty__plate">
+          <Plate work={pretty} onOpen={() => openSlug(pretty.slug)} />
+        </Reveal>
+        <figcaption className="spread-pretty__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={pretty}
+              lines={pretty.lore}
+              onOpen={() => openSlug(pretty.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 07 Xue — narrative diptych already inside the painting (two figures, one sword).
         Do not invent a second plate. Dedication only.
       */}
       <figure className="spread-xue" aria-label={xue.title}>
@@ -332,7 +358,7 @@ export default function CreativeArt() {
       </div>
 
       {/*
-        Pl. 07 Jeonghan — dense square collage; already a magazine cover.
+        Pl. 08 Jeonghan — dense square collage; already a magazine cover.
         Alone. Never paired with Vernon just because both are square.
       */}
       <figure className="spread-square spread-square--jeonghan" aria-label={jeonghan.title}>
@@ -351,7 +377,7 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 08 Vernon — square alone; the prompt is already painted into the work.
+        Pl. 09 Vernon — square alone; the prompt is already painted into the work.
       */}
       <figure className="spread-square spread-square--vernon" aria-label={vernon.title}>
         <Reveal className="spread-square__plate">
@@ -369,7 +395,132 @@ export default function CreativeArt() {
       </figure>
 
       {/*
-        Pl. 09–12 Commissions — four portraits for friends.
+        Pl. 10 Age Younger — Vernon again, landscape diptych of light and aftermath.
+        Full plate on ink; never crop the two faces.
+      */}
+      <figure className="spread-age" aria-label={ageYounger.title}>
+        <Reveal className="spread-age__media">
+          <Plate work={ageYounger} onOpen={() => openSlug(ageYounger.slug)} />
+        </Reveal>
+        <figcaption className="spread-age__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={ageYounger}
+              lines={ageYounger.lore}
+              tone="dark"
+              onOpen={() => openSlug(ageYounger.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 11 My B-Side — solitary portrait on black; quieter track.
+      */}
+      <figure className="spread-bside" aria-label={bside.title}>
+        <Reveal className="spread-bside__plate">
+          <Plate work={bside} onOpen={() => openSlug(bside.slug)} />
+        </Reveal>
+        <figcaption className="spread-bside__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={bside}
+              lines={bside.lore}
+              tone="dark"
+              onOpen={() => openSlug(bside.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 12 Romemok — vinyl composition already finished.
+        Landscape on ink; whole record, no crop.
+      */}
+      <figure className="spread-romemok" aria-label={romemok.title}>
+        <Reveal className="spread-romemok__media">
+          <Plate work={romemok} onOpen={() => openSlug(romemok.slug)} />
+        </Reveal>
+        <figcaption className="spread-romemok__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={romemok}
+              lines={romemok.lore}
+              tone="dark"
+              onOpen={() => openSlug(romemok.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 13 Two Hundred Fifty — white-ground birthday portrait.
+        Alone, narrow; sketchy edges must remain.
+      */}
+      <figure className="spread-twofifty" aria-label={twoFifty.title}>
+        <Reveal className="spread-twofifty__plate">
+          <Plate work={twoFifty} onOpen={() => openSlug(twoFifty.slug)} />
+        </Reveal>
+        <figcaption className="spread-twofifty__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={twoFifty}
+              lines={twoFifty.lore}
+              onOpen={() => openSlug(twoFifty.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      <div className="art-interlude">
+        <Reveal>
+          <p>Marks.</p>
+          <p>Whole sheets — nothing cropped.</p>
+        </Reveal>
+      </div>
+
+      {/*
+        Pl. 14 Emblems — OC wordmark sheet.
+        Show the entire composition; logo sheets are never cropped.
+      */}
+      <figure className="spread-logos spread-logos--emblems" aria-label={emblems.title}>
+        <Reveal className="spread-logos__sheet">
+          <Plate work={emblems} onOpen={() => openSlug(emblems.slug)} />
+        </Reveal>
+        <figcaption className="spread-logos__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={emblems}
+              lines={emblems.lore}
+              tone="dark"
+              onOpen={() => openSlug(emblems.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 15 Hold Me. Haunt Me. — studio marks sheet.
+        Whole sheet again; companion to Emblems, not a crop of it.
+      */}
+      <figure className="spread-logos spread-logos--marks" aria-label={marks.title}>
+        <Reveal className="spread-logos__sheet">
+          <Plate work={marks} onOpen={() => openSlug(marks.slug)} />
+        </Reveal>
+        <figcaption className="spread-logos__label">
+          <Reveal delay={1}>
+            <MuseumLabel
+              work={marks}
+              lines={marks.lore}
+              tone="dark"
+              onOpen={() => openSlug(marks.slug)}
+            />
+          </Reveal>
+        </figcaption>
+      </figure>
+
+      {/*
+        Pl. 16–19 Commissions — four portraits for friends.
         Not a matched card row. Four solitary beats in sequence, each breathing differently.
       */}
       <header className="spread-commissions-head">
