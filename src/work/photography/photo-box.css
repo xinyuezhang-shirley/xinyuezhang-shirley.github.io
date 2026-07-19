@@ -214,6 +214,23 @@
   object-fit: contain;
 }
 
+.photo-print__video {
+  pointer-events: none;
+}
+
+.photo-print__img-wrap--video {
+  background: #111;
+}
+
+.photo-viewer__stage video {
+  max-width: min(100%, 42rem);
+  max-height: calc(100vh - 8rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: #000;
+}
+
 .photo-print__caption {
   position: absolute;
   left: 0.55rem;

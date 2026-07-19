@@ -68,7 +68,6 @@ export const experience = [
   },
   {
     role: "Software Engineering Intern",
-    org: "Confidential",
     dates: "Jan 2026 – Jun 2026",
     bullets: [
       "Architected an enterprise AI query platform enabling natural language access to structured databases and enterprise documents through a unified Query Router that classified user intent and orchestrated Text-to-SQL, RAG, and hybrid retrieval pipelines with intelligent fallback across heterogeneous data sources.",

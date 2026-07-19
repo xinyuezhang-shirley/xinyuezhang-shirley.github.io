@@ -107,15 +107,8 @@
 }
 
 .zine-spread--newsprint {
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 27px,
-      rgba(26, 23, 20, 0.035) 27px,
-      rgba(26, 23, 20, 0.035) 28px
-    ),
-    var(--zine-news);
+  /* Flat paper — no fake ruled lines that misalign with type */
+  background: var(--zine-news);
   color: var(--zine-ink);
 }
 
@@ -316,8 +309,18 @@
   height: 100%;
   object-fit: cover;
   object-position: var(--zine-crop, 50% 50%);
-  transform: scale(var(--zine-scale, 1.15));
+  transform: scale(var(--zine-scale, 1));
   display: block;
+}
+
+.zine-portrait--contain {
+  background: transparent;
+}
+
+.zine-portrait--contain .zine-portrait__img {
+  object-fit: contain;
+  object-position: center center;
+  transform: scale(var(--zine-scale, 1));
 }
 
 .zine-portrait--mono .zine-portrait__img {
@@ -429,14 +432,20 @@
 
 .zine-cover__media {
   position: relative;
-  min-height: min(72vh, 640px);
+  min-height: 0;
+  display: flex;
+  align-items: end;
+  justify-content: flex-end;
 }
 
 .zine-cover__media .zine-portrait,
 .zine-cover__main {
-  position: absolute;
-  inset: 8% 10% 0 18%;
-  box-shadow: 0 24px 60px rgba(20, 14, 10, 0.18);
+  position: relative;
+  width: min(100%, 42rem);
+  height: auto;
+  aspect-ratio: 3 / 2;
+  margin-left: auto;
+  box-shadow: none;
 }
 
 .zine-portrait--fill,
@@ -482,8 +491,12 @@
     padding-top: 2rem;
   }
   .zine-cover__media {
-    min-height: 55vh;
+    min-height: 0;
     order: -1;
+  }
+  .zine-cover__media .zine-portrait,
+  .zine-cover__main {
+    width: 100%;
   }
 }
 
@@ -492,9 +505,9 @@
    ========================= */
 .spread-poetry {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: clamp(1.5rem, 4vw, 3.5rem);
-  align-items: start;
+  align-items: center;
 }
 
 .spread-poetry__body {
@@ -504,35 +517,27 @@
 .spread-poetry__aside {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding-top: 3rem;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 100%;
 }
 
-.spread-poetry__eyes {
-  width: 100%;
-  aspect-ratio: 5 / 2;
-  transform: rotate(1.5deg);
-}
-
-.spread-poetry__vertical {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: var(--zine-display);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  letter-spacing: 0.12em;
-  opacity: 0.35;
-  align-self: flex-end;
-  margin-top: 2rem;
+.spread-poetry__plate {
+  height: min(78vh, 720px);
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 3 / 4;
+  margin: 0 auto;
 }
 
 @media (max-width: 820px) {
   .spread-poetry {
     grid-template-columns: 1fr;
+    align-items: start;
   }
-  .spread-poetry__vertical {
-    writing-mode: horizontal-tb;
-    transform: none;
-    align-self: flex-start;
+  .spread-poetry__plate {
+    width: min(100%, 28rem);
+    height: auto;
   }
 }
 
@@ -552,10 +557,9 @@
 }
 
 .spread-flowers__main {
-  width: 78%;
-  aspect-ratio: 3 / 4;
-  margin-left: 10%;
-  transform: rotate(-1.5deg);
+  width: 100%;
+  height: min(78vh, 720px);
+  max-width: 26rem;
 }
 
 .spread-flowers__scrap {
@@ -652,6 +656,12 @@
 /* =========================
    LOVE — blush + eyes
    ========================= */
+.spread-love__plate {
+  width: min(100%, 24rem);
+  height: min(78vh, 700px);
+  margin: 0 auto;
+}
+
 .spread-love {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -695,6 +705,13 @@
 .spread-romantic {
   position: relative;
   overflow: hidden;
+  gap: 1.75rem;
+}
+
+.spread-romantic__plate {
+  width: min(100%, 52rem);
+  aspect-ratio: 16 / 9;
+  margin: 0 auto 1.25rem;
 }
 
 .spread-romantic__grid {
@@ -703,17 +720,6 @@
   gap: 1.5rem 2rem;
   max-width: 56rem;
   margin: 0 auto;
-}
-
-.spread-romantic__media {
-  position: absolute;
-  width: min(42vw, 320px);
-  aspect-ratio: 3 / 4;
-  right: 4%;
-  top: 18%;
-  opacity: 0.55;
-  transform: rotate(3deg);
-  mask-image: linear-gradient(180deg, black 40%, transparent 95%);
 }
 
 .spread-romantic__frag {
@@ -739,12 +745,6 @@
   .spread-romantic__grid {
     grid-template-columns: 1fr;
   }
-  .spread-romantic__media {
-    position: relative;
-    width: 55%;
-    margin: 0 0 1.5rem auto;
-    opacity: 0.75;
-  }
   .spread-romantic__frag:nth-child(2) {
     margin-top: 0;
   }
@@ -765,9 +765,16 @@
   align-items: end;
 }
 
+.spread-birthday__credit {
+  display: block;
+  margin-top: 0.75rem;
+  max-width: 22rem;
+}
+
 .spread-birthday__cake {
-  aspect-ratio: 4 / 5;
-  transform: rotate(-1deg);
+  width: min(100%, 26rem);
+  height: min(72vh, 640px);
+  margin: 0 auto;
 }
 
 .spread-birthday__stack {
@@ -810,6 +817,17 @@
 /* =========================
    ODE — candle forever
    ========================= */
+.spread-ode__plate {
+  width: min(100%, 52rem);
+  aspect-ratio: 16 / 9;
+  margin: 0 auto 1.5rem;
+}
+
+.spread-ode__copy {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
 .spread-ode {
   display: grid;
   grid-template-columns: 0.85fr 1.15fr;
@@ -854,20 +872,25 @@
    ========================= */
 .spread-sleepless {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
-  align-items: center;
-  padding: 0;
-  min-height: 100vh;
+  align-items: start;
+  min-height: auto;
+  padding-top: clamp(3rem, 7vw, 5rem);
+  padding-bottom: clamp(3rem, 7vw, 5rem);
 }
 
 .spread-sleepless__media {
-  min-height: 100vh;
+  width: min(100%, 52rem);
+  aspect-ratio: 3 / 2;
+  margin: 0 auto;
+  min-height: 0;
 }
 
 .spread-sleepless__media .zine-portrait,
 .spread-sleepless__media .zine-resolve {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 .spread-sleepless__media .zine-resolve .zine-portrait {
@@ -875,27 +898,10 @@
 }
 
 .spread-sleepless__text {
-  padding: clamp(2rem, 5vw, 4rem);
-}
-
-.spread-sleepless__clock {
-  font-family: var(--zine-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
-  margin-bottom: 1.5rem;
-  opacity: 0.5;
-}
-
-@media (max-width: 820px) {
-  .spread-sleepless {
-    grid-template-columns: 1fr;
-  }
-  .spread-sleepless__media {
-    min-height: 50vh;
-  }
-  .spread-sleepless__media .zine-portrait {
-    height: 50vh;
-  }
+  padding: 0;
+  max-width: 40rem;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* =========================
@@ -929,6 +935,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
+}
+
+.spread-thief__body--solo {
+  grid-template-columns: 1fr;
+  max-width: 38rem;
+  margin-top: 0.5rem;
 }
 
 .spread-thief__who {
@@ -979,42 +991,43 @@
 }
 
 /* =========================
-   RENAISSANCE — collage hope
+   RENAISSANCE — tall plate beside long poem
    ========================= */
-.spread-renaissance__wall {
+.spread-renaissance {
   display: grid;
-  grid-template-columns: 1.1fr 0.7fr 0.9fr;
-  gap: 0.65rem;
-  margin-bottom: 2.5rem;
-  align-items: end;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
 }
 
-.spread-renaissance__wall .zine-portrait:nth-child(1) {
+.spread-renaissance__copy {
+  max-width: 34rem;
+}
+
+.spread-renaissance__media {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 100%;
+}
+
+.spread-renaissance__plate {
+  height: min(82vh, 760px);
+  width: auto;
+  max-width: 100%;
   aspect-ratio: 3 / 4;
-  transform: rotate(-1.5deg);
-}
-.spread-renaissance__wall .zine-portrait:nth-child(2) {
-  aspect-ratio: 1;
-  transform: rotate(3deg) translateY(-12%);
-}
-.spread-renaissance__wall .zine-portrait:nth-child(3) {
-  aspect-ratio: 4 / 5;
-  transform: rotate(-0.5deg);
-}
-
-.spread-renaissance__text {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 2rem;
+  margin: 0 auto;
 }
 
 @media (max-width: 820px) {
-  .spread-renaissance__wall,
-  .spread-renaissance__text {
+  .spread-renaissance {
     grid-template-columns: 1fr;
+    align-items: start;
   }
-  .spread-renaissance__wall .zine-portrait:nth-child(2) {
-    transform: rotate(2deg);
+  .spread-renaissance__plate {
+    width: min(100%, 28rem);
+    height: auto;
   }
 }
 
@@ -1056,10 +1069,11 @@
   justify-content: center;
 }
 
-.zine-colophon__thumb {
-  width: min(180px, 40vw);
-  aspect-ratio: 3 / 4;
-  margin: 1.5rem auto 0;
-  transform: rotate(2deg);
-  opacity: 0.85;
+.zine-colophon__thumb,
+.zine-colophon__plate {
+  width: min(280px, 55vw);
+  height: min(420px, 58vh);
+  margin: 2rem auto 0;
+  transform: none;
+  opacity: 1;
 }

@@ -2,6 +2,7 @@ import { useEffect, useId, useRef } from "react";
 import {
   collectionForSrc,
   getViewerPrints,
+  printKind,
   type PhotoPrint,
 } from "../collections";
 
@@ -79,7 +80,19 @@ export function FullscreenViewer({
       </div>
 
       <div className="photo-viewer__stage">
-        <img src={print.src} alt={print.alt} />
+        {printKind(print) === "video" ? (
+          <video
+            key={print.src}
+            src={print.src}
+            controls
+            autoPlay
+            playsInline
+            loop
+            aria-label={print.alt}
+          />
+        ) : (
+          <img src={print.src} alt={print.alt} />
+        )}
       </div>
 
       <div className="photo-viewer__bar">

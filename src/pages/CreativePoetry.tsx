@@ -2,23 +2,19 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import "@/work/poetry/poetry-zine.css";
 import { getPoem } from "@/work/poetry/getPoem";
-import { portraits, scraps } from "@/work/poetry/portraits";
+import { portraits } from "@/work/poetry/portraits";
 import {
   Caption,
-  Collage,
   EditorialPortrait,
   FullscreenPortrait,
   HandNote,
   LineReveal,
-  NotebookMargin,
   PageMarker,
-  PaperLayer,
   PoemFragment,
   PoemSpread,
   PoemTitle,
   QuoteBlock,
   Reveal,
-  Stamp,
   Stanza,
 } from "@/work/poetry/components/pieces";
 import { useInView } from "@/work/art/components/useInView";
@@ -26,26 +22,37 @@ import { useInView } from "@/work/art/components/useInView";
 function ResolvePortrait({
   src,
   alt,
-  crop,
   className = "",
 }: {
   src: string;
   alt: string;
-  crop?: "full" | "eyes" | "face" | "shadow" | "crown";
   className?: string;
 }) {
   const { ref, inView } = useInView<HTMLDivElement>();
   return (
     <div ref={ref} className={`zine-resolve${inView ? " is-inview" : ""}${className ? ` ${className}` : ""}`}>
-      <EditorialPortrait src={src} alt={alt} crop={crop} scale={1.08} className="zine-portrait--fill" />
+      <EditorialPortrait src={src} alt={alt} fit="contain" className="zine-portrait--fill" />
     </div>
   );
 }
 
-/* Emotional sequence:
-   Cover → wonder (Poetry) → mortality (Flowers) → solitude (Landscape)
-   → love → intoxicating language → birthday/youth → forever
-   → sleepless → identity/anger → fear → renaissance hope → colophon */
+/*
+  Photo editor notes (orientation → mood → placement):
+
+  Cover       coverReach (L)    — wide landscape plate
+  Poetry      crownTriptych (V) — tall plate right of poem
+  Flowers     crownSepiaSeat(V) — tall elegy beside sonnet
+  Landscape   —                 — dark bilingual atmosphere
+  Love        ruffleLean (V)    — tall quiet portrait
+  Romantic    candleClose (L)   — wide intimate plate above text
+  Birthday    crownCake (V)     — large self-portrait + Claire caption
+  Ode         flameTeeth (L)    — wide dramatic plate
+  Sleepless   motionBlur (L)    — wide unresolved plate
+  Thief       —                 — erasure as silence
+  Fear        handReach (V)     — full-bleed abyss
+  Renaissance crownShoulder (V) — tall plate beside poem
+  Colophon    handsFrame (V)    — closing vertical plate
+*/
 
 function Cover() {
   return (
@@ -57,33 +64,23 @@ function Cover() {
           </Link>
         </Reveal>
         <Reveal delay={1}>
-          <p className="zine-cover__meta">Winter Notes · Notebook III · Draft 4</p>
+          <p className="zine-cover__meta">Winter Notes · 2020–2024</p>
           <h1 className="zine-cover__title">Poetry</h1>
           <p className="zine-cover__deck">
-            A handmade zine of eleven poems, 2020–2024. Borrow the notebook for an hour.
+            Eleven poems. Borrow the notebook for an hour.
           </p>
-          <Stamp>Personal copy</Stamp>
         </Reveal>
       </div>
       <div className="zine-cover__media">
         <Reveal delay={1}>
           <EditorialPortrait
-            src={portraits.crownClose}
-            alt="Self-portrait with paper crown — hand reaching toward the lens"
-            crop="face"
+            src={portraits.coverReach}
+            alt="Self-portrait with a hand reaching toward the lens and a geometric paper crown"
+            fit="contain"
             priority
             className="zine-cover__main"
           />
         </Reveal>
-        <Reveal delay={2}>
-          <EditorialPortrait
-            src={portraits.sepiaCrown}
-            alt="Grainy crop — paper crown"
-            crop="crown"
-            className="zine-cover__crop"
-          />
-        </Reveal>
-        <HandNote className="zine-cover__note">the crown is paper — still counts</HandNote>
       </div>
     </PoemSpread>
   );
@@ -92,11 +89,11 @@ function Cover() {
 function SpreadPoetry() {
   const poem = getPoem("poetry");
   return (
-    <PoemSpread tone="newsprint" id="poetry" marker="Page 02 · Wonder">
+    <PoemSpread tone="cream" id="poetry" marker="Page 02 · Wonder">
       <div className="spread-poetry">
         <div className="spread-poetry__body">
           <Reveal>
-            <Caption>Nov 2021 · lead editor, here and there</Caption>
+            <Caption>November 2021</Caption>
             <PoemTitle>{poem.title}</PoemTitle>
           </Reveal>
           <Reveal delay={1}>
@@ -106,21 +103,11 @@ function SpreadPoetry() {
         <div className="spread-poetry__aside">
           <Reveal delay={1}>
             <EditorialPortrait
-              src={portraits.closeEyes}
-              alt="Eyes looking away — mint bedspread crop"
-              crop="eyes"
-              className="spread-poetry__eyes"
+              src={portraits.crownTriptych}
+              alt="Triptych self-portrait with a geometric paper crown, hands framing the face"
+              fit="contain"
+              className="spread-poetry__plate"
             />
-          </Reveal>
-          <Reveal delay={2}>
-            <NotebookMargin>
-              not diction
-              <br />
-              not rhyme —
-              <br />
-              creativity.
-            </NotebookMargin>
-            <p className="spread-poetry__vertical">music for the soul</p>
           </Reveal>
         </div>
       </div>
@@ -136,31 +123,17 @@ function SpreadFlowers() {
         <div className="spread-flowers__visual">
           <Reveal>
             <EditorialPortrait
-              src={portraits.handReach}
-              alt="Shadowed face, paper crown tip, blurred hand"
-              crop="face"
+              src={portraits.crownSepiaSeat}
+              alt="Sepia self-portrait with a paper crown, seated"
+              fit="contain"
               className="spread-flowers__main"
             />
           </Reveal>
-          <Reveal delay={1}>
-            <EditorialPortrait
-              src={scraps.butterfly}
-              alt="Butterfly photograph"
-              crop="full"
-              className="spread-flowers__scrap"
-            />
-          </Reveal>
-          <span className="spread-flowers__word" aria-hidden>
-            fall
-          </span>
         </div>
         <div className="spread-flowers__text">
           <Reveal delay={1}>
-            <Caption rotate={-2}>Sept 2021 · sonnet</Caption>
+            <Caption>September 2021 · sonnet</Caption>
             <PoemTitle>{poem.title}</PoemTitle>
-            <HandNote strike className="mb-4">
-              forever spring
-            </HandNote>
             <Stanza text={poem.content} />
           </Reveal>
         </div>
@@ -182,9 +155,6 @@ function SpreadLandscape() {
 
   return (
     <PoemSpread tone="forest" id="alone-in-the-landscape" marker="Page 04 · Solitude" className="spread-landscape">
-      <div className="spread-landscape__ink" aria-hidden>
-        <EditorialPortrait src={scraps.deer} alt="" crop="left" scale={1.3} />
-      </div>
       <Reveal>
         <Caption style={{ color: "rgba(220, 232, 222, 0.5)" } satisfies CSSProperties}>
           2020 · 只身山水
@@ -197,7 +167,6 @@ function SpreadLandscape() {
       </Reveal>
       <Reveal delay={2}>
         <p className="spread-landscape__en">{english}</p>
-        <HandNote style={{ marginTop: "2rem", opacity: 0.75 }}>篱下饮酒问己心</HandNote>
       </Reveal>
     </PoemSpread>
   );
@@ -207,19 +176,15 @@ function SpreadLove() {
   const poem = getPoem("love-is-the-language-of-strangers");
   return (
     <PoemSpread tone="blush" id="love-is-the-language-of-strangers" marker="Page 05 · Love">
-      <HandNote className="spread-love__float spread-love__float--a">not flutter — drops</HandNote>
-      <HandNote className="spread-love__float spread-love__float--b">dimples like wounds</HandNote>
       <div className="spread-love">
         <Reveal>
           <EditorialPortrait
-            src={portraits.closeEyes}
-            alt="Reclining with paper crown — editorial crop"
-            crop="face"
-            className="spread-love__eyes"
+            src={portraits.ruffleLean}
+            alt="Self-portrait in a white ruffled blouse"
+            fit="contain"
+            className="spread-love__plate"
           />
-          <Caption rotate={3} className="mt-3">
-            Feb 2024 · strangers
-          </Caption>
+          <Caption className="mt-3">February 2024</Caption>
         </Reveal>
         <Reveal delay={1}>
           <PoemTitle>{poem.title}</PoemTitle>
@@ -234,17 +199,22 @@ function SpreadRomantic() {
   const poem = getPoem("romantic-death-linguistic-tragedy");
   const stanzas = poem.content.split(/\n\n+/);
   return (
-    <PoemSpread tone="burgundy" id="romantic-death-linguistic-tragedy" marker="Page 06 · Language" className="spread-romantic">
+    <PoemSpread
+      tone="burgundy"
+      id="romantic-death-linguistic-tragedy"
+      marker="Page 06 · Language"
+      className="spread-romantic"
+    >
       <Reveal>
         <EditorialPortrait
-          src={portraits.handReach}
-          alt="Hand overlay reaching through the frame"
-          crop="hands"
-          className="spread-romantic__media"
+          src={portraits.candleClose}
+          alt="Self-portrait lit by a thin candle"
+          fit="contain"
+          className="spread-romantic__plate"
         />
       </Reveal>
-      <Reveal>
-        <Caption>Oct 2021 · linguistic tragedy</Caption>
+      <Reveal delay={1}>
+        <Caption>October 2021</Caption>
         <PoemTitle style={{ marginBottom: "2rem" }}>{poem.title}</PoemTitle>
       </Reveal>
       <div className="spread-romantic__grid">
@@ -263,49 +233,30 @@ function SpreadBirthday() {
   return (
     <PoemSpread tone="cream" id="happy-birthday" marker="Page 07 · Youth" className="spread-birthday">
       <Reveal>
-        <Caption>Feb 2024 · for Claire</Caption>
+        <Caption>February 2024 · for Claire</Caption>
         <PoemTitle>{poem.title}</PoemTitle>
       </Reveal>
       <div className="spread-birthday__hero">
         <Reveal delay={1}>
           <EditorialPortrait
             src={portraits.crownCake}
-            alt="Paper crown and birthday cake — nested editorial frame"
-            crop="full"
+            alt="Self-portrait with paper crown and birthday cake"
+            fit="contain"
             className="spread-birthday__cake"
             priority
           />
+          <Caption className="spread-birthday__credit">
+            Self-portrait. The poem is addressed to Claire.
+          </Caption>
         </Reveal>
-        <div className="spread-birthday__stack">
-          <Reveal delay={2}>
-            <EditorialPortrait
-              src={portraits.layeredCollage}
-              alt="Cake, headphones, staggered film strips"
-              crop="top"
-              className="spread-birthday__strip"
-            />
-          </Reveal>
-          <Reveal delay={3}>
-            <EditorialPortrait
-              src={portraits.shadowTurn}
-              alt="Three frames — hands framing the crown"
-              crop="face"
-              className="spread-birthday__triptych"
-            />
-          </Reveal>
-        </div>
       </div>
       <div className="spread-birthday__text">
         <Reveal>
-          <PaperLayer>
-            <Stamp>c&apos;est la vie</Stamp>
-            <HandNote className="spread-birthday__dedicate">
-              Happy Birthday Claire,
-              <br />
-              enjoy your twenties.
-            </HandNote>
-            <Caption className="mt-4">Count 1 → ∞ · don&apos;t look back</Caption>
-          </PaperLayer>
+          <HandNote className="spread-birthday__dedicate">
+            Happy Birthday Claire,
+            <br />
+            enjoy your twenties.
+          </HandNote>
         </Reveal>
         <Reveal delay={1}>
           <Stanza text={poem.content} />
@@ -323,25 +274,22 @@ function SpreadOde() {
     .replace(/^Ode to Life\n/, "");
   return (
     <PoemSpread tone="charcoal" id="ode-to-life" marker="Page 08 · Forever" className="spread-ode">
-      <span className="spread-ode__forever" aria-hidden>
-        Forever
-      </span>
       <Reveal>
         <EditorialPortrait
-          src={portraits.candleGaze}
-          alt="Birthday candle held near the face — diptych"
-          crop="candle"
-          className="spread-ode__candle"
+          src={portraits.flameTeeth}
+          alt="Self-portrait with a lit match held between the teeth"
+          fit="contain"
+          className="spread-ode__plate"
         />
       </Reveal>
-      <div>
+      <div className="spread-ode__copy">
         <Reveal>
           <QuoteBlock attribution="Viv Albertine" className="spread-ode__epigraph">
             I love that word. Forever. I love that forever doesn&apos;t exist, but we have a word for it
             anyway.
           </QuoteBlock>
           <PoemTitle>{poem.title}</PoemTitle>
-          <Caption>Nov 2021 · golden-crowned sparrow</Caption>
+          <Caption>November 2021</Caption>
         </Reveal>
         <Reveal delay={1}>
           <Stanza text={body.trim()} className="mt-6" />
@@ -357,21 +305,17 @@ function SpreadSleepless() {
   return (
     <PoemSpread tone="ink" id="sleepless" marker="Page 09 · Night" className="spread-sleepless">
       <ResolvePortrait
-        src={portraits.shadowTurn}
-        alt="Portrait resolving from blur — paper crown"
-        crop="shadow"
+        src={portraits.motionBlur}
+        alt="Motion-blurred self-portrait"
         className="spread-sleepless__media"
       />
       <div className="spread-sleepless__text">
         <Reveal>
-          <p className="spread-sleepless__clock">02:00 · Feb 2023</p>
+          <Caption>February 2023 · 2 a.m.</Caption>
           <PoemTitle>{poem.title}</PoemTitle>
         </Reveal>
         <Reveal delay={1}>
           <LineReveal lines={lines} />
-        </Reveal>
-        <Reveal delay={2}>
-          <HandNote className="mt-6">lock it in a box named discipline</HandNote>
         </Reveal>
       </div>
     </PoemSpread>
@@ -382,50 +326,18 @@ function SpreadThief() {
   const poem = getPoem("the-silent-thief");
   const parts = poem.content.split(/\n\n+/);
   return (
-    <PoemSpread tone="newsprint" id="the-silent-thief" marker="Page 10 · Identity">
+    <PoemSpread tone="cream" id="the-silent-thief" marker="Page 10 · Identity">
       <Reveal>
-        <Caption>Nov 2021 · his honor Success</Caption>
+        <Caption>November 2021</Caption>
         <PoemTitle>{poem.title}</PoemTitle>
       </Reveal>
-      <Collage className="spread-thief__collage">
-        <Reveal delay={1}>
-          <EditorialPortrait
-            src={portraits.flashBw}
-            alt="Looking back over the shoulder — B&W flash"
-            crop="face"
-            className="spread-thief__a"
-            mono
-          />
-        </Reveal>
-        <Reveal delay={2}>
-          <EditorialPortrait
-            src={portraits.layeredCollage}
-            alt="Fragmented cake sequence"
-            crop="eyes"
-            className="spread-thief__b"
-            mono
-          />
-        </Reveal>
-        <Reveal delay={3}>
-          <EditorialPortrait
-            src={portraits.crownClose}
-            alt="Direct gaze — top frame"
-            crop="eyes"
-            className="spread-thief__c"
-          />
-        </Reveal>
-      </Collage>
-      <div className="spread-thief__body">
+      <div className="spread-thief__body spread-thief__body--solo">
         <Reveal>
           <Stanza text={parts.slice(0, 2).join("\n\n")} />
         </Reveal>
         <Reveal delay={1}>
           <p className="spread-thief__who">Who am I?</p>
           <Stanza text={parts.slice(2).join("\n\n")} />
-          <HandNote strike className="mt-4">
-            complete thought;
-          </HandNote>
-          <HandNote>complete distraught.</HandNote>
         </Reveal>
       </div>
     </PoemSpread>
@@ -439,15 +351,15 @@ function SpreadFear() {
       <PageMarker label="Page 11 · Abyss" />
       <FullscreenPortrait
         src={portraits.handReach}
-        alt="Face half in shadow — looking through the hand"
-        crop="shadow"
+        alt="Self-portrait half in shadow behind a blurred hand"
+        crop="full"
         priority
       >
         <Reveal>
           <h2 className="spread-fear-poem__title">{poem.title}</h2>
           <p className="spread-fear-poem__tiny">{poem.content}</p>
           <Caption className="mt-4" style={{ color: "rgba(232, 226, 216, 0.45)" } satisfies CSSProperties}>
-            Feb 2024 · God&apos;s unloved orphan
+            February 2024
           </Caption>
         </Reveal>
       </FullscreenPortrait>
@@ -459,37 +371,26 @@ function SpreadRenaissance() {
   const poem = getPoem("the-renaissance-man");
   return (
     <PoemSpread tone="cream" id="the-renaissance-man" marker="Page 12 · Hope">
-      <Reveal>
-        <Caption>July 2024 · Il Divino</Caption>
-        <PoemTitle>{poem.title}</PoemTitle>
-      </Reveal>
-      <div className="spread-renaissance__wall">
-        <Reveal delay={1}>
-          <EditorialPortrait src={scraps.goddess} alt="Surrender — digital painting" crop="face" />
-        </Reveal>
-        <Reveal delay={2}>
-          <EditorialPortrait
-            src={portraits.sepiaCrown}
-            alt="Sepia paper crown — recurring motif"
-            crop="crown"
-          />
-        </Reveal>
-        <Reveal delay={3}>
-          <EditorialPortrait src={scraps.light} alt="Fear Me — halo study" crop="full" />
-        </Reveal>
-      </div>
-      <div className="spread-renaissance__text">
-        <Reveal>
-          <NotebookMargin side="left">
-            free the vision
-            <br />
-            from the vaulted sky
-          </NotebookMargin>
-          <Stamp className="mt-6">The Master</Stamp>
-        </Reveal>
-        <Reveal delay={1}>
-          <Stanza text={poem.content} />
-        </Reveal>
+      <div className="spread-renaissance">
+        <div className="spread-renaissance__copy">
+          <Reveal>
+            <Caption>July 2024</Caption>
+            <PoemTitle>{poem.title}</PoemTitle>
+          </Reveal>
+          <Reveal delay={1}>
+            <Stanza text={poem.content} />
+          </Reveal>
+        </div>
+        <div className="spread-renaissance__media">
+          <Reveal delay={1}>
+            <EditorialPortrait
+              src={portraits.crownShoulder}
+              alt="Black-and-white self-portrait with a paper crown, glancing over the shoulder"
+              fit="contain"
+              className="spread-renaissance__plate"
+            />
+          </Reveal>
+        </div>
       </div>
     </PoemSpread>
   );
@@ -501,15 +402,15 @@ function Colophon() {
       <Reveal>
         <h2 className="zine-colophon__title">End of issue</h2>
         <p className="zine-colophon__body">
-          Eleven poems. One paper crown. If this felt like borrowing a notebook — that was the point.
+          Eleven poems. If this felt like borrowing a notebook — that was the point.
         </p>
       </Reveal>
       <Reveal delay={1}>
         <EditorialPortrait
-          src={portraits.candleGaze}
-          alt="Candle — closing motif"
-          crop="bottom"
-          className="zine-colophon__thumb"
+          src={portraits.handsFrame}
+          alt="Closing self-portrait"
+          fit="contain"
+          className="zine-colophon__plate"
         />
         <div className="zine-colophon__meta">
           <span>Issue No. 1</span>

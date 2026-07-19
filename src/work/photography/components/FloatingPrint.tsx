@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, type CSSProperties, type Ref } from "react";
-import type { PhotoPrint } from "../collections";
+import { printKind, type PhotoPrint } from "../collections";
 import { PhotoCaption } from "./PhotoCaption";
 
 interface FloatingPrintProps {
@@ -56,6 +56,7 @@ export function FloatingPrint({
   const orient = print.orient ?? "landscape";
   const rotate = print.rotate ?? 0;
   const isCrop = Boolean(print.crop);
+  const kind = printKind(print);
   const canOpen = Boolean(onOpen) && !print.inert;
 
   const style = {
@@ -67,6 +68,7 @@ export function FloatingPrint({
   const wrapClass = [
     "photo-print__img-wrap",
     isCrop ? "" : `photo-print__img-wrap--${orient}`,
+    kind === "video" ? "photo-print__img-wrap--video" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -74,6 +76,29 @@ export function FloatingPrint({
   const imgStyle: CSSProperties = {
     objectPosition: print.crop?.objectPosition ?? print.focus ?? "center",
   };
+
+  const media =
+    kind === "video" ? (
+      <video
+        className="photo-print__img photo-print__video"
+        src={print.src}
+        muted
+        loop
+        playsInline
+        autoPlay
+        preload="metadata"
+        aria-label={print.alt}
+      />
+    ) : (
+      <img
+        className="photo-print__img"
+        src={print.src}
+        alt={print.alt}
+        style={imgStyle}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+      />
+    );
 
   const body = (
     <span className="photo-print__paper">
@@ -85,14 +110,7 @@ export function FloatingPrint({
             : undefined
         }
       >
-        <img
-          className="photo-print__img"
-          src={print.src}
-          alt={print.alt}
-          style={imgStyle}
-          loading={priority ? "eager" : "lazy"}
-          decoding="async"
-        />
+        {media}
       </span>
       {print.note ? <PhotoCaption>{print.note}</PhotoCaption> : null}
     </span>

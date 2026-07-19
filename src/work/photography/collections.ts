@@ -25,6 +25,13 @@ export interface PhotoPrint {
   };
   /** Skip opening viewer (decorative pin / ultra-tiny proof) */
   inert?: boolean;
+  /** Media kind — inferred from src when omitted */
+  kind?: "image" | "video";
+}
+
+export function printKind(print: Pick<PhotoPrint, "src" | "kind">): "image" | "video" {
+  if (print.kind) return print.kind;
+  return /\.(mp4|webm|mov)(\?|$)/i.test(print.src) ? "video" : "image";
 }
 
 export type CollectionLayout =
@@ -161,66 +168,81 @@ export const photoCollections: PhotoCollectionData[] = [
   {
     id: "one-roll",
     title: "One Roll",
-    whisper: "Same day on film. Kitchen light. Names in the margin.",
+    whisper: "P1Harmony — Dancing Queen. One night, in lyric order.",
     layout: "film-roll",
     tone: "warm",
     prints: [
       {
-        id: "film-day-03",
-        src: "/photography/film-day-03.jpg",
-        alt: "Friends crowded in a kitchen, flash-lit, film grain",
-        note: "Free-falling.",
+        id: "film-day-06",
+        src: "/photography/film-day-06.jpg",
+        alt: "Portrait with cowboy hat and Dancing Queen lyrics",
+        note: "Just keep on dancing queen…",
         size: "xl",
         orient: "portrait",
-        rotate: -1.1,
+        rotate: -0.6,
       },
       {
-        id: "film-day-01",
-        src: "/photography/film-day-01.jpg",
-        alt: "Film frame — Christine with a cup; Bonsai close-up",
+        id: "film-day-05",
+        src: "/photography/film-day-05.jpg",
+        alt: "Collage with horse and lyric — To be my dancing queen",
+        note: "To be my dancing queen, you’re so sweet.",
         size: "md",
         orient: "portrait",
-        rotate: 1.6,
+        rotate: 1.0,
       },
       {
-        id: "film-day-02",
-        src: "/photography/film-day-02.jpg",
-        alt: "Film contact — Julia at the door; Grace with a tiara",
+        id: "film-day-04",
+        src: "/photography/film-day-04.jpg",
+        alt: "Farm scene with sheep — I’m living in your dream",
+        note: "I’m living in your dream.",
         size: "md",
         orient: "portrait",
         rotate: -0.8,
       },
       {
-        id: "film-day-04",
-        src: "/photography/film-day-04.jpg",
-        alt: "Film frame from the same kitchen night",
-        size: "proof",
+        id: "film-day-03",
+        src: "/photography/film-day-03.jpg",
+        alt: "Kitchen group portrait — Drunk in love, free-falling",
+        note: "Drunk in love, and now I’m free-falling.",
+        size: "lg",
         orient: "portrait",
-        rotate: 0.9,
+        rotate: 0.5,
       },
       {
-        id: "film-day-05",
-        src: "/photography/film-day-05.jpg",
-        alt: "Film frame from the same kitchen night",
-        size: "proof",
+        id: "film-day-video-01",
+        src: "/photography/film-day-video-01.mp4",
+        alt: "Film night video clip",
+        kind: "video",
+        size: "md",
         orient: "portrait",
-        rotate: -1.4,
+        rotate: -0.4,
       },
       {
-        id: "film-day-06",
-        src: "/photography/film-day-06.jpg",
-        alt: "Film frame from the same kitchen night",
-        size: "proof",
+        id: "film-day-video-02",
+        src: "/photography/film-day-video-02.mp4",
+        alt: "Film night video clip",
+        kind: "video",
+        size: "md",
+        orient: "portrait",
+        rotate: 0.7,
+      },
+      {
+        id: "film-day-02",
+        src: "/photography/film-day-02.jpg",
+        alt: "Film contact — Julia at the door; Grace with a tiara",
+        note: "Julia. Grace.",
+        size: "md",
+        orient: "portrait",
+        rotate: -0.9,
+      },
+      {
+        id: "film-day-01",
+        src: "/photography/film-day-01.jpg",
+        alt: "Film frame — Christine with a cup; Bonsai close-up",
+        note: "Christine. Bonsai.",
+        size: "md",
         orient: "portrait",
         rotate: 1.2,
-      },
-      {
-        id: "film-day-07",
-        src: "/photography/film-day-07.jpg",
-        alt: "Film frame from the same kitchen night",
-        size: "sm",
-        orient: "portrait",
-        rotate: -2.0,
       },
       {
         id: "film-coda-01",

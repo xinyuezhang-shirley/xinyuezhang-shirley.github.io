@@ -160,9 +160,11 @@ export function EditorialPortrait({
   alt,
   crop = "full",
   className = "",
-  scale = 1.15,
+  scale = 1,
   priority = false,
   mono,
+  /** `contain` shows the whole photograph; `cover` fills a frame (full-bleed only). */
+  fit = "contain",
 }: {
   src: string;
   alt: string;
@@ -171,10 +173,11 @@ export function EditorialPortrait({
   scale?: number;
   priority?: boolean;
   mono?: boolean;
+  fit?: "contain" | "cover";
 }) {
   return (
     <div
-      className={`zine-portrait${mono ? " zine-portrait--mono" : ""}${className ? ` ${className}` : ""}`}
+      className={`zine-portrait zine-portrait--${fit}${mono ? " zine-portrait--mono" : ""}${className ? ` ${className}` : ""}`}
       style={
         {
           ["--zine-crop" as string]: cropMap[crop],
@@ -210,7 +213,15 @@ export function FullscreenPortrait({
 }) {
   return (
     <div className={`zine-fullbleed${className ? ` ${className}` : ""}`}>
-      <EditorialPortrait src={src} alt={alt} crop={crop} scale={1.05} priority={priority} className="zine-fullbleed__media" />
+      <EditorialPortrait
+        src={src}
+        alt={alt}
+        crop={crop}
+        scale={1.02}
+        fit="cover"
+        priority={priority}
+        className="zine-fullbleed__media"
+      />
       {children ? <div className="zine-fullbleed__overlay">{children}</div> : null}
     </div>
   );
