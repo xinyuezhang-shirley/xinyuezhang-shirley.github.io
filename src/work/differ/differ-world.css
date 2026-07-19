@@ -1,0 +1,266 @@
+/* Differ world — Northwestern-inspired research instrument */
+
+.differ-world {
+  --df-bg: #0f0c14;
+  --df-panel: #1a1522;
+  --df-ink: #f4eef8;
+  --df-muted: #a89bb5;
+  --df-line: #3a3048;
+  --df-purple: #4e2a84;
+  --df-violet: #8366b3;
+  --df-coral: #e8a0b0;
+  --df-serif: "Source Serif 4", Georgia, serif;
+  --df-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(78, 42, 132, 0.45), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(232, 160, 176, 0.12), transparent 50%),
+    var(--df-bg);
+  color: var(--df-ink);
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+  min-height: 100vh;
+  padding: 0 0 5rem;
+}
+
+.differ-world a {
+  color: var(--df-coral);
+}
+
+.differ-world__inner {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding-top: 3.5rem;
+}
+
+.differ-world__back {
+  font-family: var(--df-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--df-muted);
+  text-decoration: none;
+}
+
+.differ-world__eyebrow {
+  font-family: var(--df-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--df-violet);
+  margin: 2rem 0 0.75rem;
+}
+
+.differ-world__title {
+  font-family: var(--df-serif);
+  font-size: clamp(2.75rem, 7vw, 4.25rem);
+  font-weight: 500;
+  line-height: 0.98;
+  margin: 0;
+  max-width: 12ch;
+}
+
+.differ-world__claim {
+  font-family: var(--df-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  line-height: 1.35;
+  color: #ddd2e8;
+  max-width: 34rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.differ-world__prose {
+  font-family: var(--df-serif);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #d5cce0;
+  max-width: 38rem;
+}
+
+.differ-world__prose p {
+  margin: 0 0 1.1rem;
+}
+
+.differ-world__section {
+  margin-top: 4rem;
+}
+
+.differ-world__section h2 {
+  font-family: var(--df-serif);
+  font-size: 1.65rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+}
+
+.differ-instrument {
+  margin-top: 1.5rem;
+  border: 1px solid var(--df-line);
+  background: rgba(26, 21, 34, 0.85);
+  border-radius: 4px;
+  padding: 1.25rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 860px) {
+  .differ-instrument {
+    grid-template-columns: 280px 1fr;
+    min-height: 420px;
+  }
+}
+
+.differ-controls label {
+  display: block;
+  font-family: var(--df-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--df-muted);
+  margin: 0 0 0.45rem;
+}
+
+.differ-controls select,
+.differ-controls button.chip {
+  width: 100%;
+  background: var(--df-bg);
+  color: var(--df-ink);
+  border: 1px solid var(--df-line);
+  border-radius: 4px;
+  padding: 0.65rem 0.75rem;
+  font-family: var(--df-serif);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.differ-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.differ-controls button.chip {
+  width: auto;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+.differ-controls button.chip.is-on {
+  opacity: 1;
+  border-color: var(--df-violet);
+  background: rgba(78, 42, 132, 0.45);
+}
+
+.differ-viz {
+  border: 1px solid var(--df-line);
+  background:
+    linear-gradient(rgba(78, 42, 132, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(78, 42, 132, 0.08) 1px, transparent 1px),
+    #120e18;
+  background-size: 24px 24px;
+  border-radius: 4px;
+  padding: 1rem;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.differ-viz__head {
+  font-family: var(--df-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--df-muted);
+  margin-bottom: 1rem;
+}
+
+.differ-bars {
+  display: grid;
+  gap: 0.75rem;
+  flex: 1;
+  align-content: center;
+}
+
+.differ-bar-row {
+  display: grid;
+  grid-template-columns: 7rem 1fr 3rem;
+  gap: 0.6rem;
+  align-items: center;
+  font-family: var(--df-mono);
+  font-size: 0.7rem;
+}
+
+.differ-bar-track {
+  height: 1.1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.differ-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--df-purple), var(--df-coral));
+  border-radius: 2px;
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.differ-map {
+  flex: 1;
+  position: relative;
+  min-height: 240px;
+}
+
+.differ-map svg {
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+}
+
+.differ-readout {
+  margin-top: 1rem;
+  font-family: var(--df-serif);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ddd2e8;
+  border-top: 1px solid var(--df-line);
+  padding-top: 0.85rem;
+}
+
+.differ-stack-inline {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.differ-stack-inline div {
+  border-left: 2px solid var(--df-violet);
+  padding: 0.55rem 0.85rem;
+  background: rgba(78, 42, 132, 0.2);
+  font-family: var(--df-serif);
+  font-size: 0.95rem;
+}
+
+.differ-stack-inline span {
+  display: block;
+  font-family: var(--df-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--df-coral);
+  margin-bottom: 0.2rem;
+}
+
+.differ-world__learn {
+  margin-top: 4rem;
+  border-top: 1px solid var(--df-line);
+  padding-top: 2.25rem;
+  max-width: 38rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .differ-bar-fill {
+    transition: none;
+  }
+}

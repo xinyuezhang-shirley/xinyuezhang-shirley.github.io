@@ -8,6 +8,9 @@ import WorkDetail from "@/pages/WorkDetail";
 import MuseLabRoom from "@/pages/MuseLabRoom";
 import EchoRoom from "@/pages/EchoRoom";
 import NommiRoom from "@/pages/NommiRoom";
+import TeslaRoom from "@/pages/TeslaRoom";
+import PwcRoom from "@/pages/PwcRoom";
+import IroncladRoom from "@/pages/IroncladRoom";
 import SystemsSignalsRoom from "@/pages/SystemsSignalsRoom";
 import Research from "@/pages/Research";
 import ResearchDetail from "@/pages/ResearchDetail";
@@ -33,6 +36,9 @@ function AnimatedRoutes() {
         <Route path="/work/muselab" element={<PageTransition><MuseLabRoom /></PageTransition>} />
         <Route path="/work/echo" element={<PageTransition><EchoRoom /></PageTransition>} />
         <Route path="/work/nommi" element={<PageTransition><NommiRoom /></PageTransition>} />
+        <Route path="/work/tesla" element={<PageTransition><TeslaRoom /></PageTransition>} />
+        <Route path="/work/pwc" element={<PageTransition><PwcRoom /></PageTransition>} />
+        <Route path="/work/ironclad" element={<PageTransition><IroncladRoom /></PageTransition>} />
         <Route path="/work/systems-signals" element={<PageTransition><SystemsSignalsRoom /></PageTransition>} />
         <Route path="/work/:slug" element={<PageTransition><WorkDetail /></PageTransition>} />
         <Route path="/research" element={<PageTransition><Research /></PageTransition>} />

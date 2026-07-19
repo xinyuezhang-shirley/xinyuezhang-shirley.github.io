@@ -1,50 +1,80 @@
 import { Link } from "react-router-dom";
-import "@/work/research-poster/poster.css";
+import "@/work/stanford/stanford.css";
 
 export default function PoemSongRoom() {
   return (
-    <article className="poster-room poem">
-      <div className="poster-inner">
-        <Link to="/research" className="poster-back">
+    <article className="stan-pub">
+      <div className="stan-pub__inner">
+        <Link to="/research" className="stan-pub__back">
           ← Research
         </Link>
-        <p className="poster-eyebrow">Case study · Poem–song retrieval</p>
-        <h1 className="poster-title">The Sound of a Sonnet</h1>
-        <p className="poster-meta">
-          CS 229 · Machine Learning · Stanford · with Cheney Sang &amp; Amelia Sarah Bloom · 2026
-        </p>
-        <p className="poster-claim">
+        <p className="stan-pub__kicker">Interactive publication · CS 229 · Stanford</p>
+        <h1 className="stan-pub__title">
+          The Sound of a Sonnet: Poem-to-Song Recommendation with Pseudo-Supervision
+        </h1>
+        <p className="stan-pub__subtitle">
           Poem–song similarity lives in affect more than in vocabulary.
         </p>
-        <div className="poster-prose">
+        <p className="stan-pub__byline">
+          <strong>Xinyue (Shirley) Zhang</strong> · with Cheney Sang &amp; Amelia Sarah Bloom ·
+          Spring 2026
+        </p>
+
+        <h2>Abstract</h2>
+        <div className="stan-pub__abstract">
           <p>
-            A dual-encoder retrieves songs musically compatible with a poem — shared embedding
-            space over PoetryDB and Genius/Spotify lyrics, trained with contrastive loss on
-            pseudo-supervised pairs because no labeled dataset exists. Purple is borrowed from
-            literary–musical crossover, not from a stock ML theme.
+            A retrieval model predicts which songs are musically compatible with a given poem by
+            learning a shared embedding space between poetic and lyrical text. Built on PoetryDB and
+            Genius/Spotify lyrics, the dual-encoder is trained with contrastive loss on
+            pseudo-supervised pairs — because no labeled poem–song dataset exists — and evaluated
+            against human judgment of tone, structure, and affect.
           </p>
         </div>
-        <ul className="poster-findings">
+
+        <h2>Key contributions</h2>
+        <ol className="stan-pub__contrib">
           <li>
-            Best feature-aware encoders reach 78–80% agreement with human triplet judgments —
-            matching human–human consistency (~80%) and beating MPNet-only cosine (~67%).
+            Pseudo-supervised pair construction from MPNet embeddings, zero-shot emotion/theme
+            classifiers, and structural features when labels do not exist.
           </li>
           <li>
-            Models that lean on emotional tone and structure outperform literal word overlap.
+            Five-branch dual encoder projecting poems and songs into a shared 128-d space,
+            trained with symmetric InfoNCE.
           </li>
           <li>
-            The bridge between this site&apos;s halves: computation that has to learn what “belonging
-            together” feels like.
+            Human triplet evaluation with a practical ceiling (~80% annotator agreement); best
+            models match that ceiling (78–80%) and beat MPNet-only cosine (~67%).
           </li>
-        </ul>
-        <div className="poster-frame">
-          <iframe
-            src="/research/poem-to-song-poster.pdf"
-            title="Poem-to-Song recommendation poster"
-          />
-        </div>
-        <a className="poster-link" href="/research/poem-to-song-poster.pdf" target="_blank" rel="noopener noreferrer">
-          Open poster PDF ↗
+        </ol>
+
+        <h2>Motivation</h2>
+        <p>
+          This is where the two halves of the portfolio meet: a system that has to learn,
+          computationally, what makes a poem and a song feel like they belong together — not which
+          words they share.
+        </p>
+
+        <h2>Method</h2>
+        <p>
+          Weighted-cosine heuristics over embeddings seed training pairs. The encoder branches
+          capture MPNet semantics, emotion, theme, residual semantics, and structure/lexicon.
+          Evaluation asks humans: given a poem and two songs, which fits better?
+        </p>
+
+        <h2>Findings</h2>
+        <p>
+          Models that lean on emotional tone and structure outperform literal overlap. Affect is
+          the bridge; vocabulary is a decoy.
+        </p>
+
+        <h2>Conclusion</h2>
+        <p>
+          When the ground truth is a feeling, the honest ceiling is human agreement — and reaching
+          it without labeled pairs is the engineering story.
+        </p>
+
+        <a className="stan-pdf" href="/research/poem-to-song-poster.pdf" target="_blank" rel="noopener noreferrer">
+          Read full poster →
         </a>
       </div>
     </article>

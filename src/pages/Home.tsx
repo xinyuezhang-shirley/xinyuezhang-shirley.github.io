@@ -6,14 +6,14 @@ import { FloatingCircles } from "@/components/decor/FloatingCircles";
 const featured = [
   {
     eyebrow: "Work",
-    title: "MuseLab",
-    description: "A literary workshop that returns a dossier — interpretation over generation.",
-    href: "/work/muselab",
+    title: "Nommi",
+    description: "Scroll the story. The phone stays alive.",
+    href: "/work/nommi",
   },
   {
     eyebrow: "Research",
     title: "Differ",
-    description: "Accountable perspectives — who and where meaning breaks.",
+    description: "Play the instrument — where meaning breaks.",
     href: "/research/differ",
   },
   {
