@@ -22,6 +22,7 @@ import CreativeIndex from "@/pages/CreativeIndex";
 import CreativeArt from "@/pages/CreativeArt";
 import CreativePhotography from "@/pages/CreativePhotography";
 import CreativePoetry from "@/pages/CreativePoetry";
+import CreativeDreams from "@/pages/CreativeDreams";
 import About from "@/pages/About";
 import Resume from "@/pages/Resume";
 import NotFound from "@/pages/NotFound";
@@ -57,6 +58,7 @@ function AnimatedRoutes() {
         <Route path="/creative/art" element={<PageTransition><CreativeArt /></PageTransition>} />
         <Route path="/creative/photography" element={<PageTransition><CreativePhotography /></PageTransition>} />
         <Route path="/creative/poetry" element={<PageTransition><CreativePoetry /></PageTransition>} />
+        <Route path="/creative/dreams" element={<PageTransition><CreativeDreams /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/resume" element={<PageTransition><Resume /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />

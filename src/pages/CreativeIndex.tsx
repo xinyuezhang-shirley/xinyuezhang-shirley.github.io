@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { catalogue } from "@/work/art/catalogue";
 import { poems } from "@/content/creative";
+import { dreamCount } from "@/work/dreams/loadCatalog";
 import "@/work/creative/creative-foyer.css";
 
 const artCount = catalogue.length;
@@ -19,10 +20,10 @@ export default function CreativeIndex() {
           </h1>
           <div className="creative-foyer__rule" aria-hidden />
           <p className="creative-foyer__deck">
-            Three rooms. Digital paintings, photographic essays, and poems in English and
-            Chinese — entered as exhibitions, not menus.
+            Four rooms. Digital paintings, photographic essays, poems in English and Chinese,
+            and a private sky of recurring dream symbols — entered as exhibitions, not menus.
           </p>
-          <p className="creative-foyer__colophon">Foyer · Three rooms · Open</p>
+          <p className="creative-foyer__colophon">Foyer · Four rooms · Open</p>
         </header>
 
         <div className="creative-foyer__rooms">
@@ -121,6 +122,25 @@ export default function CreativeIndex() {
             <h2 className="foyer-room__title">Poetry</h2>
             <p className="foyer-room__desc">
               {poemCount} poems written between 2020 and 2024, in English and Chinese.
+            </p>
+            <p className="foyer-room__enter">Enter exhibition →</p>
+          </Link>
+
+          {/* DREAMS */}
+          <Link to="/creative/dreams" className="foyer-room foyer-room--dreams">
+            <div className="foyer-room__stage" aria-hidden>
+              <p className="foyer-dreams-margin">a private sky</p>
+              <p className="foyer-dreams-word">Dreams</p>
+              <p className="foyer-dreams-symbols">music · water · temple · parent</p>
+            </div>
+            <p className="foyer-room__meta">
+              <span>{dreamCount} nights</span>
+              <span>symbol graph</span>
+              <span>Grave of Ideas</span>
+            </p>
+            <h2 className="foyer-room__title">Dreams</h2>
+            <p className="foyer-room__desc">
+              Recurring symbols from dream notes — a force graph under blue sky glass.
             </p>
             <p className="foyer-room__enter">Enter exhibition →</p>
           </Link>

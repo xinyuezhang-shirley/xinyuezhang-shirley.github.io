@@ -128,6 +128,11 @@
     margin-top: 1.25rem;
     margin-left: 0.75rem;
   }
+
+  .foyer-room--dreams {
+    margin-top: 2.5rem;
+    margin-left: 1.5rem;
+  }
 }
 
 /* —— Shared label block —— */
@@ -394,6 +399,65 @@
   opacity: 1;
 }
 
+/* —— DREAMS room: Grave sky fragment —— */
+.foyer-room--dreams .foyer-room__stage {
+  position: relative;
+  min-height: clamp(9.5rem, 18vw, 12rem);
+  margin: 0 0 1.25rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  padding: 1.35rem 1.25rem 1.1rem;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(158, 211, 236, 0.35), transparent 32%),
+    radial-gradient(circle at 18% 78%, rgba(111, 153, 201, 0.22), transparent 34%),
+    linear-gradient(115deg, #173e6c 0%, #2a5f90 48%, #89c3d7 100%);
+  box-shadow: 0 10px 30px rgba(8, 22, 46, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.foyer-dreams-margin {
+  margin: 0;
+  font-family: "Caveat", cursive;
+  font-size: 1.35rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.foyer-dreams-word {
+  margin: 0.15rem 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  color: rgba(255, 255, 255, 0.94);
+  letter-spacing: -0.01em;
+}
+
+.foyer-dreams-symbols {
+  margin: 0.85rem 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.78);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.foyer-room--dreams:hover .foyer-dreams-symbols,
+.foyer-room--dreams:focus-visible .foyer-dreams-symbols {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.foyer-room--dreams .foyer-room__title {
+  color: #1a3f6b;
+}
+
+.foyer-room--dreams:hover .foyer-room__title,
+.foyer-room--dreams:focus-visible .foyer-room__title {
+  color: #173e6c;
+}
+
 /* —— Mobile —— */
 @media (max-width: 899px) {
   .foyer-room--art .foyer-room__stage,
@@ -422,6 +486,10 @@
     transform: none;
   }
 
+  .foyer-room--dreams .foyer-dreams-symbols {
+    opacity: 0.9;
+  }
+
   .foyer-room__enter {
     opacity: 0.7;
     transform: none;
@@ -434,6 +502,7 @@
   .foyer-room--photo .foyer-print,
   .foyer-room--photo .foyer-contact,
   .foyer-room--poetry .foyer-stanza,
+  .foyer-room--dreams .foyer-dreams-symbols,
   .foyer-room__enter,
   .foyer-room__title {
     transition: none;
@@ -442,6 +511,7 @@
   .foyer-room--art .foyer-swatch,
   .foyer-room--photo .foyer-contact,
   .foyer-room--poetry .foyer-stanza,
+  .foyer-room--dreams .foyer-dreams-symbols,
   .foyer-room__enter {
     opacity: 0.9;
     transform: none;

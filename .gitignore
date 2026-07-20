@@ -26,3 +26,6 @@ workers/**/.wrangler
 *.njsproj
 *.sln
 *.sw?
+
+# Dream note bodies (private names — redacted text lives in src/work/dreams/dreams-data.ts)
+content/dreams/raw/
