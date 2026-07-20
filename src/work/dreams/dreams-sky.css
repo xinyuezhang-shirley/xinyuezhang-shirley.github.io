@@ -1,7 +1,6 @@
 /**
- * Dreams — Grave of Ideas visual language
- * Blue sky gradient, frosted glass, Cormorant + Caveat. Not paper archive.
- * Extended for semantic atlas: shapes, edge kinds, region washes, view switcher.
+ * Dreams — living semantic atlas
+ * Scientific plate + literary concordance. Typography leads.
  */
 
 *,
@@ -11,26 +10,19 @@
 }
 
 .dream-page {
-  --bg-top: #173e6c;
-  --bg-mid: #2a5f90;
-  --bg-bottom: #89c3d7;
-  --white: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.72);
-  --line: rgba(255, 255, 255, 0.22);
-  --line-strong: rgba(255, 255, 255, 0.45);
-  --panel: rgba(255, 255, 255, 0.08);
-  --panel-border: rgba(255, 255, 255, 0.14);
-  --shadow: 0 10px 30px rgba(8, 22, 46, 0.22);
+  --ink: rgba(248, 250, 252, 0.94);
+  --muted: rgba(220, 230, 240, 0.62);
+  --faint: rgba(200, 215, 230, 0.38);
+  --line: rgba(255, 255, 255, 0.14);
+  --panel: rgba(8, 24, 48, 0.35);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   margin: 0;
   min-height: calc(100vh - 4.5rem);
   padding: 1.25rem 1.5rem 1.5rem;
-  font-family: "Cormorant Garamond", serif;
-  color: var(--white);
-  background:
-    radial-gradient(circle at 75% 20%, rgba(158, 211, 236, 0.25), transparent 28%),
-    radial-gradient(circle at 20% 70%, rgba(111, 153, 201, 0.18), transparent 30%),
-    linear-gradient(115deg, var(--bg-top) 0%, var(--bg-mid) 48%, var(--bg-bottom) 100%);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: var(--ink);
+  background: linear-gradient(125deg, #123456 0%, #1f4f78 46%, #6fa8c4 100%);
 }
 
 .dream-page a.dream-back {
@@ -40,91 +32,102 @@
   font-size: 1.25rem;
   color: var(--muted);
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 
 .dream-page a.dream-back:hover,
 .dream-page a.dream-back:focus-visible {
-  color: var(--white);
+  color: var(--ink);
 }
 
 .dream-header {
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.55rem;
 }
 
 .dream-header h1 {
   margin: 0;
-  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
   font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 .dream-header p {
-  margin: 0.25rem 0 0;
+  margin: 0.2rem 0 0;
   font-family: "Caveat", cursive;
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   color: var(--muted);
 }
 
 .dream-header .dream-meta {
-  margin-top: 0.35rem;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.55);
-  font-family: "Cormorant Garamond", serif;
+  margin-top: 0.3rem;
+  font-size: 0.98rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: var(--faint);
 }
 
-/* View switcher — Caveat glass chrome, not filter chips */
 .dream-views {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem 1rem;
-  margin: 0.35rem 0 0.15rem;
+  gap: 0.55rem 1.1rem;
+  margin: 0.35rem 0 0.1rem;
 }
 
 .dream-view-btn {
   appearance: none;
   border: none;
   background: transparent;
-  padding: 0.15rem 0;
+  padding: 0.1rem 0;
   font-family: "Caveat", cursive;
-  font-size: 1.35rem;
-  color: rgba(255, 255, 255, 0.48);
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.42);
   cursor: pointer;
   border-bottom: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .dream-view-btn:hover,
 .dream-view-btn:focus-visible {
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.85);
   outline: none;
 }
 
 .dream-view-btn.is-active {
-  color: var(--white);
-  border-bottom-color: rgba(255, 255, 255, 0.55);
+  color: var(--ink);
+  border-bottom-color: rgba(255, 255, 255, 0.5);
 }
 
 .dream-view-hint {
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.35rem;
   font-family: "Caveat", cursive;
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.dream-tune {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+  font-family: "Caveat", cursive;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  user-select: none;
+}
+
+.dream-tune input {
+  accent-color: rgba(255, 255, 255, 0.7);
 }
 
 .dream-layout {
   display: flex;
-  gap: 1.25rem;
-  min-height: calc(100vh - 14rem);
+  gap: 1.15rem;
+  min-height: calc(100vh - 13.5rem);
 }
 
 .graph-panel,
 .dream-info {
   background: var(--panel);
-  border: 1px solid var(--panel-border);
-  border-radius: 1.25rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  border-radius: 0.35rem;
 }
 
 .graph-panel {
@@ -132,7 +135,7 @@
   min-width: 0;
   overflow: hidden;
   position: relative;
-  min-height: 28rem;
+  min-height: min(72vh, 42rem);
 }
 
 #dreamGraph {
@@ -141,73 +144,105 @@
   display: block;
 }
 
+.edge-tip {
+  position: absolute;
+  z-index: 5;
+  max-width: 240px;
+  padding: 0.55rem 0.7rem;
+  background: rgba(6, 18, 36, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0.25rem;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.edge-tip strong {
+  font-weight: 500;
+}
+
+.edge-tip span {
+  font-family: "Caveat", cursive;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
 .dream-info {
-  width: 320px;
+  width: 340px;
   flex-shrink: 0;
-  padding: 1.2rem 1.1rem;
+  padding: 1.15rem 1.05rem;
   overflow-y: auto;
-  max-height: calc(100vh - 14rem);
+  max-height: calc(100vh - 13.5rem);
 }
 
 .info-kicker {
   margin: 0;
   font-family: "Caveat", cursive;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   color: var(--muted);
 }
 
 .dream-info .info-title {
-  margin: 0.2rem 0 0.4rem;
+  margin: 0.15rem 0 0.35rem;
   font-size: 2rem;
   font-weight: 500;
+  letter-spacing: -0.015em;
 }
 
 .info-count,
 .info-connections,
 .info-analysis,
-.info-ascent {
-  margin: 0.35rem 0;
-  font-size: 1.05rem;
-  line-height: 1.35;
-  color: rgba(255, 255, 255, 0.86);
+.info-ascent,
+.info-temporal,
+.info-role {
+  margin: 0.3rem 0;
+  font-size: 1.02rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.84);
 }
 
 .info-analysis {
   font-style: italic;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.info-ascent {
-  font-size: 0.98rem;
   color: rgba(255, 255, 255, 0.78);
 }
 
-.info-ascent-label {
+.info-ascent-label,
+.info-role {
   display: block;
   font-family: "Caveat", cursive;
   font-size: 1.1rem;
   color: var(--muted);
   font-style: normal;
+}
+
+.info-role {
   margin-bottom: 0.15rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem;
 }
 
 .info-block {
-  margin-top: 1rem;
+  margin-top: 0.95rem;
 }
 
 .info-block h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.2rem;
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
   font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .info-dreams {
   margin: 0;
-  padding-left: 1.1rem;
+  padding-left: 1.05rem;
 }
 
 .info-dreams li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
   line-height: 1.35;
 }
 
@@ -220,7 +255,7 @@
 .info-related li {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0.08rem;
   margin-bottom: 0.55rem;
   padding-bottom: 0.45rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -228,170 +263,340 @@
 
 .rel-label {
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.92);
 }
 
 .rel-kind {
   font-family: "Caveat", cursive;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rel-why {
+  font-size: 0.92rem;
   color: rgba(255, 255, 255, 0.55);
+  line-height: 1.3;
+}
+
+.info-emotions {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.info-emotions li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.emo-w {
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
 }
 
 .info-secondary {
-  margin-top: 1.1rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--panel-border);
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
 }
 
-.info-secondary ul {
+.info-legend {
   margin: 0.35rem 0 0;
-  padding-left: 1.1rem;
-  font-size: 0.98rem;
-  color: rgba(255, 255, 255, 0.78);
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.info-secondary li {
+.info-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   margin-bottom: 0.3rem;
 }
 
-/* Region washes */
-.region-wash {
-  fill: rgba(255, 255, 255, 0.035);
-  stroke: rgba(255, 255, 255, 0.08);
+.leg-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.leg-swatch.cat-people {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.leg-swatch.cat-objects {
+  border-style: dashed;
+}
+
+.leg-swatch.cat-emotions {
+  box-shadow: 0 0 0 3px rgba(180, 220, 245, 0.2);
+}
+
+.leg-swatch.cat-themes {
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+.leg-swatch.cat-actions {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* —— Graph layers —— */
+.community-hull {
+  fill: rgba(255, 255, 255, 0.025);
+  stroke: rgba(255, 255, 255, 0.07);
   stroke-width: 1;
+  stroke-dasharray: 4 8;
   pointer-events: none;
 }
 
-.region-label {
-  fill: rgba(255, 255, 255, 0.38);
-  font-family: "Caveat", cursive;
-  font-size: 1.35rem;
-  text-anchor: middle;
-  pointer-events: none;
-  user-select: none;
-}
-
-.node-label {
-  fill: rgba(255, 255, 255, 0.94);
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
-  text-anchor: middle;
-  dominant-baseline: hanging;
-  pointer-events: none;
-  user-select: none;
-  transition: opacity 0.2s ease;
-}
-
-/* Edge kinds */
 .link {
   stroke-linecap: round;
   fill: none;
-  transition: opacity 0.2s ease, stroke 0.2s ease;
+  transition: opacity 0.35s var(--ease), stroke 0.35s var(--ease);
+  cursor: help;
 }
 
 .link-cooccur {
-  stroke: rgba(255, 255, 255, 0.28);
+  stroke: rgba(255, 255, 255, 0.55);
   stroke-dasharray: none;
 }
 
 .link-emotional {
-  stroke: rgba(186, 230, 245, 0.42);
-  stroke-dasharray: 5 5;
+  stroke: rgba(186, 230, 245, 0.7);
+  stroke-dasharray: 5 4;
 }
 
 .link-causal {
-  stroke: rgba(255, 255, 255, 0.4);
+  stroke: rgba(255, 255, 255, 0.62);
   stroke-dasharray: none;
 }
 
 .link-symbolic {
-  stroke: rgba(255, 255, 255, 0.22);
+  stroke: rgba(255, 255, 255, 0.42);
   stroke-dasharray: 1.5 5;
 }
 
-/* Node shapes by layer */
-.node-shape {
-  fill: rgba(255, 255, 255, 0.09);
-  stroke: rgba(255, 255, 255, 0.55);
-  stroke-width: 1.1;
-  transition: opacity 0.2s ease, fill 0.2s ease, stroke 0.2s ease;
+.link.is-dimmed {
+  opacity: 0.03 !important;
 }
 
-.node-shape.layer-literal {
-  fill: rgba(255, 255, 255, 0.12);
-  stroke: rgba(255, 255, 255, 0.72);
+.link.is-active {
+  opacity: 0.9 !important;
+  stroke: rgba(255, 255, 255, 0.88);
+}
+
+.link.is-tip {
+  opacity: 1 !important;
+  stroke: rgba(255, 255, 255, 0.95);
+}
+
+/* Circles support words — category via stroke language only */
+.node-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.node-shape {
+  fill: rgba(255, 255, 255, 0.045);
+  stroke: rgba(255, 255, 255, 0.42);
+  stroke-width: 1;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease), fill 0.35s var(--ease), stroke 0.35s var(--ease);
+}
+
+.node-shape.cat-places {
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 1.15;
+}
+
+.node-shape.cat-people {
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1.2;
+}
+
+.node-shape.cat-animals {
+  stroke: rgba(255, 255, 255, 0.58);
+  stroke-width: 1.45;
+}
+
+.node-shape.cat-objects {
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-dasharray: 3 2.5;
+}
+
+.node-shape.cat-emotions {
+  fill: rgba(190, 225, 245, 0.1);
+  stroke: rgba(210, 235, 255, 0.55);
+  filter: url(#soft-glow);
+}
+
+.node-shape.cat-themes {
+  fill: rgba(255, 255, 255, 0.025);
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-dasharray: 2.5 3.5;
+}
+
+.node-shape.cat-actions {
+  stroke: rgba(255, 255, 255, 0.55);
   stroke-width: 1.25;
 }
 
-.node-shape.layer-theme {
-  fill: rgba(255, 255, 255, 0.05);
-  stroke: rgba(255, 255, 255, 0.45);
-  stroke-dasharray: 3 3;
-}
-
-.node-shape.layer-emotion {
-  fill: rgba(200, 230, 245, 0.12);
-  stroke: rgba(220, 240, 255, 0.65);
-}
-
-.node-shape.layer-action {
-  fill: rgba(255, 255, 255, 0.1);
-  stroke: rgba(255, 255, 255, 0.7);
-}
-
-.node-shape.layer-transformation {
-  fill: rgba(255, 255, 255, 0.06);
-  stroke: rgba(255, 255, 255, 0.55);
+.node-shape.cat-transformations {
+  stroke: rgba(255, 255, 255, 0.48);
 }
 
 .node-halo {
   fill: none;
-  stroke: rgba(200, 230, 245, 0.22);
+  stroke: rgba(190, 225, 245, 0.22);
   stroke-width: 1;
   pointer-events: none;
 }
 
-.node-ring-inner {
+.node-ring {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.35);
+  stroke: rgba(255, 255, 255, 0.22);
   stroke-width: 1;
   pointer-events: none;
+}
+
+.node-core {
+  fill: rgba(255, 255, 255, 0.45);
+  stroke: none;
+  pointer-events: none;
+}
+
+.node-label {
+  fill: rgba(255, 255, 255, 0.9);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.35s var(--ease), fill 0.35s var(--ease);
+}
+
+.node-label.tier-landmark {
+  fill: rgba(255, 255, 255, 0.98);
+  letter-spacing: -0.015em;
+}
+
+.node-label.tier-medium {
+  fill: rgba(255, 255, 255, 0.93);
+}
+
+.node-label.tier-small {
+  fill: rgba(255, 255, 255, 0.78);
+}
+
+.node-shape.tier-landmark {
+  fill: rgba(255, 255, 255, 0.07);
+}
+
+.node-shape.tier-small {
+  fill: rgba(255, 255, 255, 0.025);
+  opacity: 0.85;
+}
+
+.node-halo.tier-landmark {
+  stroke: rgba(220, 235, 250, 0.28);
+  stroke-width: 1.25;
+}
+
+.info-tune .tune-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem 0.75rem;
+  margin: 0;
+}
+
+.info-tune .tune-grid div {
+  display: contents;
+}
+
+.info-tune dt {
+  margin: 0;
+  font-family: "Caveat", cursive;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.info-tune dd {
+  margin: 0 0 0.2rem;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.02rem;
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .node-group {
-  cursor: pointer;
+  cursor: grab;
 }
 
-.node-group.is-dimmed .node-label,
+.node-group:active {
+  cursor: grabbing;
+}
+
+.node-lift {
+  transform: translateY(0) scale(1);
+  transform-origin: 0 0;
+  transition: transform 0.4s var(--ease);
+}
+
+.node-group.is-dimmed .node-label {
+  opacity: 0.16;
+}
+
 .node-group.is-dimmed .node-shape,
 .node-group.is-dimmed .node-halo,
-.node-group.is-dimmed .node-ring-inner {
-  opacity: 0.14;
+.node-group.is-dimmed .node-ring,
+.node-group.is-dimmed .node-core {
+  opacity: 0.1;
 }
 
-.link.is-dimmed {
-  opacity: 0.06;
-}
-
-.link.is-active {
-  stroke: rgba(255, 255, 255, 0.75);
+.node-group.is-neighbor .node-label {
   opacity: 1;
+}
+
+.node-group.is-neighbor .node-lift {
+  transform: scale(1.04);
+}
+
+.node-group.tier-landmark.is-neighbor .node-lift {
+  transform: scale(1.06);
+}
+
+.node-group.is-active .node-lift {
+  transform: scale(1.08);
+}
+
+.node-group.tier-landmark.is-active .node-lift {
+  transform: scale(1.12);
 }
 
 .node-group.is-active .node-shape {
-  fill: rgba(255, 255, 255, 0.18);
-  stroke: rgba(255, 255, 255, 0.98);
-  stroke-width: 1.6;
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35));
+  fill: rgba(255, 255, 255, 0.12);
+  stroke: rgba(255, 255, 255, 0.95);
+}
+
+.node-group.tier-landmark.is-active .node-shape {
+  fill: rgba(255, 255, 255, 0.16);
+  stroke-width: 2.1;
 }
 
 .node-group.is-active .node-label {
-  opacity: 1;
+  fill: #fff;
 }
 
 @media (max-width: 900px) {
   .dream-page {
-    padding: 1rem 1rem 1.25rem;
+    padding: 1rem;
   }
 
   .dream-layout {
@@ -407,12 +612,13 @@
   .graph-panel {
     min-height: 70vh;
   }
+}
 
-  .dream-views {
-    gap: 0.4rem 0.85rem;
-  }
-
-  .dream-view-btn {
-    font-size: 1.2rem;
+@media (prefers-reduced-motion: reduce) {
+  .node-lift,
+  .link,
+  .node-label,
+  .node-shape {
+    transition: none;
   }
 }

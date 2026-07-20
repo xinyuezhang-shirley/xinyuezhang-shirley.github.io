@@ -52,10 +52,9 @@ export type AtlasEdge = {
 export type AtlasRegion = {
   category: AtlasCategory;
   label: string;
-  /** Polar angle for neighborhood center (radians). */
-  angle: number;
-  /** Radius factor 0–1 from canvas center. */
-  radius: number;
+  /** Normalized 0–1 neighborhood center (spatial memory). */
+  x: number;
+  y: number;
 };
 
 export const ATLAS_VIEWS: {
@@ -85,15 +84,16 @@ export const ATLAS_VIEWS: {
   },
 ];
 
+/** Stable semantic neighborhoods — readers build spatial memory here. */
 export const ATLAS_REGIONS: AtlasRegion[] = [
-  { category: "people", label: "People", angle: -Math.PI * 0.72, radius: 0.72 },
-  { category: "places", label: "Places", angle: -Math.PI * 0.42, radius: 0.74 },
-  { category: "animals", label: "Animals", angle: -Math.PI * 0.12, radius: 0.7 },
-  { category: "objects", label: "Objects", angle: Math.PI * 0.18, radius: 0.74 },
-  { category: "actions", label: "Actions", angle: Math.PI * 0.42, radius: 0.72 },
-  { category: "emotions", label: "Emotions", angle: Math.PI * 0.72, radius: 0.7 },
-  { category: "themes", label: "Themes", angle: Math.PI * 0.95, radius: 0.68 },
-  { category: "transformations", label: "Transformations", angle: -Math.PI * 0.95, radius: 0.68 },
+  { category: "people", label: "People", x: 0.16, y: 0.18 },
+  { category: "places", label: "Places", x: 0.84, y: 0.18 },
+  { category: "animals", label: "Animals", x: 0.14, y: 0.45 },
+  { category: "themes", label: "Themes", x: 0.5, y: 0.42 },
+  { category: "objects", label: "Objects", x: 0.86, y: 0.48 },
+  { category: "emotions", label: "Emotions", x: 0.2, y: 0.8 },
+  { category: "actions", label: "Actions", x: 0.8, y: 0.8 },
+  { category: "transformations", label: "Transformations", x: 0.5, y: 0.82 },
 ];
 
 export const CATEGORY_LABEL: Record<AtlasCategory, string> = {
@@ -121,6 +121,25 @@ export const EDGE_KIND_LABEL: Record<EdgeKind, string> = {
   causal: "causal / narrative progression",
   symbolic: "inferred symbolic association",
 };
+
+/** Short why-copy for edge hover / dossier. */
+export const EDGE_KIND_WHY: Record<EdgeKind, string> = {
+  cooccur: "These symbols appear together inside the same dream nights.",
+  emotional: "They share emotional weather across multiple nights.",
+  causal: "One tends to precede or precipitate the other in narrative motion.",
+  symbolic: "An interpretive ascent links the concrete symbol to a theme.",
+};
+
+export function explainEdge(
+  kind: EdgeKind,
+  weight: number,
+  note?: string,
+): string {
+  const strength =
+    weight >= 3 ? "Strong evidence" : weight === 2 ? "Recurring link" : "Rare association";
+  if (note) return `${strength}. ${note}`;
+  return `${strength}. ${EDGE_KIND_WHY[kind]}`;
+}
 
 const dreamById = new Map(dreamsData.dreams.map((d) => [d.id, d]));
 
@@ -1035,9 +1054,76 @@ export const atlasEdges: AtlasEdge[] = [
   { source: "act-photographing", target: "person-parent", kind: "cooccur", weight: 1 },
 ];
 
+export type ImportanceTier = "landmark" | "medium" | "small";
+
+/** Raw signals + editorial visual score (exaggerated for hierarchy). */
+export type ImportanceBreakdown = {
+  frequency: number;
+  recurrence: number;
+  degree: number;
+  uniqueNeighbors: number;
+  pagerank: number;
+  betweenness: number;
+  emotional: number;
+  persistence: number;
+  bridge: number;
+  communityBridge: boolean;
+  /** Composite semantic importance 0–1 (pre-exaggeration). */
+  importance: number;
+};
+
 export type EnrichedAtlasNode = AtlasNode & {
   count: number;
   excerpts: AtlasExcerpt[];
+  degree: number;
+  weightedDegree: number;
+  uniqueNeighbors: number;
+  /** @deprecated use importance — kept as alias of visual for existing call sites */
+  score: number;
+  /** Semantic importance 0–1 before editorial exaggeration. */
+  importance: number;
+  /** Exaggerated 0–1 used for radius / type / halo (skyline). */
+  visual: number;
+  tier: ImportanceTier;
+  metrics: ImportanceBreakdown;
+  community?: number;
+};
+
+export type TemporalMark = {
+  dreamId: string;
+  ordinal: number;
+  dateLabel: string;
+};
+
+export type EmotionShare = {
+  label: string;
+  weight: number;
+};
+
+export type NarrativeRole =
+  | "opening pressure"
+  | "closing residue"
+  | "transitional hinge"
+  | "ambient presence";
+
+export type ConceptDossier = {
+  node: EnrichedAtlasNode;
+  definition: string;
+  occurrences: number;
+  connected: {
+    node: EnrichedAtlasNode;
+    kind: EdgeKind;
+    note?: string;
+    weight: number;
+    why: string;
+  }[];
+  excerpts: AtlasExcerpt[];
+  temporal: TemporalMark[];
+  emotionalProfile: EmotionShare[];
+  narrativeRole: NarrativeRole;
+  narrativeNote: string;
+  interpretation: string;
+  ascent: string[];
 };
 
 export type DreamsAtlas = {
@@ -1051,12 +1137,364 @@ export type DreamsAtlas = {
   countsByCategory: Record<AtlasCategory, number>;
 };
 
-function enrich(): DreamsAtlas {
-  const nodes: EnrichedAtlasNode[] = atlasNodes.map((n) => ({
+function normalize(values: number[]): number[] {
+  const max = Math.max(...values, 0);
+  const min = Math.min(...values);
+  const span = Math.max(max - min, 1e-9);
+  return values.map((v) => (v - min) / span);
+}
+
+type MetricSeed = Pick<
+  EnrichedAtlasNode,
+  "id" | "label" | "category" | "layer" | "dreamIds" | "analysis" | "ascent" | "views" | "count" | "excerpts"
+>;
+
+function buildAdjacency(
+  ids: string[],
+  edges: AtlasEdge[],
+): Map<string, { id: string; w: number }[]> {
+  const adj = new Map<string, { id: string; w: number }[]>();
+  for (const id of ids) adj.set(id, []);
+  for (const e of edges) {
+    if (!adj.has(e.source) || !adj.has(e.target)) continue;
+    adj.get(e.source)!.push({ id: e.target, w: e.weight });
+    adj.get(e.target)!.push({ id: e.source, w: e.weight });
+  }
+  return adj;
+}
+
+function computePageRank(
+  ids: string[],
+  edges: AtlasEdge[],
+  damping = 0.85,
+  iters = 48,
+): Map<string, number> {
+  const n = ids.length;
+  const idx = new Map(ids.map((id, i) => [id, i]));
+  const outW = Array(n).fill(0);
+  const outs: { t: number; w: number }[][] = Array.from({ length: n }, () => []);
+  for (const e of edges) {
+    const s = idx.get(e.source);
+    const t = idx.get(e.target);
+    if (s == null || t == null) continue;
+    outs[s].push({ t, w: e.weight });
+    outs[t].push({ t: s, w: e.weight });
+    outW[s] += e.weight;
+    outW[t] += e.weight;
+  }
+  let rank = Array(n).fill(1 / Math.max(n, 1));
+  for (let iter = 0; iter < iters; iter++) {
+    const next = Array(n).fill((1 - damping) / Math.max(n, 1));
+    for (let i = 0; i < n; i++) {
+      if (outW[i] <= 0) {
+        const share = (damping * rank[i]) / Math.max(n, 1);
+        for (let j = 0; j < n; j++) next[j] += share;
+        continue;
+      }
+      for (const { t, w } of outs[i]) {
+        next[t] += damping * rank[i] * (w / outW[i]);
+      }
+    }
+    rank = next;
+  }
+  const map = new Map<string, number>();
+  ids.forEach((id, i) => map.set(id, rank[i]));
+  return map;
+}
+
+/** Brandes betweenness on the undirected weighted graph (weights ignored for paths). */
+function computeBetweenness(ids: string[], edges: AtlasEdge[]): Map<string, number> {
+  const adj = new Map<string, string[]>();
+  for (const id of ids) adj.set(id, []);
+  for (const e of edges) {
+    if (!adj.has(e.source) || !adj.has(e.target)) continue;
+    adj.get(e.source)!.push(e.target);
+    adj.get(e.target)!.push(e.source);
+  }
+  const cb = new Map<string, number>();
+  for (const id of ids) cb.set(id, 0);
+
+  for (const s of ids) {
+    const stack: string[] = [];
+    const pred = new Map<string, string[]>();
+    const sigma = new Map<string, number>();
+    const dist = new Map<string, number>();
+    for (const v of ids) {
+      pred.set(v, []);
+      sigma.set(v, 0);
+      dist.set(v, -1);
+    }
+    sigma.set(s, 1);
+    dist.set(s, 0);
+    const q: string[] = [s];
+    while (q.length) {
+      const v = q.shift()!;
+      stack.push(v);
+      for (const w of adj.get(v) ?? []) {
+        if (dist.get(w)! < 0) {
+          dist.set(w, dist.get(v)! + 1);
+          q.push(w);
+        }
+        if (dist.get(w) === dist.get(v)! + 1) {
+          sigma.set(w, sigma.get(w)! + sigma.get(v)!);
+          pred.get(w)!.push(v);
+        }
+      }
+    }
+    const delta = new Map<string, number>();
+    for (const v of ids) delta.set(v, 0);
+    while (stack.length) {
+      const w = stack.pop()!;
+      for (const v of pred.get(w)!) {
+        delta.set(
+          v,
+          delta.get(v)! + (sigma.get(v)! / Math.max(sigma.get(w)!, 1e-9)) * (1 + delta.get(w)!),
+        );
+      }
+      if (w !== s) cb.set(w, cb.get(w)! + delta.get(w)!);
+    }
+  }
+
+  // Undirected: halve
+  for (const id of ids) cb.set(id, (cb.get(id) ?? 0) / 2);
+  return cb;
+}
+
+/**
+ * Piecewise editorial skyline:
+ * ~7 landmarks, ~18 hills, long-tail villages.
+ */
+function editorialVisual(rank: number, n: number): { visual: number; tier: ImportanceTier } {
+  const landmarkCount = Math.min(7, Math.max(5, Math.round(n * 0.09)));
+  const mediumCount = Math.min(20, Math.max(14, Math.round(n * 0.24)));
+
+  if (rank < landmarkCount) {
+    const t = landmarkCount <= 1 ? 1 : 1 - rank / (landmarkCount - 1);
+    return { visual: 0.86 + t * 0.14, tier: "landmark" };
+  }
+  if (rank < landmarkCount + mediumCount) {
+    const i = rank - landmarkCount;
+    const t = mediumCount <= 1 ? 1 : 1 - i / (mediumCount - 1);
+    return { visual: 0.4 + t * 0.34, tier: "medium" };
+  }
+  const rest = Math.max(n - landmarkCount - mediumCount, 1);
+  const i = rank - landmarkCount - mediumCount;
+  const t = 1 - i / rest;
+  return { visual: 0.06 + Math.pow(t, 1.65) * 0.28, tier: "small" };
+}
+
+function withMetrics(
+  nodes: MetricSeed[],
+  edges: AtlasEdge[],
+  communities: Map<string, number>,
+): EnrichedAtlasNode[] {
+  const ids = nodes.map((n) => n.id);
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  const adj = buildAdjacency(ids, edges);
+  const pageRank = computePageRank(ids, edges);
+  const betweenness = computeBetweenness(ids, edges);
+
+  const maxOrdinal = Math.max(
+    1,
+    ...dreamsData.dreams.map((d) => d.ordinal),
+  );
+
+  const degree: number[] = [];
+  const weighted: number[] = [];
+  const uniqueN: number[] = [];
+  const recurrence: number[] = [];
+  const emotional: number[] = [];
+  const persistence: number[] = [];
+  const bridge: number[] = [];
+  const isBridge: boolean[] = [];
+
+  for (const n of nodes) {
+    const neigh = adj.get(n.id) ?? [];
+    const uniq = new Set(neigh.map((x) => x.id));
+    degree.push(uniq.size);
+    weighted.push(neigh.reduce((s, x) => s + x.w, 0));
+    uniqueN.push(uniq.size);
+    recurrence.push(n.dreamIds.length);
+
+    let emo = 0;
+    for (const x of neigh) {
+      const other = byId.get(x.id);
+      if (other?.category === "emotions") emo += x.w;
+    }
+    // Shared-dream emotion pull
+    for (const other of nodes) {
+      if (other.category !== "emotions" || other.id === n.id) continue;
+      const shared = other.dreamIds.filter((id) => n.dreamIds.includes(id)).length;
+      emo += shared * 0.5;
+    }
+    emotional.push(emo);
+
+    const ordinals = n.dreamIds
+      .map((id) => dreamById.get(id)?.ordinal)
+      .filter((o): o is number => o != null);
+    if (ordinals.length) {
+      const span = Math.max(...ordinals) - Math.min(...ordinals);
+      persistence.push(span / maxOrdinal + ordinals.length * 0.05);
+    } else {
+      persistence.push(0);
+    }
+
+    const neighComms = new Set<number>();
+    for (const x of uniq) {
+      const c = communities.get(x);
+      if (c != null) neighComms.add(c);
+    }
+    const bridgeScore = Math.max(0, neighComms.size - 1);
+    bridge.push(bridgeScore);
+    isBridge.push(neighComms.size >= 3);
+  }
+
+  const pr = ids.map((id) => pageRank.get(id) ?? 0);
+  const bt = ids.map((id) => betweenness.get(id) ?? 0);
+
+  // Log-ish recurrence so a few extra dreams don't flatten the field
+  const nRec = normalize(recurrence.map((v) => Math.log1p(v)));
+  const nFreq = nRec; // frequency ≈ unique-dream recurrence in this corpus
+  const nDeg = normalize(degree);
+  const nUniq = normalize(uniqueN);
+  const nPr = normalize(pr);
+  const nBt = normalize(bt);
+  const nEmo = normalize(emotional);
+  const nPers = normalize(persistence);
+  const nBridge = normalize(bridge);
+
+  // Semantic importance — favor organizers / bridges over raw popularity
+  const importance = nodes.map((_, i) => {
+    return (
+      nRec[i] * 0.12 +
+      nFreq[i] * 0.06 +
+      nDeg[i] * 0.1 +
+      nUniq[i] * 0.08 +
+      nPr[i] * 0.22 +
+      nBt[i] * 0.18 +
+      nEmo[i] * 0.1 +
+      nPers[i] * 0.06 +
+      nBridge[i] * 0.08
+    );
+  });
+
+  // Blend raw importance with rank so the skyline is unmistakable
+  const order = importance
+    .map((imp, i) => ({ imp, i }))
+    .sort((a, b) => b.imp - a.imp || nodes[a.i].label.localeCompare(nodes[b.i].label));
+  const rankOf = new Map<number, number>();
+  order.forEach((o, rank) => rankOf.set(o.i, rank));
+
+  return nodes.map((n, i) => {
+    const imp = importance[i];
+    const rank = rankOf.get(i) ?? i;
+    const { visual, tier } = editorialVisual(rank, nodes.length);
+    // Soft blend: rank skyline dominates, importance breaks ties within band
+    const visualFinal = visual * 0.82 + Math.pow(imp, 0.55) * 0.18;
+
+    const metrics: ImportanceBreakdown = {
+      frequency: n.count,
+      recurrence: nRec[i],
+      degree: nDeg[i],
+      uniqueNeighbors: uniqueN[i],
+      pagerank: nPr[i],
+      betweenness: nBt[i],
+      emotional: nEmo[i],
+      persistence: nPers[i],
+      bridge: nBridge[i],
+      communityBridge: isBridge[i],
+      importance: imp,
+    };
+
+    return {
+      ...n,
+      degree: degree[i],
+      weightedDegree: weighted[i],
+      uniqueNeighbors: uniqueN[i],
+      importance: imp,
+      visual: visualFinal,
+      score: visualFinal,
+      tier,
+      metrics,
+      community: communities.get(n.id),
+    };
+  });
+}
+
+/** Lightweight label propagation — communities emerge from edges, not categories. */
+export function detectCommunities(
+  nodes: { id: string }[],
+  edges: AtlasEdge[],
+  rounds = 12,
+): Map<string, number> {
+  const ids = nodes.map((n) => n.id);
+  const label = new Map<string, number>();
+  ids.forEach((id, i) => label.set(id, i));
+
+  const adj = new Map<string, { id: string; w: number }[]>();
+  for (const id of ids) adj.set(id, []);
+  for (const e of edges) {
+    if (!adj.has(e.source) || !adj.has(e.target)) continue;
+    adj.get(e.source)!.push({ id: e.target, w: e.weight });
+    adj.get(e.target)!.push({ id: e.source, w: e.weight });
+  }
+
+  for (let r = 0; r < rounds; r++) {
+    // Deterministic rotation each round (stable across reloads)
+    const order = [...ids].sort((a, b) => {
+      const ha = (a.charCodeAt(0) + r * 17) % 97;
+      const hb = (b.charCodeAt(0) + r * 17) % 97;
+      return ha - hb || a.localeCompare(b);
+    });
+    for (const id of order) {
+      const neigh = adj.get(id) ?? [];
+      if (!neigh.length) continue;
+      const votes = new Map<number, number>();
+      for (const n of neigh) {
+        const lab = label.get(n.id)!;
+        votes.set(lab, (votes.get(lab) ?? 0) + n.w);
+      }
+      let best = label.get(id)!;
+      let bestW = -1;
+      for (const [lab, w] of votes) {
+        if (w > bestW) {
+          bestW = w;
+          best = lab;
+        }
+      }
+      label.set(id, best);
+    }
+  }
+
+  // Compact community ids
+  const remap = new Map<number, number>();
+  let next = 0;
+  for (const id of ids) {
+    const lab = label.get(id)!;
+    if (!remap.has(lab)) remap.set(lab, next++);
+    label.set(id, remap.get(lab)!);
+  }
+  return label;
+}
+
+function seedNodes(): MetricSeed[] {
+  return atlasNodes.map((n) => ({
     ...n,
     count: n.dreamIds.length,
     excerpts: excerptsFor(n.dreamIds),
   }));
+}
+
+function scoreGraph(
+  seeds: MetricSeed[],
+  edges: AtlasEdge[],
+): EnrichedAtlasNode[] {
+  const communities = detectCommunities(seeds, edges);
+  return withMetrics(seeds, edges, communities);
+}
+
+function enrich(): DreamsAtlas {
+  const nodes = scoreGraph(seedNodes(), atlasEdges);
 
   const countsByCategory = {} as Record<AtlasCategory, number>;
   for (const c of Object.keys(CATEGORY_LABEL) as AtlasCategory[]) {
@@ -1081,8 +1519,8 @@ export const dreamsAtlas = enrich();
 export function filterAtlas(
   view: AtlasViewId,
 ): { nodes: EnrichedAtlasNode[]; edges: AtlasEdge[] } {
-  const nodes = dreamsAtlas.nodes.filter((n) => n.views.includes(view));
-  const ids = new Set(nodes.map((n) => n.id));
+  const seeds = seedNodes().filter((n) => n.views.includes(view));
+  const ids = new Set(seeds.map((n) => n.id));
   let edges = dreamsAtlas.edges.filter((e) => ids.has(e.source) && ids.has(e.target));
 
   if (view === "symbols") {
@@ -1095,7 +1533,8 @@ export function filterAtlas(
     edges = edges.filter((e) => e.kind === "causal" || e.kind === "symbolic");
   }
 
-  return { nodes, edges };
+  // Recompute importance on the active view graph (landmarks can shift by lens)
+  return { nodes: scoreGraph(seeds, edges), edges };
 }
 
 export function relatedFor(
@@ -1113,4 +1552,104 @@ export function relatedFor(
     out.push({ node: n, kind: e.kind, note: e.note, weight: e.weight });
   }
   return out.sort((a, b) => b.weight - a.weight);
+}
+
+function narrativeRoleFor(
+  nodeId: string,
+  edges: AtlasEdge[],
+): { role: NarrativeRole; note: string } {
+  let asSource = 0;
+  let asTarget = 0;
+  for (const e of edges) {
+    if (e.kind !== "causal") continue;
+    if (e.source === nodeId) asSource += e.weight;
+    if (e.target === nodeId) asTarget += e.weight;
+  }
+  if (asSource === 0 && asTarget === 0) {
+    return {
+      role: "ambient presence",
+      note: "Rarely drives causal motion — it hangs in the atmosphere of nights.",
+    };
+  }
+  if (asSource > asTarget * 1.4) {
+    return {
+      role: "opening pressure",
+      note: "More often begins a chain — a pressure that sets other symbols in motion.",
+    };
+  }
+  if (asTarget > asSource * 1.4) {
+    return {
+      role: "closing residue",
+      note: "More often arrives late in a chain — residue, consequence, or aftermath.",
+    };
+  }
+  return {
+    role: "transitional hinge",
+    note: "Appears mid-motion — a hinge where one situation becomes another.",
+  };
+}
+
+export function conceptDossier(
+  node: EnrichedAtlasNode,
+  edges: AtlasEdge[],
+  nodes: EnrichedAtlasNode[],
+): ConceptDossier {
+  const connected = relatedFor(node.id, edges, nodes).map((r) => ({
+    ...r,
+    why: explainEdge(r.kind, r.weight, r.note),
+  }));
+
+  const temporal: TemporalMark[] = node.dreamIds
+    .map((id) => {
+      const d = dreamById.get(id);
+      if (!d) return null;
+      return { dreamId: d.id, ordinal: d.ordinal, dateLabel: d.dateLabel };
+    })
+    .filter((t): t is TemporalMark => t !== null)
+    .sort((a, b) => a.ordinal - b.ordinal);
+
+  const emotionWeights = new Map<string, number>();
+  for (const rel of connected) {
+    if (rel.node.category !== "emotions") continue;
+    emotionWeights.set(
+      rel.node.label,
+      (emotionWeights.get(rel.node.label) ?? 0) + rel.weight,
+    );
+  }
+  // Also pull emotions that co-occur via shared dreams
+  for (const other of nodes) {
+    if (other.category !== "emotions" || other.id === node.id) continue;
+    const shared = other.dreamIds.filter((id) => node.dreamIds.includes(id)).length;
+    if (!shared) continue;
+    emotionWeights.set(
+      other.label,
+      (emotionWeights.get(other.label) ?? 0) + shared,
+    );
+  }
+  const emotionalProfile = [...emotionWeights.entries()]
+    .map(([label, weight]) => ({ label, weight }))
+    .sort((a, b) => b.weight - a.weight)
+    .slice(0, 5);
+
+  const { role, note } = narrativeRoleFor(node.id, edges);
+
+  const ascent =
+    node.ascent.length > 1
+      ? `Meaning ascent: ${node.ascent.join(" → ")}.`
+      : "";
+  const interpretation = [node.analysis, ascent, note].filter(Boolean).join(" ");
+
+  return {
+    node,
+    definition: node.analysis,
+    occurrences: node.count,
+    connected: connected.slice(0, 10),
+    excerpts: node.excerpts,
+    temporal,
+    emotionalProfile,
+    narrativeRole: role,
+    narrativeNote: note,
+    interpretation,
+    ascent: node.ascent,
+  };
 }
