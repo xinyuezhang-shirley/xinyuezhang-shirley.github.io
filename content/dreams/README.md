@@ -30,3 +30,11 @@ Search for a Notes title like **“dreams from somewhere else”** was run again
 ## Privacy
 
 Committed archive text is **name-redacted** (`[friend]`, `[idol]`, `[dog]`, `[L—]`, etc.). Unredacted raw exports stay in gitignored `raw/`.
+
+## Dreams from somewhere else (2026-07-20 import)
+
+- Source copy (redacted): `sources/dreams-from-somewhere-else.md`
+- Separated **50** individual dreams from the compilation markdown (48 new, 2 duplicate of existing archive).
+- Boundary method: in-text date headers → blank-line blocks → secondary dream-cue splits (prefer over-splitting).
+- Dates are **in-text** (`dateProvenance: in_text_dated_compilation`), not Notes metadata.
+- New archive ids: `dfse01`… (see `fromBatch: dreams-from-somewhere-else`).

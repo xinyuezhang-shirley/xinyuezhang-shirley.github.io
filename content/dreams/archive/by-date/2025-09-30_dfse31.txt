@@ -1,0 +1,10 @@
+id: dfse31
+date: 2025-09-30
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: People basically wrote proofs and then to prove that
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I had a dream that people basically wrote proofs and then to prove that you write the proof because I guess it’s like a community forum online where the first one is written, you have to write conditions that other people don’t known about your proof or something like that

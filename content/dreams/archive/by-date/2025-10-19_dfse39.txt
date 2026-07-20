@@ -1,0 +1,10 @@
+id: dfse39
+date: 2025-10-19
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: A little bit of what seems like a 无限流competitive gam
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I dream a little bit of what seems like a 无限流competitive game, but the game I dream of is too easy and very cs coded. There are a set of rules for inheritance, you follow it and find where an issue is. I don’t recall what the rules are

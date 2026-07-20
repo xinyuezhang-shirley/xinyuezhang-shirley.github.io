@@ -1,0 +1,10 @@
+id: dfse22
+date: 2025-09-22
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: School projects and this rich guy basically brute fo
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I had a dream about school projects and this rich guy basically brute forcing his way in school finding people who are smarter and can just do the work

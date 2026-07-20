@@ -1,0 +1,10 @@
+id: dfse16
+date: 2025-09-16
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: Someone was trying to lend money from me and basical
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I had a dream that someone was trying to lend money from me and basically I did not

@@ -1,0 +1,10 @@
+id: dfse09
+date: 2025-09-09
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: A past that was similar but somehow kind of differen
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I dreamt of a past that was similar but somehow kind of different to mine, watering flowers on a porch that was just slightly bigger than the one at town place.

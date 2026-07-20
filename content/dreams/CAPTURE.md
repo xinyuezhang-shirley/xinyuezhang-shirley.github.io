@@ -6,3 +6,4 @@
 - **Added this pass**: Notes `1747` (Florence), `1749` (Chinese classroom/idols) — were in Dreams folder but missing from prior import.
 - **Recovery archive (committed)**: `content/dreams/archive/dreams-full.json` + `archive/by-date/`.
 - **Raw bodies (gitignored)**: `content/dreams/raw/`.
+- **Dreams from somewhere else** (Downloads md): found; split into 50 (48 new / 2 dup). Archive ids `dfse*`. Source: `sources/dreams-from-somewhere-else.md`.

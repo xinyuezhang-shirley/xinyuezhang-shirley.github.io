@@ -1,0 +1,10 @@
+id: dfse28
+date: 2025-09-25
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: The design of pins and how they are so centered and
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I believe there was also another dream about the design of pins and how they are so centered and over contrasted or something like that

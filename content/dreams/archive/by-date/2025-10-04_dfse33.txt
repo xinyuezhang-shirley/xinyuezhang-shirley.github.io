@@ -1,0 +1,10 @@
+id: dfse33
+date: 2025-10-04
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: There was this nice cheap market that sold tiny carp
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+There was this nice cheap market that sold tiny carpet tufting things and it was really cute.

@@ -1,0 +1,10 @@
+id: dfse36
+date: 2025-10-10
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: Had a nightmare that when a kid died the parents die
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+Had a nightmare that when a kid died the parents died too and they staged the kids eyes to get the kid to stop crying
