@@ -1,0 +1,577 @@
+/**
+ * Work catalogue — desktop rail + dedicated mobile composition.
+ * Breakpoints: 390 / 430 / 768. Do not compress the desktop layout on phones.
+ */
+
+.work-catalogue {
+  --wc-ink: #16140f;
+  --wc-soft: #56534c;
+  --wc-faint: #8c887e;
+  --wc-line: #e3dfd4;
+  --wc-accent: #8a3324;
+  --wc-serif: "Fraunces", Georgia, serif;
+  --wc-sans: "Inter", system-ui, sans-serif;
+  --wc-mono: ui-monospace, "IBM Plex Mono", monospace;
+  --wc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: 3.5rem 1.25rem 4rem;
+  color: var(--wc-ink);
+}
+
+/* —— Hero —— */
+.wc-hero {
+  margin-bottom: 2.75rem;
+}
+
+.wc-hero__eyebrow {
+  display: block;
+  font-family: var(--wc-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--wc-soft);
+  margin: 0 0 1.25rem;
+}
+
+.wc-hero__title {
+  font-family: var(--wc-serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 8.5vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.75rem;
+  max-width: 12ch;
+}
+
+.wc-hero__catalogue {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.wc-hero__label {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--wc-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wc-faint);
+}
+
+.wc-hero__label-rule {
+  display: block;
+  width: 2.75rem;
+  height: 1px;
+  background: var(--wc-line);
+}
+
+.wc-hero__spec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  font-family: var(--wc-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wc-faint);
+  /* Never wrap into tiny colliding clusters */
+  white-space: nowrap;
+}
+
+.wc-hero__spec span {
+  display: block;
+}
+
+/* —— Entries —— */
+.wc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--wc-line);
+}
+
+.wc-entry {
+  display: block;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--wc-line);
+}
+
+/* Desktop rail — hidden on mobile */
+.wc-rail {
+  display: none;
+}
+
+.wc-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.wc-card:focus-visible {
+  outline: 2px solid var(--wc-ink);
+  outline-offset: 4px;
+}
+
+/* Mobile catalogue header — stacked above the title, not a side gutter */
+.wc-card__index-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.wc-card__index {
+  font-family: var(--wc-mono);
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  color: var(--wc-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.wc-card__index-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wc-card__index-meta li {
+  font-family: var(--wc-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--wc-faint);
+  line-height: 1.4;
+}
+
+/* Project meta — stacked on mobile */
+.wc-card__project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0 0 0.85rem;
+}
+
+.wc-card__project-meta p {
+  margin: 0;
+  font-family: var(--wc-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--wc-faint);
+  line-height: 1.4;
+}
+
+.wc-card__role-line {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.wc-card__project-meta .wc-duration {
+  font-family: var(--wc-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.wc-card__title {
+  font-family: var(--wc-serif);
+  font-weight: 400;
+  font-size: clamp(1.65rem, 7vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.75rem;
+  color: var(--wc-ink);
+  transition: color 0.35s var(--wc-ease);
+}
+
+.wc-card:hover .wc-card__title,
+.wc-card:focus-visible .wc-card__title {
+  color: var(--wc-accent);
+}
+
+.wc-card__with {
+  font-family: var(--wc-serif);
+  font-size: 1rem;
+  color: var(--wc-soft);
+  margin: 0 0 0.65rem;
+}
+
+.wc-card__teaser {
+  font-family: var(--wc-sans);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--wc-soft);
+  margin: 0 0 1.1rem;
+  max-width: 36rem;
+}
+
+.wc-card__signals {
+  font-family: var(--wc-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--wc-faint);
+  margin: 0 0 0.85rem;
+  line-height: 1.5;
+  max-width: 28rem;
+}
+
+/* Tech — stacked / two-line on mobile */
+.wc-card__tech {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.wc-card__tools {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wc-card__tools li {
+  font-family: var(--wc-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--wc-faint);
+}
+
+.wc-card__team {
+  font-family: var(--wc-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wc-faint);
+  margin: 0;
+}
+
+/* Related — never awkward wrap */
+.wc-card__related {
+  margin-top: 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid color-mix(in srgb, var(--wc-line) 70%, transparent);
+  max-width: 20rem;
+}
+
+.wc-card__related-label {
+  display: block;
+  font-family: var(--wc-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wc-faint);
+  margin: 0 0 0.35rem;
+}
+
+.wc-card__related-link {
+  display: inline-block;
+  font-family: var(--wc-serif);
+  font-size: 1rem;
+  color: var(--wc-soft);
+  margin: 0;
+}
+
+.wc-card__related-link::after {
+  content: " →";
+  font-size: 0.85em;
+  color: var(--wc-faint);
+}
+
+.wc-foot {
+  margin-top: 2.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--wc-line);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  font-family: var(--wc-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wc-faint);
+}
+
+.wc-foot p {
+  margin: 0;
+}
+
+/* —— 430px+: slightly more air, still mobile grammar —— */
+@media (min-width: 430px) {
+  .work-catalogue {
+    padding-inline: 1.5rem;
+  }
+
+  .wc-hero__title {
+    max-width: 14ch;
+  }
+
+  /* Org alone; role · duration on one quiet line */
+  .wc-card__role-line {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0;
+  }
+
+  .wc-card__role-line .wc-duration::before {
+    content: "·";
+    margin-right: 0.5rem;
+    color: color-mix(in srgb, var(--wc-faint) 45%, transparent);
+  }
+
+  /* Tools share a line; team stays below — no orphaned bullets */
+  .wc-card__tools {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.2rem 0;
+  }
+
+  .wc-card__tools li:not(:last-child)::after {
+    content: " · ";
+    color: color-mix(in srgb, var(--wc-faint) 45%, transparent);
+  }
+
+  .wc-card__tech {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}
+
+/* —— 768px+: restore desktop asymmetric catalogue —— */
+@media (min-width: 768px) {
+  .work-catalogue {
+    padding: 5.5rem 2rem 6rem;
+  }
+
+  .wc-hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    column-gap: 2rem;
+    align-items: baseline;
+    margin-bottom: 4.5rem;
+  }
+
+  .wc-hero__eyebrow {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .wc-hero__spec {
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-self: end;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .wc-hero__spec span {
+    display: inline;
+  }
+
+  .wc-hero__spec span:first-child::after {
+    content: " · ";
+  }
+
+  .wc-hero__title {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    max-width: 18ch;
+    margin-bottom: 1.75rem;
+  }
+
+  .wc-hero__catalogue {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .wc-hero__spec--mobile-only {
+    display: none;
+  }
+
+  .wc-hero__catalogue .wc-hero__spec {
+    display: none;
+  }
+
+  /* Spec returns beside eyebrow on desktop — already placed in grid row 1 */
+  .wc-hero > .wc-hero__spec {
+    display: flex;
+  }
+
+  .wc-entry {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    column-gap: 2.5rem;
+    padding: 3.25rem 0;
+  }
+
+  .wc-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding-top: 0.15rem;
+  }
+
+  .wc-rail__index {
+    font-family: var(--wc-mono);
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--wc-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wc-rail__sep {
+    display: block;
+    width: 1px;
+    height: 0.75rem;
+    background: var(--wc-line);
+  }
+
+  .wc-rail__mark {
+    font-family: var(--wc-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--wc-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wc-card__index-head {
+    display: none;
+  }
+
+  .wc-card__project-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .wc-card__project-meta p,
+  .wc-card__role-line {
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .wc-card__role-line {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem 0;
+  }
+
+  .wc-card__org::after {
+    content: "·";
+    margin-left: 0.75rem;
+    color: color-mix(in srgb, var(--wc-faint) 40%, transparent);
+  }
+
+  .wc-card__role-line .wc-duration::before {
+    content: "·";
+    margin-right: 0.55rem;
+    color: color-mix(in srgb, var(--wc-faint) 40%, transparent);
+  }
+
+  .wc-card__title {
+    font-size: clamp(1.85rem, 2.8vw, 2.35rem);
+    margin-bottom: 0.85rem;
+  }
+
+  .wc-card__teaser {
+    font-size: 1.125rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .wc-card__signals {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+
+  .wc-card__tech {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.25rem;
+  }
+
+  .wc-card__tools {
+    flex-direction: row;
+  }
+
+  .wc-card__tools li:not(:last-child)::after {
+    content: "·";
+    margin-left: 0.65rem;
+    color: color-mix(in srgb, var(--wc-faint) 40%, transparent);
+  }
+
+  .wc-card__related {
+    margin-top: 1.35rem;
+    max-width: 28rem;
+  }
+
+  .wc-card__related-label {
+    display: inline;
+    margin-right: 0.65rem;
+  }
+
+  .wc-card__related-label::after {
+    content: " ↓";
+    color: color-mix(in srgb, var(--wc-faint) 45%, transparent);
+  }
+
+  .wc-card__related-link::after {
+    content: none;
+  }
+
+  .wc-foot {
+    margin-top: 5rem;
+  }
+}
+
+/* Desktop hero: show top-right spec, hide the under-catalogue duplicate */
+@media (min-width: 768px) {
+  .wc-hero__catalogue-spec {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .wc-hero__top-spec {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wc-card__title {
+    transition: none;
+  }
+}

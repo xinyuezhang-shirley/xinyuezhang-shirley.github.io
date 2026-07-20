@@ -1,156 +1,145 @@
 import { Link } from "react-router-dom";
-import { Eyebrow, Display, Body } from "@/components/type/Typography";
 import { workProjects, workBySlug } from "@/content/work";
+import "@/work/work/work-catalogue.css";
 
-function RailMark({ children }: { children: string }) {
-  return (
-    <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint tabular-nums">
-      {children}
-    </span>
-  );
+function formatDuration(duration?: string): string | undefined {
+  if (!duration) return undefined;
+  // "18 mo" → "18 months", "10 wk" → "10 weeks", "4 mo" → "4 months"
+  return duration
+    .replace(/\bmo\b/i, "months")
+    .replace(/\bwk\b/i, "weeks")
+    .replace(/\bTeam\b/i, "Team");
 }
 
-function RailSep() {
-  return (
-    <span
-      className="block w-px h-3 bg-line mx-auto md:mx-0"
-      aria-hidden
-    />
-  );
+function formatTeam(teamSize?: string): string | undefined {
+  if (!teamSize) return undefined;
+  if (/^\d+$/.test(teamSize)) return `Team of ${teamSize}`;
+  if (/^team$/i.test(teamSize)) return "Team";
+  return teamSize.startsWith("Team") ? teamSize : `Team ${teamSize}`;
 }
 
 export default function Work() {
   const count = String(workProjects.length).padStart(2, "0");
 
   return (
-    <div className="container py-16 md:py-24">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 mb-6">
-        <Eyebrow>Work</Eyebrow>
-        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint tabular-nums">
-          Spec · Index · {count} entries · Rev. 2026.07
+    <div className="work-catalogue">
+      <header className="wc-hero">
+        <p className="wc-hero__eyebrow">Work</p>
+
+        <p className="wc-hero__spec wc-hero__top-spec" aria-label="Catalogue specification">
+          <span>Spec · Index</span>
+          <span>
+            {count} entries · Rev. 2026.07
+          </span>
         </p>
-      </div>
 
-      <Display as="h1" className="text-display-2 max-w-3xl mb-6 md:mb-8">
-        Engineering, applied to other people&apos;s problems.
-      </Display>
+        <h1 className="wc-hero__title">
+          Engineering, applied to other people&apos;s problems.
+        </h1>
 
-      <div className="flex items-center gap-3 mb-16 md:mb-24 text-ink-faint" aria-hidden>
-        <span className="font-mono text-[10px] tracking-[0.14em] tabular-nums">0.0</span>
-        <span className="h-px flex-1 max-w-[4.5rem] bg-line" />
-        <span className="font-mono text-[10px] tracking-[0.14em]">CATALOGUE</span>
-        <span className="h-px w-3 bg-line" />
-      </div>
+        <div className="wc-hero__catalogue">
+          <p className="wc-hero__label">
+            <span>0.0</span>
+            <span className="wc-hero__label-rule" aria-hidden />
+            <span>Catalogue</span>
+          </p>
+          <p
+            className="wc-hero__spec wc-hero__catalogue-spec"
+            aria-label="Catalogue specification"
+          >
+            <span>Spec · Index</span>
+            <span>
+              {count} entries · Rev. 2026.07
+            </span>
+          </p>
+        </div>
+      </header>
 
-      <ol className="divide-y divide-line">
+      <ol className="wc-list">
         {workProjects.map((project, i) => {
           const index = String(i + 1).padStart(2, "0");
-          return (
-            <li
-              key={project.slug}
-              className="grid grid-cols-[48px_1fr] md:grid-cols-[120px_1fr] gap-x-6 md:gap-x-10 py-10 md:py-14"
-            >
-              {/* Left rail — index of engineered object */}
-              <div className="flex flex-col items-start gap-2.5 pt-0.5">
-                <span className="font-mono text-sm md:text-base text-ink-faint tabular-nums tracking-wide">
-                  {index}
-                </span>
-                <RailSep />
-                {project.status ? <RailMark>{project.status}</RailMark> : null}
-                {project.type ? (
-                  <>
-                    <RailSep />
-                    <RailMark>{project.type}</RailMark>
-                  </>
-                ) : null}
-                {project.year ? (
-                  <>
-                    <RailSep />
-                    <RailMark>{project.year}</RailMark>
-                  </>
-                ) : null}
-                {project.catalogId ? (
-                  <>
-                    <RailSep />
-                    <RailMark>{project.catalogId}</RailMark>
-                  </>
-                ) : null}
-              </div>
+          const duration = formatDuration(project.duration);
+          const team = formatTeam(project.teamSize);
+          const railMarks = [
+            project.status,
+            project.type,
+            project.year,
+            project.catalogId,
+          ].filter(Boolean) as string[];
 
-              <Link to={`/work/${project.slug}`} className="group min-w-0">
-                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
-                  <p className="font-sans text-xs uppercase tracking-[0.06em] text-ink-faint">
-                    {project.org}
+          return (
+            <li key={project.slug} className="wc-entry">
+              <aside className="wc-rail" aria-hidden="true">
+                <span className="wc-rail__index">{index}</span>
+                {railMarks.flatMap((mark) => [
+                  <span key={`${mark}-sep`} className="wc-rail__sep" />,
+                  <span key={mark} className="wc-rail__mark">
+                    {mark}
+                  </span>,
+                ])}
+              </aside>
+
+              <Link to={`/work/${project.slug}`} className="wc-card">
+                <header className="wc-card__index-head">
+                  <span className="wc-card__index">{index}</span>
+                  <ul className="wc-card__index-meta">
+                    {project.status ? <li>{project.status}</li> : null}
+                    {project.type ? <li>{project.type}</li> : null}
+                    {project.year ? <li>{project.year}</li> : null}
+                  </ul>
+                </header>
+
+                <div className="wc-card__project-meta">
+                  <p className="wc-card__org">{project.org}</p>
+                  <p className="wc-card__role-line">
+                    <span>{project.role}</span>
+                    {duration ? (
+                      <span className="wc-duration">{duration}</span>
+                    ) : null}
                   </p>
-                  <span className="text-ink-faint/40 hidden sm:inline" aria-hidden>
-                    ·
-                  </span>
-                  <p className="font-sans text-xs uppercase tracking-[0.06em] text-ink-faint">
-                    {project.role}
-                  </p>
-                  {project.duration ? (
-                    <>
-                      <span className="text-ink-faint/40 hidden sm:inline" aria-hidden>
-                        ·
-                      </span>
-                      <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint tabular-nums">
-                        {project.duration}
-                      </p>
-                    </>
-                  ) : null}
                 </div>
 
-                <h2 className="font-serif text-heading-1 text-ink mb-3 group-hover:text-accent transition-colors">
-                  {project.title}
-                </h2>
+                <h2 className="wc-card__title">{project.title}</h2>
 
                 {project.collaborators?.length ? (
-                  <p className="font-serif text-ink-soft mb-3">
+                  <p className="wc-card__with">
                     with {project.collaborators.join(" & ")}
                   </p>
                 ) : null}
 
-                <Body lg className="max-w-2xl mb-5">
-                  {project.teaser}
-                </Body>
+                <p className="wc-card__teaser">{project.teaser}</p>
 
                 {project.signals?.length ? (
-                  <p className="font-sans text-xs uppercase tracking-[0.08em] text-ink-faint mb-3 max-w-xl leading-relaxed">
+                  <p className="wc-card__signals">
                     {project.signals.join(" · ")}
                   </p>
                 ) : null}
 
-                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1.5">
+                <div className="wc-card__tech">
                   {project.tools?.length ? (
-                    <p className="font-mono text-[11px] tracking-[0.04em] text-ink-faint/90">
-                      {project.tools.join(" · ")}
-                    </p>
+                    <ul className="wc-card__tools">
+                      {project.tools.map((tool) => (
+                        <li key={tool}>{tool}</li>
+                      ))}
+                    </ul>
                   ) : null}
-                  {project.teamSize ? (
-                    <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint tabular-nums">
-                      Team {project.teamSize}
-                    </p>
-                  ) : null}
+                  {team ? <p className="wc-card__team">{team}</p> : null}
                 </div>
 
                 {project.related?.length ? (
-                  <div className="mt-5 pt-4 border-t border-line/70 max-w-md">
+                  <div className="wc-card__related">
                     {project.related.map((rel) => {
                       const target = workBySlug(rel.slug);
                       if (!target) return null;
                       return (
-                        <p
-                          key={rel.slug}
-                          className="font-sans text-xs uppercase tracking-[0.08em] text-ink-faint"
-                        >
-                          <span className="text-ink-faint/70">{rel.note ?? "Related"}</span>
-                          <span className="mx-2 text-ink-faint/35" aria-hidden>
-                            ↓
+                        <div key={rel.slug}>
+                          <span className="wc-card__related-label">
+                            {rel.note ?? "Related"}
                           </span>
-                          <span className="font-serif normal-case tracking-normal text-ink-soft group-hover:text-ink transition-colors">
+                          <span className="wc-card__related-link">
                             {target.title}
                           </span>
-                        </p>
+                        </div>
                       );
                     })}
                   </div>
@@ -161,13 +150,9 @@ export default function Work() {
         })}
       </ol>
 
-      <footer className="mt-16 md:mt-24 pt-6 border-t border-line flex flex-wrap items-baseline justify-between gap-3">
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint tabular-nums">
-          End of index · {count} systems
-        </p>
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint tabular-nums">
-          p. 01 / work
-        </p>
+      <footer className="wc-foot">
+        <p>End of index · {count} systems</p>
+        <p>p. 01 / work</p>
       </footer>
     </div>
   );
