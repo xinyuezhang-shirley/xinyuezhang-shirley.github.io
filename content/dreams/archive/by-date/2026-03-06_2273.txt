@@ -1,0 +1,9 @@
+id: 2273
+date: 2026-03-06
+dateSource: notes.ZCREATIONDATE3
+dateProvenance: note_creation
+title: Library aquarium
+sourceNote: I dreamed that I was in a library that also was an aquarium that had…
+importedAt: 2026-07-20T04:37:24Z
+---
+I dreamed that I was in a library that also was an aquarium that had creepy fish and also had a food court that had a Panda Express and the Panda Express worker was very mean to people
