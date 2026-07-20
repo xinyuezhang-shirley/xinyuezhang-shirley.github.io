@@ -1,11 +1,95 @@
 {
-  "generatedAt": "2026-07-20T04:37:24Z",
+  "generatedAt": "2026-07-20T04:50:49Z",
   "opening": "Dreams are the only place where memory edits itself in real time.",
-  "dreamCount": 28,
+  "dreamCount": 78,
   "dreams": [
     {
-      "id": "1655",
+      "id": "dfse01",
       "ordinal": 1,
+      "dateLabel": "2025-09-04",
+      "title": "Was happy. I walk into friends who I have not seen i",
+      "atmosphere": "light buoyancy",
+      "symbols": [],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "amusement",
+          "label": "amusement"
+        }
+      ],
+      "excerpt": "In my dream I was happy. I walk into friends who I have not seen in a long time and their parents who I’ve never seen and they are happy to…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse01"
+    },
+    {
+      "id": "dfse02",
+      "ordinal": 2,
+      "dateLabel": "2025-09-05",
+      "title": "I have panicked dreams of mom asking me to help exch",
+      "atmosphere": "family weather",
+      "symbols": [],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "I have panicked dreams of mom asking me to help exchange/ transfer money again and it’s very complicated and I’m stressed in my sleep",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse02"
+    },
+    {
+      "id": "dfse03",
+      "ordinal": 3,
+      "dateLabel": "2025-09-05",
+      "title": "It was some sort of performance of a male teacher’s",
+      "atmosphere": "drifting recall",
+      "symbols": [
+        {
+          "id": "photographs",
+          "label": "photographs"
+        }
+      ],
+      "places": [],
+      "people": [
+        {
+          "id": "children",
+          "label": "children"
+        },
+        {
+          "id": "teacher",
+          "label": "teacher"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "confusion",
+          "label": "confusion"
+        }
+      ],
+      "excerpt": "I had another dream that it was some sort of performance of a male teacher’s wife and I took a lot of pictures for them. She is an artist?…",
+      "interpretation": "Motifs observed: photographs. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "photographs"
+      ],
+      "related": [],
+      "archiveId": "dfse03"
+    },
+    {
+      "id": "1655",
+      "ordinal": 4,
       "dateLabel": "2025-09-08",
       "date": "2025-09-08",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -57,8 +141,1024 @@
       "related": []
     },
     {
+      "id": "dfse06",
+      "ordinal": 5,
+      "dateLabel": "2025-09-09",
+      "title": "I was thorn for buy insurance at school and it was a",
+      "atmosphere": "academic residue",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream that I was thorn for buy insurance at school and it was annoying to try to get cheap insurance",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse06"
+    },
+    {
+      "id": "dfse07",
+      "ordinal": 6,
+      "dateLabel": "2025-09-09",
+      "title": "Many things. I dealt that schools tatted but asshien",
+      "atmosphere": "academic residue",
+      "symbols": [],
+      "places": [
+        {
+          "id": "parallel-school",
+          "label": "parallel school"
+        }
+      ],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I dreamt of many things. I dealt that schools tatted but asshienktns are on schoology again and I was worried I submitted late.",
+      "interpretation": "Motifs observed: parallel school. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse07"
+    },
+    {
+      "id": "dfse08",
+      "ordinal": 7,
+      "dateLabel": "2025-09-09",
+      "title": "Dancing gnarly with a bunch of little kids",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [
+        {
+          "id": "children",
+          "label": "children"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "I dreamt of dancing gnarly with a bunch of little kids.",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse08"
+    },
+    {
+      "id": "dfse09",
+      "ordinal": 8,
+      "dateLabel": "2025-09-09",
+      "title": "A past that was similar but somehow kind of differen",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [
+        {
+          "id": "confusion",
+          "label": "confusion"
+        }
+      ],
+      "excerpt": "I dreamt of a past that was similar but somehow kind of different to mine, watering flowers on a porch that was just slightly bigger than…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse09"
+    },
+    {
+      "id": "dfse10",
+      "ordinal": 9,
+      "dateLabel": "2025-09-10",
+      "title": "I was talking to this guy about games and all the ne",
+      "atmosphere": "playful staging",
+      "symbols": [
+        {
+          "id": "concert",
+          "label": "concert"
+        }
+      ],
+      "places": [
+        {
+          "id": "concert-stage",
+          "label": "concert / stage"
+        }
+      ],
+      "people": [
+        {
+          "id": "idol",
+          "label": "idol / performer"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "nostalgia",
+          "label": "nostalgia"
+        }
+      ],
+      "excerpt": "Dreamt that I was talking to this guy about games and all the new feature updates and he was actually gonna play love and deep space to do…",
+      "interpretation": "Motifs observed: concert, concert / stage. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "concert"
+      ],
+      "related": [],
+      "archiveId": "dfse10"
+    },
+    {
+      "id": "dfse11",
+      "ordinal": 10,
+      "dateLabel": "2025-09-12",
+      "title": "I was witnessing from third person a death investiga",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream that I was witnessing from third person a death investigation and the girl was trying to describe the car she was driving to…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse11"
+    },
+    {
+      "id": "dfse12",
+      "ordinal": 11,
+      "dateLabel": "2025-09-13",
+      "title": "I was a kid? Or maybe it was another kid, and the ki",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream that I was a kid? Or maybe it was another kid, and the kid was going through adulting tasks with me and we were figuring…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse12"
+    },
+    {
+      "id": "dfse13",
+      "ordinal": 12,
+      "dateLabel": "2025-09-14",
+      "title": "Microwaves and and ovens and where to inquire about",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "Had a very practical dream about microwaves and and ovens and where to inquire about getting one",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse13"
+    },
+    {
+      "id": "dfse14",
+      "ordinal": 13,
+      "dateLabel": "2025-09-14",
+      "title": "This 动漫and the two main characters one is like a 美强惨",
+      "atmosphere": "playful staging",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [
+        {
+          "id": "grief",
+          "label": "grief"
+        }
+      ],
+      "excerpt": "I dream about this 动漫and the two main characters one is like a 美强惨and one is somewhat like a 没头脑similar to linkclick and the last dream j…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse14"
+    },
+    {
+      "id": "dfse15",
+      "ordinal": 14,
+      "dateLabel": "2025-09-15",
+      "title": "Mom opened some kind of dessert store and for the fi",
+      "atmosphere": "family weather",
+      "symbols": [],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "I had a dream that mom opened some kind of dessert store and for the first time time someone showed up to our house but we were missing…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse15"
+    },
+    {
+      "id": "dfse16",
+      "ordinal": 15,
+      "dateLabel": "2025-09-16",
+      "title": "Someone was trying to lend money from me and basical",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream that someone was trying to lend money from me and basically I did not",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse16"
+    },
+    {
+      "id": "dfse17",
+      "ordinal": 16,
+      "dateLabel": "2025-09-17",
+      "title": "This main guy used to teach at a school but somethin",
+      "atmosphere": "uneasy night",
+      "symbols": [],
+      "places": [
+        {
+          "id": "parallel-school",
+          "label": "parallel school"
+        }
+      ],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "nostalgia",
+          "label": "nostalgia"
+        }
+      ],
+      "excerpt": "Had a dream that this main guy used to teach at a school but something happened during his time there and he was also somewhat involved in…",
+      "interpretation": "Motifs observed: parallel school. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse17"
+    },
+    {
+      "id": "dfse18",
+      "ordinal": 17,
+      "dateLabel": "2025-09-18",
+      "title": "Dreaming about talking to all sorts of people about",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [
+        {
+          "id": "curiosity",
+          "label": "curiosity"
+        }
+      ],
+      "excerpt": "Dreaming about talking to all sorts of people about program requirements and stuff",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse18"
+    },
+    {
+      "id": "dfse19",
+      "ordinal": 18,
+      "dateLabel": "2025-09-18",
+      "title": "There’s also a this thing called something moon flow",
+      "atmosphere": "drifting recall",
+      "symbols": [
+        {
+          "id": "light",
+          "label": "light"
+        },
+        {
+          "id": "flowers",
+          "label": "flowers"
+        }
+      ],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "There’s also a this thing called something moon flower and it’s very expensive and hard to collect and they were talking about colllecting…",
+      "interpretation": "Motifs observed: light, flowers. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "light",
+        "flowers"
+      ],
+      "related": [],
+      "archiveId": "dfse19"
+    },
+    {
+      "id": "dfse20",
+      "ordinal": 19,
+      "dateLabel": "2025-09-18",
+      "title": "Mom and dad. Mom as trying to get info out of me abo",
+      "atmosphere": "academic residue",
+      "symbols": [],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "I dreamed of mom and dad. Mom as trying to get info out of me about my boyfriend, who does not exist, asking me when I text him and all…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse20"
+    },
+    {
+      "id": "dfse21",
+      "ordinal": 20,
+      "dateLabel": "2025-09-19",
+      "title": "Was still at Stanford but lived in what looked like",
+      "atmosphere": "family weather",
+      "symbols": [],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "had a dream I was still at Stanford but lived in what looked like a hotel and my mom was also on the hotel",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse21"
+    },
+    {
+      "id": "dfse22",
+      "ordinal": 21,
+      "dateLabel": "2025-09-22",
+      "title": "School projects and this rich guy basically brute fo",
+      "atmosphere": "academic residue",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream about school projects and this rich guy basically brute forcing his way in school finding people who are smarter and can just…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse22"
+    },
+    {
+      "id": "dfse23",
+      "ordinal": 22,
+      "dateLabel": "2025-09-23",
+      "title": "Proofs but it was really practical proofs, something",
+      "atmosphere": "academic residue",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream about proofs but it was really practical proofs, something to do with the rules of traffic and how you have to continuously…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse23"
+    },
+    {
+      "id": "dfse24",
+      "ordinal": 23,
+      "dateLabel": "2025-09-23",
+      "title": "We hosted a birthday party for friend’s brother outs",
+      "atmosphere": "light buoyancy",
+      "symbols": [
+        {
+          "id": "music",
+          "label": "music"
+        }
+      ],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream we hosted a birthday party for [friend]’s brother outside her house and it was a surprise party where we had signs and…",
+      "interpretation": "Motifs observed: music. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "music"
+      ],
+      "related": [],
+      "archiveId": "dfse24"
+    },
+    {
+      "id": "dfse25",
+      "ordinal": 24,
+      "dateLabel": "2025-09-24",
+      "title": "The renaissance game, I don’t think it’s the first t",
+      "atmosphere": "playful staging",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I dreamed of the renaissance game, I don’t think it’s the first time now. Idk why I call it that but it it’s my version of an airplane…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse25"
+    },
+    {
+      "id": "dfse26",
+      "ordinal": 25,
+      "dateLabel": "2025-09-24",
+      "title": "I went with my grandma and she liked it a lot and we",
+      "atmosphere": "uneasy night",
+      "symbols": [
+        {
+          "id": "music",
+          "label": "music"
+        }
+      ],
+      "places": [],
+      "people": [
+        {
+          "id": "grandparent",
+          "label": "grandparent"
+        },
+        {
+          "id": "children",
+          "label": "children"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "amusement",
+          "label": "amusement"
+        }
+      ],
+      "excerpt": "I dreamed that I went with my grandma and she liked it a lot and we rod together. One lady got so surprised that the ground fell away and…",
+      "interpretation": "Motifs observed: music. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "music"
+      ],
+      "related": [],
+      "archiveId": "dfse26"
+    },
+    {
+      "id": "dfse27",
+      "ordinal": 26,
+      "dateLabel": "2025-09-25",
+      "title": "Some oc character names mini seven (57) who is like",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream of some oc character names mini seven (57) who is like a tall girl in a black and white maid-like dress.",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse27"
+    },
+    {
+      "id": "dfse28",
+      "ordinal": 27,
+      "dateLabel": "2025-09-25",
+      "title": "The design of pins and how they are so centered and",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I believe there was also another dream about the design of pins and how they are so centered and over contrasted or something like that",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "music"
+      ],
+      "related": [],
+      "archiveId": "dfse28"
+    },
+    {
+      "id": "dfse29",
+      "ordinal": 28,
+      "dateLabel": "2025-09-28",
+      "title": "A musical formed by mathematical combinations of ano",
+      "atmosphere": "playful staging",
+      "symbols": [
+        {
+          "id": "music",
+          "label": "music"
+        }
+      ],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream of a musical formed by mathematical combinations of another musical",
+      "interpretation": "Motifs observed: music. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse29"
+    },
+    {
+      "id": "dfse30",
+      "ordinal": 29,
+      "dateLabel": "2025-09-28",
+      "title": "I asked to date this guy who seemed cute and asked h",
+      "atmosphere": "light buoyancy",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had another dream that I asked to date this guy who seemed cute and asked him to be my bf and it was quite cute and all but I don’t think…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse30"
+    },
+    {
+      "id": "dfse31",
+      "ordinal": 30,
+      "dateLabel": "2025-09-30",
+      "title": "People basically wrote proofs and then to prove that",
+      "atmosphere": "academic residue",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream that people basically wrote proofs and then to prove that you write the proof because I guess it’s like a community forum…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse31"
+    },
+    {
+      "id": "dfse32",
+      "ordinal": 31,
+      "dateLabel": "2025-10-01",
+      "title": "Was in Italy because friend was in my dream and I ha",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "Had a dream I was in Italy because [friend] was in my dream and I had plans but he alked into target to get a book and they had a pet store…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse32"
+    },
+    {
+      "id": "dfse33",
+      "ordinal": 32,
+      "dateLabel": "2025-10-04",
+      "title": "There was this nice cheap market that sold tiny carp",
+      "atmosphere": "light buoyancy",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "There was this nice cheap market that sold tiny carpet tufting things and it was really cute.",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse33"
+    },
+    {
+      "id": "dfse34",
+      "ordinal": 33,
+      "dateLabel": "2025-10-04",
+      "title": "Some place that had all sorts of ethnic? Cuisines an",
+      "atmosphere": "family weather",
+      "symbols": [],
+      "places": [],
+      "people": [
+        {
+          "id": "grandparent",
+          "label": "grandparent"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "I also dreamed of some place that had all sorts of ethnic? Cuisines and it included medicine soup and all that and grandpa was in my dream…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse34"
+    },
+    {
+      "id": "dfse35",
+      "ordinal": 34,
+      "dateLabel": "2025-10-07",
+      "title": "Kept seeing this board game add there it looked like",
+      "atmosphere": "academic residue",
+      "symbols": [],
+      "places": [
+        {
+          "id": "parallel-school",
+          "label": "parallel school"
+        }
+      ],
+      "people": [],
+      "emotions": [
+        {
+          "id": "confusion",
+          "label": "confusion"
+        }
+      ],
+      "excerpt": "I had a dream I kept seeing this board game add there it looked like some version of a card game similar to uno and it has two Asian guys…",
+      "interpretation": "Motifs observed: parallel school. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse35"
+    },
+    {
+      "id": "dfse36",
+      "ordinal": 35,
+      "dateLabel": "2025-10-10",
+      "title": "Had a nightmare that when a kid died the parents die",
+      "atmosphere": "uneasy night",
+      "symbols": [],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        },
+        {
+          "id": "children",
+          "label": "children"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "Had a nightmare that when a kid died the parents died too and they staged the kids eyes to get the kid to stop crying",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "music",
+        "concert"
+      ],
+      "related": [],
+      "archiveId": "dfse36"
+    },
+    {
+      "id": "dfse37",
+      "ordinal": 36,
+      "dateLabel": "2025-10-18",
+      "title": "I was a little kid from northern Texas and I acciden",
+      "atmosphere": "academic residue",
+      "symbols": [
+        {
+          "id": "music",
+          "label": "music"
+        },
+        {
+          "id": "concert",
+          "label": "concert"
+        }
+      ],
+      "places": [
+        {
+          "id": "concert-stage",
+          "label": "concert / stage"
+        }
+      ],
+      "people": [
+        {
+          "id": "idol",
+          "label": "idol / performer"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "confusion",
+          "label": "confusion"
+        }
+      ],
+      "excerpt": "I had a dream that I was a little kid from northern Texas and I accidentally walked onto a battle field where there were rockets and they…",
+      "interpretation": "Motifs observed: music, concert, concert / stage. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "religion"
+      ],
+      "related": [],
+      "archiveId": "dfse37"
+    },
+    {
+      "id": "dfse38",
+      "ordinal": 37,
+      "dateLabel": "2025-10-18",
+      "title": "I was in vacation and saw idol making his rounds and",
+      "atmosphere": "family weather",
+      "symbols": [
+        {
+          "id": "religion",
+          "label": "religion"
+        }
+      ],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        },
+        {
+          "id": "idol",
+          "label": "idol / performer"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "grief",
+          "label": "grief"
+        }
+      ],
+      "excerpt": "I dreamed that I was in vacation and saw [idol] making his rounds and my no. Has. A conversation about religion with this guy and he asks…",
+      "interpretation": "Motifs observed: religion. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse38"
+    },
+    {
+      "id": "dfse39",
+      "ordinal": 38,
+      "dateLabel": "2025-10-19",
+      "title": "A little bit of what seems like a 无限流competitive gam",
+      "atmosphere": "playful staging",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I dream a little bit of what seems like a 无限流competitive game, but the game I dream of is too easy and very cs coded. There are a set of…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse39"
+    },
+    {
+      "id": "dfse40",
+      "ordinal": 39,
+      "dateLabel": "2025-10-19",
+      "title": "Was at like a comic con meetup thing out doors and I",
+      "atmosphere": "playful staging",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had another dream I was at like a comic con meetup thing out doors and I was wearing a Lolita dress with a 大咪头套 and went up and 集邮a few…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "photographs",
+        "water"
+      ],
+      "related": [],
+      "archiveId": "dfse40"
+    },
+    {
+      "id": "dfse41",
+      "ordinal": 40,
+      "dateLabel": "2025-10-21",
+      "title": "I was dreaming of Bayes rule. I also saw roommate in",
+      "atmosphere": "academic residue",
+      "symbols": [
+        {
+          "id": "photographs",
+          "label": "photographs"
+        },
+        {
+          "id": "water",
+          "label": "water"
+        }
+      ],
+      "places": [
+        {
+          "id": "dorm",
+          "label": "dorm / apartment"
+        }
+      ],
+      "people": [
+        {
+          "id": "roommate",
+          "label": "roommate"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "I was dreaming of Bayes rule. I also saw [roommate] in my dream, she was sick because she was waiting for her advisor professor in the…",
+      "interpretation": "Motifs observed: photographs, water, dorm / apartment. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "light",
+        "drink"
+      ],
+      "related": [],
+      "archiveId": "dfse41"
+    },
+    {
+      "id": "dfse42",
+      "ordinal": 41,
+      "dateLabel": "2025-10-22",
+      "title": "I was at a local farm restaurant with 姑奶奶 姑爷爷 relati",
+      "atmosphere": "family weather",
+      "symbols": [
+        {
+          "id": "light",
+          "label": "light"
+        },
+        {
+          "id": "drink",
+          "label": "drink"
+        }
+      ],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "I had a dream that I was at a local farm restaurant with 姑奶奶 姑爷爷 [relative] and 叔叔阿姨 and my dad it was some sort of 串串香. I was in charge of…",
+      "interpretation": "Motifs observed: light, drink. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse42"
+    },
+    {
+      "id": "dfse43",
+      "ordinal": 42,
+      "dateLabel": "2025-10-24",
+      "title": "Was in some Pokémon club and they were hosting it on",
+      "atmosphere": "playful staging",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I dreamed I was in some Pokémon club and they were hosting it on a Wednesday afternoon and there was trivia but I didn’t know and they had…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse43"
+    },
+    {
+      "id": "dfse44",
+      "ordinal": 43,
+      "dateLabel": "2025-10-24",
+      "title": "Was entering my first day into school in some countr",
+      "atmosphere": "academic residue",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "Then I dreamed I was entering my first day into school in some country that made me wear my own suit the first day and pay for a folder…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse44"
+    },
+    {
+      "id": "dfse45",
+      "ordinal": 44,
+      "dateLabel": "2025-10-25",
+      "title": "我梦到带friend去天津旅游然后躺了几天后来就是想着一只出去吃东西 她喜欢吃椰子我准备给他买个椰子蛋叶",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "我梦到带[friend]去天津旅游然后躺了几天后来就是想着一只出去吃东西 她喜欢吃椰子我准备给他买个椰子蛋叶子卖完了店家给我们他们剩下的培根免费 然后他把培根吃了",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "music"
+      ],
+      "related": [],
+      "archiveId": "dfse45"
+    },
+    {
+      "id": "dfse46",
+      "ordinal": 45,
+      "dateLabel": "2025-11-04",
+      "title": "Was dreaming about music and it was about how these",
+      "atmosphere": "drifting recall",
+      "symbols": [
+        {
+          "id": "music",
+          "label": "music"
+        }
+      ],
+      "places": [],
+      "people": [],
+      "emotions": [
+        {
+          "id": "curiosity",
+          "label": "curiosity"
+        }
+      ],
+      "excerpt": "Was dreaming about music and it was about how these two Shanghainese men from different generations became friends over cross dressing and…",
+      "interpretation": "Motifs observed: music. Night fragment from the compilation note.",
+      "previewSymbols": [
+        "animals"
+      ],
+      "related": [],
+      "archiveId": "dfse46"
+    },
+    {
+      "id": "dfse47",
+      "ordinal": 46,
+      "dateLabel": "2025-11-05",
+      "title": "I am running some sort of race but the first day it",
+      "atmosphere": "family weather",
+      "symbols": [
+        {
+          "id": "animals",
+          "label": "animals"
+        }
+      ],
+      "places": [],
+      "people": [
+        {
+          "id": "parent",
+          "label": "parent"
+        }
+      ],
+      "emotions": [],
+      "excerpt": "i had a dream that i am running some sort of race but the first day it was raining and i have to run the second day and my dad was there…",
+      "interpretation": "Motifs observed: animals. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse47"
+    },
+    {
+      "id": "dfse48",
+      "ordinal": 47,
+      "dateLabel": "2025-11-10",
+      "title": "I was a Disney princess actress and I was rapunzel b",
+      "atmosphere": "light buoyancy",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I had a dream that I was a Disney princess actress and I was rapunzel because I could swing across the room and back onto the platform and…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse48"
+    },
+    {
+      "id": "dfse49",
+      "ordinal": 48,
+      "dateLabel": "2025-11-10",
+      "title": "I also had fancy outfit to make videos in",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "I also had fancy outfit to make videos in",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse49"
+    },
+    {
+      "id": "dfse50",
+      "ordinal": 49,
+      "dateLabel": "2025-11-12",
+      "title": "梦见我在写喜剧稿子",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "梦见我在写喜剧稿子",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse50"
+    },
+    {
+      "id": "dfse51",
+      "ordinal": 50,
+      "dateLabel": "2025-11-12",
+      "title": "梦见发明了一个自动馋protein powder的冰淇凌scoop that mixes the cho",
+      "atmosphere": "drifting recall",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [],
+      "excerpt": "梦见发明了一个自动馋protein powder的冰淇凌scoop that mixes the chocolate with the powder in a scoop and it kind of looks like those people who freeze…",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse51"
+    },
+    {
+      "id": "dfse52",
+      "ordinal": 51,
+      "dateLabel": "2025-11-12",
+      "title": "我是个毒贩 你居然敢走毒？ 不是 是写这个的人让我说的 她又没让你走毒 不是哥们你油盐不进啊 Idk t",
+      "atmosphere": "uneasy night",
+      "symbols": [],
+      "places": [],
+      "people": [],
+      "emotions": [
+        {
+          "id": "amusement",
+          "label": "amusement"
+        }
+      ],
+      "excerpt": "我是个毒贩 你居然敢走毒？ 不是 是写这个的人让我说的 她又没让你走毒 不是哥们你油盐不进啊 Idk this sounded more funny in my dream",
+      "interpretation": "Motifs observed: sparse imagery. Night fragment from the compilation note.",
+      "previewSymbols": [],
+      "related": [],
+      "archiveId": "dfse52"
+    },
+    {
       "id": "1720",
-      "ordinal": 2,
+      "ordinal": 52,
       "dateLabel": "2025-11-16",
       "date": "2025-11-16",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -98,7 +1198,7 @@
     },
     {
       "id": "1742",
-      "ordinal": 3,
+      "ordinal": 53,
       "dateLabel": "2025-12-11",
       "date": "2025-12-11",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -123,7 +1223,7 @@
     },
     {
       "id": "1747",
-      "ordinal": 4,
+      "ordinal": 54,
       "dateLabel": "2025-12-16",
       "date": "2025-12-16",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -176,7 +1276,7 @@
     },
     {
       "id": "1749",
-      "ordinal": 5,
+      "ordinal": 55,
       "dateLabel": "2025-12-19",
       "date": "2025-12-19",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -220,7 +1320,7 @@
     },
     {
       "id": "1762",
-      "ordinal": 6,
+      "ordinal": 56,
       "dateLabel": "2025-12-27",
       "date": "2025-12-27",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -269,7 +1369,7 @@
     },
     {
       "id": "1765",
-      "ordinal": 7,
+      "ordinal": 57,
       "dateLabel": "2026-01-02",
       "date": "2026-01-02",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -317,7 +1417,7 @@
     },
     {
       "id": "1770",
-      "ordinal": 8,
+      "ordinal": 58,
       "dateLabel": "2026-01-07",
       "date": "2026-01-07",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -344,7 +1444,7 @@
     },
     {
       "id": "1772",
-      "ordinal": 9,
+      "ordinal": 59,
       "dateLabel": "2026-01-12",
       "date": "2026-01-12",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -393,7 +1493,7 @@
     },
     {
       "id": "1774",
-      "ordinal": 10,
+      "ordinal": 60,
       "dateLabel": "2026-01-16",
       "date": "2026-01-16",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -433,7 +1533,7 @@
     },
     {
       "id": "2200",
-      "ordinal": 11,
+      "ordinal": 61,
       "dateLabel": "2026-01-22",
       "date": "2026-01-22",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -496,7 +1596,7 @@
     },
     {
       "id": "2249",
-      "ordinal": 12,
+      "ordinal": 62,
       "dateLabel": "2026-02-10",
       "date": "2026-02-10",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -566,7 +1666,7 @@
     },
     {
       "id": "2252",
-      "ordinal": 13,
+      "ordinal": 63,
       "dateLabel": "2026-02-16",
       "date": "2026-02-16",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -619,7 +1719,7 @@
     },
     {
       "id": "2263",
-      "ordinal": 14,
+      "ordinal": 64,
       "dateLabel": "2026-02-22",
       "date": "2026-02-22",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -663,7 +1763,7 @@
     },
     {
       "id": "2269",
-      "ordinal": 15,
+      "ordinal": 65,
       "dateLabel": "2026-02-27",
       "date": "2026-02-27",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -708,7 +1808,7 @@
     },
     {
       "id": "2271",
-      "ordinal": 16,
+      "ordinal": 66,
       "dateLabel": "2026-03-03",
       "date": "2026-03-03",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -783,7 +1883,7 @@
     },
     {
       "id": "2273",
-      "ordinal": 17,
+      "ordinal": 67,
       "dateLabel": "2026-03-06",
       "date": "2026-03-06",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -837,7 +1937,7 @@
     },
     {
       "id": "2276",
-      "ordinal": 18,
+      "ordinal": 68,
       "dateLabel": "2026-03-10",
       "date": "2026-03-10",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -872,7 +1972,7 @@
     },
     {
       "id": "2277",
-      "ordinal": 19,
+      "ordinal": 69,
       "dateLabel": "2026-03-12",
       "date": "2026-03-12",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -907,7 +2007,7 @@
     },
     {
       "id": "2282",
-      "ordinal": 20,
+      "ordinal": 70,
       "dateLabel": "2026-03-23",
       "date": "2026-03-23",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -961,7 +2061,7 @@
     },
     {
       "id": "2301",
-      "ordinal": 21,
+      "ordinal": 71,
       "dateLabel": "2026-04-14",
       "date": "2026-04-14",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -997,7 +2097,7 @@
     },
     {
       "id": "2306",
-      "ordinal": 22,
+      "ordinal": 72,
       "dateLabel": "2026-04-20",
       "date": "2026-04-20",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -1032,7 +2132,7 @@
     },
     {
       "id": "2311",
-      "ordinal": 23,
+      "ordinal": 73,
       "dateLabel": "2026-04-22",
       "date": "2026-04-22",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -1098,7 +2198,7 @@
     },
     {
       "id": "2309",
-      "ordinal": 24,
+      "ordinal": 74,
       "dateLabel": "2026-04-25",
       "date": "2026-04-25",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -1177,7 +2277,7 @@
     },
     {
       "id": "2328",
-      "ordinal": 25,
+      "ordinal": 75,
       "dateLabel": "2026-05-04",
       "date": "2026-05-04",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -1207,7 +2307,7 @@
     },
     {
       "id": "2336",
-      "ordinal": 26,
+      "ordinal": 76,
       "dateLabel": "2026-05-20",
       "date": "2026-05-20",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -1261,7 +2361,7 @@
     },
     {
       "id": "2355",
-      "ordinal": 27,
+      "ordinal": 77,
       "dateLabel": "2026-06-28",
       "date": "2026-06-28",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -1340,7 +2440,7 @@
     },
     {
       "id": "2357",
-      "ordinal": 28,
+      "ordinal": 78,
       "dateLabel": "2026-06-30",
       "date": "2026-06-30",
       "dateSource": "notes.ZCREATIONDATE3",
@@ -1382,8 +2482,13 @@
     {
       "id": "music",
       "label": "music",
-      "count": 7,
+      "count": 12,
       "dreamIds": [
+        "dfse24",
+        "dfse26",
+        "dfse29",
+        "dfse37",
+        "dfse46",
         "1720",
         "1772",
         "2271",
@@ -1396,9 +2501,11 @@
     {
       "id": "photographs",
       "label": "photographs",
-      "count": 7,
+      "count": 9,
       "dreamIds": [
+        "dfse03",
         "1655",
+        "dfse41",
         "1720",
         "1747",
         "2200",
@@ -1410,14 +2517,49 @@
     {
       "id": "animals",
       "label": "animals",
-      "count": 6,
+      "count": 7,
       "dreamIds": [
+        "dfse47",
         "1720",
         "1742",
         "2200",
         "2249",
         "2252",
         "2311"
+      ]
+    },
+    {
+      "id": "concert",
+      "label": "concert",
+      "count": 5,
+      "dreamIds": [
+        "dfse10",
+        "dfse37",
+        "2282",
+        "2311",
+        "2336"
+      ]
+    },
+    {
+      "id": "light",
+      "label": "light",
+      "count": 4,
+      "dreamIds": [
+        "dfse19",
+        "dfse42",
+        "2309",
+        "2355"
+      ]
+    },
+    {
+      "id": "water",
+      "label": "water",
+      "count": 4,
+      "dreamIds": [
+        "dfse41",
+        "1762",
+        "2249",
+        "2273"
       ]
     },
     {
@@ -1431,16 +2573,6 @@
       ]
     },
     {
-      "id": "concert",
-      "label": "concert",
-      "count": 3,
-      "dreamIds": [
-        "2282",
-        "2311",
-        "2336"
-      ]
-    },
-    {
       "id": "parallel-self",
       "label": "parallel self",
       "count": 3,
@@ -1451,13 +2583,13 @@
       ]
     },
     {
-      "id": "water",
-      "label": "water",
+      "id": "religion",
+      "label": "religion",
       "count": 3,
       "dreamIds": [
-        "1762",
-        "2249",
-        "2273"
+        "dfse38",
+        "2252",
+        "2311"
       ]
     },
     {
@@ -1467,6 +2599,24 @@
       "dreamIds": [
         "1655",
         "2200"
+      ]
+    },
+    {
+      "id": "drink",
+      "label": "drink",
+      "count": 2,
+      "dreamIds": [
+        "dfse42",
+        "2276"
+      ]
+    },
+    {
+      "id": "flowers",
+      "label": "flowers",
+      "count": 2,
+      "dreamIds": [
+        "dfse19",
+        "2269"
       ]
     },
     {
@@ -1515,15 +2665,6 @@
       ]
     },
     {
-      "id": "light",
-      "label": "light",
-      "count": 2,
-      "dreamIds": [
-        "2309",
-        "2355"
-      ]
-    },
-    {
       "id": "paused-time",
       "label": "paused time",
       "count": 2,
@@ -1539,15 +2680,6 @@
       "dreamIds": [
         "2271",
         "2306"
-      ]
-    },
-    {
-      "id": "religion",
-      "label": "religion",
-      "count": 2,
-      "dreamIds": [
-        "2252",
-        "2311"
       ]
     },
     {
@@ -1572,22 +2704,6 @@
       "count": 1,
       "dreamIds": [
         "2277"
-      ]
-    },
-    {
-      "id": "drink",
-      "label": "drink",
-      "count": 1,
-      "dreamIds": [
-        "2276"
-      ]
-    },
-    {
-      "id": "flowers",
-      "label": "flowers",
-      "count": 1,
-      "dreamIds": [
-        "2269"
       ]
     },
     {
@@ -1683,9 +2799,19 @@
     {
       "id": "parent",
       "label": "parent",
-      "count": 11,
+      "count": 21,
       "dreamIds": [
+        "dfse01",
+        "dfse02",
         "1655",
+        "dfse15",
+        "dfse17",
+        "dfse20",
+        "dfse21",
+        "dfse36",
+        "dfse38",
+        "dfse42",
+        "dfse47",
         "1762",
         "1765",
         "2200",
@@ -1699,11 +2825,27 @@
       ]
     },
     {
+      "id": "children",
+      "label": "children",
+      "count": 7,
+      "dreamIds": [
+        "dfse03",
+        "dfse08",
+        "dfse26",
+        "dfse36",
+        "2263",
+        "2271",
+        "2309"
+      ]
+    },
+    {
       "id": "grandparent",
       "label": "grandparent",
-      "count": 5,
+      "count": 7,
       "dreamIds": [
         "1655",
+        "dfse26",
+        "dfse34",
         "1765",
         "2249",
         "2252",
@@ -1711,20 +2853,13 @@
       ]
     },
     {
-      "id": "children",
-      "label": "children",
-      "count": 3,
-      "dreamIds": [
-        "2263",
-        "2271",
-        "2309"
-      ]
-    },
-    {
       "id": "idol",
-      "label": "idol",
-      "count": 2,
+      "label": "idol / performer",
+      "count": 5,
       "dreamIds": [
+        "dfse10",
+        "dfse37",
+        "dfse38",
         "1749",
         "2282"
       ]
@@ -1732,10 +2867,20 @@
     {
       "id": "teacher",
       "label": "teacher",
-      "count": 2,
+      "count": 3,
       "dreamIds": [
+        "dfse03",
         "1747",
         "2249"
+      ]
+    },
+    {
+      "id": "roommate",
+      "label": "roommate",
+      "count": 2,
+      "dreamIds": [
+        "dfse41",
+        "1774"
       ]
     },
     {
@@ -1803,14 +2948,6 @@
       ]
     },
     {
-      "id": "roommate",
-      "label": "roommate",
-      "count": 1,
-      "dreamIds": [
-        "1774"
-      ]
-    },
-    {
       "id": "spouse-figure",
       "label": "spouse figure",
       "count": 1,
@@ -1829,23 +2966,37 @@
   ],
   "placesIndex": [
     {
+      "id": "parallel-school",
+      "label": "parallel school",
+      "count": 6,
+      "dreamIds": [
+        "dfse07",
+        "dfse17",
+        "dfse35",
+        "2200",
+        "2249",
+        "2271"
+      ]
+    },
+    {
       "id": "concert-stage",
       "label": "concert / stage",
-      "count": 3,
+      "count": 5,
       "dreamIds": [
+        "dfse10",
+        "dfse37",
         "2282",
         "2311",
         "2336"
       ]
     },
     {
-      "id": "parallel-school",
-      "label": "parallel school",
-      "count": 3,
+      "id": "dorm",
+      "label": "dorm / apartment",
+      "count": 2,
       "dreamIds": [
-        "2200",
-        "2249",
-        "2271"
+        "dfse41",
+        "1774"
       ]
     },
     {
@@ -1894,14 +3045,6 @@
       "count": 1,
       "dreamIds": [
         "1765"
-      ]
-    },
-    {
-      "id": "dorm",
-      "label": "dorm / apartment",
-      "count": 1,
-      "dreamIds": [
-        "1774"
       ]
     },
     {
@@ -1981,9 +3124,12 @@
     {
       "id": "amusement",
       "label": "amusement",
-      "count": 10,
+      "count": 13,
       "dreamIds": [
+        "dfse01",
         "1655",
+        "dfse26",
+        "dfse52",
         "1749",
         "1765",
         "1772",
@@ -1996,10 +3142,29 @@
       ]
     },
     {
+      "id": "confusion",
+      "label": "confusion",
+      "count": 10,
+      "dreamIds": [
+        "dfse03",
+        "dfse09",
+        "dfse35",
+        "dfse37",
+        "1749",
+        "1770",
+        "2249",
+        "2263",
+        "2271",
+        "2336"
+      ]
+    },
+    {
       "id": "nostalgia",
       "label": "nostalgia",
-      "count": 7,
+      "count": 9,
       "dreamIds": [
+        "dfse10",
+        "dfse17",
         "1720",
         "1747",
         "1762",
@@ -2010,28 +3175,30 @@
       ]
     },
     {
-      "id": "confusion",
-      "label": "confusion",
-      "count": 6,
-      "dreamIds": [
-        "1749",
-        "1770",
-        "2249",
-        "2263",
-        "2271",
-        "2336"
-      ]
-    },
-    {
       "id": "curiosity",
       "label": "curiosity",
-      "count": 5,
+      "count": 7,
       "dreamIds": [
+        "dfse18",
+        "dfse46",
         "1770",
         "2306",
         "2311",
         "2309",
         "2336"
+      ]
+    },
+    {
+      "id": "grief",
+      "label": "grief",
+      "count": 6,
+      "dreamIds": [
+        "dfse14",
+        "dfse38",
+        "2249",
+        "2252",
+        "2277",
+        "2301"
       ]
     },
     {
@@ -2055,17 +3222,6 @@
         "2311",
         "2309",
         "2355"
-      ]
-    },
-    {
-      "id": "grief",
-      "label": "grief",
-      "count": 4,
-      "dreamIds": [
-        "2249",
-        "2252",
-        "2277",
-        "2301"
       ]
     },
     {

@@ -1,0 +1,10 @@
+id: dfse47
+date: 2025-11-05
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: I am running some sort of race but the first day it
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+i had a dream that i am running some sort of race but the first day it was raining and i have to run the second day and my dad was there and he found a dog who looked a bit scrappy and said now we have a dog

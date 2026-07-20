@@ -1,0 +1,10 @@
+id: dfse45
+date: 2025-10-25
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: 我梦到带friend去天津旅游然后躺了几天后来就是想着一只出去吃东西 她喜欢吃椰子我准备给他买个椰子蛋叶
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+我梦到带[friend]去天津旅游然后躺了几天后来就是想着一只出去吃东西 她喜欢吃椰子我准备给他买个椰子蛋叶子卖完了店家给我们他们剩下的培根免费 然后他把培根吃了

@@ -1,0 +1,10 @@
+id: dfse43
+date: 2025-10-24
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: Was in some Pokémon club and they were hosting it on
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I dreamed I was in some Pokémon club and they were hosting it on a Wednesday afternoon and there was trivia but I didn’t know and they had Pokémon merch prizes. I was inspired by that to make my own custom made puzzles.

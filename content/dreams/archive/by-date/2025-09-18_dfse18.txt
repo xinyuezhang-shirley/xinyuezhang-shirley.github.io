@@ -1,0 +1,10 @@
+id: dfse18
+date: 2025-09-18
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: Dreaming about talking to all sorts of people about
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+Dreaming about talking to all sorts of people about program requirements and stuff

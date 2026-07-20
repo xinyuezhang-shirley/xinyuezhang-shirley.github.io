@@ -1,0 +1,10 @@
+id: dfse25
+date: 2025-09-24
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: The renaissance game, I don’t think it’s the first t
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I dreamed of the renaissance game,  I don’t think it’s the first time now. Idk why I call it that but it it’s my version of an airplane based history simulation game where the idea of it is for people who are bored on a plane but it requires a lot of space so idk how it worked out. Basically people don’t have to sign a waiver and they are volunteered in. It’s like a rollercoaster ride but halfway through the ground disappears and they start flying (like those spinny rides) over scenery.

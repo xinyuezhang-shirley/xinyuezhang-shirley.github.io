@@ -1,0 +1,10 @@
+id: dfse24
+date: 2025-09-23
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: We hosted a birthday party for friend’s brother outs
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I had a dream we hosted a birthday party for [friend]’s brother outside her house and it was a surprise party where we had signs and everything and her brother showed up in a scouter with music and it was all fun and he wanted a new game set

@@ -1,0 +1,10 @@
+id: dfse44
+date: 2025-10-24
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: Was entering my first day into school in some countr
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+Then I dreamed I was entering my first day into school in some country that made me wear my own suit the first day and pay for a folder with my own info and also wake up really early

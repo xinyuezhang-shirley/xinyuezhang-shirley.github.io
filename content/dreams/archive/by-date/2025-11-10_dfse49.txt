@@ -1,0 +1,10 @@
+id: dfse49
+date: 2025-11-10
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: I also had fancy outfit to make videos in
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I also had fancy outfit to make videos in

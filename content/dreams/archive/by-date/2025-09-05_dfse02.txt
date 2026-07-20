@@ -1,0 +1,10 @@
+id: dfse02
+date: 2025-09-05
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: I have panicked dreams of mom asking me to help exch
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I have panicked dreams of mom asking me to help exchange/ transfer money again and it’s very complicated and I’m stressed in my sleep

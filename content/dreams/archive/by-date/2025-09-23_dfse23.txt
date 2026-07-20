@@ -1,0 +1,10 @@
+id: dfse23
+date: 2025-09-23
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: Proofs but it was really practical proofs, something
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I had a dream about proofs but it was really practical proofs, something to do with the rules of traffic and how you have to continuously and recursively travel in a certain aidrection and I was really frustrated

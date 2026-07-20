@@ -1,0 +1,10 @@
+id: dfse41
+date: 2025-10-21
+dateSource: source.in_text_date
+dateProvenance: in_text_dated_compilation
+title: I was dreaming of Bayes rule. I also saw roommate in
+sourceNote: Dreams from somewhere else
+importedAt: 2026-07-20T04:50:49Z
+---
+
+I was dreaming of Bayes rule. I also saw [roommate] in my dream, she was sick because she was waiting for her advisor professor in the rain, which she put on her social media
