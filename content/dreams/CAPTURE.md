@@ -1,7 +1,8 @@
 # Dream capture notes
 
-- **Notes AppleScript** (`osascript` full enumeration): timed out with AppleEvent -1712.
-- **Notes sqlite** (`~/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite`): 26 titles matched dream-start patterns; Z_PK ids align with `content/dreams/raw/*.txt`.
-- **Raw bodies**: Notes exports in `content/dreams/raw/` (26 unique; archive copies under portfolio-archive are a subset).
-- **Redaction**: human names → role placeholders; pets → `[dog]`; surname performance → `[L—]`.
-- **Generated**: `src/work/dreams/dreams-data.ts` (full redacted text + graph) and `src/content/dreams/catalog.json`.
+- **Named note** `dreams from somewhere else`: not found in local NoteStore (2026-07-19). AppleScript enumeration times out (-1712).
+- **Notes sqlite**: dream-titled notes + Dreams folder; dates from `ZCREATIONDATE3` / `ZCREATIONDATE1` (fallback modification).
+- **Prior set**: 26 dreams (redacted in `dreams-data.ts`).
+- **Added this pass**: Notes `1747` (Florence), `1749` (Chinese classroom/idols) — were in Dreams folder but missing from prior import.
+- **Recovery archive (committed)**: `content/dreams/archive/dreams-full.json` + `archive/by-date/`.
+- **Raw bodies (gitignored)**: `content/dreams/raw/`.

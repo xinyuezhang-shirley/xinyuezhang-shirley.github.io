@@ -1,12 +1,15 @@
 {
-  "generatedAt": "2026-07-20T02:59:07.192820Z",
+  "generatedAt": "2026-07-20T04:37:24Z",
   "opening": "Dreams are the only place where memory edits itself in real time.",
-  "dreamCount": 26,
+  "dreamCount": 28,
   "dreams": [
     {
       "id": "1655",
       "ordinal": 1,
-      "dateLabel": "Entry 01",
+      "dateLabel": "2025-09-08",
+      "date": "2025-09-08",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1655",
       "title": "Tourist bus surnames",
       "atmosphere": "fractured kinship",
       "symbols": [
@@ -45,53 +48,21 @@
           "label": "amusement"
         }
       ],
-      "excerpt": "On a tourist bus I tell Beijing grandma my last name is [L\u2014]\u2014I am a lawyer in training.",
-      "interpretation": "Identity is performed for family in transit. A parallel strand invents hostility toward a public figure and a disappearing parent before a flight\u2014kinship, naming, and disappearance share one night.",
+      "excerpt": "On a tourist bus I tell Beijing grandma my last name is [L—]—I am a lawyer in training.",
+      "interpretation": "Identity is performed for family in transit. A parallel strand invents hostility toward a public figure and a disappearing parent before a flight—kinship, naming, and disappearance share one night.",
       "previewSymbols": [
         "photographs",
         "bus"
       ],
-      "related": [
-        {
-          "id": "2252",
-          "title": "Animals close up",
-          "shared": [
-            "photographs",
-            "parent",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "2200",
-          "title": "California mountains",
-          "shared": [
-            "photographs",
-            "bus",
-            "parent"
-          ]
-        },
-        {
-          "id": "2301",
-          "title": "Grandpa young again",
-          "shared": [
-            "parent",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "photographs",
-            "parent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "1720",
       "ordinal": 2,
-      "dateLabel": "Entry 02",
+      "dateLabel": "2025-11-16",
+      "date": "2025-11-16",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1720",
       "title": "Cats in cages",
       "atmosphere": "domestic inquiry",
       "symbols": [
@@ -116,51 +87,22 @@
           "label": "nostalgia"
         }
       ],
-      "excerpt": "I ask whether the cats have finally gotten used to cages\u2014the ones you need for the vet.",
+      "excerpt": "I ask whether the cats have finally gotten used to cages—the ones you need for the vet.",
       "interpretation": "Care appears as adaptation to constraint. A second strand treats music as an art form measured by whether youth will accept the listener.",
       "previewSymbols": [
         "music",
-        "photographs"
+        "photographs",
+        "animals"
       ],
-      "related": [
-        {
-          "id": "2336",
-          "title": "Concert interface",
-          "shared": [
-            "music",
-            "photographs"
-          ]
-        },
-        {
-          "id": "2311",
-          "title": "Nine-tailed fox drama",
-          "shared": [
-            "music",
-            "animals"
-          ]
-        },
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "music",
-            "photographs"
-          ]
-        },
-        {
-          "id": "2252",
-          "title": "Animals close up",
-          "shared": [
-            "photographs",
-            "animals"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "1742",
       "ordinal": 3,
-      "dateLabel": "Entry 03",
+      "dateLabel": "2025-12-11",
+      "date": "2025-12-11",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1742",
       "title": "Two named dogs",
       "atmosphere": "tender inventory",
       "symbols": [
@@ -172,46 +114,117 @@
       "places": [],
       "people": [],
       "emotions": [],
-      "excerpt": "Two dogs: [dog] small and skinny, [dog] larger\u2014named, sized, kept.",
+      "excerpt": "Two dogs: [dog] small and skinny, [dog] larger—named, sized, kept.",
       "interpretation": "Companionship is itemized by body and name. The dream barely elaborates; naming is enough.",
       "previewSymbols": [
         "animals"
       ],
-      "related": [
+      "related": []
+    },
+    {
+      "id": "1747",
+      "ordinal": 4,
+      "dateLabel": "2025-12-16",
+      "date": "2025-12-16",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1747",
+      "title": "Florence reunion",
+      "atmosphere": "proof and nostalgia",
+      "symbols": [
         {
-          "id": "2311",
-          "title": "Nine-tailed fox drama",
-          "shared": [
-            "animals"
-          ]
+          "id": "photographs",
+          "label": "photographs"
         },
         {
-          "id": "2252",
-          "title": "Animals close up",
-          "shared": [
-            "animals"
-          ]
-        },
-        {
-          "id": "2249",
-          "title": "Fox and bingo rock",
-          "shared": [
-            "animals"
-          ]
-        },
-        {
-          "id": "2200",
-          "title": "California mountains",
-          "shared": [
-            "animals"
-          ]
+          "id": "parallel-self",
+          "label": "parallel self"
         }
-      ]
+      ],
+      "places": [
+        {
+          "id": "florence",
+          "label": "Florence"
+        }
+      ],
+      "people": [
+        {
+          "id": "friend",
+          "label": "friend"
+        },
+        {
+          "id": "teacher",
+          "label": "teacher"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "urgency",
+          "label": "urgency"
+        },
+        {
+          "id": "nostalgia",
+          "label": "nostalgia"
+        }
+      ],
+      "excerpt": "Study abroad in Florence again—except now everyone I have ever known is there.",
+      "interpretation": "The dream collapses timelines so every peer becomes a witness. Success is staged as reunion; photographs that do not exist still demand to be proven.",
+      "previewSymbols": [
+        "photographs",
+        "parallel self"
+      ],
+      "related": []
+    },
+    {
+      "id": "1749",
+      "ordinal": 5,
+      "dateLabel": "2025-12-19",
+      "date": "2025-12-19",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1749",
+      "title": "Language among idols",
+      "atmosphere": "comic incomprehension",
+      "symbols": [
+        {
+          "id": "language",
+          "label": "language"
+        }
+      ],
+      "places": [
+        {
+          "id": "classroom",
+          "label": "classroom"
+        }
+      ],
+      "people": [
+        {
+          "id": "idol",
+          "label": "idol"
+        }
+      ],
+      "emotions": [
+        {
+          "id": "amusement",
+          "label": "amusement"
+        },
+        {
+          "id": "confusion",
+          "label": "confusion"
+        }
+      ],
+      "excerpt": "In class I ask [idol] a question; beside me [idol] asks how to write a character—and no language can finish the joke.",
+      "interpretation": "Idols fill a classroom where literacy fails. The dream treats communication as a shared embarrassment: vocabulary cannot bridge who never learned the language of the room.",
+      "previewSymbols": [
+        "language"
+      ],
+      "related": []
     },
     {
       "id": "1762",
-      "ordinal": 4,
-      "dateLabel": "Entry 04",
+      "ordinal": 6,
+      "dateLabel": "2025-12-27",
+      "date": "2025-12-27",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1762",
       "title": "Watermelon neighbor",
       "atmosphere": "parallel childhood",
       "symbols": [
@@ -245,48 +258,22 @@
           "label": "nostalgia"
         }
       ],
-      "excerpt": "A verge-old friend next door\u2014ball, watermelon, stars\u2014leaves and never comes back.",
-      "interpretation": "A parallel-universe friendship ends in disappearance and grudge. Reunion at home is mediated by a mother\u2019s joke about who liked whom.",
+      "excerpt": "A verge-old friend next door—ball, watermelon, stars—leaves and never comes back.",
+      "interpretation": "A parallel-universe friendship ends in disappearance and grudge. Reunion at home is mediated by a mother’s joke about who liked whom.",
       "previewSymbols": [
         "parallel self",
-        "water"
+        "water",
+        "stars"
       ],
-      "related": [
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "parallel self",
-            "parent"
-          ]
-        },
-        {
-          "id": "2301",
-          "title": "Grandpa young again",
-          "shared": [
-            "parent"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "parent"
-          ]
-        },
-        {
-          "id": "2276",
-          "title": "Holiday drink",
-          "shared": [
-            "parent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "1765",
-      "ordinal": 5,
-      "dateLabel": "Entry 05",
+      "ordinal": 7,
+      "dateLabel": "2026-01-02",
+      "date": "2026-01-02",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1765",
       "title": "Grandpa well again",
       "atmosphere": "restored embrace",
       "symbols": [
@@ -321,50 +308,20 @@
           "label": "urgency"
         }
       ],
-      "excerpt": "Grandpa is well again in cosplay with grandma\u2014red suit, brown suit\u2014I hug them both.",
+      "excerpt": "Grandpa is well again in cosplay with grandma—red suit, brown suit—I hug them both.",
       "interpretation": "Illness reverses into costume and comedy. A second strand seats the dreamer in a campus comedy club among parents and students.",
       "previewSymbols": [
         "clothing"
       ],
-      "related": [
-        {
-          "id": "2301",
-          "title": "Grandpa young again",
-          "shared": [
-            "parent",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "2269",
-          "title": "Lotus incense plaza",
-          "shared": [
-            "clothing",
-            "parent"
-          ]
-        },
-        {
-          "id": "2252",
-          "title": "Animals close up",
-          "shared": [
-            "parent",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "1655",
-          "title": "Tourist bus surnames",
-          "shared": [
-            "parent",
-            "grandparent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "1770",
-      "ordinal": 6,
-      "dateLabel": "Entry 06",
+      "ordinal": 8,
+      "dateLabel": "2026-01-07",
+      "date": "2026-01-07",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1770",
       "title": "BL mashup",
       "atmosphere": "narrative collage",
       "symbols": [],
@@ -381,14 +338,17 @@
         }
       ],
       "excerpt": "BL plot lines mash into tropes; the main figure keeps shifting roles.",
-      "interpretation": "Story logic becomes a collage of romance tropes\u2014the dream watches genre assemble itself.",
+      "interpretation": "Story logic becomes a collage of romance tropes—the dream watches genre assemble itself.",
       "previewSymbols": [],
       "related": []
     },
     {
       "id": "1772",
-      "ordinal": 7,
-      "dateLabel": "Entry 07",
+      "ordinal": 9,
+      "dateLabel": "2026-01-12",
+      "date": "2026-01-12",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1772",
       "title": "Editor's song",
       "atmosphere": "serious comedy",
       "symbols": [
@@ -423,47 +383,21 @@
           "label": "unease"
         }
       ],
-      "excerpt": "In a very serious situation you hear a song\u2014and all the subtext is already inside it.",
+      "excerpt": "In a very serious situation you hear a song—and all the subtext is already inside it.",
       "interpretation": "Metadata appears as audible content: song information must live inside the music itself, collapsing documentation into performance.",
       "previewSymbols": [
         "music",
         "metadata"
       ],
-      "related": [
-        {
-          "id": "2336",
-          "title": "Concert interface",
-          "shared": [
-            "music"
-          ]
-        },
-        {
-          "id": "2311",
-          "title": "Nine-tailed fox drama",
-          "shared": [
-            "music"
-          ]
-        },
-        {
-          "id": "2306",
-          "title": "Pitch and gender",
-          "shared": [
-            "music"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "music"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "1774",
-      "ordinal": 8,
-      "dateLabel": "Entry 08",
+      "ordinal": 10,
+      "dateLabel": "2026-01-16",
+      "date": "2026-01-16",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "1774",
       "title": "Roommate packing",
       "atmosphere": "exam anxiety",
       "symbols": [
@@ -489,26 +423,21 @@
         }
       ],
       "emotions": [],
-      "excerpt": "Dorm door left open\u2014I wake to my roommate packing luggage; she has no exams, I do.",
+      "excerpt": "Dorm door left open—I wake to my roommate packing luggage; she has no exams, I do.",
       "interpretation": "Asymmetry of obligation: one person leaves; the other remains inside the testing calendar.",
       "previewSymbols": [
         "graduation",
         "luggage"
       ],
-      "related": [
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "graduation"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2200",
-      "ordinal": 9,
-      "dateLabel": "Entry 09",
+      "ordinal": 11,
+      "dateLabel": "2026-01-22",
+      "date": "2026-01-22",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2200",
       "title": "California mountains",
       "atmosphere": "vivid custody",
       "symbols": [
@@ -555,54 +484,23 @@
           "label": "awe"
         }
       ],
-      "excerpt": "Mountains so colorful I photograph cows and dogs\u2014then learn I must ward off spirits in the mirror.",
-      "interpretation": "Pastoral abundance flips into night duty. The mirror speaks with a voice that is not the dreamer\u2019s; care for others\u2019 nightmares becomes a private ordeal.",
+      "excerpt": "Mountains so colorful I photograph cows and dogs—then learn I must ward off spirits in the mirror.",
+      "interpretation": "Pastoral abundance flips into night duty. The mirror speaks with a voice that is not the dreamer’s; care for others’ nightmares becomes a private ordeal.",
       "previewSymbols": [
         "photographs",
-        "gods"
+        "gods",
+        "animals",
+        "mirror"
       ],
-      "related": [
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "photographs",
-            "parallel school",
-            "parent"
-          ]
-        },
-        {
-          "id": "2252",
-          "title": "Animals close up",
-          "shared": [
-            "photographs",
-            "animals",
-            "parent"
-          ]
-        },
-        {
-          "id": "1655",
-          "title": "Tourist bus surnames",
-          "shared": [
-            "photographs",
-            "bus",
-            "parent"
-          ]
-        },
-        {
-          "id": "2249",
-          "title": "Fox and bingo rock",
-          "shared": [
-            "animals",
-            "parallel school"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2249",
-      "ordinal": 10,
-      "dateLabel": "Entry 10",
+      "ordinal": 12,
+      "dateLabel": "2026-02-10",
+      "date": "2026-02-10",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2249",
       "title": "Fox and bingo rock",
       "atmosphere": "classroom injustice",
       "symbols": [
@@ -657,50 +555,22 @@
           "label": "shame"
         }
       ],
-      "excerpt": "A class fox, a numbered golden-green rock like bingo\u2014then a teacher throws the rock away.",
+      "excerpt": "A class fox, a numbered golden-green rock like bingo—then a teacher throws the rock away.",
       "interpretation": "Rules become accusation. Rain and a grandfather across the street restore recognition after public shame.",
       "previewSymbols": [
         "water",
-        "animals"
+        "animals",
+        "fox spirit"
       ],
-      "related": [
-        {
-          "id": "2311",
-          "title": "Nine-tailed fox drama",
-          "shared": [
-            "animals",
-            "fox spirit"
-          ]
-        },
-        {
-          "id": "2252",
-          "title": "Animals close up",
-          "shared": [
-            "animals",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "2200",
-          "title": "California mountains",
-          "shared": [
-            "animals",
-            "parallel school"
-          ]
-        },
-        {
-          "id": "2301",
-          "title": "Grandpa young again",
-          "shared": [
-            "grandparent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2252",
-      "ordinal": 11,
-      "dateLabel": "Entry 11",
+      "ordinal": 13,
+      "dateLabel": "2026-02-16",
+      "date": "2026-02-16",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2252",
       "title": "Animals close up",
       "atmosphere": "fragile happiness",
       "symbols": [
@@ -738,53 +608,22 @@
           "label": "grief"
         }
       ],
-      "excerpt": "Penguins break ice; rhinos hold peace signs\u2014I tell mom looking at animals makes me happy.",
-      "interpretation": "Joy is immediate and photographic. A parent\u2019s prayer for grandparents\u2019 recovery sits beside the dreamer\u2019s private knowledge that they are not really getting better.",
+      "excerpt": "Penguins break ice; rhinos hold peace signs—I tell mom looking at animals makes me happy.",
+      "interpretation": "Joy is immediate and photographic. A parent’s prayer for grandparents’ recovery sits beside the dreamer’s private knowledge that they are not really getting better.",
       "previewSymbols": [
         "photographs",
-        "animals"
+        "animals",
+        "religion"
       ],
-      "related": [
-        {
-          "id": "2200",
-          "title": "California mountains",
-          "shared": [
-            "photographs",
-            "animals",
-            "parent"
-          ]
-        },
-        {
-          "id": "1655",
-          "title": "Tourist bus surnames",
-          "shared": [
-            "photographs",
-            "parent",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "2311",
-          "title": "Nine-tailed fox drama",
-          "shared": [
-            "animals",
-            "religion"
-          ]
-        },
-        {
-          "id": "2301",
-          "title": "Grandpa young again",
-          "shared": [
-            "parent",
-            "grandparent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2263",
-      "ordinal": 12,
-      "dateLabel": "Entry 12",
+      "ordinal": 14,
+      "dateLabel": "2026-02-22",
+      "date": "2026-02-22",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2263",
       "title": "Twin daughters",
       "atmosphere": "impossible kinship",
       "symbols": [],
@@ -817,45 +656,18 @@
           "label": "acceptance"
         }
       ],
-      "excerpt": "Twin girls with little bobs\u2014mid-dream the logic of kinship collapses, then they are simply happy.",
-      "interpretation": "The dream stages an impossible family structure, interrupts itself with ethical alarm, then returns to the children\u2019s smiles as if the contradiction could be lived with.",
+      "excerpt": "Twin girls with little bobs—mid-dream the logic of kinship collapses, then they are simply happy.",
+      "interpretation": "The dream stages an impossible family structure, interrupts itself with ethical alarm, then returns to the children’s smiles as if the contradiction could be lived with.",
       "previewSymbols": [],
-      "related": [
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "parent",
-            "children"
-          ]
-        },
-        {
-          "id": "2309",
-          "title": "Paused park",
-          "shared": [
-            "children"
-          ]
-        },
-        {
-          "id": "2301",
-          "title": "Grandpa young again",
-          "shared": [
-            "parent"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "parent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2269",
-      "ordinal": 13,
-      "dateLabel": "Entry 13",
+      "ordinal": 15,
+      "dateLabel": "2026-02-27",
+      "date": "2026-02-27",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2269",
       "title": "Lotus incense plaza",
       "atmosphere": "curated desire",
       "symbols": [
@@ -886,48 +698,21 @@
           "label": "amusement"
         }
       ],
-      "excerpt": "Artificial lotuses release incense; torso-shaped bags with past-year designs outshine this season\u2019s crocodile shine.",
-      "interpretation": "Shopping becomes a museum of surfaces. Taste is comparative\u2014what was better last year haunts what is for sale now.",
+      "excerpt": "Artificial lotuses release incense; torso-shaped bags with past-year designs outshine this season’s crocodile shine.",
+      "interpretation": "Shopping becomes a museum of surfaces. Taste is comparative—what was better last year haunts what is for sale now.",
       "previewSymbols": [
         "clothing",
         "flowers"
       ],
-      "related": [
-        {
-          "id": "1765",
-          "title": "Grandpa well again",
-          "shared": [
-            "clothing",
-            "parent"
-          ]
-        },
-        {
-          "id": "2328",
-          "title": "Worn-out labels",
-          "shared": [
-            "clothing"
-          ]
-        },
-        {
-          "id": "2301",
-          "title": "Grandpa young again",
-          "shared": [
-            "parent"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "parent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2271",
-      "ordinal": 14,
-      "dateLabel": "Entry 14",
+      "ordinal": 16,
+      "dateLabel": "2026-03-03",
+      "date": "2026-03-03",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2271",
       "title": "Parallel graduation",
       "atmosphere": "tender displacement",
       "symbols": [
@@ -987,51 +772,22 @@
         }
       ],
       "excerpt": "Same schools, slightly different photos. A childhood voice arrives pitched higher than memory allows.",
-      "interpretation": "Graduation recurs as a fork in continuity\u2014images and pitch mark a self that is almost the same, almost happier, still accountable to a parent\u2019s complaint.",
+      "interpretation": "Graduation recurs as a fork in continuity—images and pitch mark a self that is almost the same, almost happier, still accountable to a parent’s complaint.",
       "previewSymbols": [
         "music",
-        "graduation"
+        "graduation",
+        "parallel self",
+        "photographs"
       ],
-      "related": [
-        {
-          "id": "2200",
-          "title": "California mountains",
-          "shared": [
-            "photographs",
-            "parallel school",
-            "parent"
-          ]
-        },
-        {
-          "id": "2336",
-          "title": "Concert interface",
-          "shared": [
-            "music",
-            "photographs"
-          ]
-        },
-        {
-          "id": "2306",
-          "title": "Pitch and gender",
-          "shared": [
-            "music",
-            "pitch"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "music",
-            "parent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2273",
-      "ordinal": 15,
-      "dateLabel": "Entry 15",
+      "ordinal": 17,
+      "dateLabel": "2026-03-06",
+      "date": "2026-03-06",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2273",
       "title": "Library aquarium",
       "atmosphere": "civic unease",
       "symbols": [
@@ -1051,7 +807,7 @@
       "places": [
         {
           "id": "library-aquarium",
-          "label": "library\u2013aquarium"
+          "label": "library–aquarium"
         },
         {
           "id": "food-court",
@@ -1070,40 +826,22 @@
           "label": "unease"
         }
       ],
-      "excerpt": "A library that is also an aquarium, with a food court attached\u2014and a worker unkind to everyone.",
+      "excerpt": "A library that is also an aquarium, with a food court attached—and a worker unkind to everyone.",
       "interpretation": "Hybrid civic space stacks reading, display, and consumption into one building. Water and books share a roof; hostility appears at the counter.",
       "previewSymbols": [
         "water",
-        "hybrid space"
+        "hybrid space",
+        "food court"
       ],
-      "related": [
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "hybrid space"
-          ]
-        },
-        {
-          "id": "2249",
-          "title": "Fox and bingo rock",
-          "shared": [
-            "water"
-          ]
-        },
-        {
-          "id": "1762",
-          "title": "Watermelon neighbor",
-          "shared": [
-            "water"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2276",
-      "ordinal": 16,
-      "dateLabel": "Entry 16",
+      "ordinal": 18,
+      "dateLabel": "2026-03-10",
+      "date": "2026-03-10",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2276",
       "title": "Holiday drink",
       "atmosphere": "small insistence",
       "symbols": [
@@ -1125,46 +863,20 @@
           "label": "desire"
         }
       ],
-      "excerpt": "A new drink I really want\u2014mom says there are already so many at home; I say it\u2019s the holidays.",
+      "excerpt": "A new drink I really want—mom says there are already so many at home; I say it’s the holidays.",
       "interpretation": "Desire negotiates with household surplus. The holiday licenses wanting one more thing.",
       "previewSymbols": [
         "drink"
       ],
-      "related": [
-        {
-          "id": "2301",
-          "title": "Grandpa young again",
-          "shared": [
-            "parent"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "parent"
-          ]
-        },
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "parent"
-          ]
-        },
-        {
-          "id": "2269",
-          "title": "Lotus incense plaza",
-          "shared": [
-            "parent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2277",
-      "ordinal": 17,
-      "dateLabel": "Entry 17",
+      "ordinal": 19,
+      "dateLabel": "2026-03-12",
+      "date": "2026-03-12",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2277",
       "title": "Funeral practice rooms",
       "atmosphere": "anticipatory grief",
       "symbols": [
@@ -1186,7 +898,7 @@
           "label": "grief"
         }
       ],
-      "excerpt": "Office rooms where people practice the post-death process\u2014living loved ones choose what others would eat at the funeral.",
+      "excerpt": "Office rooms where people practice the post-death process—living loved ones choose what others would eat at the funeral.",
       "interpretation": "Death is rehearsed as logistics while the loved one is still alive. Grief appears as menu selection in fluorescent rooms.",
       "previewSymbols": [
         "death ritual"
@@ -1195,8 +907,11 @@
     },
     {
       "id": "2282",
-      "ordinal": 18,
-      "dateLabel": "Entry 18",
+      "ordinal": 20,
+      "dateLabel": "2026-03-23",
+      "date": "2026-03-23",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2282",
       "title": "Mom at the concert",
       "atmosphere": "fandom intimacy",
       "symbols": [
@@ -1235,52 +950,22 @@
           "label": "amusement"
         }
       ],
-      "excerpt": "I bring mom to a Seventeen concert; idols leave the stage\u2014high-fives, Chinese hello, a tongue-twister line.",
+      "excerpt": "I bring mom to a Seventeen concert; idols leave the stage—high-fives, Chinese hello, a tongue-twister line.",
       "interpretation": "Idol proximity and parental presence overlap. A performer recalls taking his own mother; the dream mirrors care across the barrier of the stage.",
       "previewSymbols": [
         "music",
-        "hybrid space"
+        "hybrid space",
+        "concert"
       ],
-      "related": [
-        {
-          "id": "2336",
-          "title": "Concert interface",
-          "shared": [
-            "music",
-            "concert",
-            "concert / stage"
-          ]
-        },
-        {
-          "id": "2311",
-          "title": "Nine-tailed fox drama",
-          "shared": [
-            "music",
-            "concert",
-            "concert / stage"
-          ]
-        },
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "music",
-            "parent"
-          ]
-        },
-        {
-          "id": "2306",
-          "title": "Pitch and gender",
-          "shared": [
-            "music"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2301",
-      "ordinal": 19,
-      "dateLabel": "Entry 19",
+      "ordinal": 21,
+      "dateLabel": "2026-04-14",
+      "date": "2026-04-14",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2301",
       "title": "Grandpa young again",
       "atmosphere": "mourning clarity",
       "symbols": [],
@@ -1305,47 +990,18 @@
           "label": "grief"
         }
       ],
-      "excerpt": "Grandpa talks\u2014he is in his twenties, remembers mom, does not remember me. I cried in the dream.",
+      "excerpt": "Grandpa talks—he is in his twenties, remembers mom, does not remember me. I cried in the dream.",
       "interpretation": "Dementia is rewritten as youth with selective memory. Technology feels new to him; recognition skips a generation and lands as grief.",
       "previewSymbols": [],
-      "related": [
-        {
-          "id": "2252",
-          "title": "Animals close up",
-          "shared": [
-            "parent",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "1765",
-          "title": "Grandpa well again",
-          "shared": [
-            "parent",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "1655",
-          "title": "Tourist bus surnames",
-          "shared": [
-            "parent",
-            "grandparent"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "parent"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2306",
-      "ordinal": 20,
-      "dateLabel": "Entry 20",
+      "ordinal": 22,
+      "dateLabel": "2026-04-20",
+      "date": "2026-04-20",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2306",
       "title": "Pitch and gender",
       "atmosphere": "technical focus",
       "symbols": [
@@ -1366,48 +1022,87 @@
           "label": "curiosity"
         }
       ],
-      "excerpt": "Raising the key changes a song differently in a male voice than in a female one\u2014words begin to distort.",
+      "excerpt": "Raising the key changes a song differently in a male voice than in a female one—words begin to distort.",
       "interpretation": "The dream rehearses a research task: compare gendered vocal effects under transposition, then prove it with four examples.",
       "previewSymbols": [
         "music",
         "pitch"
       ],
-      "related": [
+      "related": []
+    },
+    {
+      "id": "2311",
+      "ordinal": 23,
+      "dateLabel": "2026-04-22",
+      "date": "2026-04-22",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2311",
+      "title": "Nine-tailed fox drama",
+      "atmosphere": "meta-myth",
+      "symbols": [
         {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "music",
-            "pitch"
-          ]
+          "id": "music",
+          "label": "music"
         },
         {
-          "id": "2336",
-          "title": "Concert interface",
-          "shared": [
-            "music"
-          ]
+          "id": "interface",
+          "label": "interface"
         },
         {
-          "id": "2311",
-          "title": "Nine-tailed fox drama",
-          "shared": [
-            "music"
-          ]
+          "id": "concert",
+          "label": "concert"
         },
         {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "music"
-          ]
+          "id": "animals",
+          "label": "animals"
+        },
+        {
+          "id": "fox-spirit",
+          "label": "fox spirit"
+        },
+        {
+          "id": "religion",
+          "label": "religion"
         }
-      ]
+      ],
+      "places": [
+        {
+          "id": "concert-stage",
+          "label": "concert / stage"
+        },
+        {
+          "id": "fan-viewing",
+          "label": "fan viewing"
+        }
+      ],
+      "people": [],
+      "emotions": [
+        {
+          "id": "curiosity",
+          "label": "curiosity"
+        },
+        {
+          "id": "awe",
+          "label": "awe"
+        }
+      ],
+      "excerpt": "A K-drama about religion—a nine-tailed fox gains a tail every fifty years—then breaks the fourth wall.",
+      "interpretation": "The dreamer is both inside the episode and at a fan viewing. Belief systems accumulate like tails; the show discusses other shows about belief.",
+      "previewSymbols": [
+        "music",
+        "interface",
+        "concert",
+        "animals"
+      ],
+      "related": []
     },
     {
       "id": "2309",
-      "ordinal": 21,
-      "dateLabel": "Entry 21",
+      "ordinal": 24,
+      "dateLabel": "2026-04-25",
+      "date": "2026-04-25",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2309",
       "title": "Paused park",
       "atmosphere": "suspended curiosity",
       "symbols": [
@@ -1470,137 +1165,23 @@
           "label": "desire"
         }
       ],
-      "excerpt": "Everything in the amusement park was paused\u2014literally stopped in the air.",
+      "excerpt": "Everything in the amusement park was paused—literally stopped in the air.",
       "interpretation": "Process freezes mid-gesture. Talk of stocks and condos sits beside a nearly empty clubhouse where glare makes nearby things invisible.",
       "previewSymbols": [
         "paused time",
-        "amusement park"
+        "amusement park",
+        "houses",
+        "light"
       ],
-      "related": [
-        {
-          "id": "2355",
-          "title": "Temple of rounds",
-          "shared": [
-            "paused time",
-            "light"
-          ]
-        },
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "children"
-          ]
-        },
-        {
-          "id": "2263",
-          "title": "Twin daughters",
-          "shared": [
-            "children"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "2311",
-      "ordinal": 22,
-      "dateLabel": "Entry 22",
-      "title": "Nine-tailed fox drama",
-      "atmosphere": "meta-myth",
-      "symbols": [
-        {
-          "id": "music",
-          "label": "music"
-        },
-        {
-          "id": "interface",
-          "label": "interface"
-        },
-        {
-          "id": "concert",
-          "label": "concert"
-        },
-        {
-          "id": "animals",
-          "label": "animals"
-        },
-        {
-          "id": "fox-spirit",
-          "label": "fox spirit"
-        },
-        {
-          "id": "religion",
-          "label": "religion"
-        }
-      ],
-      "places": [
-        {
-          "id": "concert-stage",
-          "label": "concert / stage"
-        },
-        {
-          "id": "fan-viewing",
-          "label": "fan viewing"
-        }
-      ],
-      "people": [],
-      "emotions": [
-        {
-          "id": "curiosity",
-          "label": "curiosity"
-        },
-        {
-          "id": "awe",
-          "label": "awe"
-        }
-      ],
-      "excerpt": "A K-drama about religion\u2014a nine-tailed fox gains a tail every fifty years\u2014then breaks the fourth wall.",
-      "interpretation": "The dreamer is both inside the episode and at a fan viewing. Belief systems accumulate like tails; the show discusses other shows about belief.",
-      "previewSymbols": [
-        "music",
-        "interface"
-      ],
-      "related": [
-        {
-          "id": "2336",
-          "title": "Concert interface",
-          "shared": [
-            "music",
-            "interface",
-            "concert"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "music",
-            "concert",
-            "concert / stage"
-          ]
-        },
-        {
-          "id": "2252",
-          "title": "Animals close up",
-          "shared": [
-            "animals",
-            "religion"
-          ]
-        },
-        {
-          "id": "2249",
-          "title": "Fox and bingo rock",
-          "shared": [
-            "animals",
-            "fox spirit"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2328",
-      "ordinal": 23,
-      "dateLabel": "Entry 23",
+      "ordinal": 25,
+      "dateLabel": "2026-05-04",
+      "date": "2026-05-04",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2328",
       "title": "Worn-out labels",
       "atmosphere": "class observation",
       "symbols": [
@@ -1617,32 +1198,20 @@
       ],
       "people": [],
       "emotions": [],
-      "excerpt": "Sweatshirts labeled worn out\u2014don\u2019t wear. Rich people never have to donate; they can keep every piece.",
+      "excerpt": "Sweatshirts labeled worn out—don’t wear. Rich people never have to donate; they can keep every piece.",
       "interpretation": "Clothing becomes an archive of class. Space itself is the privilege that lets nothing be discarded.",
       "previewSymbols": [
         "clothing"
       ],
-      "related": [
-        {
-          "id": "2269",
-          "title": "Lotus incense plaza",
-          "shared": [
-            "clothing"
-          ]
-        },
-        {
-          "id": "1765",
-          "title": "Grandpa well again",
-          "shared": [
-            "clothing"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2336",
-      "ordinal": 24,
-      "dateLabel": "Entry 24",
+      "ordinal": 26,
+      "dateLabel": "2026-05-20",
+      "date": "2026-05-20",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2336",
       "title": "Concert interface",
       "atmosphere": "mediated presence",
       "symbols": [
@@ -1680,53 +1249,23 @@
           "label": "confusion"
         }
       ],
-      "excerpt": "Click the screen and dirt comes off; the interface listens for the concert\u2019s vibrations.",
+      "excerpt": "Click the screen and dirt comes off; the interface listens for the concert’s vibrations.",
       "interpretation": "A live performance is rewritten as interactive UI. Attention splits between haptic design and a companion who appears only as a confused visual.",
       "previewSymbols": [
         "music",
-        "photographs"
+        "photographs",
+        "interface",
+        "concert"
       ],
-      "related": [
-        {
-          "id": "2311",
-          "title": "Nine-tailed fox drama",
-          "shared": [
-            "music",
-            "interface",
-            "concert"
-          ]
-        },
-        {
-          "id": "2282",
-          "title": "Mom at the concert",
-          "shared": [
-            "music",
-            "concert",
-            "concert / stage"
-          ]
-        },
-        {
-          "id": "2271",
-          "title": "Parallel graduation",
-          "shared": [
-            "music",
-            "photographs"
-          ]
-        },
-        {
-          "id": "1720",
-          "title": "Cats in cages",
-          "shared": [
-            "music",
-            "photographs"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2355",
-      "ordinal": 25,
-      "dateLabel": "Entry 25",
+      "ordinal": 27,
+      "dateLabel": "2026-06-28",
+      "date": "2026-06-28",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2355",
       "title": "Temple of rounds",
       "atmosphere": "mythic urgency",
       "symbols": [
@@ -1789,34 +1328,23 @@
           "label": "acceptance"
         }
       ],
-      "excerpt": "At the last second everything reverses\u2014then still explodes. Lights return to the temple seams for another round.",
+      "excerpt": "At the last second everything reverses—then still explodes. Lights return to the temple seams for another round.",
       "interpretation": "Power cycles through sun-and-moon light in maze walls. Time reversal fails to prevent endings; identity resets as lights in the architecture.",
       "previewSymbols": [
         "paused time",
-        "gods"
+        "gods",
+        "light",
+        "maze"
       ],
-      "related": [
-        {
-          "id": "2309",
-          "title": "Paused park",
-          "shared": [
-            "paused time",
-            "light"
-          ]
-        },
-        {
-          "id": "2200",
-          "title": "California mountains",
-          "shared": [
-            "gods"
-          ]
-        }
-      ]
+      "related": []
     },
     {
       "id": "2357",
-      "ordinal": 26,
-      "dateLabel": "Entry 26",
+      "ordinal": 28,
+      "dateLabel": "2026-06-30",
+      "date": "2026-06-30",
+      "dateSource": "notes.ZCREATIONDATE3",
+      "archiveId": "2357",
       "title": "Traumatic marriage",
       "atmosphere": "abrupt refusal",
       "symbols": [
@@ -1866,6 +1394,20 @@
       ]
     },
     {
+      "id": "photographs",
+      "label": "photographs",
+      "count": 7,
+      "dreamIds": [
+        "1655",
+        "1720",
+        "1747",
+        "2200",
+        "2252",
+        "2271",
+        "2336"
+      ]
+    },
+    {
       "id": "animals",
       "label": "animals",
       "count": 6,
@@ -1876,19 +1418,6 @@
         "2249",
         "2252",
         "2311"
-      ]
-    },
-    {
-      "id": "photographs",
-      "label": "photographs",
-      "count": 6,
-      "dreamIds": [
-        "1655",
-        "1720",
-        "2200",
-        "2252",
-        "2271",
-        "2336"
       ]
     },
     {
@@ -1909,6 +1438,16 @@
         "2282",
         "2311",
         "2336"
+      ]
+    },
+    {
+      "id": "parallel-self",
+      "label": "parallel self",
+      "count": 3,
+      "dreamIds": [
+        "1747",
+        "1762",
+        "2271"
       ]
     },
     {
@@ -1982,15 +1521,6 @@
       "dreamIds": [
         "2309",
         "2355"
-      ]
-    },
-    {
-      "id": "parallel-self",
-      "label": "parallel self",
-      "count": 2,
-      "dreamIds": [
-        "1762",
-        "2271"
       ]
     },
     {
@@ -2082,6 +1612,14 @@
       "count": 1,
       "dreamIds": [
         "2309"
+      ]
+    },
+    {
+      "id": "language",
+      "label": "language",
+      "count": 1,
+      "dreamIds": [
+        "1749"
       ]
     },
     {
@@ -2183,6 +1721,24 @@
       ]
     },
     {
+      "id": "idol",
+      "label": "idol",
+      "count": 2,
+      "dreamIds": [
+        "1749",
+        "2282"
+      ]
+    },
+    {
+      "id": "teacher",
+      "label": "teacher",
+      "count": 2,
+      "dreamIds": [
+        "1747",
+        "2249"
+      ]
+    },
+    {
       "id": "childhood-friend",
       "label": "childhood friend",
       "count": 1,
@@ -2207,19 +1763,19 @@
       ]
     },
     {
+      "id": "friend",
+      "label": "friend",
+      "count": 1,
+      "dreamIds": [
+        "1747"
+      ]
+    },
+    {
       "id": "gods",
       "label": "gods",
       "count": 1,
       "dreamIds": [
         "2355"
-      ]
-    },
-    {
-      "id": "idol",
-      "label": "idol / performer",
-      "count": 1,
-      "dreamIds": [
-        "2282"
       ]
     },
     {
@@ -2269,14 +1825,6 @@
       "dreamIds": [
         "2309"
       ]
-    },
-    {
-      "id": "teacher",
-      "label": "teacher",
-      "count": 1,
-      "dreamIds": [
-        "2249"
-      ]
     }
   ],
   "placesIndex": [
@@ -2301,6 +1849,14 @@
       ]
     },
     {
+      "id": "florence",
+      "label": "Florence",
+      "count": 1,
+      "dreamIds": [
+        "1747"
+      ]
+    },
+    {
       "id": "amusement-park",
       "label": "amusement park",
       "count": 1,
@@ -2314,6 +1870,14 @@
       "count": 1,
       "dreamIds": [
         "2200"
+      ]
+    },
+    {
+      "id": "classroom",
+      "label": "classroom",
+      "count": 1,
+      "dreamIds": [
+        "1749"
       ]
     },
     {
@@ -2374,7 +1938,7 @@
     },
     {
       "id": "library-aquarium",
-      "label": "library\u2013aquarium",
+      "label": "library–aquarium",
       "count": 1,
       "dreamIds": [
         "2273"
@@ -2417,9 +1981,10 @@
     {
       "id": "amusement",
       "label": "amusement",
-      "count": 9,
+      "count": 10,
       "dreamIds": [
         "1655",
+        "1749",
         "1765",
         "1772",
         "2252",
@@ -2433,9 +1998,10 @@
     {
       "id": "nostalgia",
       "label": "nostalgia",
-      "count": 6,
+      "count": 7,
       "dreamIds": [
         "1720",
+        "1747",
         "1762",
         "2249",
         "2271",
@@ -2446,8 +2012,9 @@
     {
       "id": "confusion",
       "label": "confusion",
-      "count": 5,
+      "count": 6,
       "dreamIds": [
+        "1749",
         "1770",
         "2249",
         "2263",
@@ -2462,8 +2029,8 @@
       "dreamIds": [
         "1770",
         "2306",
-        "2309",
         "2311",
+        "2309",
         "2336"
       ]
     },
@@ -2485,8 +2052,8 @@
       "count": 4,
       "dreamIds": [
         "2200",
-        "2309",
         "2311",
+        "2309",
         "2355"
       ]
     },
@@ -2499,6 +2066,16 @@
         "2252",
         "2277",
         "2301"
+      ]
+    },
+    {
+      "id": "urgency",
+      "label": "urgency",
+      "count": 3,
+      "dreamIds": [
+        "1747",
+        "1765",
+        "2355"
       ]
     },
     {
@@ -2527,15 +2104,6 @@
         "2249",
         "2271"
       ]
-    },
-    {
-      "id": "urgency",
-      "label": "urgency",
-      "count": 2,
-      "dreamIds": [
-        "1765",
-        "2355"
-      ]
     }
   ],
   "patterns": [
@@ -2549,7 +2117,7 @@
         "2269",
         "2277"
       ],
-      "summary": "Spaces refuse single function: library\u2229aquarium\u2229food court; temple\u2229maze; amusement park that is not Disneyland; funeral offices; shopping plazas as museums of surfaces."
+      "summary": "Spaces refuse single function: library∩aquarium∩food court; temple∩maze; amusement park that is not Disneyland; funeral offices; shopping plazas as museums of surfaces."
     },
     {
       "id": "mediated-sound",
@@ -2562,7 +2130,7 @@
         "2282",
         "1720"
       ],
-      "summary": "Music and voice recur as systems\u2014metadata inside songs, pitch distortion, pitch-shifted childhood speech, concert UIs, idol stages, music judged by youth acceptance."
+      "summary": "Music and voice recur as systems—metadata inside songs, pitch distortion, pitch-shifted childhood speech, concert UIs, idol stages, music judged by youth acceptance."
     },
     {
       "id": "time-suspended",
@@ -2596,7 +2164,7 @@
         "2282",
         "2311"
       ],
-      "summary": "Songs, concerts, dramas, and vocal keys become editable or enterable surfaces\u2014clicked, annotated, high-fived, or broken through a fourth wall."
+      "summary": "Songs, concerts, dramas, and vocal keys become editable or enterable surfaces—clicked, annotated, high-fived, or broken through a fourth wall."
     },
     {
       "id": "kinship-and-care",
@@ -2635,7 +2203,7 @@
         "2200",
         "2269"
       ],
-      "summary": "Wealth appears as closet space, paused condos, mountain houses with cows, and shopping plazas where last year\u2019s design still wins."
+      "summary": "Wealth appears as closet space, paused condos, mountain houses with cows, and shopping plazas where last year’s design still wins."
     }
   ],
   "trajectories": [
@@ -2739,5 +2307,458 @@
       ]
     }
   ],
-  "connections": []
+  "connections": [
+    {
+      "key": "1655-1765",
+      "a": "1655",
+      "b": "1765",
+      "aTitle": "Tourist bus surnames",
+      "bTitle": "Grandpa well again",
+      "shared": [
+        "amusement",
+        "grandparent",
+        "parent"
+      ]
+    },
+    {
+      "key": "1655-2200",
+      "a": "1655",
+      "b": "2200",
+      "aTitle": "Tourist bus surnames",
+      "bTitle": "California mountains",
+      "shared": [
+        "bus",
+        "parent",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1655-2252",
+      "a": "1655",
+      "b": "2252",
+      "aTitle": "Tourist bus surnames",
+      "bTitle": "Animals close up",
+      "shared": [
+        "amusement",
+        "grandparent",
+        "parent",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1655-2263",
+      "a": "1655",
+      "b": "2263",
+      "aTitle": "Tourist bus surnames",
+      "bTitle": "Twin daughters",
+      "shared": [
+        "amusement",
+        "parent"
+      ]
+    },
+    {
+      "key": "1655-2269",
+      "a": "1655",
+      "b": "2269",
+      "aTitle": "Tourist bus surnames",
+      "bTitle": "Lotus incense plaza",
+      "shared": [
+        "amusement",
+        "parent"
+      ]
+    },
+    {
+      "key": "1655-2271",
+      "a": "1655",
+      "b": "2271",
+      "aTitle": "Tourist bus surnames",
+      "bTitle": "Parallel graduation",
+      "shared": [
+        "parent",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1655-2282",
+      "a": "1655",
+      "b": "2282",
+      "aTitle": "Tourist bus surnames",
+      "bTitle": "Mom at the concert",
+      "shared": [
+        "amusement",
+        "parent"
+      ]
+    },
+    {
+      "key": "1655-2301",
+      "a": "1655",
+      "b": "2301",
+      "aTitle": "Tourist bus surnames",
+      "bTitle": "Grandpa young again",
+      "shared": [
+        "grandparent",
+        "parent"
+      ]
+    },
+    {
+      "key": "1720-1747",
+      "a": "1720",
+      "b": "1747",
+      "aTitle": "Cats in cages",
+      "bTitle": "Florence reunion",
+      "shared": [
+        "nostalgia",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1720-2200",
+      "a": "1720",
+      "b": "2200",
+      "aTitle": "Cats in cages",
+      "bTitle": "California mountains",
+      "shared": [
+        "animals",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1720-2249",
+      "a": "1720",
+      "b": "2249",
+      "aTitle": "Cats in cages",
+      "bTitle": "Fox and bingo rock",
+      "shared": [
+        "animals",
+        "nostalgia"
+      ]
+    },
+    {
+      "key": "1720-2252",
+      "a": "1720",
+      "b": "2252",
+      "aTitle": "Cats in cages",
+      "bTitle": "Animals close up",
+      "shared": [
+        "animals",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1720-2271",
+      "a": "1720",
+      "b": "2271",
+      "aTitle": "Cats in cages",
+      "bTitle": "Parallel graduation",
+      "shared": [
+        "music",
+        "nostalgia",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1720-2311",
+      "a": "1720",
+      "b": "2311",
+      "aTitle": "Cats in cages",
+      "bTitle": "Nine-tailed fox drama",
+      "shared": [
+        "animals",
+        "music"
+      ]
+    },
+    {
+      "key": "1720-2336",
+      "a": "1720",
+      "b": "2336",
+      "aTitle": "Cats in cages",
+      "bTitle": "Concert interface",
+      "shared": [
+        "music",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1747-1762",
+      "a": "1747",
+      "b": "1762",
+      "aTitle": "Florence reunion",
+      "bTitle": "Watermelon neighbor",
+      "shared": [
+        "nostalgia",
+        "parallel-self"
+      ]
+    },
+    {
+      "key": "1747-2249",
+      "a": "1747",
+      "b": "2249",
+      "aTitle": "Florence reunion",
+      "bTitle": "Fox and bingo rock",
+      "shared": [
+        "nostalgia",
+        "teacher"
+      ]
+    },
+    {
+      "key": "1747-2271",
+      "a": "1747",
+      "b": "2271",
+      "aTitle": "Florence reunion",
+      "bTitle": "Parallel graduation",
+      "shared": [
+        "nostalgia",
+        "parallel-self",
+        "photographs"
+      ]
+    },
+    {
+      "key": "1747-2355",
+      "a": "1747",
+      "b": "2355",
+      "aTitle": "Florence reunion",
+      "bTitle": "Temple of rounds",
+      "shared": [
+        "nostalgia",
+        "urgency"
+      ]
+    },
+    {
+      "key": "1749-2263",
+      "a": "1749",
+      "b": "2263",
+      "aTitle": "Language among idols",
+      "bTitle": "Twin daughters",
+      "shared": [
+        "amusement",
+        "confusion"
+      ]
+    },
+    {
+      "key": "1749-2282",
+      "a": "1749",
+      "b": "2282",
+      "aTitle": "Language among idols",
+      "bTitle": "Mom at the concert",
+      "shared": [
+        "amusement",
+        "idol"
+      ]
+    },
+    {
+      "key": "1762-2249",
+      "a": "1762",
+      "b": "2249",
+      "aTitle": "Watermelon neighbor",
+      "bTitle": "Fox and bingo rock",
+      "shared": [
+        "nostalgia",
+        "water"
+      ]
+    },
+    {
+      "key": "1762-2271",
+      "a": "1762",
+      "b": "2271",
+      "aTitle": "Watermelon neighbor",
+      "bTitle": "Parallel graduation",
+      "shared": [
+        "nostalgia",
+        "parallel-self",
+        "parent"
+      ]
+    },
+    {
+      "key": "1762-2301",
+      "a": "1762",
+      "b": "2301",
+      "aTitle": "Watermelon neighbor",
+      "bTitle": "Grandpa young again",
+      "shared": [
+        "nostalgia",
+        "parent"
+      ]
+    },
+    {
+      "key": "1765-2252",
+      "a": "1765",
+      "b": "2252",
+      "aTitle": "Grandpa well again",
+      "bTitle": "Animals close up",
+      "shared": [
+        "amusement",
+        "grandparent",
+        "parent"
+      ]
+    },
+    {
+      "key": "1765-2263",
+      "a": "1765",
+      "b": "2263",
+      "aTitle": "Grandpa well again",
+      "bTitle": "Twin daughters",
+      "shared": [
+        "amusement",
+        "parent"
+      ]
+    },
+    {
+      "key": "1765-2269",
+      "a": "1765",
+      "b": "2269",
+      "aTitle": "Grandpa well again",
+      "bTitle": "Lotus incense plaza",
+      "shared": [
+        "amusement",
+        "clothing",
+        "parent"
+      ]
+    },
+    {
+      "key": "1765-2282",
+      "a": "1765",
+      "b": "2282",
+      "aTitle": "Grandpa well again",
+      "bTitle": "Mom at the concert",
+      "shared": [
+        "amusement",
+        "parent"
+      ]
+    },
+    {
+      "key": "1765-2301",
+      "a": "1765",
+      "b": "2301",
+      "aTitle": "Grandpa well again",
+      "bTitle": "Grandpa young again",
+      "shared": [
+        "grandparent",
+        "parent"
+      ]
+    },
+    {
+      "key": "1770-2336",
+      "a": "1770",
+      "b": "2336",
+      "aTitle": "BL mashup",
+      "bTitle": "Concert interface",
+      "shared": [
+        "confusion",
+        "curiosity"
+      ]
+    },
+    {
+      "key": "1772-2263",
+      "a": "1772",
+      "b": "2263",
+      "aTitle": "Editor's song",
+      "bTitle": "Twin daughters",
+      "shared": [
+        "amusement",
+        "unease"
+      ]
+    },
+    {
+      "key": "1772-2282",
+      "a": "1772",
+      "b": "2282",
+      "aTitle": "Editor's song",
+      "bTitle": "Mom at the concert",
+      "shared": [
+        "amusement",
+        "music"
+      ]
+    },
+    {
+      "key": "1772-2357",
+      "a": "1772",
+      "b": "2357",
+      "aTitle": "Editor's song",
+      "bTitle": "Traumatic marriage",
+      "shared": [
+        "amusement",
+        "unease"
+      ]
+    },
+    {
+      "key": "2200-2249",
+      "a": "2200",
+      "b": "2249",
+      "aTitle": "California mountains",
+      "bTitle": "Fox and bingo rock",
+      "shared": [
+        "animals",
+        "parallel-school"
+      ]
+    },
+    {
+      "key": "2200-2252",
+      "a": "2200",
+      "b": "2252",
+      "aTitle": "California mountains",
+      "bTitle": "Animals close up",
+      "shared": [
+        "animals",
+        "parent",
+        "photographs"
+      ]
+    },
+    {
+      "key": "2200-2271",
+      "a": "2200",
+      "b": "2271",
+      "aTitle": "California mountains",
+      "bTitle": "Parallel graduation",
+      "shared": [
+        "parallel-school",
+        "parent",
+        "photographs"
+      ]
+    },
+    {
+      "key": "2200-2311",
+      "a": "2200",
+      "b": "2311",
+      "aTitle": "California mountains",
+      "bTitle": "Nine-tailed fox drama",
+      "shared": [
+        "animals",
+        "awe"
+      ]
+    },
+    {
+      "key": "2200-2355",
+      "a": "2200",
+      "b": "2355",
+      "aTitle": "California mountains",
+      "bTitle": "Temple of rounds",
+      "shared": [
+        "awe",
+        "gods"
+      ]
+    },
+    {
+      "key": "2249-2252",
+      "a": "2249",
+      "b": "2252",
+      "aTitle": "Fox and bingo rock",
+      "bTitle": "Animals close up",
+      "shared": [
+        "animals",
+        "grandparent",
+        "grief"
+      ]
+    },
+    {
+      "key": "2249-2263",
+      "a": "2249",
+      "b": "2263",
+      "aTitle": "Fox and bingo rock",
+      "bTitle": "Twin daughters",
+      "shared": [
+        "confusion",
+        "unease"
+      ]
+    }
+  ]
 }

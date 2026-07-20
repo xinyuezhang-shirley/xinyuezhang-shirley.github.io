@@ -1,0 +1,9 @@
+id: 2336
+date: 2026-05-20
+dateSource: notes.ZCREATIONDATE3
+dateProvenance: note_creation
+title: Concert interface
+sourceNote: was dreaming about all sorts of interactive uis for videos to the…
+importedAt: 2026-07-20T04:37:24Z
+---
+was dreaming about all sorts of interactive uis for videos to the bts concert like clicking on the screen and then dirt would come off and I think it was focusing on the vibrations the concert makes and I also dreamed that [friend] was at the concert because there are visuals of her being confused

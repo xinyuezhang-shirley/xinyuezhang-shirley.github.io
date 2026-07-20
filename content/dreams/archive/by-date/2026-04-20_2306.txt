@@ -1,0 +1,9 @@
+id: 2306
+date: 2026-04-20
+dateSource: notes.ZCREATIONDATE3
+dateProvenance: note_creation
+title: Pitch and gender
+sourceNote: I had a dream where basically I learned that there are different musical…
+importedAt: 2026-07-20T04:37:24Z
+---
+I had a dream where basically I learned that there are different musical effects between a song sang by male va female voice when you raise the key and something technical about a higher pitch distorting the words a little or something like that and I had to write a written response of four examples is songs that either when sang at a female pitch has that result or sang at a male pitch does not have that result

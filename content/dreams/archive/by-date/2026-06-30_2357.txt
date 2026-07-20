@@ -1,0 +1,9 @@
+id: 2357
+date: 2026-06-30
+dateSource: notes.ZCREATIONDATE3
+dateProvenance: note_creation
+title: Traumatic marriage
+sourceNote: I bad a dream that I married [spouse figure] and politely that is traumatic lol
+importedAt: 2026-07-20T04:37:24Z
+---
+I bad a dream that I married [spouse figure] and politely that is traumatic lol
