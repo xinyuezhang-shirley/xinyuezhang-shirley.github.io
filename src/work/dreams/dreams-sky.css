@@ -1,6 +1,7 @@
 /**
  * Dreams — Grave of Ideas visual language
  * Blue sky gradient, frosted glass, Cormorant + Caveat. Not paper archive.
+ * Extended for semantic atlas: shapes, edge kinds, region washes, view switcher.
  */
 
 *,
@@ -48,7 +49,7 @@
 }
 
 .dream-header {
-  margin-bottom: 1rem;
+  margin-bottom: 0.65rem;
 }
 
 .dream-header h1 {
@@ -71,10 +72,49 @@
   font-family: "Cormorant Garamond", serif;
 }
 
+/* View switcher — Caveat glass chrome, not filter chips */
+.dream-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  margin: 0.35rem 0 0.15rem;
+}
+
+.dream-view-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 0.15rem 0;
+  font-family: "Caveat", cursive;
+  font-size: 1.35rem;
+  color: rgba(255, 255, 255, 0.48);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.dream-view-btn:hover,
+.dream-view-btn:focus-visible {
+  color: rgba(255, 255, 255, 0.88);
+  outline: none;
+}
+
+.dream-view-btn.is-active {
+  color: var(--white);
+  border-bottom-color: rgba(255, 255, 255, 0.55);
+}
+
+.dream-view-hint {
+  margin: 0 0 0.85rem;
+  font-family: "Caveat", cursive;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .dream-layout {
   display: flex;
   gap: 1.25rem;
-  min-height: calc(100vh - 11rem);
+  min-height: calc(100vh - 14rem);
 }
 
 .graph-panel,
@@ -106,7 +146,7 @@
   flex-shrink: 0;
   padding: 1.2rem 1.1rem;
   overflow-y: auto;
-  max-height: calc(100vh - 11rem);
+  max-height: calc(100vh - 14rem);
 }
 
 .info-kicker {
@@ -116,7 +156,6 @@
   color: var(--muted);
 }
 
-#infoTitle,
 .dream-info .info-title {
   margin: 0.2rem 0 0.4rem;
   font-size: 2rem;
@@ -125,7 +164,8 @@
 
 .info-count,
 .info-connections,
-.info-analysis {
+.info-analysis,
+.info-ascent {
   margin: 0.35rem 0;
   font-size: 1.05rem;
   line-height: 1.35;
@@ -135,6 +175,20 @@
 .info-analysis {
   font-style: italic;
   color: rgba(255, 255, 255, 0.8);
+}
+
+.info-ascent {
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.info-ascent-label {
+  display: block;
+  font-family: "Caveat", cursive;
+  font-size: 1.1rem;
+  color: var(--muted);
+  font-style: normal;
+  margin-bottom: 0.15rem;
 }
 
 .info-block {
@@ -147,24 +201,40 @@
   font-weight: 500;
 }
 
-.info-kind {
-  display: inline-block;
-  margin-bottom: 0.35rem;
-  font-family: "Caveat", cursive;
-  font-size: 1.1rem;
-  color: var(--muted);
-}
-
-#infoDreams,
 .info-dreams {
   margin: 0;
   padding-left: 1.1rem;
 }
 
-#infoDreams li,
 .info-dreams li {
   margin-bottom: 0.5rem;
   line-height: 1.35;
+}
+
+.info-related {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.info-related li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rel-label {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.rel-kind {
+  font-family: "Caveat", cursive;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .info-secondary {
@@ -184,26 +254,108 @@
   margin-bottom: 0.3rem;
 }
 
+/* Region washes */
+.region-wash {
+  fill: rgba(255, 255, 255, 0.035);
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.region-label {
+  fill: rgba(255, 255, 255, 0.38);
+  font-family: "Caveat", cursive;
+  font-size: 1.35rem;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
 .node-label {
   fill: rgba(255, 255, 255, 0.94);
   font-family: "Cormorant Garamond", serif;
   font-weight: 500;
   text-anchor: middle;
-  dominant-baseline: middle;
+  dominant-baseline: hanging;
   pointer-events: none;
   user-select: none;
   transition: opacity 0.2s ease;
 }
 
+/* Edge kinds */
 .link {
-  stroke: var(--line);
   stroke-linecap: round;
+  fill: none;
+  transition: opacity 0.2s ease, stroke 0.2s ease;
 }
 
-.node-circle {
-  fill: rgba(255, 255, 255, 0.08);
-  stroke: rgba(255, 255, 255, 0.5);
+.link-cooccur {
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-dasharray: none;
+}
+
+.link-emotional {
+  stroke: rgba(186, 230, 245, 0.42);
+  stroke-dasharray: 5 5;
+}
+
+.link-causal {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-dasharray: none;
+}
+
+.link-symbolic {
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-dasharray: 1.5 5;
+}
+
+/* Node shapes by layer */
+.node-shape {
+  fill: rgba(255, 255, 255, 0.09);
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1.1;
+  transition: opacity 0.2s ease, fill 0.2s ease, stroke 0.2s ease;
+}
+
+.node-shape.layer-literal {
+  fill: rgba(255, 255, 255, 0.12);
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 1.25;
+}
+
+.node-shape.layer-theme {
+  fill: rgba(255, 255, 255, 0.05);
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-dasharray: 3 3;
+}
+
+.node-shape.layer-emotion {
+  fill: rgba(200, 230, 245, 0.12);
+  stroke: rgba(220, 240, 255, 0.65);
+}
+
+.node-shape.layer-action {
+  fill: rgba(255, 255, 255, 0.1);
+  stroke: rgba(255, 255, 255, 0.7);
+}
+
+.node-shape.layer-transformation {
+  fill: rgba(255, 255, 255, 0.06);
+  stroke: rgba(255, 255, 255, 0.55);
+}
+
+.node-halo {
+  fill: none;
+  stroke: rgba(200, 230, 245, 0.22);
   stroke-width: 1;
+  pointer-events: none;
+}
+
+.node-ring-inner {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1;
+  pointer-events: none;
 }
 
 .node-group {
@@ -211,22 +363,25 @@
 }
 
 .node-group.is-dimmed .node-label,
-.node-group.is-dimmed .node-circle {
-  opacity: 0.18;
+.node-group.is-dimmed .node-shape,
+.node-group.is-dimmed .node-halo,
+.node-group.is-dimmed .node-ring-inner {
+  opacity: 0.14;
 }
 
 .link.is-dimmed {
-  opacity: 0.08;
+  opacity: 0.06;
 }
 
 .link.is-active {
-  stroke: var(--line-strong);
+  stroke: rgba(255, 255, 255, 0.75);
+  opacity: 1;
 }
 
-.node-group.is-active .node-circle {
-  fill: rgba(255, 255, 255, 0.14);
-  stroke: rgba(255, 255, 255, 0.95);
-  stroke-width: 1.5;
+.node-group.is-active .node-shape {
+  fill: rgba(255, 255, 255, 0.18);
+  stroke: rgba(255, 255, 255, 0.98);
+  stroke-width: 1.6;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35));
 }
 
@@ -251,5 +406,13 @@
 
   .graph-panel {
     min-height: 70vh;
+  }
+
+  .dream-views {
+    gap: 0.4rem 0.85rem;
+  }
+
+  .dream-view-btn {
+    font-size: 1.2rem;
   }
 }

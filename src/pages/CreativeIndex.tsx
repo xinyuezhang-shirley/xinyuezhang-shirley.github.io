@@ -129,18 +129,18 @@ export default function CreativeIndex() {
           {/* DREAMS */}
           <Link to="/creative/dreams" className="foyer-room foyer-room--dreams">
             <div className="foyer-room__stage" aria-hidden>
-              <p className="foyer-dreams-margin">a private sky</p>
+              <p className="foyer-dreams-margin">semantic atlas</p>
               <p className="foyer-dreams-word">Dreams</p>
               <p className="foyer-dreams-symbols">music · water · temple · parent</p>
             </div>
             <p className="foyer-room__meta">
               <span>{dreamCount} nights</span>
-              <span>symbol graph</span>
+              <span>semantic atlas</span>
               <span>Grave of Ideas</span>
             </p>
             <h2 className="foyer-room__title">Dreams</h2>
             <p className="foyer-room__desc">
-              Recurring symbols from dream notes — a force graph under blue sky glass.
+              An atlas of the subconscious — symbols rising into themes under blue sky glass.
             </p>
             <p className="foyer-room__enter">Enter exhibition →</p>
           </Link>

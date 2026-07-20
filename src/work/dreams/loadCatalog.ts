@@ -1,4 +1,5 @@
 import { dreamsData } from "@/work/dreams/dreams-data";
+import { dreamsAtlas } from "@/work/dreams/dreams-atlas";
 import type { DreamsCatalog } from "@/work/dreams/types";
 import catalogJson from "@/content/dreams/catalog.json";
 
@@ -6,4 +7,4 @@ import catalogJson from "@/content/dreams/catalog.json";
 export const dreamsCatalog = catalogJson as DreamsCatalog;
 
 export const dreamCount = dreamsData.dreamCount;
-export const dreamSubtitle = dreamsData.subtitle;
+export const dreamSubtitle = dreamsAtlas.subtitle;
