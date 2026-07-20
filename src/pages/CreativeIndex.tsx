@@ -1,150 +1,94 @@
 import { Link } from "react-router-dom";
 import { catalogue } from "@/work/art/catalogue";
 import { poems } from "@/content/creative";
-import { dreamCount } from "@/work/dreams/loadCatalog";
+import { photoCollections } from "@/work/photography/collections";
+import { dreamsCatalog } from "@/work/dreams/loadCatalog";
 import "@/work/creative/creative-foyer.css";
 
-const artCount = catalogue.length;
-const poemCount = poems.length;
+const rooms = [
+  {
+    to: "/creative/art",
+    numeral: "I",
+    title: "Art",
+    subtitle: "A quiet monograph",
+    description:
+      "Digital paintings, original characters, and design studies arranged as plates rather than posts.",
+    meta: [`${catalogue.length} plates`, "2023 — 2026", "Digital painting"],
+  },
+  {
+    to: "/creative/photography",
+    numeral: "II",
+    title: "Photography",
+    subtitle: "Prints as studies",
+    description:
+      "Glass, coast, film, stage, stone, and faces — visual essays held with the patience of a contact sheet.",
+    meta: [
+      `${photoCollections.length} collections`,
+      "California · Shanghai · Chicago",
+      "Photography",
+    ],
+  },
+  {
+    to: "/creative/poetry",
+    numeral: "III",
+    title: "Poetry",
+    subtitle: "Lyric in two languages",
+    description:
+      "Poems in English and Chinese, entered as a zine of finished lyrics rather than a feed of drafts.",
+    meta: [`${poems.length} poems`, "2020 — 2024", "English / 中文"],
+  },
+  {
+    to: "/creative/dreams",
+    numeral: "IV",
+    title: "Dreams",
+    subtitle: "A research notebook of nights",
+    description:
+      "An evolving archive of motifs, roles, and patterns — studied as data and literature, not dumped as diary.",
+    meta: [`${dreamsCatalog.dreamCount} entries`, "Derived study", "Notes archive"],
+  },
+] as const;
 
 export default function CreativeIndex() {
   return (
     <div className="creative-foyer">
       <div className="creative-foyer__rail">
         <header className="creative-foyer__head">
-          <span className="creative-foyer__eyebrow">Creative</span>
+          <p className="creative-foyer__eyebrow">Creative</p>
           <h1 className="creative-foyer__statement">
-            A gallery,
+            Four rooms.
             <br />
-            not a <em>portfolio.</em>
+            <em>One exhibition.</em>
           </h1>
-          <div className="creative-foyer__rule" aria-hidden />
           <p className="creative-foyer__deck">
-            Four rooms. Digital paintings, photographic essays, poems in English and Chinese,
-            and a private sky of recurring dream symbols — entered as exhibitions, not menus.
+            Entered as chapters in a single gallery — not as separate portfolio
+            projects.
           </p>
-          <p className="creative-foyer__colophon">Foyer · Four rooms · Open</p>
         </header>
 
-        <div className="creative-foyer__rooms">
-          {/* ART */}
-          <Link to="/creative/art" className="foyer-room foyer-room--art">
-            <div className="foyer-room__stage" aria-hidden>
-              <div className="foyer-bleed">
-                <img
-                  src="/art/goddess.PNG"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="foyer-swatch">
-                <img
-                  src="/art/light.JPEG"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
-            <p className="foyer-room__meta">
-              <span>{artCount} plates</span>
-              <span>2023 — 2026</span>
-              <span>myco.to</span>
-            </p>
-            <h2 className="foyer-room__title">Art</h2>
-            <p className="foyer-room__desc">
-              Digital paintings, original characters, and design studies — a quiet monograph.
-            </p>
-            <p className="foyer-room__enter">Enter exhibition →</p>
-          </Link>
-
-          {/* PHOTOGRAPHY */}
-          <Link to="/creative/photography" className="foyer-room foyer-room--photo">
-            <div className="foyer-room__stage" aria-hidden>
-              <div className="foyer-print">
-                <img
-                  src="/photography/Zhang_Portal.jpg"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="foyer-contact">
-                <span>
-                  <img
-                    src="/photography/hello.JPG"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
+        <ol className="creative-foyer__rooms">
+          {rooms.map((room) => (
+            <li key={room.to} className="foyer-room">
+              <Link to={room.to} className="foyer-room__link">
+                <span className="foyer-room__numeral" aria-hidden="true">
+                  {room.numeral}
                 </span>
-                <span>
-                  <img
-                    src="/photography/Zhang_MichelleAtBeach-min.png"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </span>
-              </div>
-            </div>
-            <p className="foyer-room__meta">
-              <span>Visual essays</span>
-              <span>California · Shanghai · Chicago</span>
-            </p>
-            <h2 className="foyer-room__title">Photography</h2>
-            <p className="foyer-room__desc">
-              Glass, coast, film, stage, stone, faces — prints arranged as studies.
-            </p>
-            <p className="foyer-room__enter">Enter exhibition →</p>
-          </Link>
+                <div className="foyer-room__body">
+                  <h2 className="foyer-room__title">{room.title}</h2>
+                  <p className="foyer-room__subtitle">{room.subtitle}</p>
+                  <p className="foyer-room__desc">{room.description}</p>
+                  <p className="foyer-room__meta">
+                    {room.meta.map((item) => (
+                      <span key={item}>{item}</span>
+                    ))}
+                  </p>
+                  <span className="foyer-room__enter">Enter</span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ol>
 
-          {/* POETRY */}
-          <Link to="/creative/poetry" className="foyer-room foyer-room--poetry">
-            <div className="foyer-room__stage" aria-hidden>
-              <p className="foyer-annotate">from 只身山水</p>
-              <p className="foyer-cn">
-                <span>雨落江岸没人履</span>
-                <span>欲掩一朝杏花清</span>
-              </p>
-              <p className="foyer-stanza">
-                Like autumn comes and leaves begin to blush
-                <br />
-                Like rains confess the wild&apos;s restraining souls…
-              </p>
-            </div>
-            <p className="foyer-room__meta">
-              <span>{poemCount} poems</span>
-              <span>English / 中文</span>
-              <span>2020 — 2024</span>
-            </p>
-            <h2 className="foyer-room__title">Poetry</h2>
-            <p className="foyer-room__desc">
-              {poemCount} poems written between 2020 and 2024, in English and Chinese.
-            </p>
-            <p className="foyer-room__enter">Enter exhibition →</p>
-          </Link>
-
-          {/* DREAMS */}
-          <Link to="/creative/dreams" className="foyer-room foyer-room--dreams">
-            <div className="foyer-room__stage" aria-hidden>
-              <p className="foyer-dreams-margin">semantic atlas</p>
-              <p className="foyer-dreams-word">Dreams</p>
-              <p className="foyer-dreams-symbols">music · water · temple · parent</p>
-            </div>
-            <p className="foyer-room__meta">
-              <span>{dreamCount} nights</span>
-              <span>semantic atlas</span>
-              <span>Grave of Ideas</span>
-            </p>
-            <h2 className="foyer-room__title">Dreams</h2>
-            <p className="foyer-room__desc">
-              An atlas of the subconscious — symbols rising into themes under blue sky glass.
-            </p>
-            <p className="foyer-room__enter">Enter exhibition →</p>
-          </Link>
-        </div>
+        <p className="creative-foyer__colophon">Foyer · Contents · Open</p>
       </div>
     </div>
   );
