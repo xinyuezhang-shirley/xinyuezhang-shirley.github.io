@@ -60,8 +60,8 @@ export async function handleAskShirley(
   }
 
   const model = (env.OPENAI_MODEL || "").trim() || "gpt-4.1-mini";
-  const rateMax = Number.parseInt(env.ASK_SHIRLEY_RATE_MAX || "8", 10);
-  const max = Number.isFinite(rateMax) && rateMax > 0 ? rateMax : 8;
+  const rateMax = Number.parseInt(env.ASK_SHIRLEY_RATE_MAX || "30", 10);
+  const max = Number.isFinite(rateMax) && rateMax > 0 ? rateMax : 30;
 
   if (!(await allowRequest(env, request, { prefix: "ask", max, windowMs: 60_000 }))) {
     return json({ error: "Too many requests. Try again shortly.", code: "rate_limit" }, 429, origin, allowed);

@@ -31,7 +31,7 @@ In `wrangler.toml` `[vars]`:
 
 ```toml
 OPENAI_MODEL = "gpt-4.1-mini"
-ASK_SHIRLEY_RATE_MAX = "8"
+ASK_SHIRLEY_RATE_MAX = "30"
 ```
 
 Local `.dev.vars` must include `OPENAI_API_KEY` and `ALLOWED_ORIGIN` matching the Vite origin (`http://localhost:8080` for this portfolio).

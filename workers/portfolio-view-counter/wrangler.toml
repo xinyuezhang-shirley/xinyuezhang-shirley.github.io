@@ -21,9 +21,9 @@ database_id = "f1959f7c-58bf-4451-9b35-e0ec0183a1e6"
 # Vars (non-secret):
 #   ALLOW_DEV_RESET        must be "true" only in local/dev — never in production
 #   OPENAI_MODEL           e.g. gpt-4.1-mini
-#   ASK_SHIRLEY_RATE_MAX   optional; default 8 / minute / IP bucket
+#   ASK_SHIRLEY_RATE_MAX   optional; default 30 / minute / IP bucket (chat-friendly)
 
 [vars]
 ALLOW_DEV_RESET = "false"
 OPENAI_MODEL = "gpt-4.1-mini"
-ASK_SHIRLEY_RATE_MAX = "8"
+ASK_SHIRLEY_RATE_MAX = "30"
