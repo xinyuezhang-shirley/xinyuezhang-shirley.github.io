@@ -17,10 +17,11 @@ type Props = {
 
 export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
   const location = useLocation();
-  const { messages, isTyping, error, sendMessage } = useAskShirleyChat();
+  const { messages, isTyping, error, sendMessage, clearChat } = useAskShirleyChat();
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
-  const hideOnAskPage = location.pathname === "/ask";
+  const hideOnAskPage =
+    location.pathname === "/ask" || location.pathname.startsWith("/ask-shirley");
 
   useEffect(() => {
     if (!open) return;
@@ -73,6 +74,18 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
           </div>
         </div>
         <div className="ask-popup__actions">
+          <button
+            type="button"
+            className="ask-icon-btn"
+            aria-label="Reset conversation"
+            title="Reset conversation"
+            onClick={clearChat}
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M3 3 H13 V13 H3 Z" fill="none" />
+              <path d="M5 8 H11 M8 5 L11 8 L8 11" />
+            </svg>
+          </button>
           <Link
             to="/ask"
             className="ask-icon-btn"

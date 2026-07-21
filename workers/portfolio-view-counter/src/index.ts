@@ -1,3 +1,6 @@
+import { allowRequest } from "./lib/rateLimit";
+import { handleAskShirley } from "./routes/askShirley";
+
 export interface Env {
   DB: D1Database;
   RESEND_API_KEY: string;
@@ -6,22 +9,35 @@ export interface Env {
   ALLOWED_ORIGIN: string;
   ALLOW_DEV_RESET?: string;
   DEV_RESET_SECRET?: string;
+  OPENAI_API_KEY?: string;
+  OPENAI_MODEL?: string;
+  ASK_SHIRLEY_RATE_MAX?: string;
 }
-
-const RATE_LIMIT_MAX = 12;
-const RATE_WINDOW_MS = 60_000;
 
 type StatsRow = { total: number; last_notified: number };
 
+/** Comma-separated ALLOWED_ORIGIN secret → list of exact origins. */
+function parseAllowedOrigins(allowed: string): string[] {
+  return allowed
+    .split(",")
+    .map((o) => o.trim())
+    .filter(Boolean);
+}
+
+function isOriginAllowed(origin: string | null, allowed: string): boolean {
+  if (!origin) return false;
+  return parseAllowedOrigins(allowed).includes(origin);
+}
+
 function corsHeaders(origin: string | null, allowed: string): HeadersInit {
   const headers: Record<string, string> = {
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, X-Dev-Reset-Secret",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
   };
-  if (origin && origin === allowed) {
-    headers["Access-Control-Allow-Origin"] = allowed;
+  if (origin && isOriginAllowed(origin, allowed)) {
+    headers["Access-Control-Allow-Origin"] = origin;
   }
   return headers;
 }
@@ -39,45 +55,6 @@ function json(
       ...corsHeaders(origin, allowed),
     },
   });
-}
-
-async function hashBucket(request: Request): Promise<string> {
-  // Hash CF-Connecting-IP for rate limiting without storing or logging the raw IP.
-  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
-  const data = new TextEncoder().encode(`rl:${ip}`);
-  const digest = await crypto.subtle.digest("SHA-256", data);
-  const bytes = new Uint8Array(digest);
-  let hex = "";
-  for (let i = 0; i < 16; i++) hex += bytes[i]!.toString(16).padStart(2, "0");
-  return hex;
-}
-
-async function allowRequest(env: Env, request: Request): Promise<boolean> {
-  const bucket = await hashBucket(request);
-  const now = Date.now();
-  const row = await env.DB.prepare(
-    "SELECT hits, window_start FROM rate_limits WHERE bucket = ?",
-  )
-    .bind(bucket)
-    .first<{ hits: number; window_start: number }>();
-
-  if (!row || now - row.window_start >= RATE_WINDOW_MS) {
-    await env.DB.prepare(
-      "INSERT INTO rate_limits (bucket, hits, window_start) VALUES (?, 1, ?) ON CONFLICT(bucket) DO UPDATE SET hits = 1, window_start = excluded.window_start",
-    )
-      .bind(bucket, now)
-      .run();
-    return true;
-  }
-
-  if (row.hits >= RATE_LIMIT_MAX) {
-    return false;
-  }
-
-  await env.DB.prepare("UPDATE rate_limits SET hits = hits + 1 WHERE bucket = ?")
-    .bind(bucket)
-    .run();
-  return true;
 }
 
 async function sendThresholdEmail(env: Env, count: number): Promise<void> {
@@ -115,7 +92,6 @@ async function handleView(env: Env): Promise<void> {
     return;
   }
 
-  // Claim this threshold atomically so concurrent requests send only one email.
   const claim = await env.DB.prepare(
     "UPDATE visit_stats SET last_notified = ? WHERE id = 1 AND last_notified < ?",
   )
@@ -129,7 +105,6 @@ async function handleView(env: Env): Promise<void> {
   try {
     await sendThresholdEmail(env, threshold);
   } catch (err) {
-    // Do not permanently mark the threshold if delivery failed.
     await env.DB.prepare(
       "UPDATE visit_stats SET last_notified = ? WHERE id = 1 AND last_notified = ?",
     )
@@ -158,7 +133,6 @@ async function handleDevReset(request: Request, env: Env): Promise<Response> {
   ).run();
   await env.DB.prepare("DELETE FROM rate_limits").run();
 
-  // Dev-only response may include totals for local testing.
   return json({ ok: true, total: 0, last_notified: 0 }, 200, origin, allowed);
 }
 
@@ -194,7 +168,7 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === "OPTIONS") {
-      if (origin !== allowed) {
+      if (!isOriginAllowed(origin, allowed)) {
         return new Response(null, { status: 403 });
       }
       return new Response(null, { status: 204, headers: corsHeaders(origin, allowed) });
@@ -208,11 +182,29 @@ export default {
         return await handleDevStatus(request, env);
       }
 
-      if (!origin || origin !== allowed) {
+      if (!isOriginAllowed(origin, allowed)) {
         return json({ ok: false }, 403, origin, allowed);
       }
 
-      if (!(await allowRequest(env, request))) {
+      // Ask Shirley — own rate-limit bucket inside the route handler.
+      if (
+        (url.pathname === "/api/ask-shirley" || url.pathname === "/ask-shirley") &&
+        request.method === "POST"
+      ) {
+        return await handleAskShirley(
+          request,
+          {
+            DB: env.DB,
+            ALLOWED_ORIGIN: env.ALLOWED_ORIGIN,
+            OPENAI_API_KEY: env.OPENAI_API_KEY || "",
+            OPENAI_MODEL: env.OPENAI_MODEL || "gpt-4.1-mini",
+            ASK_SHIRLEY_RATE_MAX: env.ASK_SHIRLEY_RATE_MAX,
+          },
+          json,
+        );
+      }
+
+      if (!(await allowRequest(env, request, { prefix: "rl", max: 12, windowMs: 60_000 }))) {
         return json({ ok: false }, 429, origin, allowed);
       }
 

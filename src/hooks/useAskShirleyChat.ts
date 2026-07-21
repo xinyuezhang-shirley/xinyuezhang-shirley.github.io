@@ -5,7 +5,33 @@ import {
   type AskShirleyChatMessage,
 } from "@/lib/askShirleyResponder";
 
-const STORAGE_KEY = "ask-shirley:v1:messages";
+const STORAGE_KEY = "ask-shirley:v2:messages";
+const MAX_STORED_MESSAGES = 40;
+/** Soft cap on serialized history (~100KB). */
+const MAX_STORAGE_CHARS = 100_000;
+
+function uid(): string {
+  return `m-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function pruneMessages(messages: AskShirleyChatMessage[]): AskShirleyChatMessage[] {
+  let next = messages;
+  if (next.length > MAX_STORED_MESSAGES) {
+    const welcome = next.find((m) => m.id === "welcome");
+    const tail = next.slice(-MAX_STORED_MESSAGES + (welcome ? 1 : 0));
+    next = welcome && !tail.some((m) => m.id === "welcome") ? [welcome, ...tail] : tail;
+  }
+
+  let serialized = JSON.stringify(next);
+  while (serialized.length > MAX_STORAGE_CHARS && next.length > 2) {
+    // Drop oldest non-welcome message.
+    const idx = next.findIndex((m) => m.id !== "welcome");
+    if (idx < 0) break;
+    next = [...next.slice(0, idx), ...next.slice(idx + 1)];
+    serialized = JSON.stringify(next);
+  }
+  return next;
+}
 
 function loadMessages(): AskShirleyChatMessage[] {
   if (typeof window === "undefined") return [getWelcomeMessage()];
@@ -14,14 +40,10 @@ function loadMessages(): AskShirleyChatMessage[] {
     if (!raw) return [getWelcomeMessage()];
     const parsed = JSON.parse(raw) as AskShirleyChatMessage[];
     if (!Array.isArray(parsed) || parsed.length === 0) return [getWelcomeMessage()];
-    return parsed;
+    return pruneMessages(parsed);
   } catch {
     return [getWelcomeMessage()];
   }
-}
-
-function uid(): string {
-  return `m-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
 export function useAskShirleyChat() {
@@ -29,6 +51,7 @@ export function useAskShirleyChat() {
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const sendingRef = useRef(false);
   const hydrated = useRef(false);
 
   useEffect(() => {
@@ -38,7 +61,8 @@ export function useAskShirleyChat() {
   useEffect(() => {
     if (!hydrated.current) return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+      const pruned = pruneMessages(messages);
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(pruned));
     } catch {
       // Ignore quota / private mode failures.
     }
@@ -47,30 +71,37 @@ export function useAskShirleyChat() {
   const clearChat = useCallback(() => {
     abortRef.current?.abort();
     abortRef.current = null;
+    sendingRef.current = false;
     setIsTyping(false);
     setError(null);
     setMessages([getWelcomeMessage()]);
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
   }, []);
 
   const sendMessage = useCallback(async (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed) return;
+    if (!trimmed || sendingRef.current) return;
 
     abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
+    sendingRef.current = true;
     setError(null);
 
     const userMsg: AskShirleyChatMessage = {
       id: uid(),
       role: "user",
-      content: trimmed,
+      content: trimmed.slice(0, 1500),
       createdAt: Date.now(),
     };
 
     let nextMessages: AskShirleyChatMessage[] = [];
     setMessages((prev) => {
-      nextMessages = [...prev, userMsg];
+      nextMessages = pruneMessages([...prev, userMsg]);
       return nextMessages;
     });
     setIsTyping(true);
@@ -84,10 +115,12 @@ export function useAskShirleyChat() {
       const assistantMsg: AskShirleyChatMessage = {
         id: uid(),
         role: "assistant",
-        content: reply,
+        content: reply.answer,
         createdAt: Date.now(),
+        grounding: reply.grounding,
+        relatedTopics: reply.relatedTopics,
       };
-      setMessages((prev) => [...prev, assistantMsg]);
+      setMessages((prev) => pruneMessages([...prev, assistantMsg]));
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
       setError("Signal lost. Try again.");
@@ -96,6 +129,7 @@ export function useAskShirleyChat() {
         setIsTyping(false);
         abortRef.current = null;
       }
+      sendingRef.current = false;
     }
   }, []);
 

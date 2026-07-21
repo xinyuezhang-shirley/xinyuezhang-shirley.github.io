@@ -6,7 +6,7 @@ import {
   ASK_SHIRLEY_CATEGORIES,
   questionsForCategory,
   type AskShirleyCategory,
-} from "@/data/askShirleyQuestions";
+} from "@/ask-shirley/questions";
 import {
   AskComposer,
   AskMark,
@@ -14,7 +14,7 @@ import {
 } from "@/components/AskShirleyChat";
 
 export default function AskShirley() {
-  const { messages, isTyping, error, sendMessage } = useAskShirleyChat();
+  const { messages, isTyping, error, sendMessage, clearChat } = useAskShirleyChat();
   const [category, setCategory] = useState<AskShirleyCategory>("all");
   const [showAll, setShowAll] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -107,6 +107,13 @@ export default function AskShirley() {
           <Link to="/" className="ask-back">
             ← Back to site
           </Link>
+          <button
+            type="button"
+            className="ask-text-btn"
+            onClick={clearChat}
+          >
+            Reset conversation
+          </button>
           <button
             type="button"
             className="ask-mobile-toggle"

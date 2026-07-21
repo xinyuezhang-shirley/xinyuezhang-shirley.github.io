@@ -2,6 +2,9 @@
 RESEND_API_KEY=re_xxx
 EMAIL_TO=you@example.com
 EMAIL_FROM=Portfolio <onboarding@resend.dev>
-ALLOWED_ORIGIN=http://localhost:5173
+ALLOWED_ORIGIN=http://localhost:8080
 ALLOW_DEV_RESET=true
 DEV_RESET_SECRET=local-test-secret
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4.1-mini
+ASK_SHIRLEY_RATE_MAX=8

@@ -6,7 +6,8 @@ import { AskShirleyPopup } from "@/components/AskShirleyPopup";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const location = useLocation();
-  const isAskPage = location.pathname === "/ask";
+  const isAskPage =
+    location.pathname === "/ask" || location.pathname.startsWith("/ask-shirley");
   const [askOpen, setAskOpen] = useState(false);
 
   return (
