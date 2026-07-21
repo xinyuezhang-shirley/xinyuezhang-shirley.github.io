@@ -26,6 +26,7 @@ import CreativeDreams from "@/pages/CreativeDreams";
 import About from "@/pages/About";
 import Resume from "@/pages/Resume";
 import NotFound from "@/pages/NotFound";
+import AskShirley from "@/pages/AskShirley";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -61,6 +62,7 @@ function AnimatedRoutes() {
         <Route path="/creative/dreams" element={<PageTransition><CreativeDreams /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/resume" element={<PageTransition><Resume /></PageTransition>} />
+        <Route path="/ask" element={<AskShirley />} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
