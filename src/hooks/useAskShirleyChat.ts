@@ -5,7 +5,7 @@ import {
   type AskShirleyChatMessage,
 } from "@/lib/askShirleyResponder";
 
-const STORAGE_KEY = "ask-shirley:v2:messages";
+const STORAGE_KEY = "ask-shirley:v3:messages";
 const MAX_STORED_MESSAGES = 40;
 /** Soft cap on serialized history (~100KB). */
 const MAX_STORAGE_CHARS = 100_000;
@@ -123,7 +123,7 @@ export function useAskShirleyChat() {
       setMessages((prev) => pruneMessages([...prev, assistantMsg]));
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
-      setError("Signal lost. Try again.");
+      setError("Couldn't send — try again?");
     } finally {
       if (abortRef.current === controller) {
         setIsTyping(false);

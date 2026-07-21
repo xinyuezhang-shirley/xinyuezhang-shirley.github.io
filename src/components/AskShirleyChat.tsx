@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import type { AskShirleyChatMessage, GroundingLevel } from "@/ask-shirley/types";
-import {
-  ASK_SHIRLEY_QUESTIONS,
-  type AskShirleyQuestion,
-} from "@/ask-shirley/questions";
+import type { AskShirleyChatMessage } from "@/ask-shirley/types";
 
 function formatTime(ts: number): string {
   try {
@@ -15,13 +11,6 @@ function formatTime(ts: number): string {
   } catch {
     return "";
   }
-}
-
-function groundingLabel(g: GroundingLevel | undefined): string | null {
-  if (!g) return null;
-  if (g === "documented") return "Documented";
-  if (g === "interpretive") return "Interpretation";
-  return "Unknown";
 }
 
 export function AskMark({ size = "md" }: { size?: "sm" | "md" }) {
@@ -52,78 +41,38 @@ export function AskMessageList({ messages, isTyping, compact }: MessageListProps
       aria-live="polite"
       aria-relevant="additions"
     >
-      {messages.map((m) => {
-        const label = m.role === "assistant" ? groundingLabel(m.grounding) : null;
-        const topics =
-          m.role === "assistant" && m.relatedTopics && m.relatedTopics.length > 0
-            ? m.relatedTopics
-            : null;
-        return (
-          <article
-            key={m.id}
-            className={`ask-msg ask-msg--${m.role}`}
-            aria-label={m.role === "user" ? "You" : "Ask Shirley"}
-          >
-            <div className="ask-msg__meta">
-              {m.role === "assistant" ? (
-                <>
-                  <AskMark size="sm" />
-                  <span>Ask Shirley</span>
-                </>
-              ) : (
-                <span>You</span>
-              )}
-              <span aria-hidden="true">{formatTime(m.createdAt)}</span>
-            </div>
-            <div className="ask-msg__bubble">{m.content}</div>
-            {label && (
-              <p className="ask-msg__grounding">
-                <span className="ask-msg__grounding-label">{label}</span>
-                {topics && (
-                  <span className="ask-msg__topics"> · {topics.join(" · ")}</span>
-                )}
-              </p>
+      {messages.map((m) => (
+        <article
+          key={m.id}
+          className={`ask-msg ask-msg--${m.role}`}
+          aria-label={m.role === "user" ? "You" : "Ask Shirley"}
+        >
+          <div className="ask-msg__meta">
+            {m.role === "assistant" ? (
+              <>
+                <AskMark size="sm" />
+                <span>Shirley</span>
+              </>
+            ) : (
+              <span>You</span>
             )}
-          </article>
-        );
-      })}
+            <span aria-hidden="true">{formatTime(m.createdAt)}</span>
+          </div>
+          <div className="ask-msg__bubble">{m.content}</div>
+        </article>
+      ))}
       {isTyping && (
-        <div className="ask-typing" aria-label="Ask Shirley is typing">
+        <div className="ask-typing" aria-label="Shirley is typing">
           <AskMark size="sm" />
-          <span>ASK SHIRLEY is typing —</span>
-          <span className="ask-cursor" aria-hidden="true" />
+          <span className="ask-typing__label">typing</span>
+          <span className="ask-typing__dots" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
         </div>
       )}
       <div ref={endRef} />
-    </div>
-  );
-}
-
-type QuickProps = {
-  questions?: AskShirleyQuestion[];
-  onSelect: (text: string) => void;
-  limit?: number;
-};
-
-export function AskQuickQuestions({
-  questions = ASK_SHIRLEY_QUESTIONS,
-  onSelect,
-  limit = 3,
-}: QuickProps) {
-  const slice = questions.slice(0, limit);
-  return (
-    <div className="ask-quick" role="group" aria-label="Suggested questions">
-      {slice.map((q) => (
-        <button
-          key={q.id}
-          type="button"
-          className="ask-quick__btn"
-          onClick={() => onSelect(q.text)}
-        >
-          <span className="ask-quick__num">{q.number}</span>
-          <span className="ask-quick__text">{q.text}</span>
-        </button>
-      ))}
     </div>
   );
 }
@@ -139,7 +88,7 @@ type InputProps = {
 export function AskComposer({
   onSend,
   disabled,
-  placeholder = "Ask anything...",
+  placeholder = "say something...",
   large,
   diagonal,
 }: InputProps) {
@@ -157,7 +106,7 @@ export function AskComposer({
     return (
       <form className="ask-composer-large" onSubmit={submit}>
         <label className="sr-only" htmlFor="ask-shirley-input-large">
-          Type your question
+          Message
         </label>
         <textarea
           id="ask-shirley-input-large"
@@ -191,7 +140,7 @@ export function AskComposer({
   return (
     <form className="ask-input-row" onSubmit={submit}>
       <label className="sr-only" htmlFor="ask-shirley-input">
-        Ask anything
+        Message
       </label>
       <input
         id="ask-shirley-input"

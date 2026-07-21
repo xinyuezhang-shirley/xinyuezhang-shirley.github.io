@@ -25,7 +25,7 @@ export type AskShirleyReply = {
 };
 
 const WELCOME =
-  "Ask me anything about Shirley — projects, research, design philosophy, or the strange overlap between systems and art. This is an interpretation layer, not a person.";
+  "hey :)\n\nask me whatever you're curious about — design, people, tech, books, whatever's on your mind.";
 
 export function getWelcomeMessage(): AskShirleyChatMessage {
   return {
@@ -33,7 +33,6 @@ export function getWelcomeMessage(): AskShirleyChatMessage {
     role: "assistant",
     content: WELCOME,
     createdAt: Date.now(),
-    grounding: "documented",
     relatedTopics: [],
   };
 }
