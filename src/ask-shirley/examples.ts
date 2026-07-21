@@ -402,7 +402,7 @@ export const examples: ShirleyExample[] = [
     id: "im-sad",
     category: "personal",
     question: "I'm sad.",
-    answer: "Weird feeling when sadness shows up without a clean reason attached.\n\nPeople mix it up with boredom sometimes. Or tiredness. Or just the day being oddly quiet. I don't know which one this is for you.",
+    answer: "Hmm. Sadness without a clean reason attached is a weird one.\n\nPeople mix it up with boredom sometimes. Or tiredness. Or the day just being oddly quiet. Anyway — I don't have a fix for that.",
     relatedKnowledgeIds: ["about"],
   },
   {
