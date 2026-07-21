@@ -111,7 +111,6 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
 
       <div className="ask-popup__footer">
         <AskComposer onSend={sendMessage} disabled={isTyping} placeholder="say something..." />
-        <p className="ask-popup__disclaimer">an interpretation — not literally Shirley</p>
       </div>
     </div>
   );

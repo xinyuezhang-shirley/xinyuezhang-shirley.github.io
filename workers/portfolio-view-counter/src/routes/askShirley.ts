@@ -16,7 +16,8 @@ export type AskShirleyEnv = {
 };
 
 const MAX_MESSAGE_CHARS = 1500;
-const MAX_HISTORY_TURNS = 8;
+/** Latest conversation turns (excluding current message). Target ~15–30. */
+const MAX_HISTORY_TURNS = 24;
 
 type JsonFn = (
   body: unknown,

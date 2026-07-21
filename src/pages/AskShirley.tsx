@@ -23,7 +23,7 @@ export default function AskShirley() {
             <AskMark size="sm" />
             <div>
               <h1 className="ask-main__title">Ask Shirley</h1>
-              <p className="ask-main__subtitle">a conversation</p>
+              <p className="ask-main__subtitle">a conversation · not literally Shirley</p>
             </div>
           </div>
           <div className="ask-main__top-actions">
@@ -51,7 +51,6 @@ export default function AskShirley() {
             large
             diagonal
           />
-          <p className="ask-page__disclaimer">an interpretation — not literally Shirley</p>
         </div>
       </section>
     </div>

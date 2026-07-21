@@ -21,12 +21,19 @@ export type AskShirleyQuestion = {
   category: AskShirleyQuestionCategory;
 };
 
+export type ShirleyExampleTurn = {
+  role: "user" | "assistant";
+  content: string;
+};
+
 export type ShirleyExample = {
   id: string;
   category: string;
   question: string;
   answer: string;
   relatedKnowledgeIds: string[];
+  /** Multi-turn exchange preferred for few-shot formatting when present. */
+  turns?: ShirleyExampleTurn[];
 };
 
 export type KnowledgeSectionKey =

@@ -59,7 +59,8 @@ function historyForApi(messages: AskShirleyChatMessage[]): Array<{
   if (turns.length && turns[turns.length - 1]?.role === "user") {
     turns.pop();
   }
-  return turns.slice(-8);
+  // Recent conversation carries continuity; keep a wide window for C.AI-style turns.
+  return turns.slice(-24);
 }
 
 async function callAskShirleyApi(
