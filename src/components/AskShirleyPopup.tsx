@@ -6,7 +6,6 @@ import {
   AskComposer,
   AskMark,
   AskMessageList,
-  AskQuickQuestions,
 } from "@/components/AskShirleyChat";
 
 type Props = {
@@ -50,8 +49,6 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
     );
   }
 
-  const showQuick = messages.length <= 1 && !isTyping;
-
   return (
     <div
       ref={panelRef}
@@ -70,7 +67,7 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
             <h2 id={titleId} className="ask-popup__title">
               Ask Shirley
             </h2>
-            <p className="ask-popup__subtitle">digital conversation interface</p>
+            <p className="ask-popup__subtitle">message me</p>
           </div>
         </div>
         <div className="ask-popup__actions">
@@ -109,13 +106,12 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
 
       <div className="ask-popup__body">
         <AskMessageList messages={messages} isTyping={isTyping} compact />
-        {showQuick && <AskQuickQuestions onSelect={sendMessage} limit={3} />}
         {error && <p className="ask-error" role="alert">{error}</p>}
       </div>
 
       <div className="ask-popup__footer">
-        <AskComposer onSend={sendMessage} disabled={isTyping} />
-        <p className="ask-popup__disclaimer">AI interpretation — not actually Shirley</p>
+        <AskComposer onSend={sendMessage} disabled={isTyping} placeholder="say something..." />
+        <p className="ask-popup__disclaimer">an interpretation — not literally Shirley</p>
       </div>
     </div>
   );
