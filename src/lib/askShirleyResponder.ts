@@ -19,6 +19,7 @@ export type AskShirleyRespondArgs = {
 
 export type AskShirleyReply = {
   answer: string;
+  messages: string[];
   grounding: GroundingLevel;
   relatedTopics: string[];
   source: "api" | "local-fallback";
@@ -40,7 +41,6 @@ export function getWelcomeMessage(): AskShirleyChatMessage {
 function endpointBase(): string | null {
   const raw = import.meta.env.VITE_ASK_SHIRLEY_ENDPOINT;
   if (typeof raw === "string" && raw.trim()) return raw.replace(/\/$/, "");
-  // Fall back to the same Worker host as the view counter when configured.
   const shared = import.meta.env.VITE_VIEW_COUNTER_ENDPOINT;
   if (typeof shared === "string" && shared.trim()) return shared.replace(/\/$/, "");
   return null;
@@ -55,12 +55,24 @@ function historyForApi(messages: AskShirleyChatMessage[]): Array<{
     .filter((m) => m.role === "user" || m.role === "assistant")
     .map((m) => ({ role: m.role, content: m.content.trim() }))
     .filter((m) => m.content);
-  // Drop the latest user message — sent separately as `message`.
   if (turns.length && turns[turns.length - 1]?.role === "user") {
     turns.pop();
   }
-  // Recent conversation carries continuity; keep a wide window for C.AI-style turns.
-  return turns.slice(-24);
+  return turns.slice(-28);
+}
+
+function normalizeMessages(data: AskShirleyApiResponse): string[] {
+  if (Array.isArray(data.messages) && data.messages.length > 0) {
+    return data.messages
+      .filter((m): m is string => typeof m === "string")
+      .map((m) => m.trim())
+      .filter(Boolean)
+      .slice(0, 3);
+  }
+  if (typeof data.answer === "string" && data.answer.trim()) {
+    return [data.answer.trim()];
+  }
+  return [];
 }
 
 async function callAskShirleyApi(
@@ -97,7 +109,8 @@ async function callAskShirleyApi(
   }
 
   const data = (await res.json()) as AskShirleyApiResponse;
-  if (!data || typeof data.answer !== "string" || !data.answer.trim()) {
+  const messages = normalizeMessages(data);
+  if (messages.length === 0) {
     throw new Error("invalid_response");
   }
 
@@ -109,7 +122,8 @@ async function callAskShirleyApi(
       : "unknown";
 
   return {
-    answer: data.answer.trim(),
+    answer: messages.join("\n\n"),
+    messages,
     grounding,
     relatedTopics: Array.isArray(data.relatedTopics)
       ? data.relatedTopics.filter((t) => typeof t === "string")
@@ -118,12 +132,8 @@ async function callAskShirleyApi(
   };
 }
 
-/**
- * Primary responder: Worker API when configured.
- * Local fallback is labeled and only used when no endpoint is set.
- */
 export async function respondAskShirley(
-  args: AskShirleyRespondArgs
+  args: AskShirleyRespondArgs,
 ): Promise<AskShirleyReply> {
   const base = endpointBase();
   if (base) {
@@ -141,7 +151,7 @@ export async function respondAskShirley(
         window.clearTimeout(t);
         reject(new DOMException("Aborted", "AbortError"));
       },
-      { once: true }
+      { once: true },
     );
   });
 
@@ -152,6 +162,7 @@ export async function respondAskShirley(
   const local = craftLocalAskShirleyReply(text);
   return {
     answer: `${local}\n\n—\nLocal fallback (API endpoint not configured).`,
+    messages: [`${local}\n\n—\nLocal fallback (API endpoint not configured).`],
     grounding: "unknown",
     relatedTopics: [],
     source: "local-fallback",

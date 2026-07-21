@@ -78,7 +78,10 @@ export type AskShirleyApiRequest = {
 };
 
 export type AskShirleyApiResponse = {
+  /** Joined messages for legacy clients. */
   answer: string;
+  /** Preferred: 1–3 text bubbles for this turn. */
+  messages?: string[];
   grounding: GroundingLevel;
   relatedTopics: string[];
 };

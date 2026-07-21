@@ -1,8 +1,9 @@
 /**
  * POST /api/ask-shirley
+ * Character-turn pipeline: retrieve context → structured generation → messages[].
  */
 
-import { systemPrompt } from "../../../../src/ask-shirley/systemPrompt";
+import { buildGenerateTurnContext } from "../../../../src/ask-shirley/runtime/generateTurn";
 import { askShirleyWithOpenAI, type ChatTurn } from "../lib/openai";
 import { allowRequest } from "../lib/rateLimit";
 
@@ -11,13 +12,13 @@ export type AskShirleyEnv = {
   ALLOWED_ORIGIN: string;
   OPENAI_API_KEY: string;
   OPENAI_MODEL: string;
-  /** Optional override; defaults to a tighter chat limit. */
   ASK_SHIRLEY_RATE_MAX?: string;
+  /** When "true", include debug retrieval fields (never enable in public prod). */
+  ASK_SHIRLEY_DEBUG?: string;
 };
 
 const MAX_MESSAGE_CHARS = 1500;
-/** Latest conversation turns (excluding current message). Target ~15–30. */
-const MAX_HISTORY_TURNS = 24;
+const MAX_HISTORY_TURNS = 28;
 
 type JsonFn = (
   body: unknown,
@@ -92,26 +93,40 @@ export async function handleAskShirley(
   }
 
   const history = trimHistory(body.history);
+  const prepared = buildGenerateTurnContext({ history, message });
 
   try {
     const result = await askShirleyWithOpenAI({
       apiKey: env.OPENAI_API_KEY,
       model,
-      systemPrompt,
+      systemPrompt: prepared.systemPrompt,
       history,
       message,
     });
 
-    return json(
-      {
-        answer: result.answer,
-        grounding: result.grounding,
-        relatedTopics: result.relatedTopics,
-      },
-      200,
-      origin,
-      allowed,
-    );
+    const payload: Record<string, unknown> = {
+      answer: result.answer,
+      messages: result.messages,
+      grounding: result.grounding,
+      relatedTopics: result.relatedTopics,
+    };
+
+    if (env.ASK_SHIRLEY_DEBUG === "true") {
+      console.log(
+        JSON.stringify({
+          ask_shirley_debug: true,
+          tags: prepared.debug.tags,
+          exampleIds: prepared.debug.exampleIds,
+          identityIds: prepared.debug.identityIds,
+          knowledgeIds: prepared.debug.knowledgeIds,
+          intention: result.state.intention,
+          shouldAskQuestion: result.state.shouldAskQuestion,
+          messageCount: result.messages.length,
+        }),
+      );
+    }
+
+    return json(payload, 200, origin, allowed);
   } catch (err) {
     const code = err instanceof Error ? err.message : "unknown";
     console.error(`ask_shirley_failed code=${code}`);

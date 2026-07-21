@@ -12,6 +12,7 @@ export interface Env {
   OPENAI_API_KEY?: string;
   OPENAI_MODEL?: string;
   ASK_SHIRLEY_RATE_MAX?: string;
+  ASK_SHIRLEY_DEBUG?: string;
 }
 
 type StatsRow = { total: number; last_notified: number };
@@ -221,6 +222,7 @@ export default {
             OPENAI_API_KEY: env.OPENAI_API_KEY || "",
             OPENAI_MODEL: env.OPENAI_MODEL || "gpt-4.1-mini",
             ASK_SHIRLEY_RATE_MAX: env.ASK_SHIRLEY_RATE_MAX,
+            ASK_SHIRLEY_DEBUG: env.ASK_SHIRLEY_DEBUG,
           },
           json,
         );

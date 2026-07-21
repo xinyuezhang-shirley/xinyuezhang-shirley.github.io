@@ -5,13 +5,30 @@ import {
   type AskShirleyChatMessage,
 } from "@/lib/askShirleyResponder";
 
-const STORAGE_KEY = "ask-shirley:v3:messages";
-const MAX_STORED_MESSAGES = 40;
-/** Soft cap on serialized history (~100KB). */
+const STORAGE_KEY = "ask-shirley:v4:messages";
+const MAX_STORED_MESSAGES = 50;
 const MAX_STORAGE_CHARS = 100_000;
 
 function uid(): string {
   return `m-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function sleep(ms: number, signal?: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) {
+      reject(new DOMException("Aborted", "AbortError"));
+      return;
+    }
+    const t = window.setTimeout(() => resolve(), ms);
+    signal?.addEventListener(
+      "abort",
+      () => {
+        window.clearTimeout(t);
+        reject(new DOMException("Aborted", "AbortError"));
+      },
+      { once: true },
+    );
+  });
 }
 
 function pruneMessages(messages: AskShirleyChatMessage[]): AskShirleyChatMessage[] {
@@ -24,7 +41,6 @@ function pruneMessages(messages: AskShirleyChatMessage[]): AskShirleyChatMessage
 
   let serialized = JSON.stringify(next);
   while (serialized.length > MAX_STORAGE_CHARS && next.length > 2) {
-    // Drop oldest non-welcome message.
     const idx = next.findIndex((m) => m.id !== "welcome");
     if (idx < 0) break;
     next = [...next.slice(0, idx), ...next.slice(idx + 1)];
@@ -36,7 +52,9 @@ function pruneMessages(messages: AskShirleyChatMessage[]): AskShirleyChatMessage
 function loadMessages(): AskShirleyChatMessage[] {
   if (typeof window === "undefined") return [getWelcomeMessage()];
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw =
+      window.localStorage.getItem(STORAGE_KEY) ||
+      window.localStorage.getItem("ask-shirley:v3:messages");
     if (!raw) return [getWelcomeMessage()];
     const parsed = JSON.parse(raw) as AskShirleyChatMessage[];
     if (!Array.isArray(parsed) || parsed.length === 0) return [getWelcomeMessage()];
@@ -64,7 +82,7 @@ export function useAskShirleyChat() {
       const pruned = pruneMessages(messages);
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(pruned));
     } catch {
-      // Ignore quota / private mode failures.
+      /* ignore */
     }
   }, [messages]);
 
@@ -77,6 +95,7 @@ export function useAskShirleyChat() {
     setMessages([getWelcomeMessage()]);
     try {
       window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem("ask-shirley:v3:messages");
     } catch {
       /* ignore */
     }
@@ -112,15 +131,24 @@ export function useAskShirleyChat() {
         signal: controller.signal,
       });
       if (controller.signal.aborted) return;
-      const assistantMsg: AskShirleyChatMessage = {
-        id: uid(),
-        role: "assistant",
-        content: reply.answer,
-        createdAt: Date.now(),
-        grounding: reply.grounding,
-        relatedTopics: reply.relatedTopics,
-      };
-      setMessages((prev) => pruneMessages([...prev, assistantMsg]));
+
+      const bubbles = reply.messages.length > 0 ? reply.messages : [reply.answer];
+      for (let i = 0; i < bubbles.length; i++) {
+        if (controller.signal.aborted) return;
+        if (i > 0) {
+          // Small sequencing delay between Shirley bubbles (not fake long typing).
+          await sleep(250 + Math.floor(Math.random() * 450), controller.signal);
+        }
+        const assistantMsg: AskShirleyChatMessage = {
+          id: uid(),
+          role: "assistant",
+          content: bubbles[i]!,
+          createdAt: Date.now(),
+          grounding: reply.grounding,
+          relatedTopics: i === 0 ? reply.relatedTopics : [],
+        };
+        setMessages((prev) => pruneMessages([...prev, assistantMsg]));
+      }
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
       setError("Couldn't send — try again?");

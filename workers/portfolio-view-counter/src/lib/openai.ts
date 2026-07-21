@@ -1,11 +1,17 @@
 /**
- * OpenAI Responses API helper for Ask Shirley.
+ * OpenAI Responses API helper for Ask Shirley (character-turn schema).
  */
+
+import { parseGeneratedTurn, messagesToAnswer } from "../../../../src/ask-shirley/runtime/parseTurn";
+import type { ShirleyTurnState } from "../../../../src/ask-shirley/runtime/state";
 
 export type AskShirleyModelResult = {
   answer: string;
+  messages: string[];
   grounding: "documented" | "interpretive" | "unknown";
   relatedTopics: string[];
+  /** Hidden — never send to browsers in production responses if undesired. */
+  state: ShirleyTurnState;
 };
 
 export type ChatTurn = {
@@ -16,7 +22,85 @@ export type ChatTurn = {
 const RESPONSE_SCHEMA = {
   type: "object",
   properties: {
-    answer: { type: "string" },
+    state: {
+      type: "object",
+      properties: {
+        tone: {
+          type: "string",
+          enum: [
+            "casual",
+            "playful",
+            "curious",
+            "supportive",
+            "serious",
+            "excited",
+            "defensive",
+            "neutral",
+          ],
+        },
+        userEmotion: {
+          type: "string",
+          enum: [
+            "unknown",
+            "neutral",
+            "happy",
+            "excited",
+            "sad",
+            "anxious",
+            "angry",
+            "disappointed",
+            "playful",
+          ],
+        },
+        attention: { type: "string" },
+        immediateReaction: { type: "string" },
+        relevantMemoryIds: { type: "array", items: { type: "string" } },
+        relevantExampleIds: { type: "array", items: { type: "string" } },
+        intention: {
+          type: "string",
+          enum: [
+            "react",
+            "answer",
+            "comfort",
+            "ask_specific_question",
+            "share_related_detail",
+            "joke",
+            "agree",
+            "disagree",
+            "clarify",
+            "continue_topic",
+            "change_topic",
+            "pause",
+            "celebrate",
+          ],
+        },
+        shouldAskQuestion: { type: "boolean" },
+        responseLength: {
+          type: "string",
+          enum: ["tiny", "short", "medium", "long"],
+        },
+        messageCount: { type: "integer", enum: [1, 2, 3] },
+      },
+      required: [
+        "tone",
+        "userEmotion",
+        "attention",
+        "immediateReaction",
+        "relevantMemoryIds",
+        "relevantExampleIds",
+        "intention",
+        "shouldAskQuestion",
+        "responseLength",
+        "messageCount",
+      ],
+      additionalProperties: false,
+    },
+    messages: {
+      type: "array",
+      items: { type: "string" },
+      minItems: 1,
+      maxItems: 3,
+    },
     grounding: {
       type: "string",
       enum: ["documented", "interpretive", "unknown"],
@@ -26,7 +110,7 @@ const RESPONSE_SCHEMA = {
       items: { type: "string" },
     },
   },
-  required: ["answer", "grounding", "relatedTopics"],
+  required: ["state", "messages", "grounding", "relatedTopics"],
   additionalProperties: false,
 } as const;
 
@@ -57,27 +141,6 @@ function extractOutputText(payload: unknown): string {
   return chunks.join("");
 }
 
-function parseResult(raw: string): AskShirleyModelResult {
-  const parsed = JSON.parse(raw) as Partial<AskShirleyModelResult>;
-  const grounding =
-    parsed.grounding === "documented" ||
-    parsed.grounding === "interpretive" ||
-    parsed.grounding === "unknown"
-      ? parsed.grounding
-      : "unknown";
-
-  const relatedTopics = Array.isArray(parsed.relatedTopics)
-    ? parsed.relatedTopics.filter((t): t is string => typeof t === "string").slice(0, 8)
-    : [];
-
-  const answer = typeof parsed.answer === "string" ? parsed.answer.trim() : "";
-  if (!answer) {
-    throw new Error("empty_model_answer");
-  }
-
-  return { answer, grounding, relatedTopics };
-}
-
 export async function askShirleyWithOpenAI(args: {
   apiKey: string;
   model: string;
@@ -102,11 +165,13 @@ export async function askShirleyWithOpenAI(args: {
     },
     body: JSON.stringify({
       model: args.model,
+      temperature: 0.8,
+      max_output_tokens: 280,
       input,
       text: {
         format: {
           type: "json_schema",
-          name: "ask_shirley_response",
+          name: "ask_shirley_turn",
           strict: true,
           schema: RESPONSE_SCHEMA,
         },
@@ -115,7 +180,6 @@ export async function askShirleyWithOpenAI(args: {
   });
 
   if (!res.ok) {
-    // Do not log body (may contain prompt fragments). Status only.
     console.error(`openai_responses_failed status=${res.status}`);
     throw new Error(`openai_http_${res.status}`);
   }
@@ -126,5 +190,12 @@ export async function askShirleyWithOpenAI(args: {
     throw new Error("openai_empty_output");
   }
 
-  return parseResult(text);
+  const turn = parseGeneratedTurn(text);
+  return {
+    answer: messagesToAnswer(turn.messages),
+    messages: turn.messages,
+    grounding: turn.grounding,
+    relatedTopics: turn.relatedTopics,
+    state: turn.state,
+  };
 }
