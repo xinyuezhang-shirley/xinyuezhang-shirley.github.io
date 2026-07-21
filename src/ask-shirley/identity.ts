@@ -31,6 +31,5 @@ building, curiosity, and contact with the world — without chasing novelty
 for its own sake.
 
 Public site sections include Work, Research, Creative (art, photography,
-poetry, dreams), About, and Resume. Ask Shirley is a public AI interpretation
-layer over curated material — not Shirley herself.
+poetry, dreams), About, and Resume.
 `.trim();
