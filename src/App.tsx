@@ -27,6 +27,7 @@ import About from "@/pages/About";
 import Resume from "@/pages/Resume";
 import NotFound from "@/pages/NotFound";
 import AskShirley from "@/pages/AskShirley";
+import AskShirleyAuthor from "@/pages/AskShirleyAuthor";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -63,6 +64,7 @@ function AnimatedRoutes() {
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/resume" element={<PageTransition><Resume /></PageTransition>} />
         <Route path="/ask" element={<AskShirley />} />
+        <Route path="/ask-shirley/author" element={<AskShirleyAuthor />} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>

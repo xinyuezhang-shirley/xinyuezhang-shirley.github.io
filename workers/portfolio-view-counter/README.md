@@ -15,7 +15,53 @@ Secrets never ship in the frontend bundle.
 
 ---
 
+## Ask Shirley API (same Worker)
+
+`POST /api/ask-shirley` — OpenAI Responses API with curated system prompt from `src/ask-shirley/*`.
+
+### Extra secrets / vars
+
+```bash
+wrangler secret put OPENAI_API_KEY
+# optional if not using [vars]:
+# wrangler secret put OPENAI_MODEL
+```
+
+In `wrangler.toml` `[vars]`:
+
+```toml
+OPENAI_MODEL = "gpt-4.1-mini"
+ASK_SHIRLEY_RATE_MAX = "8"
+```
+
+Local `.dev.vars` must include `OPENAI_API_KEY` and `ALLOWED_ORIGIN` matching the Vite origin (`http://localhost:8080` for this portfolio).
+
+### Frontend env
+
+```bash
+# portfolio root .env.local
+VITE_ASK_SHIRLEY_ENDPOINT=http://127.0.0.1:8787
+# or reuse the view-counter host:
+# VITE_VIEW_COUNTER_ENDPOINT=http://127.0.0.1:8787
+```
+
+### Curl smoke test
+
+```bash
+curl -s -X POST http://127.0.0.1:8787/api/ask-shirley \
+  -H "Content-Type: application/json" \
+  -H "Origin: http://localhost:8080" \
+  -d '{"message":"Are you actually Shirley?","history":[]}'
+```
+
+Expect JSON: `{ "answer", "grounding", "relatedTopics" }`.
+
+Do not log full conversations; the handler only logs coarse error codes.
+
+---
+
 ## 1. Create the Worker project (already in-repo)
+
 
 ```bash
 cd workers/portfolio-view-counter

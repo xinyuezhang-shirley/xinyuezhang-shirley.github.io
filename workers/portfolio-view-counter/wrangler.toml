@@ -7,17 +7,23 @@ compatibility_date = "2025-05-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "portfolio-views"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "f1959f7c-58bf-4451-9b35-e0ec0183a1e6"
 
 # Secrets (set via `wrangler secret put`):
 #   RESEND_API_KEY
 #   EMAIL_TO
 #   EMAIL_FROM
-#   ALLOWED_ORIGIN          e.g. https://xinyuezhang-shirley.github.io
+#   ALLOWED_ORIGIN          comma-separated origins, e.g.
+#                          https://xinyuezhang-shirley.github.io,https://shirleyxzhang.com
 #   DEV_RESET_SECRET       only for local/dev testing
+#   OPENAI_API_KEY         Ask Shirley
 #
 # Vars (non-secret):
 #   ALLOW_DEV_RESET        must be "true" only in local/dev — never in production
+#   OPENAI_MODEL           e.g. gpt-4.1-mini
+#   ASK_SHIRLEY_RATE_MAX   optional; default 8 / minute / IP bucket
 
 [vars]
 ALLOW_DEV_RESET = "false"
+OPENAI_MODEL = "gpt-4.1-mini"
+ASK_SHIRLEY_RATE_MAX = "8"

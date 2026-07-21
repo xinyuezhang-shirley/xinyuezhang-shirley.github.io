@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import type { AskShirleyChatMessage } from "@/lib/askShirleyResponder";
+import type { AskShirleyChatMessage, GroundingLevel } from "@/ask-shirley/types";
 import {
   ASK_SHIRLEY_QUESTIONS,
   type AskShirleyQuestion,
-} from "@/data/askShirleyQuestions";
+} from "@/ask-shirley/questions";
 
 function formatTime(ts: number): string {
   try {
@@ -15,6 +15,13 @@ function formatTime(ts: number): string {
   } catch {
     return "";
   }
+}
+
+function groundingLabel(g: GroundingLevel | undefined): string | null {
+  if (!g) return null;
+  if (g === "documented") return "Documented";
+  if (g === "interpretive") return "Interpretation";
+  return "Unknown";
 }
 
 export function AskMark({ size = "md" }: { size?: "sm" | "md" }) {
@@ -45,26 +52,41 @@ export function AskMessageList({ messages, isTyping, compact }: MessageListProps
       aria-live="polite"
       aria-relevant="additions"
     >
-      {messages.map((m) => (
-        <article
-          key={m.id}
-          className={`ask-msg ask-msg--${m.role}`}
-          aria-label={m.role === "user" ? "You" : "Ask Shirley"}
-        >
-          <div className="ask-msg__meta">
-            {m.role === "assistant" ? (
-              <>
-                <AskMark size="sm" />
-                <span>Ask Shirley</span>
-              </>
-            ) : (
-              <span>You</span>
+      {messages.map((m) => {
+        const label = m.role === "assistant" ? groundingLabel(m.grounding) : null;
+        const topics =
+          m.role === "assistant" && m.relatedTopics && m.relatedTopics.length > 0
+            ? m.relatedTopics
+            : null;
+        return (
+          <article
+            key={m.id}
+            className={`ask-msg ask-msg--${m.role}`}
+            aria-label={m.role === "user" ? "You" : "Ask Shirley"}
+          >
+            <div className="ask-msg__meta">
+              {m.role === "assistant" ? (
+                <>
+                  <AskMark size="sm" />
+                  <span>Ask Shirley</span>
+                </>
+              ) : (
+                <span>You</span>
+              )}
+              <span aria-hidden="true">{formatTime(m.createdAt)}</span>
+            </div>
+            <div className="ask-msg__bubble">{m.content}</div>
+            {label && (
+              <p className="ask-msg__grounding">
+                <span className="ask-msg__grounding-label">{label}</span>
+                {topics && (
+                  <span className="ask-msg__topics"> · {topics.join(" · ")}</span>
+                )}
+              </p>
             )}
-            <span aria-hidden="true">{formatTime(m.createdAt)}</span>
-          </div>
-          <div className="ask-msg__bubble">{m.content}</div>
-        </article>
-      ))}
+          </article>
+        );
+      })}
       {isTyping && (
         <div className="ask-typing" aria-label="Ask Shirley is typing">
           <AskMark size="sm" />
@@ -143,6 +165,7 @@ export function AskComposer({
           value={value}
           disabled={disabled}
           placeholder={placeholder}
+          maxLength={1500}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
@@ -177,6 +200,7 @@ export function AskComposer({
         disabled={disabled}
         placeholder={placeholder}
         autoComplete="off"
+        maxLength={1500}
         onChange={(e) => setValue(e.target.value)}
       />
       <button

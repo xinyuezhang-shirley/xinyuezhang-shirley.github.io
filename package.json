@@ -10,7 +10,8 @@
     "publish:pages": "bash scripts/publish-pages.sh",
     "lint": "eslint .",
     "preview": "vite preview",
-    "analyze:dreams": "node scripts/analyze-dreams.mjs"
+    "analyze:dreams": "node scripts/analyze-dreams.mjs",
+    "ask-shirley:sync-knowledge": "python3 scripts/sync-ask-shirley-knowledge.py"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
