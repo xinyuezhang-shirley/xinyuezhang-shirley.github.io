@@ -1,5 +1,4 @@
 import { contact } from "@/content/contact";
-import { RevealContact } from "./RevealContact";
 import "./contact-section.css";
 
 export function ContactSection() {
@@ -15,27 +14,20 @@ export function ContactSection() {
             Contact
           </p>
           <p className="contact-section__lede">
-            Contact information is hidden by default to reduce automated
-            scraping.
+            For opportunities and collaboration.
           </p>
         </header>
 
         <div className="contact-section__grid">
-          <div className="contact-section__private">
-            <RevealContact
-              label="Email"
-              value={contact.email}
+          <div className="contact-section__channels">
+            <p className="contact-section__label">Email</p>
+            <a
               href={`mailto:${contact.email}`}
-              analyticsEvent="email"
-              copyEnabled
-            />
-            <RevealContact
-              label="Phone"
-              value={contact.phone}
-              href={`tel:${contact.phoneTel}`}
-              analyticsEvent="phone"
-              copyEnabled
-            />
+              className="contact-section__email"
+              aria-label={`Send email to ${contact.email}`}
+            >
+              {contact.email}
+            </a>
           </div>
 
           <nav className="contact-section__public" aria-label="Public profiles">
