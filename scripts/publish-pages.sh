@@ -62,10 +62,14 @@ echo "For local dev: cp index.vite.html index.html && npm run dev"
 test -f 404.html
 test -f index.html
 grep -q '/assets/index-' index.html
-# Sanity: new bundle must include Insights route
+# Sanity: new bundle must include Insights + Thoughts/Writing routes
 JS="$(ls assets/index-*.js | head -1)"
 if ! grep -q '/insights' "$JS"; then
   echo "error: built bundle $JS missing /insights — aborting publish." >&2
   exit 1
 fi
-echo "OK: $JS includes /insights"
+if ! grep -q '/thoughts' "$JS" || ! grep -q '/writing' "$JS"; then
+  echo "error: built bundle $JS missing /thoughts or /writing — aborting publish." >&2
+  exit 1
+fi
+echo "OK: $JS includes /insights, /thoughts, /writing"

@@ -13,6 +13,8 @@
     "db:migrate:analytics:local": "wrangler d1 execute portfolio-views --local --file=./migrations/003_analytics.sql",
     "db:migrate:cms": "wrangler d1 execute portfolio-views --remote --file=./migrations/004_content_cms.sql",
     "db:migrate:cms:local": "wrangler d1 execute portfolio-views --local --file=./migrations/004_content_cms.sql",
+    "db:migrate:archive": "wrangler d1 execute portfolio-views --remote --file=./migrations/005_thoughts_writing.sql",
+    "db:migrate:archive:local": "wrangler d1 execute portfolio-views --local --file=./migrations/005_thoughts_writing.sql",
     "owner:hash-password": "node scripts/hash-owner-password.mjs",
     "test": "vitest run",
     "test:watch": "vitest"

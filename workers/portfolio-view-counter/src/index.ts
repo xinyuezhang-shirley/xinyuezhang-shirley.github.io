@@ -8,6 +8,7 @@ import {
   handleOwnerAnalyticsRoutes,
 } from "./analytics/routes";
 import { handleContentRoutes } from "./content/routes";
+import { handleArchiveRoutes } from "./archive/routes";
 
 export interface Env {
   DB: D1Database;
@@ -148,14 +149,20 @@ export default {
         return await handleDevStatus(request, env);
       }
 
-      // Public CMS reads + media may arrive without Origin (img tags / curl).
+      // Public CMS / archive reads may arrive without Origin (img tags / curl).
       if (
         url.pathname.startsWith("/api/media/public/") ||
         url.pathname === "/api/content/artworks" ||
-        url.pathname === "/api/content/photo-collections"
+        url.pathname === "/api/content/photo-collections" ||
+        url.pathname === "/api/thoughts/public" ||
+        url.pathname === "/api/thoughts/encounter" ||
+        url.pathname === "/api/writing" ||
+        url.pathname.startsWith("/api/writing/")
       ) {
         const contentEarly = await handleContentRoutes(request, env, json, url.pathname);
         if (contentEarly) return contentEarly;
+        const archiveEarly = await handleArchiveRoutes(request, env, json, url.pathname);
+        if (archiveEarly) return archiveEarly;
       }
 
       if (!isOriginAllowed(origin, allowed)) {
@@ -178,6 +185,9 @@ export default {
 
       const content = await handleContentRoutes(request, env, json, url.pathname);
       if (content) return content;
+
+      const archive = await handleArchiveRoutes(request, env, json, url.pathname);
+      if (archive) return archive;
 
       const publicAnalytics = await handleAnalyticsPublicRoutes(
         request,

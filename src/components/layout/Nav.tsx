@@ -6,6 +6,8 @@ const links = [
   { to: "/work", label: "Work" },
   { to: "/research", label: "Research" },
   { to: "/creative", label: "Creative" },
+  { to: "/thoughts", label: "Thoughts" },
+  { to: "/writing", label: "Writing" },
   { to: "/about", label: "About" },
   { to: "/resume", label: "Resume" },
 ];

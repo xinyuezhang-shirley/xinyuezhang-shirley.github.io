@@ -1,0 +1,338 @@
+/* Thoughts archive dialect — paper desk, not MuseLab clone. */
+
+.thoughts-archive {
+  --th-bg: #f3eee6;
+  --th-desk: #e8e0d4;
+  --th-paper: #fffcf7;
+  --th-ink: #1c1917;
+  --th-muted: #6b635a;
+  --th-line: #d4c9bb;
+  --th-accent: #7a5c2e;
+  --font-th-display: "Cormorant Garamond", Georgia, serif;
+  --font-th-body: "Literata", Georgia, serif;
+  --font-th-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(122, 92, 46, 0.06), transparent 55%),
+    linear-gradient(180deg, #f7f2ea 0%, var(--th-bg) 40%, #ebe4d8 100%);
+  color: var(--th-ink);
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+  min-height: 70vh;
+  padding: 0 0 5rem;
+}
+
+.thoughts-inner {
+  width: min(1100px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding-top: 3rem;
+}
+
+.thoughts-eyebrow {
+  font-family: var(--font-th-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--th-muted);
+  margin: 0 0 0.75rem;
+}
+
+.thoughts-title {
+  font-family: var(--font-th-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.thoughts-lede {
+  font-family: var(--font-th-body);
+  font-size: 1.05rem;
+  color: var(--th-muted);
+  max-width: 32rem;
+  margin: 0 0 2.5rem;
+  line-height: 1.55;
+}
+
+.thoughts-desk {
+  position: relative;
+  min-height: 28rem;
+  background:
+    linear-gradient(145deg, rgba(255, 252, 247, 0.35), transparent 40%),
+    var(--th-desk);
+  border: 1px solid var(--th-line);
+  padding: 2rem 1.25rem 3rem;
+  overflow: hidden;
+}
+
+.thoughts-desk--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--th-muted);
+  font-family: var(--font-th-body);
+  font-style: italic;
+}
+
+.thought-scrap {
+  position: absolute;
+  width: min(14rem, 42vw);
+  background: var(--th-paper);
+  border: 1px solid var(--th-line);
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.06), 0 8px 20px rgba(28, 25, 23, 0.06);
+  padding: 0.85rem 0.95rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-th-body);
+  color: var(--th-ink);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  z-index: 1;
+}
+
+.thought-scrap:hover,
+.thought-scrap:focus-visible {
+  box-shadow: 0 2px 4px rgba(28, 25, 23, 0.08), 0 14px 28px rgba(28, 25, 23, 0.1);
+  outline: none;
+  z-index: 3;
+}
+
+.thought-scrap--question {
+  border-left: 2px solid var(--th-accent);
+}
+
+.thought-scrap--typed {
+  font-family: var(--font-th-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+}
+
+.thought-scrap__meta {
+  font-family: var(--font-th-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--th-muted);
+  margin: 0 0 0.45rem;
+}
+
+.thought-scrap__text {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.thought-reader {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  pointer-events: none;
+}
+
+.thought-reader__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 25, 23, 0.28);
+  pointer-events: auto;
+  border: 0;
+  cursor: pointer;
+}
+
+.thought-reader__sheet {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  width: min(32rem, 100%);
+  max-height: min(80vh, 40rem);
+  overflow: auto;
+  background: var(--th-paper);
+  border: 1px solid var(--th-line);
+  box-shadow: 0 24px 60px rgba(28, 25, 23, 0.22);
+  padding: 2rem 2rem 1.5rem;
+}
+
+.thought-reader__sheet h2 {
+  font-family: var(--font-th-display);
+  font-size: 1.65rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+}
+
+.thought-reader__sheet p {
+  font-family: var(--font-th-body);
+  font-size: 1.1rem;
+  line-height: 1.65;
+  margin: 0 0 1.5rem;
+  white-space: pre-wrap;
+}
+
+.thought-reader__close {
+  font-family: var(--font-th-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--th-line);
+  color: var(--th-muted);
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+}
+
+.thought-reader__close:hover {
+  color: var(--th-ink);
+  border-color: var(--th-ink);
+}
+
+.thoughts-owner {
+  margin-top: 3.5rem;
+  border-top: 1px solid var(--th-line);
+  padding-top: 2rem;
+}
+
+.thoughts-owner__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.thoughts-owner__filter {
+  font-family: var(--font-th-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--th-line);
+  background: transparent;
+  color: var(--th-muted);
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+}
+
+.thoughts-owner__filter.is-active {
+  color: var(--th-ink);
+  border-color: var(--th-accent);
+  background: rgba(122, 92, 46, 0.06);
+}
+
+.thoughts-owner__compose {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+  max-width: 40rem;
+}
+
+.thoughts-owner__compose textarea {
+  font-family: var(--font-th-body);
+  font-size: 1rem;
+  min-height: 5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--th-line);
+  background: var(--th-paper);
+  color: var(--th-ink);
+  resize: vertical;
+}
+
+.thoughts-owner__compose-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.thoughts-owner__compose select,
+.thoughts-owner__compose button,
+.thought-row__actions button {
+  font-family: var(--font-th-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--th-line);
+  background: var(--th-paper);
+  color: var(--th-ink);
+  padding: 0.4rem 0.65rem;
+  cursor: pointer;
+}
+
+.thought-row {
+  border-bottom: 1px solid var(--th-line);
+  padding: 1rem 0;
+}
+
+.thought-row__text {
+  font-family: var(--font-th-body);
+  margin: 0 0 0.5rem;
+  line-height: 1.5;
+}
+
+.thought-row__meta {
+  font-family: var(--font-th-mono);
+  font-size: 0.65rem;
+  color: var(--th-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.thought-row__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.thought-row__advanced {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px dashed var(--th-line);
+  font-family: var(--font-th-mono);
+  font-size: 0.7rem;
+  color: var(--th-muted);
+  display: grid;
+  gap: 0.5rem;
+  max-width: 28rem;
+}
+
+.thought-row__advanced label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.thought-row__advanced input {
+  width: 6rem;
+  border: 1px solid var(--th-line);
+  padding: 0.25rem;
+  background: var(--th-paper);
+}
+
+@media (max-width: 720px) {
+  .thoughts-desk {
+    min-height: 22rem;
+    padding: 1.25rem 0.75rem 2rem;
+  }
+
+  .thought-scrap {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .thought-reader__sheet {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thought-scrap {
+    transition: none;
+  }
+}

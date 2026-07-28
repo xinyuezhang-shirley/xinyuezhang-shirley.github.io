@@ -19,6 +19,23 @@ import {
   reorderArtworks,
   setArtworkStatus,
 } from "../content/entities";
+import {
+  createThought,
+  deleteThought,
+  listOwnerThoughts,
+  resurfaceThought,
+  updateThought,
+  connectThoughts,
+  type ThoughtType,
+  type ThoughtVisibility,
+} from "../archive/thoughts";
+import {
+  createWriting,
+  listOwnerWriting,
+  publishWriting,
+  unpublishWriting,
+  linkThoughtToWriting,
+} from "../archive/writing";
 
 export type ToolRole = OwnerRole;
 
@@ -355,6 +372,243 @@ export const TOOL_REGISTRY = {
     allowedRoles: ["owner"] as ToolRole[],
     requiresConfirmation: false,
     timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  create_thought: {
+    name: "create_thought",
+    description: "Add a thought to the personal archive (default private).",
+    inputSchema: z.object({
+      text: z.string().min(1).max(8000),
+      title: z.string().max(200).optional(),
+      type: z
+        .enum([
+          "fragment",
+          "question",
+          "observation",
+          "contradiction",
+          "idea",
+          "return",
+          "note",
+        ])
+        .optional(),
+      visibility: z
+        .enum(["private", "passing", "public", "permanent", "dormant", "archived"])
+        .optional(),
+      tags: z.array(z.string().max(40)).max(12).optional(),
+      perVisitorOnce: z.boolean().optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  update_thought: {
+    name: "update_thought",
+    description: "Edit a thought's text or metadata.",
+    inputSchema: z.object({
+      id: z.string().min(1).max(80),
+      text: z.string().min(1).max(8000).optional(),
+      title: z.string().max(200).nullable().optional(),
+      type: z
+        .enum([
+          "fragment",
+          "question",
+          "observation",
+          "contradiction",
+          "idea",
+          "return",
+          "note",
+        ])
+        .optional(),
+      tags: z.array(z.string().max(40)).max(12).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  search_thoughts: {
+    name: "search_thoughts",
+    description: "Search owner thoughts by text or filter by visibility.",
+    inputSchema: z.object({
+      query: z.string().max(200).optional(),
+      visibility: z
+        .enum(["all", "private", "passing", "public", "permanent", "dormant", "archived"])
+        .optional(),
+      limit: z.number().int().min(1).max(50).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+  },
+  set_thought_visibility: {
+    name: "set_thought_visibility",
+    description: "Change thought visibility (private/passing/public/permanent/dormant/archived).",
+    inputSchema: z.object({
+      id: z.string().min(1).max(80),
+      visibility: z.enum([
+        "private",
+        "passing",
+        "public",
+        "permanent",
+        "dormant",
+        "archived",
+      ]),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  set_thought_behavior: {
+    name: "set_thought_behavior",
+    description: "Set resurfacing / encounter behavior for a thought.",
+    inputSchema: z.object({
+      id: z.string().min(1).max(80),
+      perVisitorOnce: z.boolean().optional(),
+      maxPublicEncounters: z.number().int().min(1).max(10000).nullable().optional(),
+      resurfaceAfterDays: z.number().int().min(1).max(3650).nullable().optional(),
+      expiresAt: z.number().int().nullable().optional(),
+      manualWeight: z.number().optional(),
+      pinned: z.boolean().optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  archive_thought: {
+    name: "archive_thought",
+    description: "Archive a thought (retained, removed from active public surface).",
+    inputSchema: z.object({ id: z.string().min(1).max(80) }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  delete_thought: {
+    name: "delete_thought",
+    description: "Permanently delete a thought (requires confirmation).",
+    inputSchema: z.object({ id: z.string().min(1).max(80), confirm: z.literal(true) }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: true,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+  },
+  resurface_thought: {
+    name: "resurface_thought",
+    description: "Bring a dormant/archived thought back as passing or public.",
+    inputSchema: z.object({
+      id: z.string().min(1).max(80),
+      visibility: z.enum(["passing", "public", "permanent"]).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  connect_thoughts: {
+    name: "connect_thoughts",
+    description: "Link two thoughts (related_to, contradicts, evolves_into, returns_to).",
+    inputSchema: z.object({
+      fromId: z.string().min(1).max(80),
+      toId: z.string().min(1).max(80),
+      relationshipType: z.string().min(1).max(40),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+  },
+  link_thought_to_writing: {
+    name: "link_thought_to_writing",
+    description: "Link a thought to a writing piece (seed, expanded_into, etc.).",
+    inputSchema: z.object({
+      thoughtId: z.string().min(1).max(80),
+      writingId: z.string().min(1).max(80),
+      relationshipType: z.string().min(1).max(40).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+  },
+  thoughts_to_writing_draft: {
+    name: "thoughts_to_writing_draft",
+    description: "Create a writing draft seeded by one or more thoughts (does not auto-write).",
+    inputSchema: z.object({
+      thoughtIds: z.array(z.string()).min(1).max(20),
+      title: z.string().max(200).optional(),
+      type: z.string().max(40).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 10_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  create_writing_draft: {
+    name: "create_writing_draft",
+    description: "Create an empty writing draft and return its id/slug for the editor.",
+    inputSchema: z.object({
+      title: z.string().max(200).optional(),
+      type: z.string().max(40).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  list_writing: {
+    name: "list_writing",
+    description: "List writing drafts/pieces for the owner.",
+    inputSchema: z.object({
+      status: z.enum(["all", "draft", "private", "public", "archived"]).optional(),
+      limit: z.number().int().min(1).max(50).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+  },
+  open_writing: {
+    name: "open_writing",
+    description: "Resolve a writing piece id/slug and return the editor path.",
+    inputSchema: z.object({
+      id: z.string().max(80).optional(),
+      query: z.string().max(200).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+  },
+  publish_writing: {
+    name: "publish_writing",
+    description: "Publish a writing piece after explicit confirmation.",
+    inputSchema: z.object({ id: z.string().min(1).max(80), confirm: z.literal(true) }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: true,
+    timeoutMs: 15_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  unpublish_writing: {
+    name: "unpublish_writing",
+    description: "Unpublish a writing piece (make private).",
+    inputSchema: z.object({ id: z.string().min(1).max(80), confirm: z.literal(true) }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: true,
+    timeoutMs: 10_000,
     privacy: "owner-private" as const,
     reversible: true,
   },
@@ -722,6 +976,194 @@ export async function executeTool(
       case "reorder_artworks": {
         const userId = requireOwner(ctx);
         data = await reorderArtworks(ctx.db, userId, args.orderedIds as string[]);
+        break;
+      }
+      case "create_thought": {
+        const userId = requireOwner(ctx);
+        data = await createThought(ctx.db, userId, {
+          text: String(args.text),
+          title: args.title as string | undefined,
+          type: args.type as ThoughtType | undefined,
+          visibility: (args.visibility as ThoughtVisibility) || "private",
+          tags: args.tags as string[] | undefined,
+          perVisitorOnce: args.perVisitorOnce as boolean | undefined,
+          conversationId: ctx.conversationId,
+        });
+        break;
+      }
+      case "update_thought": {
+        const userId = requireOwner(ctx);
+        data = await updateThought(ctx.db, userId, String(args.id), {
+          text: args.text as string | undefined,
+          title: args.title as string | null | undefined,
+          type: args.type as ThoughtType | undefined,
+          tags: args.tags as string[] | undefined,
+        });
+        break;
+      }
+      case "search_thoughts": {
+        const userId = requireOwner(ctx);
+        const items = await listOwnerThoughts(ctx.db, userId, {
+          query: args.query as string | undefined,
+          visibility: (args.visibility as string) || "all",
+          limit: typeof args.limit === "number" ? args.limit : 20,
+        });
+        data = {
+          items: items.map((t) => ({
+            id: t.id,
+            text: (t.edited_text || t.text).slice(0, 280),
+            visibility: t.visibility,
+            type: t.type,
+            updated_at: t.updated_at,
+          })),
+        };
+        break;
+      }
+      case "set_thought_visibility": {
+        const userId = requireOwner(ctx);
+        data = await updateThought(ctx.db, userId, String(args.id), {
+          visibility: args.visibility as ThoughtVisibility,
+        });
+        break;
+      }
+      case "set_thought_behavior": {
+        const userId = requireOwner(ctx);
+        data = await updateThought(ctx.db, userId, String(args.id), {
+          perVisitorOnce: args.perVisitorOnce as boolean | undefined,
+          maxPublicEncounters: args.maxPublicEncounters as number | null | undefined,
+          resurfaceAfterDays: args.resurfaceAfterDays as number | null | undefined,
+          expiresAt: args.expiresAt as number | null | undefined,
+          manualWeight: args.manualWeight as number | undefined,
+          pinned: args.pinned as boolean | undefined,
+        });
+        break;
+      }
+      case "archive_thought": {
+        const userId = requireOwner(ctx);
+        data = await updateThought(ctx.db, userId, String(args.id), {
+          visibility: "archived",
+        });
+        break;
+      }
+      case "delete_thought": {
+        const userId = requireOwner(ctx);
+        await deleteThought(ctx.db, userId, String(args.id));
+        data = { deleted: true, id: args.id };
+        break;
+      }
+      case "resurface_thought": {
+        const userId = requireOwner(ctx);
+        data = await resurfaceThought(
+          ctx.db,
+          userId,
+          String(args.id),
+          (args.visibility as ThoughtVisibility) || "passing",
+        );
+        break;
+      }
+      case "connect_thoughts": {
+        const userId = requireOwner(ctx);
+        data = await connectThoughts(
+          ctx.db,
+          userId,
+          String(args.fromId),
+          String(args.toId),
+          String(args.relationshipType),
+        );
+        break;
+      }
+      case "link_thought_to_writing": {
+        const userId = requireOwner(ctx);
+        data = await linkThoughtToWriting(
+          ctx.db,
+          userId,
+          String(args.thoughtId),
+          String(args.writingId),
+          String(args.relationshipType || "seed"),
+        );
+        break;
+      }
+      case "thoughts_to_writing_draft": {
+        const userId = requireOwner(ctx);
+        const thoughtIds = args.thoughtIds as string[];
+        const piece = await createWriting(ctx.db, userId, {
+          title: (args.title as string) || "Untitled",
+          type: (args.type as string) || "essay",
+          thoughtIds,
+          conversationId: ctx.conversationId,
+        });
+        data = {
+          writingId: piece.id,
+          slug: piece.slug,
+          editorPath: `/writing/edit/${piece.id}`,
+          thoughtIds,
+        };
+        break;
+      }
+      case "create_writing_draft": {
+        const userId = requireOwner(ctx);
+        const piece = await createWriting(ctx.db, userId, {
+          title: (args.title as string) || "Untitled",
+          type: (args.type as string) || "essay",
+          conversationId: ctx.conversationId,
+        });
+        data = {
+          writingId: piece.id,
+          slug: piece.slug,
+          editorPath: `/writing/edit/${piece.id}`,
+        };
+        break;
+      }
+      case "list_writing": {
+        const userId = requireOwner(ctx);
+        const items = await listOwnerWriting(ctx.db, userId, {
+          status: (args.status as string) || "all",
+          limit: typeof args.limit === "number" ? args.limit : 20,
+        });
+        data = {
+          items: items.map((w) => ({
+            id: w.id,
+            slug: w.slug,
+            title: w.title,
+            status: w.status,
+            updated_at: w.updated_at,
+            editorPath: `/writing/edit/${w.id}`,
+          })),
+        };
+        break;
+      }
+      case "open_writing": {
+        const userId = requireOwner(ctx);
+        const items = await listOwnerWriting(ctx.db, userId, { limit: 40 });
+        let piece = args.id
+          ? items.find((w) => w.id === args.id)
+          : undefined;
+        if (!piece && args.query) {
+          const q = String(args.query).toLowerCase();
+          piece = items.find(
+            (w) =>
+              w.title.toLowerCase().includes(q) || w.slug.toLowerCase().includes(q),
+          );
+        }
+        if (!piece) throw new Error("writing_not_found");
+        data = {
+          writingId: piece.id,
+          slug: piece.slug,
+          title: piece.title,
+          status: piece.status,
+          editorPath: `/writing/edit/${piece.id}`,
+          publicPath: piece.status === "public" ? `/writing/${piece.slug}` : null,
+        };
+        break;
+      }
+      case "publish_writing": {
+        const userId = requireOwner(ctx);
+        data = await publishWriting(ctx.db, userId, String(args.id));
+        break;
+      }
+      case "unpublish_writing": {
+        const userId = requireOwner(ctx);
+        data = await unpublishWriting(ctx.db, userId, String(args.id));
         break;
       }
       default:

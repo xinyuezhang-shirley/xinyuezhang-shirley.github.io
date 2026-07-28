@@ -125,6 +125,65 @@ function ownerContentIntent(message: string): PlannedTool | null {
       return { name: "preview_atlas_changes", args: { dreamId: idMatch[1] } };
     }
   }
+
+  // Thoughts
+  const addThought = clean.match(
+    /^(?:add (?:a |this )?(?:passing |private |public )?thought|new thought|thought:)\s*[:\-]?\s*(.+)$/is,
+  );
+  if (addThought || /\b(add a thought|make (it|this) (a )?(passing|private|public) thought)\b/i.test(clean)) {
+    let text = addThought?.[1]?.trim() || clean;
+    text = text
+      .replace(/^(add (a |this )?(passing |private |public )?thought[:\s]*)/i, "")
+      .replace(/\s*make it (private|passing|public|permanent)\.?$/i, "")
+      .trim();
+    let visibility: string = "private";
+    if (/\bpassing\b/i.test(clean)) visibility = "passing";
+    else if (/\bmake it public\b|\bpublic thought\b/i.test(clean)) visibility = "public";
+    else if (/\bpermanent\b/i.test(clean)) visibility = "permanent";
+    else if (/\bprivate\b/i.test(clean)) visibility = "private";
+    if (text.length > 8) {
+      return {
+        name: "create_thought",
+        args: { text: text.slice(0, 8000), visibility },
+      };
+    }
+  }
+  if (/\b(show (me )?thoughts|search thoughts|thoughts about|list thoughts)\b/i.test(clean)) {
+    return {
+      name: "search_thoughts",
+      args: { query: clean.slice(0, 200), limit: 15 },
+    };
+  }
+  if (/\b(make (the |this |my )?(latest )?thought passing|make it passing)\b/i.test(clean)) {
+    return { name: "search_thoughts", args: { visibility: "private", limit: 5 } };
+  }
+  if (/\b(turn (these |those |my )?thoughts? into (a )?(writing )?draft|thoughts? to writing)\b/i.test(clean)) {
+    return { name: "search_thoughts", args: { query: clean.slice(0, 200), limit: 10 } };
+  }
+  if (/\b(new writing|create (a )?writing draft|start (an )?essay)\b/i.test(clean)) {
+    const titleMatch =
+      clean.match(/called\s+[“"']([^”"']+)[”"']/i) ||
+      clean.match(/titled\s+[“"']([^”"']+)[”"']/i);
+    return {
+      name: "create_writing_draft",
+      args: { title: titleMatch?.[1] || "Untitled" },
+    };
+  }
+  if (/\b(list (my )?writing|show drafts|open (the )?draft)\b/i.test(clean)) {
+    return { name: "list_writing", args: { status: "all", limit: 15 } };
+  }
+  if (/\b(publish (the )?(essay|writing|piece)|publish writing)\b/i.test(clean)) {
+    const idMatch = clean.match(/\b(wrt_[a-z0-9]+)\b/i);
+    if (idMatch) {
+      return {
+        name: "publish_writing",
+        args: { id: idMatch[1], confirm: true },
+        confirmed: true,
+      };
+    }
+    return { name: "list_writing", args: { status: "draft", limit: 10 } };
+  }
+
   return null;
 }
 
