@@ -9,28 +9,30 @@ binding = "DB"
 database_name = "portfolio-views"
 database_id = "f1959f7c-58bf-4451-9b35-e0ec0183a1e6"
 
+# Create with:
+#   1. Enable R2 in Cloudflare Dashboard (R2 → Purchase / Enable)
+#   2. wrangler r2 bucket create portfolio-private-media
+#   3. wrangler r2 bucket create portfolio-public-media
+# Then uncomment the bindings below and redeploy.
+# [[r2_buckets]]
+# binding = "PRIVATE_MEDIA"
+# bucket_name = "portfolio-private-media"
+#
+# [[r2_buckets]]
+# binding = "PUBLIC_MEDIA"
+# bucket_name = "portfolio-public-media"
+
 # Secrets (set via `wrangler secret put`):
 #   RESEND_API_KEY
 #   EMAIL_TO
 #   EMAIL_FROM
-#   ALLOWED_ORIGIN          comma-separated origins, e.g.
-#                          https://xinyuezhang-shirley.github.io,https://shirleyxzhang.com
-#   DEV_RESET_SECRET       only for local/dev testing
-#   OPENAI_API_KEY         Ask Shirley
-#
-# Vars (non-secret):
-#   ALLOW_DEV_RESET        must be "true" only in local/dev — never in production
-#   OPENAI_MODEL           e.g. gpt-4.1-mini
-#   ASK_SHIRLEY_RATE_MAX   optional; default 30 / minute / IP bucket (chat-friendly)
+#   ALLOWED_ORIGIN
+#   DEV_RESET_SECRET
+#   OPENAI_API_KEY
+#   OWNER_PASSWORD_HASH
+#   SEARCH_API_KEY
 
 [vars]
 ALLOW_DEV_RESET = "false"
 OPENAI_MODEL = "gpt-4.1-mini"
 ASK_SHIRLEY_RATE_MAX = "30"
-
-# Owner mode (set via wrangler secret put)
-#   OWNER_PASSWORD_HASH   bcrypt hash from scripts/hash-owner-password.mjs
-#   SEARCH_API_KEY         Brave Search API key (optional)
-#   SEARCH_PROVIDER        brave (default)
-
-# Note: OWNER_PASSWORD_HASH and SEARCH_API_KEY are secrets — do not put in [vars].

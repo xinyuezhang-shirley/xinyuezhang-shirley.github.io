@@ -131,6 +131,7 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
           onSend={sendMessage}
           disabled={isTyping}
           placeholder={owner.ownerMode ? "message your agent..." : "say something..."}
+          allowAttachments={owner.ownerMode}
         />
       </div>
     </div>

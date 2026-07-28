@@ -78,11 +78,13 @@ export function AskMessageList({ messages, isTyping, compact }: MessageListProps
 }
 
 type InputProps = {
-  onSend: (text: string) => void;
+  onSend: (text: string, meta?: { uploadObjectIds?: string[] }) => void;
   disabled?: boolean;
   placeholder?: string;
   large?: boolean;
   diagonal?: boolean;
+  /** Owner-mode attachments */
+  allowAttachments?: boolean;
 };
 
 export function AskComposer({
@@ -91,20 +93,175 @@ export function AskComposer({
   placeholder = "say something...",
   large,
   diagonal,
+  allowAttachments = false,
 }: InputProps) {
   const [value, setValue] = useState("");
+  const [attachments, setAttachments] = useState<
+    Array<{
+      localId: string;
+      file: File;
+      previewUrl: string;
+      status: "pending" | "uploading" | "ready" | "error";
+      uploadId?: string;
+      error?: string;
+    }>
+  >([]);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
-  function submit(e?: FormEvent) {
+  useEffect(() => {
+    return () => {
+      for (const a of attachments) URL.revokeObjectURL(a.previewUrl);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function addFiles(files: FileList | File[]) {
+    const next = [...files].filter((f) => f.type.startsWith("image/")).slice(0, 12);
+    setAttachments((prev) => [
+      ...prev,
+      ...next.map((file) => ({
+        localId: `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        file,
+        previewUrl: URL.createObjectURL(file),
+        status: "pending" as const,
+      })),
+    ]);
+  }
+
+  async function ensureUploaded(): Promise<string[]> {
+    if (!allowAttachments || attachments.length === 0) return [];
+    setUploading(true);
+    try {
+      const { createUploadSession, uploadStudioFile } = await import("@/lib/studioApi");
+      const session = await createUploadSession();
+      const ids: string[] = [];
+      for (let i = 0; i < attachments.length; i++) {
+        const a = attachments[i]!;
+        if (a.uploadId) {
+          ids.push(a.uploadId);
+          continue;
+        }
+        setAttachments((prev) =>
+          prev.map((x) => (x.localId === a.localId ? { ...x, status: "uploading" } : x)),
+        );
+        try {
+          const res = await uploadStudioFile({
+            sessionId: session.id,
+            file: a.file,
+            displayOrder: i,
+          });
+          ids.push(res.file.id);
+          setAttachments((prev) =>
+            prev.map((x) =>
+              x.localId === a.localId
+                ? { ...x, status: "ready", uploadId: res.file.id }
+                : x,
+            ),
+          );
+        } catch (err) {
+          setAttachments((prev) =>
+            prev.map((x) =>
+              x.localId === a.localId
+                ? {
+                    ...x,
+                    status: "error",
+                    error: err instanceof Error ? err.message : "upload_failed",
+                  }
+                : x,
+            ),
+          );
+          throw err;
+        }
+      }
+      return ids;
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function submit(e?: FormEvent) {
     e?.preventDefault();
     const next = value.trim();
-    if (!next || disabled) return;
-    onSend(next);
-    setValue("");
+    if ((!next && attachments.length === 0) || disabled || uploading) return;
+    try {
+      const uploadObjectIds = await ensureUploaded();
+      const text =
+        next ||
+        (uploadObjectIds.length
+          ? `Add these ${uploadObjectIds.length} images to my site.`
+          : "");
+      if (!text) return;
+      onSend(text, uploadObjectIds.length ? { uploadObjectIds } : undefined);
+      setValue("");
+      for (const a of attachments) URL.revokeObjectURL(a.previewUrl);
+      setAttachments([]);
+    } catch {
+      /* keep attachments for retry */
+    }
   }
+
+  const canSend =
+    !disabled &&
+    !uploading &&
+    (value.trim().length > 0 || attachments.some((a) => a.status !== "error"));
+
+  const attachUi = allowAttachments ? (
+    <>
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        multiple
+        hidden
+        onChange={(e) => {
+          if (e.target.files?.length) addFiles(e.target.files);
+          e.target.value = "";
+        }}
+      />
+      {attachments.length > 0 && (
+        <ul className="ask-attach-list" aria-label="Attachments">
+          {attachments.map((a, idx) => (
+            <li key={a.localId} className={`ask-attach-item status-${a.status}`}>
+              <img src={a.previewUrl} alt="" />
+              <span className="ask-attach-meta">
+                {idx + 1}
+                {a.status === "uploading" ? "…" : a.status === "error" ? "!" : ""}
+              </span>
+              <button
+                type="button"
+                className="ask-attach-remove"
+                aria-label="Remove attachment"
+                onClick={() => {
+                  URL.revokeObjectURL(a.previewUrl);
+                  setAttachments((prev) => prev.filter((x) => x.localId !== a.localId));
+                }}
+              >
+                ×
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  ) : null;
 
   if (large) {
     return (
-      <form className="ask-composer-large" onSubmit={submit}>
+      <form
+        className="ask-composer-large"
+        onSubmit={(e) => void submit(e)}
+        onDragOver={(e) => {
+          if (!allowAttachments) return;
+          e.preventDefault();
+        }}
+        onDrop={(e) => {
+          if (!allowAttachments) return;
+          e.preventDefault();
+          if (e.dataTransfer.files?.length) addFiles(e.dataTransfer.files);
+        }}
+      >
+        {attachUi}
         <label className="sr-only" htmlFor="ask-shirley-input-large">
           Message
         </label>
@@ -112,33 +269,66 @@ export function AskComposer({
           id="ask-shirley-input-large"
           rows={3}
           value={value}
-          disabled={disabled}
+          disabled={disabled || uploading}
           placeholder={placeholder}
           maxLength={1500}
           onChange={(e) => setValue(e.target.value)}
+          onPaste={(e) => {
+            if (!allowAttachments) return;
+            const items = e.clipboardData?.files;
+            if (items?.length) {
+              e.preventDefault();
+              addFiles(items);
+            }
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
-              submit();
+              void submit();
             }
           }}
         />
-        <button
-          type="submit"
-          className={`ask-send${diagonal ? " ask-send--diag" : ""}`}
-          disabled={disabled || !value.trim()}
-          aria-label="Send message"
-        >
-          <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M2 14 L14 2 M6 2 H14 V10" />
-          </svg>
-        </button>
+        <div className="ask-composer-actions">
+          {allowAttachments && (
+            <button
+              type="button"
+              className="ask-attach-btn"
+              aria-label="Attach images"
+              disabled={disabled || uploading}
+              onClick={() => fileRef.current?.click()}
+            >
+              +
+            </button>
+          )}
+          <button
+            type="submit"
+            className={`ask-send${diagonal ? " ask-send--diag" : ""}`}
+            disabled={!canSend}
+            aria-label="Send message"
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M2 14 L14 2 M6 2 H14 V10" />
+            </svg>
+          </button>
+        </div>
       </form>
     );
   }
 
   return (
-    <form className="ask-input-row" onSubmit={submit}>
+    <form className="ask-input-row" onSubmit={(e) => void submit(e)}>
+      {attachUi}
+      {allowAttachments && (
+        <button
+          type="button"
+          className="ask-attach-btn"
+          aria-label="Attach images"
+          disabled={disabled || uploading}
+          onClick={() => fileRef.current?.click()}
+        >
+          +
+        </button>
+      )}
       <label className="sr-only" htmlFor="ask-shirley-input">
         Message
       </label>
@@ -146,7 +336,7 @@ export function AskComposer({
         id="ask-shirley-input"
         type="text"
         value={value}
-        disabled={disabled}
+        disabled={disabled || uploading}
         placeholder={placeholder}
         autoComplete="off"
         maxLength={1500}
@@ -155,7 +345,7 @@ export function AskComposer({
       <button
         type="submit"
         className="ask-send"
-        disabled={disabled || !value.trim()}
+        disabled={!canSend}
         aria-label="Send message"
       >
         <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -165,3 +355,4 @@ export function AskComposer({
     </form>
   );
 }
+

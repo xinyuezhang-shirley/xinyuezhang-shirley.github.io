@@ -36,6 +36,8 @@ export type AskShirleyEnv = {
   OWNER_PASSWORD_HASH?: string;
   SEARCH_API_KEY?: string;
   SEARCH_PROVIDER?: string;
+  PRIVATE_MEDIA?: R2Bucket;
+  PUBLIC_MEDIA?: R2Bucket;
 };
 
 const MAX_MESSAGE_CHARS = 1500;
@@ -280,6 +282,8 @@ export async function handleAskShirley(
     conversationId,
     searchApiKey: env.SEARCH_API_KEY,
     searchProvider: env.SEARCH_PROVIDER,
+    privateMedia: env.PRIVATE_MEDIA,
+    publicMedia: env.PUBLIC_MEDIA,
   });
 
   const prepared = buildGenerateTurnContext({ history, message });

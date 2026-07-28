@@ -77,6 +77,7 @@ export default function AskShirley() {
             placeholder={owner.ownerMode ? "message your agent..." : "say something..."}
             large
             diagonal
+            allowAttachments={owner.ownerMode}
           />
         </div>
       </section>

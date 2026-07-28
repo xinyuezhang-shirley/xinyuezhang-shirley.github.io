@@ -118,7 +118,7 @@ export function useAskShirleyChat(opts?: {
   }, []);
 
   const sendMessage = useCallback(
-    async (text: string) => {
+    async (text: string, meta?: { uploadObjectIds?: string[] }) => {
       const trimmed = text.trim();
       if (!trimmed || sendingRef.current) return;
 
@@ -129,6 +129,10 @@ export function useAskShirleyChat(opts?: {
       setError(null);
 
       const isAuthCommand = /^\/owner\b/i.test(trimmed);
+      const apiContent =
+        meta?.uploadObjectIds?.length && !isAuthCommand
+          ? `${trimmed}\n\n[uploads:${meta.uploadObjectIds.join(",")}]`
+          : trimmed;
 
       const userMsg: AskShirleyChatMessage = {
         id: uid(),
@@ -146,8 +150,13 @@ export function useAskShirleyChat(opts?: {
       setIsTyping(true);
 
       try {
+        const apiMessages = nextMessages.map((m, i) =>
+          i === nextMessages.length - 1 && m.id === userMsg.id
+            ? { ...m, content: apiContent.slice(0, 2000) }
+            : m,
+        );
         const reply = await respondAskShirley({
-          messages: nextMessages,
+          messages: apiMessages,
           signal: controller.signal,
         });
         if (controller.signal.aborted) return;

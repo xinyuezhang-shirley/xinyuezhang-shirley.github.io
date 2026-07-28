@@ -1,15 +1,60 @@
-import { useCallback, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import "@/work/art/art-monograph.css";
 import {
   catalogue,
   catalogueBySlug,
-  getCatalogueIndex,
   type CatalogueEntry,
+  type Orientation,
 } from "@/work/art/catalogue";
 import { ArchiveSheet } from "@/work/art/components/ArchiveSheet";
 import { FullscreenArtworkViewer } from "@/work/art/components/FullscreenArtworkViewer";
 import { useInView } from "@/work/art/components/useInView";
+import { fetchPublishedArtworks } from "@/lib/studioApi";
+
+function orientationOf(width: number, height: number): Orientation {
+  const ratio = width / height;
+  if (ratio > 1.15) return "landscape";
+  if (ratio < 0.92) return "portrait";
+  return "square";
+}
+
+function remoteToCatalogue(
+  items: Awaited<ReturnType<typeof fetchPublishedArtworks>>["items"],
+  startPlate: number,
+): CatalogueEntry[] {
+  const existing = new Set(catalogue.map((c) => c.slug));
+  const out: CatalogueEntry[] = [];
+  let plate = startPlate;
+  for (const item of items) {
+    if (!item.slug || !item.image_url || existing.has(item.slug)) continue;
+    const width = item.width && item.width > 0 ? item.width : 1200;
+    const height = item.height && item.height > 0 ? item.height : 1600;
+    const year =
+      (item.year != null && String(item.year)) ||
+      (item.published_at
+        ? String(new Date(item.published_at).getFullYear())
+        : "");
+    out.push({
+      slug: item.slug,
+      title: item.title || "Untitled",
+      medium: item.medium || "Digital",
+      image: item.image_url,
+      description: item.description || "",
+      date: year,
+      tags: ["studio"],
+      plate: String(plate).padStart(2, "0"),
+      year: year || "—",
+      alt: `${item.title || "Untitled"}, ${item.medium || "Digital"}`,
+      width,
+      height,
+      orientation: orientationOf(width, height),
+      edition: "Studio · published",
+    });
+    plate += 1;
+  }
+  return out;
+}
 
 /** Thin contain wrapper — not a layout factory. */
 function Plate({
@@ -121,13 +166,33 @@ function Reveal({
 export default function CreativeArt() {
   const [viewerIndex, setViewerIndex] = useState(0);
   const [viewerOpen, setViewerOpen] = useState(false);
+  const [studioWorks, setStudioWorks] = useState<CatalogueEntry[]>([]);
 
-  const openSlug = useCallback((slug: string) => {
-    const idx = getCatalogueIndex(slug);
-    if (idx < 0) return;
-    setViewerIndex(idx);
-    setViewerOpen(true);
+  useEffect(() => {
+    let cancelled = false;
+    void fetchPublishedArtworks().then(({ items }) => {
+      if (cancelled) return;
+      setStudioWorks(remoteToCatalogue(items, catalogue.length + 1));
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  const allWorks = useMemo(
+    () => [...catalogue, ...studioWorks],
+    [studioWorks],
+  );
+
+  const openSlug = useCallback(
+    (slug: string) => {
+      const idx = allWorks.findIndex((w) => w.slug === slug);
+      if (idx < 0) return;
+      setViewerIndex(idx);
+      setViewerOpen(true);
+    },
+    [allWorks],
+  );
 
   const zion = catalogueBySlug["zion-introduction"];
   const zionAgain = catalogueBySlug["zion-again"];
@@ -554,7 +619,9 @@ export default function CreativeArt() {
       <section className="art-close" aria-label="End of exhibition">
         <Reveal>
           <p className="art-mono__meta">End of hanging</p>
-          <p className="art-close__line">Twenty-seven plates.</p>
+          <p className="art-close__line">
+            {allWorks.length} plate{allWorks.length === 1 ? "" : "s"}.
+          </p>
           <p className="art-close__line">The work continues offline.</p>
           <div className="art-close__rule" aria-hidden />
           <p className="art-mono__note art-close__note">
@@ -563,8 +630,30 @@ export default function CreativeArt() {
         </Reveal>
       </section>
 
+      {studioWorks.length > 0 && (
+        <section className="art-close" aria-label="Studio additions">
+          <Reveal>
+            <p className="art-mono__meta">Studio</p>
+            <p className="art-close__line">
+              {studioWorks.length} published from Ask Shirley.
+            </p>
+          </Reveal>
+          <div className="spread-commissions__grid" style={{ marginTop: "2rem" }}>
+            {studioWorks.map((work) => (
+              <Reveal key={work.slug} className="spread-commissions__cell">
+                <Plate work={work} onOpen={() => openSlug(work.slug)} />
+                <figcaption className="spread-commissions__cap">
+                  <span className="art-mono__plate">Pl. {work.plate}</span>
+                  <span className="art-archive__name">{work.title}</span>
+                </figcaption>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
+
       <ArchiveSheet
-        works={catalogue}
+        works={allWorks}
         onOpen={openSlug}
         title="Archive"
         deck="Catalogue of plates"
@@ -583,7 +672,7 @@ export default function CreativeArt() {
       </footer>
 
       <FullscreenArtworkViewer
-        works={catalogue}
+        works={allWorks}
         index={viewerIndex}
         open={viewerOpen}
         onChange={setViewerIndex}

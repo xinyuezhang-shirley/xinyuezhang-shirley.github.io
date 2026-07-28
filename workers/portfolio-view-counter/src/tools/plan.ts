@@ -54,12 +54,88 @@ function ownerMemoryIntent(message: string): PlannedTool | null {
   return null;
 }
 
+function ownerContentIntent(message: string): PlannedTool | null {
+  const m = message.trim();
+  const uploadMatch = m.match(/\[uploads:([^\]]+)\]/i);
+  const uploadObjectIds = uploadMatch
+    ? uploadMatch[1]!
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .slice(0, 40)
+    : [];
+  const clean = m.replace(/\n\n\[uploads:[^\]]+\]/i, "").trim();
+
+  if (/\b(what (did|have) i (change|publish|update)|show (me )?(content )?changes|activity (log|history)|what changed)\b/i.test(clean)) {
+    return { name: "list_content_changes", args: { limit: 20 } };
+  }
+  if (/\b(list drafts|show drafts|open drafts|studio drafts)\b/i.test(clean)) {
+    return { name: "list_content_drafts", args: { limit: 20 } };
+  }
+  if (/\b(add (this |these )?(painting|artwork|piece)|new artwork|create artwork|add these images)\b/i.test(clean)) {
+    const titleMatch =
+      clean.match(/called\s+[“"']([^”"']+)[”"']/i) ||
+      clean.match(/titled\s+[“"']([^”"']+)[”"']/i) ||
+      clean.match(/“([^”]+)”/);
+    const title = titleMatch?.[1]?.trim() || (uploadObjectIds.length ? "Untitled" : "Untitled");
+    const mediumMatch = clean.match(/\b(acrylic|oil|watercolor|digital|ink|mixed media)[^\n.]{0,40}/i);
+    return {
+      name: "create_artwork_draft",
+      args: {
+        title,
+        medium: mediumMatch?.[0]?.trim(),
+        description: clean.slice(0, 1500),
+        uploadObjectIds,
+      },
+    };
+  }
+  if (/\b(photo collection|photography collection|new collection|add these (photos|photographs))\b/i.test(clean)) {
+    const titleMatch =
+      clean.match(/called\s+[“"']([^”"']+)[”"']/i) || clean.match(/collection\s+[“"']([^”"']+)[”"']/i);
+    return {
+      name: "create_photo_collection_draft",
+      args: {
+        title: titleMatch?.[1]?.trim() || "Untitled collection",
+        description: clean.slice(0, 1500),
+        uploadObjectIds,
+        coverUploadObjectId: uploadObjectIds[1] || uploadObjectIds[0],
+      },
+    };
+  }
+  if (/\b(add (last night'?s |tonight'?s |a )?dream|save (this )?dream|new dream)\b/i.test(clean)) {
+    const text = clean.replace(/^(.*?(dream[:\s]+))/i, "").trim() || clean;
+    return {
+      name: "create_dream_draft",
+      args: { text: text.slice(0, 50_000), visibility: "full_private" },
+    };
+  }
+  if (/\b(publish draft|publish it|publish this)\b/i.test(clean)) {
+    const idMatch = clean.match(/\b(draft_[a-z0-9]+)\b/i);
+    if (idMatch) {
+      return {
+        name: "publish_content_change",
+        args: { draftId: idMatch[1], confirm: true },
+        confirmed: true,
+      };
+    }
+  }
+  if (/\b(atlas (preview|changes)|reprocess|propose atlas)\b/i.test(clean)) {
+    const idMatch = clean.match(/\b(dream_[a-z0-9]+)\b/i);
+    if (idMatch) {
+      return { name: "preview_atlas_changes", args: { dreamId: idMatch[1] } };
+    }
+  }
+  return null;
+}
+
 export function planTools(args: {
   message: string;
   role: OwnerRole;
 }): PlannedTool[] {
   const plans: PlannedTool[] = [];
   if (args.role === "owner") {
+    const content = ownerContentIntent(args.message);
+    if (content) plans.push(content);
     const mem = ownerMemoryIntent(args.message);
     if (mem) plans.push(mem);
   }
@@ -86,6 +162,8 @@ export async function runToolPlan(args: {
   conversationId: string | null;
   searchApiKey?: string;
   searchProvider?: string;
+  privateMedia?: R2Bucket;
+  publicMedia?: R2Bucket;
 }): Promise<{ results: ToolResult[]; promptBlock: string; citations: Array<{ title: string; url: string }> }> {
   const results: ToolResult[] = [];
   const citations: Array<{ title: string; url: string }> = [];
@@ -100,6 +178,8 @@ export async function runToolPlan(args: {
       searchApiKey: args.searchApiKey,
       searchProvider: args.searchProvider,
       confirmed: plan.confirmed,
+      privateMedia: args.privateMedia,
+      publicMedia: args.publicMedia,
     });
     results.push(result);
 

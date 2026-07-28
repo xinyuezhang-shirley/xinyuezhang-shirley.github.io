@@ -10,6 +10,15 @@ import * as notes from "../owner/notes";
 import * as conversations from "../owner/conversations";
 import { searchWeb } from "./searchWeb";
 import { searchPortfolioContent } from "./portfolioSearch";
+import { createDraft, getDraft, listChanges, listDrafts, parseProposed, updateDraft } from "../content/drafts";
+import {
+  createArtworkFromDraft,
+  createDream,
+  createPhotoCollectionFromDraft,
+  proposeAtlasChanges,
+  reorderArtworks,
+  setArtworkStatus,
+} from "../content/entities";
 
 export type ToolRole = OwnerRole;
 
@@ -22,6 +31,7 @@ export type ToolDefinition<TIn extends z.ZodTypeAny = z.ZodTypeAny> = {
   requiresConfirmation: boolean;
   timeoutMs: number;
   privacy: "public" | "owner-private" | "system-secret";
+  reversible?: boolean;
 };
 
 export type ToolContext = {
@@ -32,6 +42,8 @@ export type ToolContext = {
   searchApiKey?: string;
   searchProvider?: string;
   confirmed?: boolean;
+  privateMedia?: R2Bucket;
+  publicMedia?: R2Bucket;
 };
 
 export type ToolResult = {
@@ -232,6 +244,120 @@ export const TOOL_REGISTRY = {
     timeoutMs: 5_000,
     privacy: "owner-private" as const,
   },
+  create_artwork_draft: {
+    name: "create_artwork_draft",
+    description: "Create an unpublished artwork draft from title/medium/uploads (not public until publish).",
+    inputSchema: z.object({
+      title: z.string().min(1).max(200),
+      description: z.string().max(4000).optional(),
+      medium: z.string().max(200).optional(),
+      completedAt: z.string().max(64).optional(),
+      section: z.string().max(80).optional(),
+      uploadObjectIds: z.array(z.string()).max(12).optional(),
+      tags: z.array(z.string().max(40)).max(20).optional(),
+      altText: z.string().max(500).optional(),
+      displayOrder: z.number().int().optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  publish_content_change: {
+    name: "publish_content_change",
+    description: "Publish an open content draft after explicit confirmation.",
+    inputSchema: z.object({
+      draftId: z.string().min(1).max(80),
+      confirm: z.literal(true),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: true,
+    timeoutMs: 20_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  list_content_changes: {
+    name: "list_content_changes",
+    description: "List recent website content mutations for the owner.",
+    inputSchema: z.object({ limit: z.number().int().min(1).max(50).optional() }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 5_000,
+    privacy: "owner-private" as const,
+  },
+  list_content_drafts: {
+    name: "list_content_drafts",
+    description: "List open Studio drafts.",
+    inputSchema: z.object({ limit: z.number().int().min(1).max(50).optional() }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 5_000,
+    privacy: "owner-private" as const,
+  },
+  create_photo_collection_draft: {
+    name: "create_photo_collection_draft",
+    description: "Create an unpublished photography collection draft from uploaded file IDs.",
+    inputSchema: z.object({
+      title: z.string().min(1).max(200),
+      description: z.string().max(4000).optional(),
+      uploadObjectIds: z.array(z.string()).max(40).optional(),
+      coverUploadObjectId: z.string().max(80).optional(),
+      locationLabel: z.string().max(200).optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  create_dream_draft: {
+    name: "create_dream_draft",
+    description: "Save a private dream draft (full text never public by default).",
+    inputSchema: z.object({
+      text: z.string().min(1).max(100_000),
+      title: z.string().max(200).optional(),
+      dreamDate: z.string().max(64).optional(),
+      publicExcerpt: z.string().max(2000).optional(),
+      visibility: z
+        .enum(["full_private", "private_with_public_excerpt", "fully_public"])
+        .optional(),
+    }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  preview_atlas_changes: {
+    name: "preview_atlas_changes",
+    description: "Propose Dream Atlas changes for a saved dream (review only).",
+    inputSchema: z.object({ dreamId: z.string().min(1).max(80) }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 10_000,
+    privacy: "owner-private" as const,
+  },
+  unpublish_artwork: {
+    name: "unpublish_artwork",
+    description: "Hide a published artwork from the public Art page.",
+    inputSchema: z.object({ artworkId: z.string().min(1).max(80), confirm: z.literal(true) }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: true,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
+  reorder_artworks: {
+    name: "reorder_artworks",
+    description: "Set artwork display order by id list (first = top).",
+    inputSchema: z.object({ orderedIds: z.array(z.string()).min(1).max(100) }),
+    allowedRoles: ["owner"] as ToolRole[],
+    requiresConfirmation: false,
+    timeoutMs: 8_000,
+    privacy: "owner-private" as const,
+    reversible: true,
+  },
 } as const;
 
 export type ToolName = keyof typeof TOOL_REGISTRY;
@@ -423,6 +549,179 @@ export async function executeTool(
       case "get_conversation_summary": {
         const userId = requireOwner(ctx);
         data = await conversations.getConversationForOwner(ctx.db, userId, String(args.id));
+        break;
+      }
+      case "create_artwork_draft": {
+        const userId = requireOwner(ctx);
+        const draft = await createDraft(ctx.db, {
+          ownerId: userId,
+          contentType: "artwork",
+          operationType: "create",
+          proposedData: args,
+          conversationId: ctx.conversationId,
+        });
+        await updateDraft(ctx.db, userId, draft.id, {
+          validationStatus: "valid",
+          previewStatus: "ready",
+        });
+        data = {
+          status: "drafted",
+          draftId: draft.id,
+          title: args.title,
+          message:
+            "Artwork draft saved privately — not on the public site. Publish with confirm.",
+        };
+        break;
+      }
+      case "create_photo_collection_draft": {
+        const userId = requireOwner(ctx);
+        const draft = await createDraft(ctx.db, {
+          ownerId: userId,
+          contentType: "photo_collection",
+          operationType: "create",
+          proposedData: args,
+          conversationId: ctx.conversationId,
+        });
+        await updateDraft(ctx.db, userId, draft.id, {
+          validationStatus: "valid",
+          previewStatus: "ready",
+        });
+        data = {
+          status: "drafted",
+          draftId: draft.id,
+          title: args.title,
+          imageCount: Array.isArray(args.uploadObjectIds) ? args.uploadObjectIds.length : 0,
+        };
+        break;
+      }
+      case "create_dream_draft": {
+        const userId = requireOwner(ctx);
+        const draft = await createDraft(ctx.db, {
+          ownerId: userId,
+          contentType: "dream",
+          operationType: "create",
+          proposedData: {
+            rawPrivateText: args.text,
+            title: args.title,
+            dreamDate: args.dreamDate,
+            publicExcerpt: args.publicExcerpt,
+            visibility: args.visibility || "full_private",
+          },
+          conversationId: ctx.conversationId,
+        });
+        // Private dreams may save immediately as private records + keep draft link
+        const dream = await createDream(
+          ctx.db,
+          userId,
+          {
+            rawPrivateText: String(args.text),
+            title: typeof args.title === "string" ? args.title : null,
+            dreamDate: typeof args.dreamDate === "string" ? args.dreamDate : null,
+            publicExcerpt: typeof args.publicExcerpt === "string" ? args.publicExcerpt : null,
+            visibility: "full_private",
+          },
+          { conversationId: ctx.conversationId, draftId: draft.id },
+        );
+        await updateDraft(ctx.db, userId, draft.id, {
+          status: "published",
+          targetContentId: (dream as { id?: string })?.id ?? null,
+        });
+        data = {
+          status: "saved_privately",
+          draftId: draft.id,
+          dreamId: (dream as { id?: string })?.id,
+          visibility: "full_private",
+        };
+        break;
+      }
+      case "publish_content_change": {
+        const userId = requireOwner(ctx);
+        const draft = await getDraft(ctx.db, userId, String(args.draftId));
+        if (!draft || draft.status !== "open") {
+          throw new Error("tool_draft_unavailable");
+        }
+        const proposed = parseProposed<Record<string, unknown>>(draft);
+        if (draft.content_type === "artwork") {
+          data = await createArtworkFromDraft(
+            ctx.db,
+            userId,
+            {
+              title: String(proposed.title || "Untitled"),
+              description: (proposed.description as string) || null,
+              medium: (proposed.medium as string) || null,
+              completedAt: (proposed.completedAt as string) || null,
+              section: (proposed.section as string) || "Recent Work",
+              tags: Array.isArray(proposed.tags) ? (proposed.tags as string[]) : [],
+              altText: (proposed.altText as string) || null,
+              uploadObjectIds: Array.isArray(proposed.uploadObjectIds)
+                ? (proposed.uploadObjectIds as string[])
+                : [],
+              displayOrder:
+                typeof proposed.displayOrder === "number" ? proposed.displayOrder : 0,
+              status: "published",
+            },
+            {
+              conversationId: ctx.conversationId,
+              draftId: draft.id,
+              privateBucket: ctx.privateMedia,
+              publicBucket: ctx.publicMedia,
+            },
+          );
+        } else if (draft.content_type === "photo_collection") {
+          data = await createPhotoCollectionFromDraft(
+            ctx.db,
+            userId,
+            {
+              title: String(proposed.title || "Untitled"),
+              description: (proposed.description as string) || null,
+              uploadObjectIds: Array.isArray(proposed.uploadObjectIds)
+                ? (proposed.uploadObjectIds as string[])
+                : [],
+              coverUploadObjectId: (proposed.coverUploadObjectId as string) || null,
+              status: "published",
+            },
+            {
+              conversationId: ctx.conversationId,
+              draftId: draft.id,
+              privateBucket: ctx.privateMedia,
+              publicBucket: ctx.publicMedia,
+            },
+          );
+        } else {
+          throw new Error("tool_unsupported_publish");
+        }
+        await updateDraft(ctx.db, userId, draft.id, { status: "published" });
+        break;
+      }
+      case "list_content_changes": {
+        const userId = requireOwner(ctx);
+        data = await listChanges(
+          ctx.db,
+          userId,
+          typeof args.limit === "number" ? args.limit : 20,
+        );
+        break;
+      }
+      case "list_content_drafts": {
+        const userId = requireOwner(ctx);
+        data = await listDrafts(ctx.db, userId, {
+          limit: typeof args.limit === "number" ? args.limit : 20,
+        });
+        break;
+      }
+      case "preview_atlas_changes": {
+        const userId = requireOwner(ctx);
+        data = await proposeAtlasChanges(ctx.db, userId, String(args.dreamId));
+        break;
+      }
+      case "unpublish_artwork": {
+        const userId = requireOwner(ctx);
+        data = await setArtworkStatus(ctx.db, userId, String(args.artworkId), "hidden");
+        break;
+      }
+      case "reorder_artworks": {
+        const userId = requireOwner(ctx);
+        data = await reorderArtworks(ctx.db, userId, args.orderedIds as string[]);
         break;
       }
       default:

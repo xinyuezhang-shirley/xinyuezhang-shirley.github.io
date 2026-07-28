@@ -11,6 +11,8 @@
     "db:migrate:owner:local": "wrangler d1 execute portfolio-views --local --file=./migrations/002_owner_mode.sql",
     "db:migrate:analytics": "wrangler d1 execute portfolio-views --remote --file=./migrations/003_analytics.sql",
     "db:migrate:analytics:local": "wrangler d1 execute portfolio-views --local --file=./migrations/003_analytics.sql",
+    "db:migrate:cms": "wrangler d1 execute portfolio-views --remote --file=./migrations/004_content_cms.sql",
+    "db:migrate:cms:local": "wrangler d1 execute portfolio-views --local --file=./migrations/004_content_cms.sql",
     "owner:hash-password": "node scripts/hash-owner-password.mjs",
     "test": "vitest run",
     "test:watch": "vitest"

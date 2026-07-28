@@ -23,8 +23,14 @@ import {
   type OwnerNote,
   type PersonaObservation,
 } from "@/lib/askShirleyOwnerApi";
+import {
+  discardStudioDraft,
+  listStudioChanges,
+  listStudioDrafts,
+  publishStudioDraft,
+} from "@/lib/studioApi";
 
-type Tab = "memories" | "notes" | "chats" | "traits" | "tools";
+type Tab = "studio" | "memories" | "notes" | "chats" | "traits" | "tools";
 
 type Props = {
   ownerMode: boolean;
@@ -33,11 +39,17 @@ type Props = {
 
 export function AskShirleyOwnerChrome({ ownerMode, onEndSession }: Props) {
   const [open, setOpen] = useState(false);
-  const [tab, setTab] = useState<Tab>("memories");
+  const [tab, setTab] = useState<Tab>("studio");
   const [memories, setMemories] = useState<OwnerMemory[]>([]);
   const [notes, setNotes] = useState<OwnerNote[]>([]);
   const [chats, setChats] = useState<OwnerConversation[]>([]);
   const [traits, setTraits] = useState<PersonaObservation[]>([]);
+  const [drafts, setDrafts] = useState<
+    Array<{ id: string; content_type: string; operation_type: string; proposed: Record<string, unknown>; updated_at: number }>
+  >([]);
+  const [changes, setChanges] = useState<
+    Array<{ id: string; content_type: string; operation: string; status: string; created_at: number }>
+  >([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const panelId = useId();
@@ -48,16 +60,20 @@ export function AskShirleyOwnerChrome({ ownerMode, onEndSession }: Props) {
     setBusy(true);
     setError(null);
     try {
-      const [m, n, c, t] = await Promise.all([
+      const [m, n, c, t, studioDrafts, studioChanges] = await Promise.all([
         listOwnerMemories(),
         listOwnerNotes(),
         listOwnerConversations(),
         listPersonaObservations(),
+        listStudioDrafts().catch(() => ({ drafts: [] })),
+        listStudioChanges().catch(() => ({ changes: [] })),
       ]);
       setMemories(m);
       setNotes(n);
       setChats(c);
       setTraits(t);
+      setDrafts(studioDrafts.drafts || []);
+      setChanges(studioChanges.changes || []);
     } catch {
       setError("Couldn’t load private tools.");
     } finally {
@@ -130,6 +146,7 @@ export function AskShirleyOwnerChrome({ ownerMode, onEndSession }: Props) {
           <div className="ask-owner__tabs" role="tablist" aria-label="Owner sections">
             {(
               [
+                ["studio", "Studio"],
                 ["memories", "Memories"],
                 ["notes", "Notes"],
                 ["chats", "Past chats"],
@@ -156,6 +173,71 @@ export function AskShirleyOwnerChrome({ ownerMode, onEndSession }: Props) {
               <p className="ask-error" role="alert">
                 {error}
               </p>
+            )}
+
+            {tab === "studio" && !busy && (
+              <div className="ask-owner__list">
+                <p className="ask-owner__muted">
+                  Chat is the primary CMS. Drafts stay private until you publish.
+                </p>
+                <h3 className="ask-owner__drawer-title">Open drafts</h3>
+                {drafts.length === 0 && (
+                  <p className="ask-owner__muted">No open drafts.</p>
+                )}
+                <ul className="ask-owner__list">
+                  {drafts.map((d) => (
+                    <li key={d.id} className="ask-owner__item">
+                      <p>
+                        <strong>{d.content_type}</strong> · {d.operation_type}
+                        <br />
+                        <span className="ask-owner__muted">{d.id}</span>
+                        <br />
+                        {String((d.proposed as { title?: string }).title || "")}
+                      </p>
+                      <div className="ask-owner__item-actions">
+                        <button
+                          type="button"
+                          className="ask-text-btn"
+                          onClick={() => {
+                            if (
+                              window.confirm(
+                                "Publish this draft to the public site? This is irreversible without rollback.",
+                              )
+                            ) {
+                              void publishStudioDraft(d.id)
+                                .then(load)
+                                .catch(() => setError("Publish failed."));
+                            }
+                          }}
+                        >
+                          Publish
+                        </button>
+                        <button
+                          type="button"
+                          className="ask-text-btn ask-text-btn--subtle"
+                          onClick={() => {
+                            void discardStudioDraft(d.id).then(load);
+                          }}
+                        >
+                          Discard
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <h3 className="ask-owner__drawer-title">Recent changes</h3>
+                <ul className="ask-owner__list">
+                  {changes.slice(0, 12).map((c) => (
+                    <li key={c.id} className="ask-owner__muted">
+                      {new Date(c.created_at).toLocaleString()} — {c.content_type}{" "}
+                      {c.operation} ({c.status})
+                    </li>
+                  ))}
+                  {changes.length === 0 && (
+                    <li className="ask-owner__muted">No content changes yet.</li>
+                  )}
+                </ul>
+              </div>
             )}
 
             {tab === "memories" && !busy && (

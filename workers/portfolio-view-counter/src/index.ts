@@ -7,6 +7,7 @@ import {
   handleAnalyticsPublicRoutes,
   handleOwnerAnalyticsRoutes,
 } from "./analytics/routes";
+import { handleContentRoutes } from "./content/routes";
 
 export interface Env {
   DB: D1Database;
@@ -23,6 +24,8 @@ export interface Env {
   OWNER_PASSWORD_HASH?: string;
   SEARCH_API_KEY?: string;
   SEARCH_PROVIDER?: string;
+  PRIVATE_MEDIA?: R2Bucket;
+  PUBLIC_MEDIA?: R2Bucket;
 }
 
 type StatsRow = { total: number; last_notified: number };
@@ -145,6 +148,16 @@ export default {
         return await handleDevStatus(request, env);
       }
 
+      // Public CMS reads + media may arrive without Origin (img tags / curl).
+      if (
+        url.pathname.startsWith("/api/media/public/") ||
+        url.pathname === "/api/content/artworks" ||
+        url.pathname === "/api/content/photo-collections"
+      ) {
+        const contentEarly = await handleContentRoutes(request, env, json, url.pathname);
+        if (contentEarly) return contentEarly;
+      }
+
       if (!isOriginAllowed(origin, allowed)) {
         return json({ ok: false }, 403, origin, allowed);
       }
@@ -162,6 +175,9 @@ export default {
         url.pathname,
       );
       if (ownerAnalytics) return ownerAnalytics;
+
+      const content = await handleContentRoutes(request, env, json, url.pathname);
+      if (content) return content;
 
       const publicAnalytics = await handleAnalyticsPublicRoutes(
         request,
@@ -187,6 +203,8 @@ export default {
             OWNER_PASSWORD_HASH: env.OWNER_PASSWORD_HASH,
             SEARCH_API_KEY: env.SEARCH_API_KEY,
             SEARCH_PROVIDER: env.SEARCH_PROVIDER,
+            PRIVATE_MEDIA: env.PRIVATE_MEDIA,
+            PUBLIC_MEDIA: env.PUBLIC_MEDIA,
           },
           json,
         );
