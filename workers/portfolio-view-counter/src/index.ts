@@ -235,9 +235,10 @@ export default {
       }
 
       return json({ ok: false }, 404, origin, allowed);
-    } catch {
-      console.error("worker_error");
-      return json({ ok: false }, 500, origin, allowed);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "unknown";
+      console.error(JSON.stringify({ event: "worker_error", message: msg.slice(0, 300) }));
+      return json({ ok: false, code: "worker_error" }, 500, origin, allowed);
     }
   },
 };

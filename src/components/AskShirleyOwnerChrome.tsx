@@ -181,11 +181,11 @@ export function AskShirleyOwnerChrome({ ownerMode, onEndSession }: Props) {
                   Chat is the primary CMS. Drafts stay private until you publish.
                 </p>
                 <p className="ask-owner__item-actions">
-                  <Link to="/thoughts" className="ask-text-btn" onClick={() => setOpen(false)}>
-                    Thoughts archive →
+                  <Link to="/thoughts/passing" className="ask-text-btn" onClick={() => setOpen(false)}>
+                    Temporary thoughts →
                   </Link>
-                  <Link to="/writing" className="ask-text-btn" onClick={() => setOpen(false)}>
-                    Writing archive →
+                  <Link to="/thoughts/longer" className="ask-text-btn" onClick={() => setOpen(false)}>
+                    Longer thoughts →
                   </Link>
                 </p>
                 <h3 className="ask-owner__drawer-title">Open drafts</h3>

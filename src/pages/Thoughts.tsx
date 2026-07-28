@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useOwnerSession } from "@/hooks/useOwnerSession";
 import {
@@ -119,7 +120,13 @@ export default function Thoughts() {
   return (
     <div className="thoughts-archive">
       <div className="thoughts-inner">
-        <p className="thoughts-eyebrow">Passing thoughts</p>
+        <p className="thoughts-eyebrow">
+          <Link to="/thoughts" className="thoughts-crumb">
+            Thoughts
+          </Link>
+          <span aria-hidden="true"> · </span>
+          Temporary
+        </p>
         <h1 className="thoughts-title">A few scraps on the desk</h1>
         <p className="thoughts-lede">
           Not a feed. Encounter what surfaces — opening a note takes it from this

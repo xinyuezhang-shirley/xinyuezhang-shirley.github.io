@@ -126,21 +126,34 @@ function ownerContentIntent(message: string): PlannedTool | null {
     }
   }
 
-  // Thoughts
-  const addThought = clean.match(
-    /^(?:add (?:a |this )?(?:passing |private |public )?thought|new thought|thought:)\s*[:\-]?\s*(.+)$/is,
+  // Thoughts — capture commands take priority over chit-chat about the content
+  const thoughtCmd = clean.match(
+    /^(?:add|save|capture|note)\s+(?:a\s+|this\s+)?(?:passing\s+|private\s+|public\s+|permanent\s+)?thought\b(?:\s+and\s+make\s+it\s+(passing|private|public|permanent))?\s*[:\-]?\s*(.+)$/is,
   );
-  if (addThought || /\b(add a thought|make (it|this) (a )?(passing|private|public) thought)\b/i.test(clean)) {
-    let text = addThought?.[1]?.trim() || clean;
+  const thoughtLoose =
+    /\b(add|save|capture)\s+(a\s+)?(passing\s+|private\s+|public\s+)?thought\b/i.test(clean) ||
+    /\bmake\s+(it|this|that)\s+(a\s+)?(passing|private|public|permanent)\s+thought\b/i.test(clean);
+
+  if (thoughtCmd || thoughtLoose) {
+    let text = (thoughtCmd?.[2] || clean).trim();
     text = text
-      .replace(/^(add (a |this )?(passing |private |public )?thought[:\s]*)/i, "")
-      .replace(/\s*make it (private|passing|public|permanent)\.?$/i, "")
+      .replace(
+        /^(?:add|save|capture|note)\s+(?:a\s+|this\s+)?(?:passing\s+|private\s+|public\s+|permanent\s+)?thought\b(?:\s+and\s+make\s+it\s+(?:passing|private|public|permanent))?\s*[:\-]?\s*/i,
+        "",
+      )
+      .replace(/^(?:and\s+)?make\s+it\s+(?:passing|private|public|permanent)\s*[:\-]?\s*/i, "")
+      .replace(/\s*(?:and\s+)?make\s+it\s+(?:passing|private|public|permanent)\.?$/i, "")
       .trim();
-    let visibility: string = "private";
-    if (/\bpassing\b/i.test(clean)) visibility = "passing";
-    else if (/\bmake it public\b|\bpublic thought\b/i.test(clean)) visibility = "public";
-    else if (/\bpermanent\b/i.test(clean)) visibility = "permanent";
-    else if (/\bprivate\b/i.test(clean)) visibility = "private";
+
+    let visibility = "private";
+    const visFromCmd = thoughtCmd?.[1]?.toLowerCase();
+    if (visFromCmd) visibility = visFromCmd;
+    else if (/\bpassing\b/i.test(clean) && /\b(thought|make it)\b/i.test(clean))
+      visibility = "passing";
+    else if (/\b(make it public|public thought)\b/i.test(clean)) visibility = "public";
+    else if (/\bpermanent\b/i.test(clean) && /\bthought\b/i.test(clean)) visibility = "permanent";
+    else if (/\bprivate\b/i.test(clean) && /\bthought\b/i.test(clean)) visibility = "private";
+
     if (text.length > 8) {
       return {
         name: "create_thought",
@@ -198,17 +211,26 @@ export function planTools(args: {
     const mem = ownerMemoryIntent(args.message);
     if (mem) plans.push(mem);
   }
-  if (wantsWebSearch(args.message)) {
-    plans.push({ name: "search_web", args: { query: args.message.slice(0, 300), limit: 3 } });
-  } else if (
-    /\b(project|portfolio|echo|nommi|muselab|differ|ironclad|tesla|research)\b/i.test(
-      args.message,
-    )
-  ) {
-    plans.push({
-      name: "search_portfolio_content",
-      args: { query: args.message.slice(0, 200), limit: 3 },
-    });
+
+  // Don't pile search tools onto explicit capture/mutation commands.
+  const mutation = plans.some((p) =>
+    /^(create_|set_|publish_|archive_|delete_|resurface_|update_|link_|thoughts_to_)/.test(
+      p.name,
+    ),
+  );
+  if (!mutation) {
+    if (wantsWebSearch(args.message)) {
+      plans.push({ name: "search_web", args: { query: args.message.slice(0, 300), limit: 3 } });
+    } else if (
+      /\b(project|portfolio|echo|nommi|muselab|differ|ironclad|tesla|research)\b/i.test(
+        args.message,
+      )
+    ) {
+      plans.push({
+        name: "search_portfolio_content",
+        args: { query: args.message.slice(0, 200), limit: 3 },
+      });
+    }
   }
   return plans.slice(0, MAX_TOOLS);
 }

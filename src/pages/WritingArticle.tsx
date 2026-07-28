@@ -34,10 +34,10 @@ export default function WritingArticle() {
     return (
       <div className="writing-archive">
         <div className="writing-inner">
-          <p className="writing-eyebrow">Writing</p>
+          <p className="writing-eyebrow">Longer thoughts</p>
           <h1 className="writing-title">Not found</h1>
-          <Link to="/writing" className="writing-btn">
-            ← Archive
+          <Link to="/thoughts/longer" className="writing-btn">
+            ← Longer thoughts
           </Link>
         </div>
       </div>
@@ -60,8 +60,8 @@ export default function WritingArticle() {
   return (
     <div className="writing-archive">
       <div className="writing-inner">
-        <Link to="/writing" className="writing-eyebrow" style={{ display: "inline-block" }}>
-          ← Writing
+        <Link to="/thoughts/longer" className="writing-eyebrow" style={{ display: "inline-block" }}>
+          ← Longer thoughts
         </Link>
         <article className="writing-article">
           <p className="writing-article__meta">

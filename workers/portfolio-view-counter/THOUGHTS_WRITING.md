@@ -17,9 +17,11 @@ Then rebuild/publish the SPA (`scripts/publish-pages.sh --force-root` + push `ma
 
 | Path | Audience |
 | --- | --- |
-| `/thoughts` | Public desk + owner archive (same URL) |
-| `/writing` | Public filed index + owner drawers |
-| `/writing/:slug` | Public article |
+| `/thoughts` | Foyer — temporary vs longer |
+| `/thoughts/passing` | Public desk + owner scrap archive |
+| `/thoughts/longer` | Filed long-form index (+ owner drawers) |
+| `/writing` | Redirects to `/thoughts/longer` |
+| `/writing/:slug` | Public article permalink |
 | `/writing/edit/:id` | Owner editor only |
 
 ## Public APIs

@@ -106,7 +106,7 @@ export default function WritingEditor() {
         setSaveState("saved");
       })
       .catch(() => {
-        if (!cancelled) navigate("/writing");
+        if (!cancelled) navigate("/thoughts/longer");
       });
     return () => {
       cancelled = true;
@@ -129,8 +129,8 @@ export default function WritingEditor() {
       <div className="writing-archive">
         <div className="writing-inner">
           <p className="writing-subtitle">Owner session required.</p>
-          <Link to="/writing" className="writing-btn">
-            ← Archive
+          <Link to="/thoughts/longer" className="writing-btn">
+            ← Longer thoughts
           </Link>
         </div>
       </div>
@@ -155,7 +155,7 @@ export default function WritingEditor() {
             <span>
               {status} · {new Date().toLocaleDateString()}
             </span>
-            <Link to="/writing">← Archive</Link>
+            <Link to="/thoughts/longer">← Longer thoughts</Link>
           </div>
 
           <input
@@ -350,7 +350,7 @@ export default function WritingEditor() {
               type="button"
               className="writing-btn"
               onClick={() => {
-                void archiveOwnerWriting(id).then(() => navigate("/writing"));
+                void archiveOwnerWriting(id).then(() => navigate("/thoughts/longer"));
               }}
             >
               Archive

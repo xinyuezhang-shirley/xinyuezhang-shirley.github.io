@@ -56,10 +56,16 @@ export default function WritingIndex() {
   return (
     <div className="writing-archive">
       <div className="writing-inner">
-        <p className="writing-eyebrow">Writing</p>
+        <p className="writing-eyebrow">
+          <Link to="/thoughts" className="writing-crumb">
+            Thoughts
+          </Link>
+          <span aria-hidden="true"> · </span>
+          Longer
+        </p>
         <h1 className="writing-title">Filed archive</h1>
         <p className="writing-subtitle">
-          Longer pieces, deliberately kept — not a blog feed.
+          Longer thoughts, deliberately kept — not a blog feed.
         </p>
 
         {ownerMode && (
@@ -116,7 +122,7 @@ export default function WritingIndex() {
         ) : (
           byYear.map(([year, list]) => (
             <div key={year}>
-              <p className="writing-year">Writing / {year}</p>
+              <p className="writing-year">Longer / {year}</p>
               <ul className="writing-index">
                 {list.map((item) => (
                   <li key={item.id}>

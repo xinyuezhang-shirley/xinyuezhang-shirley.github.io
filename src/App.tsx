@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -23,6 +23,7 @@ import CreativeArt from "@/pages/CreativeArt";
 import CreativePhotography from "@/pages/CreativePhotography";
 import CreativePoetry from "@/pages/CreativePoetry";
 import CreativeDreams from "@/pages/CreativeDreams";
+import ThoughtsFoyer from "@/pages/ThoughtsFoyer";
 import Thoughts from "@/pages/Thoughts";
 import WritingIndex from "@/pages/WritingIndex";
 import WritingArticle from "@/pages/WritingArticle";
@@ -67,8 +68,10 @@ function AnimatedRoutes() {
         <Route path="/creative/photography" element={<PageTransition><CreativePhotography /></PageTransition>} />
         <Route path="/creative/poetry" element={<PageTransition><CreativePoetry /></PageTransition>} />
         <Route path="/creative/dreams" element={<PageTransition><CreativeDreams /></PageTransition>} />
-        <Route path="/thoughts" element={<PageTransition><Thoughts /></PageTransition>} />
-        <Route path="/writing" element={<PageTransition><WritingIndex /></PageTransition>} />
+        <Route path="/thoughts" element={<PageTransition><ThoughtsFoyer /></PageTransition>} />
+        <Route path="/thoughts/passing" element={<PageTransition><Thoughts /></PageTransition>} />
+        <Route path="/thoughts/longer" element={<PageTransition><WritingIndex /></PageTransition>} />
+        <Route path="/writing" element={<Navigate to="/thoughts/longer" replace />} />
         <Route path="/writing/edit/:id" element={<PageTransition><WritingEditor /></PageTransition>} />
         <Route path="/writing/:slug" element={<PageTransition><WritingArticle /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
