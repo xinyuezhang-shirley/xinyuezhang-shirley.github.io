@@ -57,9 +57,9 @@ export default function AskShirley() {
 
         {owner.ownerMode && (
           <div className="ask-owner__bar" style={{ borderBottom: "none", paddingTop: 0 }}>
-            <a className="ask-text-btn" href="/insights">
+            <Link className="ask-text-btn" to="/insights">
               Site Insights →
-            </a>
+            </Link>
           </div>
         )}
 

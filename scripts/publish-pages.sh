@@ -15,7 +15,12 @@ if [[ "${1:-}" != "--force-root" ]]; then
 fi
 
 # Preserve the Vite entry so local `npm run dev` keeps working after publish.
-cp index.html index.vite.html
+cp index.vite.html index.vite.html.bak 2>/dev/null || true
+if [[ -f index.vite.html ]]; then
+  cp index.vite.html index.dev.bak.html
+elif grep -q '/src/main.tsx' index.html 2>/dev/null; then
+  cp index.html index.dev.bak.html
+fi
 
 npm run build
 cp dist/index.html dist/404.html
@@ -51,11 +56,16 @@ done
 # Colliding with SPA routes — never keep these at site root.
 rm -rf work research
 
-# Restore Vite entry for development; Pages should use Actions → dist/.
-mv index.vite.html index.html
+# Keep Vite entry available for local development without undoing Pages index.
+if [[ -f index.dev.bak.html ]]; then
+  cp index.dev.bak.html index.vite.html
+  rm -f index.dev.bak.html
+fi
+rm -f index.vite.html.bak
 
-echo "Copied dist artifacts to root (index.html restored to Vite entry)."
-echo "Enable Pages via GitHub Actions, or temporarily use the built dist/index.html."
+echo "Copied dist artifacts to root (index.html + 404.html = SPA for Pages)."
+echo "Vite entry preserved at index.vite.html — copy to index.html for local npm run dev."
 ls -d media/work media/research >/dev/null
 test ! -e work
-test ! -e research
+test -f 404.html
+test -f index.html

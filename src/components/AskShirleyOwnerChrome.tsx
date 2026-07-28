@@ -4,6 +4,7 @@
  */
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   clearPersonaLearning,
   deleteOwnerConversation,
@@ -325,9 +326,9 @@ export function AskShirleyOwnerChrome({ ownerMode, onEndSession }: Props) {
                   Connected tools: memories, notes, conversations, web search, portfolio search.
                   Future adapters (Drive, Gmail, Calendar…) plug into the Worker tool registry.
                 </p>
-                <a className="ask-text-btn" href="/insights">
+                <Link className="ask-text-btn" to="/insights">
                   Open Site Insights
-                </a>
+                </Link>
                 <button
                   type="button"
                   className="ask-text-btn"
