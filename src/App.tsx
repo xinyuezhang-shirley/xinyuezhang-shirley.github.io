@@ -30,7 +30,7 @@ import AskShirley from "@/pages/AskShirley";
 import AskShirleyAuthor from "@/pages/AskShirleyAuthor";
 import Insights from "@/pages/Insights";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
-
+import { OwnerSessionProvider } from "@/hooks/useOwnerSession";
 function AnimatedRoutes() {
   const location = useLocation();
   return (
@@ -76,11 +76,13 @@ function AnimatedRoutes() {
 
 const App = () => (
   <BrowserRouter>
-    <AnalyticsProvider>
-      <SiteShell>
-        <AnimatedRoutes />
-      </SiteShell>
-    </AnalyticsProvider>
+    <OwnerSessionProvider>
+      <AnalyticsProvider>
+        <SiteShell>
+          <AnimatedRoutes />
+        </SiteShell>
+      </AnalyticsProvider>
+    </OwnerSessionProvider>
   </BrowserRouter>
 );
 

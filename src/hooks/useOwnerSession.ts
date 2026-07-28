@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 import {
   fetchOwnerSession,
   logoutOwnerSession,
@@ -11,7 +19,17 @@ const INITIAL: OwnerSessionState = {
   userId: null,
 };
 
-export function useOwnerSession() {
+type OwnerSessionContextValue = OwnerSessionState & {
+  loading: boolean;
+  refresh: () => Promise<OwnerSessionState>;
+  endSession: () => Promise<void>;
+  markOwnerActive: () => void;
+  markOwnerInactive: () => void;
+};
+
+const OwnerSessionContext = createContext<OwnerSessionContextValue | null>(null);
+
+export function OwnerSessionProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<OwnerSessionState>(INITIAL);
   const [loading, setLoading] = useState(true);
 
@@ -33,18 +51,37 @@ export function useOwnerSession() {
 
   const markOwnerActive = useCallback(() => {
     setSession({ ownerMode: true, role: "owner", userId: "shirley" });
+    // Cookie may already be set by the chat/auth response — sync when possible
+    void fetchOwnerSession().then((next) => {
+      if (next.ownerMode) setSession(next);
+    });
   }, []);
 
   const markOwnerInactive = useCallback(() => {
     setSession(INITIAL);
   }, []);
 
-  return {
-    ...session,
-    loading,
-    refresh,
-    endSession,
-    markOwnerActive,
-    markOwnerInactive,
-  };
+  const value = useMemo(
+    () => ({
+      ...session,
+      loading,
+      refresh,
+      endSession,
+      markOwnerActive,
+      markOwnerInactive,
+    }),
+    [session, loading, refresh, endSession, markOwnerActive, markOwnerInactive],
+  );
+
+  return (
+    <OwnerSessionContext.Provider value={value}>{children}</OwnerSessionContext.Provider>
+  );
+}
+
+export function useOwnerSession(): OwnerSessionContextValue {
+  const ctx = useContext(OwnerSessionContext);
+  if (!ctx) {
+    throw new Error("useOwnerSession must be used within OwnerSessionProvider");
+  }
+  return ctx;
 }
