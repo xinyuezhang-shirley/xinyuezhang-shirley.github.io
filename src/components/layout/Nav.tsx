@@ -3,8 +3,8 @@ import { cn } from "@/lib/utils";
 import { useOwnerSession } from "@/hooks/useOwnerSession";
 
 const links = [
-  { to: "/work", label: "Work" },
-  { to: "/research", label: "Research" },
+  { to: "/work", label: "Experiences" },
+  { to: "/research", label: "Academia" },
   { to: "/creative", label: "Creative" },
   { to: "/thoughts", label: "Thoughts" },
   { to: "/about", label: "About" },
