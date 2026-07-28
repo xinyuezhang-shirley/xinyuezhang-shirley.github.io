@@ -28,7 +28,9 @@ import Resume from "@/pages/Resume";
 import NotFound from "@/pages/NotFound";
 import AskShirley from "@/pages/AskShirley";
 import AskShirleyAuthor from "@/pages/AskShirleyAuthor";
-
+import Insights from "@/pages/Insights";
+import { AnalyticsProvider } from "@/components/AnalyticsProvider";
+import { OwnerSessionProvider } from "@/hooks/useOwnerSession";
 function AnimatedRoutes() {
   const location = useLocation();
   return (
@@ -65,6 +67,7 @@ function AnimatedRoutes() {
         <Route path="/resume" element={<PageTransition><Resume /></PageTransition>} />
         <Route path="/ask" element={<AskShirley />} />
         <Route path="/ask-shirley/author" element={<AskShirleyAuthor />} />
+        <Route path="/insights" element={<Insights />} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
@@ -73,9 +76,13 @@ function AnimatedRoutes() {
 
 const App = () => (
   <BrowserRouter>
-    <SiteShell>
-      <AnimatedRoutes />
-    </SiteShell>
+    <OwnerSessionProvider>
+      <AnalyticsProvider>
+        <SiteShell>
+          <AnimatedRoutes />
+        </SiteShell>
+      </AnalyticsProvider>
+    </OwnerSessionProvider>
   </BrowserRouter>
 );
 
