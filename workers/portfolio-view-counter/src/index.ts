@@ -1,5 +1,12 @@
 import { allowRequest } from "./lib/rateLimit";
+import { corsHeaders, isOriginAllowed, jsonResponse } from "./lib/cors";
 import { handleAskShirley } from "./routes/askShirley";
+import { handleOwnerAuthRoutes, handleOwnerDataRoutes } from "./routes/ownerApi";
+import { maybeSendThresholdEmail } from "./analytics/emailReport";
+import {
+  handleAnalyticsPublicRoutes,
+  handleOwnerAnalyticsRoutes,
+} from "./analytics/routes";
 
 export interface Env {
   DB: D1Database;
@@ -13,70 +20,21 @@ export interface Env {
   OPENAI_MODEL?: string;
   ASK_SHIRLEY_RATE_MAX?: string;
   ASK_SHIRLEY_DEBUG?: string;
+  OWNER_PASSWORD_HASH?: string;
+  SEARCH_API_KEY?: string;
+  SEARCH_PROVIDER?: string;
 }
 
 type StatsRow = { total: number; last_notified: number };
-
-/** Comma-separated ALLOWED_ORIGIN secret → list of exact origins. */
-function parseAllowedOrigins(allowed: string): string[] {
-  return allowed
-    .split(",")
-    .map((o) => o.trim())
-    .filter(Boolean);
-}
-
-function isOriginAllowed(origin: string | null, allowed: string): boolean {
-  if (!origin) return false;
-  return parseAllowedOrigins(allowed).includes(origin);
-}
-
-function corsHeaders(origin: string | null, allowed: string): HeadersInit {
-  const headers: Record<string, string> = {
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, X-Dev-Reset-Secret",
-    "Access-Control-Max-Age": "86400",
-    Vary: "Origin",
-  };
-  if (origin && isOriginAllowed(origin, allowed)) {
-    headers["Access-Control-Allow-Origin"] = origin;
-  }
-  return headers;
-}
 
 function json(
   body: unknown,
   status: number,
   origin: string | null,
   allowed: string,
+  extraHeaders?: HeadersInit,
 ): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: {
-      "Content-Type": "application/json",
-      ...corsHeaders(origin, allowed),
-    },
-  });
-}
-
-async function sendThresholdEmail(env: Env, count: number): Promise<void> {
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: env.EMAIL_FROM,
-      to: [env.EMAIL_TO],
-      subject: `Portfolio reached ${count} visits`,
-      text: `Your portfolio has recorded ${count} browser sessions.`,
-    }),
-  });
-
-  if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    throw new Error(`Resend failed: ${res.status} ${detail.slice(0, 200)}`);
-  }
+  return jsonResponse(body, status, origin, allowed, extraHeaders);
 }
 
 async function handleEvent(request: Request, env: Env): Promise<void> {
@@ -101,7 +59,12 @@ async function handleEvent(request: Request, env: Env): Promise<void> {
   }
 }
 
-async function handleView(env: Env): Promise<void> {
+async function handleView(request: Request, env: Env): Promise<void> {
+  const ua = request.headers.get("User-Agent") || "";
+  const isBot = /bot|crawl|spider|slurp|facebookexternalhit|preview|headless|wget|curl|python-requests/i.test(
+    ua,
+  );
+
   const incremented = await env.DB.prepare(
     "UPDATE visit_stats SET total = total + 1 WHERE id = 1 RETURNING total, last_notified",
   ).first<StatsRow>();
@@ -110,32 +73,9 @@ async function handleView(env: Env): Promise<void> {
     throw new Error("visit_stats missing — run schema.sql");
   }
 
-  const threshold = Math.floor(incremented.total / 5) * 5;
-  if (threshold <= 0 || threshold <= incremented.last_notified) {
-    return;
-  }
+  if (isBot) return;
 
-  const claim = await env.DB.prepare(
-    "UPDATE visit_stats SET last_notified = ? WHERE id = 1 AND last_notified < ?",
-  )
-    .bind(threshold, threshold)
-    .run();
-
-  if (!claim.meta.changes) {
-    return;
-  }
-
-  try {
-    await sendThresholdEmail(env, threshold);
-  } catch (err) {
-    await env.DB.prepare(
-      "UPDATE visit_stats SET last_notified = ? WHERE id = 1 AND last_notified = ?",
-    )
-      .bind(incremented.last_notified, threshold)
-      .run();
-    console.error("threshold_email_failed");
-    throw err;
-  }
+  await maybeSendThresholdEmail(env, incremented);
 }
 
 async function handleDevReset(request: Request, env: Env): Promise<Response> {
@@ -209,7 +149,28 @@ export default {
         return json({ ok: false }, 403, origin, allowed);
       }
 
-      // Ask Shirley — own rate-limit bucket inside the route handler.
+      const ownerAuth = await handleOwnerAuthRoutes(request, env, json, url.pathname);
+      if (ownerAuth) return ownerAuth;
+
+      const ownerData = await handleOwnerDataRoutes(request, env, json, url.pathname);
+      if (ownerData) return ownerData;
+
+      const ownerAnalytics = await handleOwnerAnalyticsRoutes(
+        request,
+        env,
+        json,
+        url.pathname,
+      );
+      if (ownerAnalytics) return ownerAnalytics;
+
+      const publicAnalytics = await handleAnalyticsPublicRoutes(
+        request,
+        env,
+        json,
+        url.pathname,
+      );
+      if (publicAnalytics) return publicAnalytics;
+
       if (
         (url.pathname === "/api/ask-shirley" || url.pathname === "/ask-shirley") &&
         request.method === "POST"
@@ -223,6 +184,9 @@ export default {
             OPENAI_MODEL: env.OPENAI_MODEL || "gpt-4.1-mini",
             ASK_SHIRLEY_RATE_MAX: env.ASK_SHIRLEY_RATE_MAX,
             ASK_SHIRLEY_DEBUG: env.ASK_SHIRLEY_DEBUG,
+            OWNER_PASSWORD_HASH: env.OWNER_PASSWORD_HASH,
+            SEARCH_API_KEY: env.SEARCH_API_KEY,
+            SEARCH_PROVIDER: env.SEARCH_PROVIDER,
           },
           json,
         );
@@ -238,7 +202,7 @@ export default {
       }
 
       if (url.pathname === "/view" && request.method === "POST") {
-        await handleView(env);
+        await handleView(request, env);
         return json({ ok: true }, 200, origin, allowed);
       }
 

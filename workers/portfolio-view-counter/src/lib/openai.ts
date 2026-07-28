@@ -4,6 +4,7 @@
 
 import { parseGeneratedTurn, messagesToAnswer } from "../../../../src/ask-shirley/runtime/parseTurn";
 import type { ShirleyTurnState } from "../../../../src/ask-shirley/runtime/state";
+import { extractUsageFromOpenAI } from "../analytics/pricing";
 
 export type AskShirleyModelResult = {
   answer: string;
@@ -12,6 +13,11 @@ export type AskShirleyModelResult = {
   relatedTopics: string[];
   /** Hidden — never send to browsers in production responses if undesired. */
   state: ShirleyTurnState;
+  usage: {
+    inputTokens: number;
+    outputTokens: number;
+    cachedTokens: number;
+  };
 };
 
 export type ChatTurn = {
@@ -197,5 +203,6 @@ export async function askShirleyWithOpenAI(args: {
     grounding: turn.grounding,
     relatedTopics: turn.relatedTopics,
     state: turn.state,
+    usage: extractUsageFromOpenAI(payload),
   };
 }

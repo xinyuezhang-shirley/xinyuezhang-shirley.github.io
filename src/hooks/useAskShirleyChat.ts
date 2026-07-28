@@ -4,6 +4,8 @@ import {
   respondAskShirley,
   type AskShirleyChatMessage,
 } from "@/lib/askShirleyResponder";
+import type { AskShirleyCitation } from "@/ask-shirley/types";
+import { setOwnerConversationId } from "@/lib/askShirleyOwnerApi";
 
 const STORAGE_KEY = "ask-shirley:v4:messages";
 const MAX_STORED_MESSAGES = 50;
@@ -58,19 +60,30 @@ function loadMessages(): AskShirleyChatMessage[] {
     if (!raw) return [getWelcomeMessage()];
     const parsed = JSON.parse(raw) as AskShirleyChatMessage[];
     if (!Array.isArray(parsed) || parsed.length === 0) return [getWelcomeMessage()];
-    return pruneMessages(parsed);
+    // Never keep /owner credential lines in persisted transcript.
+    return pruneMessages(
+      parsed.filter((m) => !/^\/owner\b/i.test((m.content || "").trim())),
+    );
   } catch {
     return [getWelcomeMessage()];
   }
 }
 
-export function useAskShirleyChat() {
+function formatCitations(citations?: AskShirleyCitation[]): string | null {
+  if (!citations?.length) return null;
+  return citations.map((c) => `• ${c.title}\n  ${c.url}`).join("\n");
+}
+
+export function useAskShirleyChat(opts?: {
+  onOwnerModeChange?: (active: boolean) => void;
+}) {
   const [messages, setMessages] = useState<AskShirleyChatMessage[]>(() => loadMessages());
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const sendingRef = useRef(false);
   const hydrated = useRef(false);
+  const onOwnerModeChange = opts?.onOwnerModeChange;
 
   useEffect(() => {
     hydrated.current = true;
@@ -79,7 +92,9 @@ export function useAskShirleyChat() {
   useEffect(() => {
     if (!hydrated.current) return;
     try {
-      const pruned = pruneMessages(messages);
+      const pruned = pruneMessages(
+        messages.filter((m) => !/^\/owner\b/i.test((m.content || "").trim())),
+      );
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(pruned));
     } catch {
       /* ignore */
@@ -93,6 +108,7 @@ export function useAskShirleyChat() {
     setIsTyping(false);
     setError(null);
     setMessages([getWelcomeMessage()]);
+    setOwnerConversationId(null);
     try {
       window.localStorage.removeItem(STORAGE_KEY);
       window.localStorage.removeItem("ask-shirley:v3:messages");
@@ -101,65 +117,87 @@ export function useAskShirleyChat() {
     }
   }, []);
 
-  const sendMessage = useCallback(async (text: string) => {
-    const trimmed = text.trim();
-    if (!trimmed || sendingRef.current) return;
+  const sendMessage = useCallback(
+    async (text: string) => {
+      const trimmed = text.trim();
+      if (!trimmed || sendingRef.current) return;
 
-    abortRef.current?.abort();
-    const controller = new AbortController();
-    abortRef.current = controller;
-    sendingRef.current = true;
-    setError(null);
+      abortRef.current?.abort();
+      const controller = new AbortController();
+      abortRef.current = controller;
+      sendingRef.current = true;
+      setError(null);
 
-    const userMsg: AskShirleyChatMessage = {
-      id: uid(),
-      role: "user",
-      content: trimmed.slice(0, 1500),
-      createdAt: Date.now(),
-    };
+      const isAuthCommand = /^\/owner\b/i.test(trimmed);
 
-    let nextMessages: AskShirleyChatMessage[] = [];
-    setMessages((prev) => {
-      nextMessages = pruneMessages([...prev, userMsg]);
-      return nextMessages;
-    });
-    setIsTyping(true);
+      const userMsg: AskShirleyChatMessage = {
+        id: uid(),
+        role: "user",
+        content: trimmed.slice(0, 1500),
+        createdAt: Date.now(),
+      };
 
-    try {
-      const reply = await respondAskShirley({
-        messages: nextMessages,
-        signal: controller.signal,
+      let nextMessages: AskShirleyChatMessage[] = [];
+      setMessages((prev) => {
+        // Optimistic UI — auth commands are removed after response.
+        nextMessages = pruneMessages([...prev, userMsg]);
+        return nextMessages;
       });
-      if (controller.signal.aborted) return;
+      setIsTyping(true);
 
-      const bubbles = reply.messages.length > 0 ? reply.messages : [reply.answer];
-      for (let i = 0; i < bubbles.length; i++) {
+      try {
+        const reply = await respondAskShirley({
+          messages: nextMessages,
+          signal: controller.signal,
+        });
         if (controller.signal.aborted) return;
-        if (i > 0) {
-          // Small sequencing delay between Shirley bubbles (not fake long typing).
-          await sleep(250 + Math.floor(Math.random() * 450), controller.signal);
+
+        if (typeof reply.ownerMode === "boolean") {
+          onOwnerModeChange?.(reply.ownerMode);
         }
-        const assistantMsg: AskShirleyChatMessage = {
-          id: uid(),
-          role: "assistant",
-          content: bubbles[i]!,
-          createdAt: Date.now(),
-          grounding: reply.grounding,
-          relatedTopics: i === 0 ? reply.relatedTopics : [],
-        };
-        setMessages((prev) => pruneMessages([...prev, assistantMsg]));
+
+        if (reply.suppressUserMessage || isAuthCommand) {
+          setMessages((prev) => prev.filter((m) => m.id !== userMsg.id));
+        }
+
+        const bubbles = reply.messages.length > 0 ? reply.messages : [reply.answer];
+        const citationBlock = formatCitations(reply.citations);
+
+        for (let i = 0; i < bubbles.length; i++) {
+          if (controller.signal.aborted) return;
+          if (i > 0) {
+            await sleep(250 + Math.floor(Math.random() * 450), controller.signal);
+          }
+          let content = bubbles[i]!;
+          if (i === bubbles.length - 1 && citationBlock) {
+            content = `${content}\n\nSources:\n${citationBlock}`;
+          }
+          const assistantMsg: AskShirleyChatMessage = {
+            id: uid(),
+            role: "assistant",
+            content,
+            createdAt: Date.now(),
+            grounding: reply.grounding,
+            relatedTopics: i === 0 ? reply.relatedTopics : [],
+          };
+          setMessages((prev) => pruneMessages([...prev, assistantMsg]));
+        }
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") return;
+        if (isAuthCommand) {
+          setMessages((prev) => prev.filter((m) => m.id !== userMsg.id));
+        }
+        setError("Couldn't send — try again?");
+      } finally {
+        if (abortRef.current === controller) {
+          setIsTyping(false);
+          abortRef.current = null;
+        }
+        sendingRef.current = false;
       }
-    } catch (err) {
-      if (err instanceof DOMException && err.name === "AbortError") return;
-      setError("Couldn't send — try again?");
-    } finally {
-      if (abortRef.current === controller) {
-        setIsTyping(false);
-        abortRef.current = null;
-      }
-      sendingRef.current = false;
-    }
-  }, []);
+    },
+    [onOwnerModeChange],
+  );
 
   return {
     messages,

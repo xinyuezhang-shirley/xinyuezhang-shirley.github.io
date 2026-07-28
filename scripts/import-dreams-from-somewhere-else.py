@@ -728,6 +728,14 @@ def main() -> None:
             atlas_updates[node_id] = ids
     update_atlas(atlas_updates)
 
+    # Refresh semantic hierarchy + review candidates (never deletes atlasNodes).
+    consolidate = ROOT / "scripts/consolidate-dreams-atlas.mjs"
+    if consolidate.exists():
+        import subprocess
+
+        print("Running consolidate-dreams-atlas.mjs …")
+        subprocess.run(["node", str(consolidate)], cwd=str(ROOT), check=False)
+
     # README / CAPTURE notes
     readme = README.read_text(encoding="utf-8")
     note = (

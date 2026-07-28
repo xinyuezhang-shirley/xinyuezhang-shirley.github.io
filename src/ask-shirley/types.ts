@@ -77,6 +77,11 @@ export type AskShirleyApiRequest = {
   }>;
 };
 
+export type AskShirleyCitation = {
+  title: string;
+  url: string;
+};
+
 export type AskShirleyApiResponse = {
   /** Joined messages for legacy clients. */
   answer: string;
@@ -84,6 +89,10 @@ export type AskShirleyApiResponse = {
   messages?: string[];
   grounding: GroundingLevel;
   relatedTopics: string[];
+  ownerMode?: boolean;
+  conversationId?: string | null;
+  authEvent?: string;
+  citations?: AskShirleyCitation[];
 };
 
 export type AskShirleyApiError = {

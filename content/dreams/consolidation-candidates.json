@@ -1,0 +1,580 @@
+{
+  "generatedAt": "2026-07-28T00:15:32.989Z",
+  "atlasNodeCount": 82,
+  "hierarchyVersion": 1,
+  "appliedCount": 9,
+  "candidateCount": 29,
+  "note": "Medium/low candidates are review-only. High-confidence changes are written to atlas-hierarchy.json unless --dry-run.",
+  "applied": [
+    {
+      "type": "seed_hierarchy",
+      "id": "narrative",
+      "confidence": "high",
+      "note": "Missing hierarchy record; seeded as evidence/emerging"
+    },
+    {
+      "type": "attach_evidence",
+      "evidence": "animal-companions",
+      "parent": "theme-belief",
+      "confidence": "high"
+    },
+    {
+      "type": "attach_evidence",
+      "evidence": "emo-nostalgia",
+      "parent": "theme-memory",
+      "confidence": "high"
+    },
+    {
+      "type": "attach_evidence",
+      "evidence": "emo-amusement",
+      "parent": "theme-kinship",
+      "confidence": "high"
+    },
+    {
+      "type": "attach_evidence",
+      "evidence": "emo-grief",
+      "parent": "theme-anticipatory",
+      "confidence": "high"
+    },
+    {
+      "type": "attach_evidence",
+      "evidence": "emo-confusion",
+      "parent": "theme-kinship",
+      "confidence": "high"
+    },
+    {
+      "type": "attach_evidence",
+      "evidence": "emo-awe",
+      "parent": "theme-belief",
+      "confidence": "high"
+    },
+    {
+      "type": "attach_evidence",
+      "evidence": "emo-curiosity",
+      "parent": "theme-mediated",
+      "confidence": "high"
+    },
+    {
+      "type": "decay_fading",
+      "id": "narrative",
+      "confidence": "high",
+      "note": "Single-dream evidence → fading"
+    }
+  ],
+  "candidates": [
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "narrative",
+      "label": "Narrative Grammar",
+      "distinctDreams": 0,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "place-mountains",
+      "label": "california mountains",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "place-dorm",
+      "label": "dorm",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "place-comedy-club",
+      "label": "comedy club",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "place-plaza",
+      "label": "shopping plaza",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "place-library-aquarium",
+      "label": "library–aquarium",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "place-park",
+      "label": "amusement park",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "person-roommate",
+      "label": "[roommate]",
+      "distinctDreams": 3,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "person-idol",
+      "label": "[idol]",
+      "distinctDreams": 6,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "person-spouse",
+      "label": "[spouse figure]",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "person-teacher",
+      "label": "[teacher]",
+      "distinctDreams": 3,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "animal-dogs",
+      "label": "[dog]",
+      "distinctDreams": 4,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "animal-fox",
+      "label": "fox spirit",
+      "distinctDreams": 2,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "obj-luggage",
+      "label": "luggage",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "obj-flowers",
+      "label": "lotus incense",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "obj-drink",
+      "label": "holiday drink",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "obj-rock",
+      "label": "bingo rock",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "obj-light",
+      "label": "temple light",
+      "distinctDreams": 2,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "emo-unease",
+      "label": "unease",
+      "distinctDreams": 5,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "emo-shame",
+      "label": "shame",
+      "distinctDreams": 2,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "emo-desire",
+      "label": "desire",
+      "distinctDreams": 2,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "emo-urgency",
+      "label": "urgency",
+      "distinctDreams": 3,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "emo-acceptance",
+      "label": "acceptance",
+      "distinctDreams": 2,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "act-warding",
+      "label": "warding spirits",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "act-reversing",
+      "label": "reversing time",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "act-marrying",
+      "label": "marrying",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "xform-pastoral-night",
+      "label": "pastoral → night duty",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "xform-paused",
+      "label": "motion → pause",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    },
+    {
+      "type": "unattached_evidence",
+      "confidence": "low",
+      "id": "xform-marriage-verdict",
+      "label": "marriage as verdict",
+      "distinctDreams": 1,
+      "reason": "No ascent tip or shared-dream motif (≥2) found"
+    }
+  ],
+  "recurrence": {
+    "person-parent": {
+      "distinctDreams": 25,
+      "nights": 24,
+      "label": "[parent]",
+      "layer": "literal",
+      "category": "people"
+    },
+    "place-parallel-school": {
+      "distinctDreams": 18,
+      "nights": 16,
+      "label": "parallel school",
+      "layer": "literal",
+      "category": "places"
+    },
+    "obj-music": {
+      "distinctDreams": 16,
+      "nights": 16,
+      "label": "music",
+      "layer": "literal",
+      "category": "objects"
+    },
+    "person-friend": {
+      "distinctDreams": 12,
+      "nights": 11,
+      "label": "[friend]",
+      "layer": "literal",
+      "category": "people"
+    },
+    "obj-photographs": {
+      "distinctDreams": 12,
+      "nights": 11,
+      "label": "photographs",
+      "layer": "literal",
+      "category": "objects"
+    },
+    "emo-amusement": {
+      "distinctDreams": 10,
+      "nights": 10,
+      "label": "amusement",
+      "layer": "emotion",
+      "category": "emotions"
+    },
+    "person-grandparent": {
+      "distinctDreams": 8,
+      "nights": 7,
+      "label": "[grandparent]",
+      "layer": "literal",
+      "category": "people"
+    },
+    "person-children": {
+      "distinctDreams": 8,
+      "nights": 8,
+      "label": "[children]",
+      "layer": "literal",
+      "category": "people"
+    },
+    "animal-companions": {
+      "distinctDreams": 8,
+      "nights": 8,
+      "label": "animals",
+      "layer": "literal",
+      "category": "animals"
+    },
+    "theme-kinship": {
+      "distinctDreams": 8,
+      "nights": 8,
+      "label": "kinship duty",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "emo-nostalgia": {
+      "distinctDreams": 7,
+      "nights": 7,
+      "label": "nostalgia",
+      "layer": "emotion",
+      "category": "emotions"
+    },
+    "person-idol": {
+      "distinctDreams": 6,
+      "nights": 5,
+      "label": "[idol]",
+      "layer": "literal",
+      "category": "people"
+    },
+    "emo-confusion": {
+      "distinctDreams": 6,
+      "nights": 6,
+      "label": "confusion",
+      "layer": "emotion",
+      "category": "emotions"
+    },
+    "theme-memory": {
+      "distinctDreams": 6,
+      "nights": 6,
+      "label": "memory",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "emo-unease": {
+      "distinctDreams": 5,
+      "nights": 5,
+      "label": "unease",
+      "layer": "emotion",
+      "category": "emotions"
+    },
+    "emo-curiosity": {
+      "distinctDreams": 5,
+      "nights": 5,
+      "label": "curiosity",
+      "layer": "emotion",
+      "category": "emotions"
+    },
+    "animal-dogs": {
+      "distinctDreams": 4,
+      "nights": 4,
+      "label": "[dog]",
+      "layer": "literal",
+      "category": "animals"
+    },
+    "emo-grief": {
+      "distinctDreams": 4,
+      "nights": 4,
+      "label": "grief",
+      "layer": "emotion",
+      "category": "emotions"
+    },
+    "emo-awe": {
+      "distinctDreams": 4,
+      "nights": 4,
+      "label": "awe",
+      "layer": "emotion",
+      "category": "emotions"
+    },
+    "act-photographing": {
+      "distinctDreams": 4,
+      "nights": 4,
+      "label": "photographing",
+      "layer": "action",
+      "category": "actions"
+    },
+    "theme-parallel": {
+      "distinctDreams": 4,
+      "nights": 4,
+      "label": "parallel selves",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "theme-mediated": {
+      "distinctDreams": 4,
+      "nights": 4,
+      "label": "mediated presence",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "theme-belief": {
+      "distinctDreams": 4,
+      "nights": 4,
+      "label": "belief / religion",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "place-concert": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "concert stage",
+      "layer": "literal",
+      "category": "places"
+    },
+    "person-roommate": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "[roommate]",
+      "layer": "literal",
+      "category": "people"
+    },
+    "person-teacher": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "[teacher]",
+      "layer": "literal",
+      "category": "people"
+    },
+    "obj-clothing": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "clothing",
+      "layer": "literal",
+      "category": "objects"
+    },
+    "emo-urgency": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "urgency",
+      "layer": "emotion",
+      "category": "emotions"
+    },
+    "act-performing": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "performing",
+      "layer": "action",
+      "category": "actions"
+    },
+    "act-watching": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "watching",
+      "layer": "action",
+      "category": "actions"
+    },
+    "theme-identity": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "identity performance",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "theme-disappearance": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "disappearance",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "theme-class": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "class privilege",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "theme-care-constraint": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "care under constraint",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "theme-anticipatory": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "anticipatory grief",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "theme-uncertainty": {
+      "distinctDreams": 3,
+      "nights": 3,
+      "label": "uncertainty",
+      "layer": "theme",
+      "category": "themes"
+    },
+    "place-classroom": {
+      "distinctDreams": 2,
+      "nights": 2,
+      "label": "classroom",
+      "layer": "literal",
+      "category": "places"
+    },
+    "animal-fox": {
+      "distinctDreams": 2,
+      "nights": 2,
+      "label": "fox spirit",
+      "layer": "literal",
+      "category": "animals"
+    },
+    "obj-bus": {
+      "distinctDreams": 2,
+      "nights": 2,
+      "label": "bus",
+      "layer": "literal",
+      "category": "objects"
+    },
+    "obj-interface": {
+      "distinctDreams": 2,
+      "nights": 2,
+      "label": "interface",
+      "layer": "literal",
+      "category": "objects"
+    }
+  }
+}

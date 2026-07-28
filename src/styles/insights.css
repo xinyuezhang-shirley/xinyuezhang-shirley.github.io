@@ -1,0 +1,231 @@
+.insights {
+  --insights-bg: #050505;
+  --insights-fg: #f4f4f0;
+  --insights-muted: rgba(244, 244, 240, 0.55);
+  --insights-line: rgba(244, 244, 240, 0.22);
+  --insights-accent: #c8f5c4;
+  --insights-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --insights-pixel: "VT323", "IBM Plex Mono", ui-monospace, monospace;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top left, rgba(200, 245, 196, 0.06), transparent 45%),
+    var(--insights-bg);
+  color: var(--insights-fg);
+  font-family: var(--insights-mono);
+  padding: 1.25rem clamp(1rem, 3vw, 2rem) 3rem;
+}
+
+.insights__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--insights-line);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.insights__eyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--insights-accent);
+}
+
+.insights__title {
+  margin: 0.2rem 0;
+  font-family: var(--insights-pixel);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 400;
+}
+
+.insights__lede {
+  margin: 0;
+  max-width: 36rem;
+  color: var(--insights-muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.insights__header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.insights__link {
+  color: var(--insights-fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--insights-line);
+  font-size: 0.85rem;
+}
+
+.insights__toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.insights__label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--insights-muted);
+}
+
+.insights__label select {
+  background: transparent;
+  color: var(--insights-fg);
+  border: 1px solid var(--insights-line);
+  padding: 0.3rem 0.5rem;
+  font-family: inherit;
+}
+
+.insights__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.insights__tab,
+.insights__btn {
+  font-family: inherit;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: transparent;
+  color: var(--insights-muted);
+  border: 1px solid transparent;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+}
+
+.insights__tab.is-active,
+.insights__tab[aria-selected="true"] {
+  color: var(--insights-fg);
+  border-color: var(--insights-line);
+}
+
+.insights__btn {
+  border-color: var(--insights-line);
+  color: var(--insights-fg);
+}
+
+.insights__btn--ghost {
+  color: var(--insights-muted);
+}
+
+.insights__btn--danger {
+  border-color: #f5a8a8;
+  color: #f5a8a8;
+}
+
+.insights__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.insights__card {
+  border: 1px solid var(--insights-line);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.insights__card span {
+  font-size: 0.7rem;
+  color: var(--insights-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.insights__card strong {
+  font-family: var(--insights-pixel);
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.insights__insight {
+  border-left: 2px solid var(--insights-accent);
+  padding-left: 0.75rem;
+  color: var(--insights-fg);
+  font-size: 0.9rem;
+}
+
+.insights__muted {
+  color: var(--insights-muted);
+  font-size: 0.8rem;
+}
+
+.insights__error {
+  color: #f5a8a8;
+}
+
+.insights__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.insights__table-wrap {
+  overflow-x: auto;
+}
+
+.insights__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.insights__table th,
+.insights__table td {
+  text-align: left;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--insights-line);
+}
+
+.insights__question pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0.35rem 0;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.insights__pill {
+  display: inline-block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  border: 1px solid var(--insights-line);
+  padding: 0.05rem 0.35rem;
+  color: var(--insights-muted);
+}
+
+.insights__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.insights__section h2 {
+  font-family: var(--insights-pixel);
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 1rem 0 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .insights__header-actions {
+    width: 100%;
+  }
+}

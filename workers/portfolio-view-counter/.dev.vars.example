@@ -8,3 +8,8 @@ DEV_RESET_SECRET=local-test-secret
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4.1-mini
 ASK_SHIRLEY_RATE_MAX=30
+# bcrypt hash only — generate with: npm run owner:hash-password
+OWNER_PASSWORD_HASH=$2a$12$replace_me
+# Optional Brave Search API key
+# SEARCH_API_KEY=
+# SEARCH_PROVIDER=brave

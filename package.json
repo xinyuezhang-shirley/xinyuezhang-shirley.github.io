@@ -11,6 +11,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "analyze:dreams": "node scripts/analyze-dreams.mjs",
+    "consolidate:dreams": "node scripts/consolidate-dreams-atlas.mjs",
+    "consolidate:dreams:dry": "node scripts/consolidate-dreams-atlas.mjs --dry-run",
+    "test:atlas-semantic": "node scripts/test-atlas-semantic.mjs",
     "ask-shirley:sync-knowledge": "python3 scripts/sync-ask-shirley-knowledge.py",
     "ask-shirley:eval": "node scripts/eval-ask-shirley.mjs"
   },

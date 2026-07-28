@@ -6,11 +6,24 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "db:init": "wrangler d1 execute portfolio-views --file=./schema.sql",
-    "db:init:local": "wrangler d1 execute portfolio-views --local --file=./schema.sql"
+    "db:init:local": "wrangler d1 execute portfolio-views --local --file=./schema.sql",
+    "db:migrate:owner": "wrangler d1 execute portfolio-views --remote --file=./migrations/002_owner_mode.sql",
+    "db:migrate:owner:local": "wrangler d1 execute portfolio-views --local --file=./migrations/002_owner_mode.sql",
+    "db:migrate:analytics": "wrangler d1 execute portfolio-views --remote --file=./migrations/003_analytics.sql",
+    "db:migrate:analytics:local": "wrangler d1 execute portfolio-views --local --file=./migrations/003_analytics.sql",
+    "owner:hash-password": "node scripts/hash-owner-password.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250525.0",
+    "@types/bcryptjs": "^2.4.6",
     "typescript": "^5.8.3",
+    "vitest": "^4.1.10",
     "wrangler": "^4.19.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "zod": "^4.4.3"
   }
 }

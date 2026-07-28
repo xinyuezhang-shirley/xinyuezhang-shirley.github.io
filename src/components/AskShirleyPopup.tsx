@@ -2,11 +2,13 @@ import { useEffect, useId, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "@/styles/ask-shirley.css";
 import { useAskShirleyChat } from "@/hooks/useAskShirleyChat";
+import { useOwnerSession } from "@/hooks/useOwnerSession";
 import {
   AskComposer,
   AskMark,
   AskMessageList,
 } from "@/components/AskShirleyChat";
+import { AskShirleyOwnerChrome } from "@/components/AskShirleyOwnerChrome";
 
 type Props = {
   open: boolean;
@@ -16,7 +18,13 @@ type Props = {
 
 export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
   const location = useLocation();
-  const { messages, isTyping, error, sendMessage, clearChat } = useAskShirleyChat();
+  const owner = useOwnerSession();
+  const { messages, isTyping, error, sendMessage, clearChat } = useAskShirleyChat({
+    onOwnerModeChange: (active) => {
+      if (active) owner.markOwnerActive();
+      else owner.markOwnerInactive();
+    },
+  });
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const hideOnAskPage =
@@ -52,7 +60,7 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
   return (
     <div
       ref={panelRef}
-      className="ask-popup-root ask-shirley"
+      className={`ask-popup-root ask-shirley${owner.ownerMode ? " ask-popup-root--owner" : ""}`}
       role="dialog"
       aria-modal="false"
       aria-labelledby={titleId}
@@ -67,7 +75,9 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
             <h2 id={titleId} className="ask-popup__title">
               Ask Shirley
             </h2>
-            <p className="ask-popup__subtitle">message me</p>
+            <p className="ask-popup__subtitle">
+              {owner.ownerMode ? "owner mode" : "message me"}
+            </p>
           </div>
         </div>
         <div className="ask-popup__actions">
@@ -104,13 +114,24 @@ export function AskShirleyPopup({ open, onOpen, onClose }: Props) {
         </div>
       </header>
 
+      <AskShirleyOwnerChrome
+        ownerMode={owner.ownerMode}
+        onEndSession={() => {
+          void owner.endSession();
+        }}
+      />
+
       <div className="ask-popup__body">
         <AskMessageList messages={messages} isTyping={isTyping} compact />
         {error && <p className="ask-error" role="alert">{error}</p>}
       </div>
 
       <div className="ask-popup__footer">
-        <AskComposer onSend={sendMessage} disabled={isTyping} placeholder="say something..." />
+        <AskComposer
+          onSend={sendMessage}
+          disabled={isTyping}
+          placeholder={owner.ownerMode ? "message your agent..." : "say something..."}
+        />
       </div>
     </div>
   );

@@ -163,6 +163,9 @@ export default function Resume() {
                   href={`mailto:${contact.email}`}
                   className="cv-mast__link"
                   aria-label={`Send email to ${contact.email}`}
+                  data-analytics-id="contact-email"
+                  data-analytics-category="contact"
+                  data-analytics-label="Email"
                 >
                   {contact.email}
                 </a>
@@ -171,11 +174,21 @@ export default function Resume() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cv-mast__link"
+                  data-analytics-id="contact-linkedin"
+                  data-analytics-category="external"
+                  data-analytics-label="LinkedIn"
                 >
                   LinkedIn ↗
                 </a>
               </div>
-              <a href={resumeUrl} download className="cv-mast__archive">
+              <a
+                href={resumeUrl}
+                download
+                className="cv-mast__archive"
+                data-analytics-id="resume-pdf-download"
+                data-analytics-category="download"
+                data-analytics-label="Archival PDF"
+              >
                 Archival PDF ↓
               </a>
             </div>

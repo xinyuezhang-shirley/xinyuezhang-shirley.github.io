@@ -101,11 +101,19 @@
   color: rgba(255, 255, 255, 0.45);
 }
 
-.dream-tune {
+.dream-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin: 0 0 0.75rem;
+}
+
+.dream-tune,
+.dream-asof {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  margin: 0 0 0.75rem;
   font-family: "Caveat", cursive;
   font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.4);
@@ -113,8 +121,42 @@
   user-select: none;
 }
 
-.dream-tune input {
+.dream-tune input,
+.dream-asof input[type="range"] {
   accent-color: rgba(255, 255, 255, 0.7);
+}
+
+.dream-asof input[type="range"] {
+  width: 7rem;
+}
+
+.dream-curate-btn,
+.info-curate-actions button {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: transparent;
+  padding: 0.2rem 0.65rem;
+  font-family: "Caveat", cursive;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  border-radius: 0.2rem;
+}
+
+.dream-curate-btn:hover,
+.dream-curate-btn:focus-visible,
+.info-curate-actions button:hover,
+.info-curate-actions button:focus-visible {
+  color: var(--ink);
+  border-color: rgba(255, 255, 255, 0.5);
+  outline: none;
+}
+
+.info-curate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .dream-layout {
@@ -348,12 +390,26 @@
 }
 
 /* —— Graph layers —— */
+/* Community hulls removed from default render; keep rule inert if reintroduced */
 .community-hull {
-  fill: rgba(255, 255, 255, 0.025);
-  stroke: rgba(255, 255, 255, 0.07);
-  stroke-width: 1;
-  stroke-dasharray: 4 8;
-  pointer-events: none;
+  display: none;
+}
+
+.link.rel-structural {
+  stroke-opacity: 1;
+}
+
+.link.rel-active {
+  stroke-opacity: 0.85;
+}
+
+.link.rel-tension {
+  stroke: rgba(220, 200, 180, 0.55);
+  stroke-dasharray: 2 6;
+}
+
+.link.rel-evidence {
+  stroke-opacity: 0.45;
 }
 
 .link {
@@ -494,6 +550,53 @@
 
 .node-label.tier-small {
   fill: rgba(255, 255, 255, 0.78);
+}
+
+/* Semantic hierarchy: state via opacity + pattern, not color alone */
+.node-group.is-dormant .node-label {
+  opacity: 0.48;
+  font-style: italic;
+}
+
+.node-group.is-dormant .node-shape {
+  opacity: 0.45;
+  stroke-dasharray: 1.5 3.5;
+}
+
+.node-group.state-emerging .node-label,
+.node-label.state-emerging {
+  letter-spacing: 0.02em;
+}
+
+.node-group.state-emerging .node-shape {
+  stroke-width: 1.35;
+}
+
+.node-group.state-fading .node-label,
+.node-label.state-fading {
+  opacity: 0.35;
+}
+
+.node-group.state-new .node-shape {
+  stroke-dasharray: 4 2;
+}
+
+.node-label.is-evidence-label {
+  opacity: 0;
+}
+
+.node-group.is-neighbor .node-label.is-evidence-label,
+.node-group.is-active .node-label.is-evidence-label,
+.node-group.show-evidence-label .node-label.is-evidence-label {
+  opacity: 0.85;
+}
+
+.node-group.level-evidence:not(.is-neighbor):not(.is-active) .node-shape {
+  opacity: 0.35;
+}
+
+.node-group.level-core_motif .node-label {
+  font-weight: 600;
 }
 
 .node-shape.tier-landmark {

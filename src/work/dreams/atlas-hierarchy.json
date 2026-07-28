@@ -1,0 +1,991 @@
+{
+  "version": 1,
+  "generatedNote": "Backup of peer graph remains in dreams-atlas.ts atlasNodes. Visibility only changes via this hierarchy.",
+  "coreMotifOrder": [
+    "theme-mediated",
+    "theme-kinship",
+    "theme-identity",
+    "theme-parallel",
+    "theme-language",
+    "theme-anticipatory",
+    "theme-class",
+    "theme-disappearance",
+    "theme-memory",
+    "theme-care-constraint"
+  ],
+  "emergingMotifOrder": [
+    "theme-uncertainty",
+    "theme-belief",
+    "theme-lost-childhood",
+    "xform-graduation-fork",
+    "xform-dementia-youth",
+    "xform-cycle"
+  ],
+  "nodes": {
+    "place-tourist-bus": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-identity",
+      "interpretiveLabel": "tourist bus",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-mountains": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "california mountains",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-parallel-school": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-parallel",
+      "interpretiveLabel": "parallel school",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-dorm": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "dorm",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-comedy-club": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "comedy club",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-plaza": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "shopping plaza",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-library-aquarium": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "library–aquarium",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-funeral-office": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-anticipatory",
+      "interpretiveLabel": "funeral office",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-concert": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-mediated",
+      "interpretiveLabel": "concert stage",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-park": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "amusement park",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-temple": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-belief",
+      "interpretiveLabel": "temple maze",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-closet": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-class",
+      "interpretiveLabel": "closet archive",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-florence": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-identity",
+      "interpretiveLabel": "Florence",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "place-classroom": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-parallel",
+      "interpretiveLabel": "classroom",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "person-parent": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-kinship",
+      "interpretiveLabel": "[parent]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "person-grandparent": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-kinship",
+      "interpretiveLabel": "[grandparent]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "person-roommate": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "[roommate]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "person-friend": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-disappearance",
+      "interpretiveLabel": "[friend]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "person-idol": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "[idol]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "person-spouse": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "[spouse figure]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "person-teacher": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "[teacher]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "person-children": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-kinship",
+      "interpretiveLabel": "[children]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "animal-companions": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-belief",
+      "interpretiveLabel": "animals",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "animal-caged-cats": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-care-constraint",
+      "interpretiveLabel": "caged cats",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "animal-dogs": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "[dog]",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "animal-fox": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "fox spirit",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-photographs": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-memory",
+      "interpretiveLabel": "photographs",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-language": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-language",
+      "interpretiveLabel": "language",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-bus": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-uncertainty",
+      "interpretiveLabel": "bus",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-music": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-mediated",
+      "interpretiveLabel": "music",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-clothing": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-class",
+      "interpretiveLabel": "clothing",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-luggage": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "luggage",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-mirror": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-mediated",
+      "interpretiveLabel": "mirror",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-flowers": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "lotus incense",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-drink": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "holiday drink",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-stars": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-lost-childhood",
+      "interpretiveLabel": "stars",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-interface": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-mediated",
+      "interpretiveLabel": "interface",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-rock": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "bingo rock",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "obj-light": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "temple light",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-nostalgia": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-memory",
+      "interpretiveLabel": "nostalgia",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-amusement": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-kinship",
+      "interpretiveLabel": "amusement",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-unease": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "unease",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-grief": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-anticipatory",
+      "interpretiveLabel": "grief",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-confusion": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-kinship",
+      "interpretiveLabel": "confusion",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-shame": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "shame",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-awe": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-belief",
+      "interpretiveLabel": "awe",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-curiosity": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-mediated",
+      "interpretiveLabel": "curiosity",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-desire": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "desire",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-urgency": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "urgency",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "emo-acceptance": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": null,
+      "interpretiveLabel": "acceptance",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-photographing": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-memory",
+      "interpretiveLabel": "photographing",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-packing": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-uncertainty",
+      "interpretiveLabel": "packing / leaving",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-performing": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-mediated",
+      "interpretiveLabel": "performing",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-praying": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-anticipatory",
+      "interpretiveLabel": "praying",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-watching": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-lost-childhood",
+      "interpretiveLabel": "watching",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-warding": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "warding spirits",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-reversing": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "reversing time",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-rehearsing-death": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-anticipatory",
+      "interpretiveLabel": "rehearsing death",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-naming": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-kinship",
+      "interpretiveLabel": "naming / identity",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "act-marrying": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "marrying",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "theme-memory": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "memory",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "obj-photographs",
+        "act-photographing",
+        "emo-nostalgia"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-kinship": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "kinship duty",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "act-naming",
+        "xform-restored",
+        "person-parent",
+        "person-grandparent",
+        "emo-amusement",
+        "emo-confusion",
+        "person-children"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-identity": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "identity performance",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "place-tourist-bus",
+        "place-florence",
+        "act-naming"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-parallel": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "parallel selves",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "place-parallel-school",
+        "xform-graduation-fork",
+        "place-florence",
+        "place-classroom"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-language": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "failed translation",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "obj-language"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-disappearance": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "departure and separation",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "xform-dementia-youth",
+        "person-friend"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-class": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "institutional performance",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "place-closet",
+        "obj-clothing"
+      ],
+      "lineage": [
+        {
+          "previousLabel": "class privilege",
+          "newLabel": "institutional performance",
+          "changeType": "rename",
+          "explanation": "Cross-dream pattern of judgment, archives, and staged competence.",
+          "at": "2026-07-27"
+        }
+      ],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-mediated": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "mediated presence",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "place-concert",
+        "obj-music",
+        "obj-interface",
+        "act-performing",
+        "emo-curiosity",
+        "obj-mirror"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-belief": {
+      "semanticLevel": "emerging_motif",
+      "state": "emerging",
+      "parentMotifId": null,
+      "interpretiveLabel": "belief / religion",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "xform-fox-accrual",
+        "act-praying",
+        "place-temple",
+        "animal-companions",
+        "emo-awe"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.7
+    },
+    "theme-care-constraint": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "care under constraint",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "animal-caged-cats"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-anticipatory": {
+      "semanticLevel": "core_motif",
+      "state": "foundational",
+      "parentMotifId": null,
+      "interpretiveLabel": "anticipatory grief",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "place-funeral-office",
+        "act-praying",
+        "act-rehearsing-death",
+        "emo-grief"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.9
+    },
+    "theme-uncertainty": {
+      "semanticLevel": "emerging_motif",
+      "state": "emerging",
+      "parentMotifId": null,
+      "interpretiveLabel": "uncertainty",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "obj-bus",
+        "act-packing"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.7
+    },
+    "theme-lost-childhood": {
+      "semanticLevel": "emerging_motif",
+      "state": "emerging",
+      "parentMotifId": null,
+      "interpretiveLabel": "lost childhood",
+      "aliases": [],
+      "supportingFragmentIds": [
+        "obj-stars",
+        "act-watching"
+      ],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.7
+    },
+    "xform-restored": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": "theme-kinship",
+      "interpretiveLabel": "illness → costume comedy",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "xform-pastoral-night": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "pastoral → night duty",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "xform-graduation-fork": {
+      "semanticLevel": "emerging_motif",
+      "state": "emerging",
+      "parentMotifId": null,
+      "interpretiveLabel": "graduation fork",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.7
+    },
+    "xform-fox-accrual": {
+      "semanticLevel": "evidence",
+      "state": "active",
+      "parentMotifId": "theme-belief",
+      "interpretiveLabel": "fox tails accrue",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "xform-cycle": {
+      "semanticLevel": "emerging_motif",
+      "state": "emerging",
+      "parentMotifId": null,
+      "interpretiveLabel": "explosion → another round",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.7
+    },
+    "xform-paused": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "motion → pause",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "xform-dementia-youth": {
+      "semanticLevel": "emerging_motif",
+      "state": "emerging",
+      "parentMotifId": null,
+      "interpretiveLabel": "dementia → selective youth",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.7
+    },
+    "xform-marriage-verdict": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "marriage as verdict",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.55
+    },
+    "narrative": {
+      "semanticLevel": "evidence",
+      "state": "fading",
+      "parentMotifId": null,
+      "interpretiveLabel": "Narrative Grammar",
+      "aliases": [],
+      "supportingFragmentIds": [],
+      "lineage": [],
+      "manualOverrides": false,
+      "confidence": 0.4
+    }
+  }
+}

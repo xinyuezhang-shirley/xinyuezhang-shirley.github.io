@@ -27,3 +27,10 @@ database_id = "f1959f7c-58bf-4451-9b35-e0ec0183a1e6"
 ALLOW_DEV_RESET = "false"
 OPENAI_MODEL = "gpt-4.1-mini"
 ASK_SHIRLEY_RATE_MAX = "30"
+
+# Owner mode (set via wrangler secret put)
+#   OWNER_PASSWORD_HASH   bcrypt hash from scripts/hash-owner-password.mjs
+#   SEARCH_API_KEY         Brave Search API key (optional)
+#   SEARCH_PROVIDER        brave (default)
+
+# Note: OWNER_PASSWORD_HASH and SEARCH_API_KEY are secrets — do not put in [vars].

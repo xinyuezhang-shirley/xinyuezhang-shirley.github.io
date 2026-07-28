@@ -1,20 +1,30 @@
 /**
  * Ask Shirley chat client.
  * Prefer the real Worker API; optional labeled local fallback only when unset.
+ * Uses credentials:include so owner HttpOnly cookies work cross-origin.
  */
 
 import type {
   AskShirleyApiResponse,
   AskShirleyChatMessage,
+  AskShirleyCitation,
   GroundingLevel,
 } from "@/ask-shirley/types";
 import { craftLocalAskShirleyReply } from "@/lib/askShirleyLocalFallback";
+import {
+  askShirleyEndpointBase,
+  getOwnerConversationId,
+  setOwnerConversationId,
+} from "@/lib/askShirleyOwnerApi";
+import { getAnalyticsIds, trackEvent } from "@/lib/analytics";
 
 export type { AskShirleyChatMessage, GroundingLevel };
 
 export type AskShirleyRespondArgs = {
   messages: AskShirleyChatMessage[];
   signal?: AbortSignal;
+  /** When true, do not persist the last user bubble (auth interception). */
+  omitLastUserFromHistory?: boolean;
 };
 
 export type AskShirleyReply = {
@@ -23,6 +33,11 @@ export type AskShirleyReply = {
   grounding: GroundingLevel;
   relatedTopics: string[];
   source: "api" | "local-fallback";
+  ownerMode?: boolean;
+  authEvent?: string;
+  citations?: AskShirleyCitation[];
+  /** True when the user message was an auth attempt and must not stay in the transcript. */
+  suppressUserMessage?: boolean;
 };
 
 const WELCOME =
@@ -38,14 +53,6 @@ export function getWelcomeMessage(): AskShirleyChatMessage {
   };
 }
 
-function endpointBase(): string | null {
-  const raw = import.meta.env.VITE_ASK_SHIRLEY_ENDPOINT;
-  if (typeof raw === "string" && raw.trim()) return raw.replace(/\/$/, "");
-  const shared = import.meta.env.VITE_VIEW_COUNTER_ENDPOINT;
-  if (typeof shared === "string" && shared.trim()) return shared.replace(/\/$/, "");
-  return null;
-}
-
 function historyForApi(messages: AskShirleyChatMessage[]): Array<{
   role: "user" | "assistant";
   content: string;
@@ -53,6 +60,7 @@ function historyForApi(messages: AskShirleyChatMessage[]): Array<{
   const turns = messages
     .filter((m) => m.id !== "welcome")
     .filter((m) => m.role === "user" || m.role === "assistant")
+    .filter((m) => !/^\/owner\b/i.test(m.content.trim()))
     .map((m) => ({ role: m.role, content: m.content.trim() }))
     .filter((m) => m.content);
   if (turns.length && turns[turns.length - 1]?.role === "user") {
@@ -75,6 +83,10 @@ function normalizeMessages(data: AskShirleyApiResponse): string[] {
   return [];
 }
 
+function looksLikeOwnerAuthCommand(text: string): boolean {
+  return /^\/owner\b/i.test(text.trim());
+}
+
 async function callAskShirleyApi(
   args: AskShirleyRespondArgs,
   base: string,
@@ -85,15 +97,21 @@ async function callAskShirleyApi(
     throw new Error("empty_message");
   }
 
+  const isAuthCommand = looksLikeOwnerAuthCommand(message);
+
   const res = await fetch(`${base}/api/ask-shirley`, {
     method: "POST",
     mode: "cors",
-    credentials: "omit",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     signal: args.signal,
     body: JSON.stringify({
       message,
-      history: historyForApi(args.messages),
+      history: isAuthCommand ? [] : historyForApi(args.messages),
+      conversationId: getOwnerConversationId(),
+      analyticsVisitorId: getAnalyticsIds().visitorId,
+      analyticsSessionId: getAnalyticsIds().sessionId,
+      pagePath: typeof window !== "undefined" ? window.location.pathname : null,
     }),
   });
 
@@ -121,6 +139,21 @@ async function callAskShirleyApi(
       ? data.grounding
       : "unknown";
 
+  if (typeof data.conversationId === "string" && data.conversationId) {
+    setOwnerConversationId(data.conversationId);
+  }
+
+  const authEvent = typeof data.authEvent === "string" ? data.authEvent : undefined;
+  const suppressUserMessage =
+    isAuthCommand ||
+    authEvent === "owner_login" ||
+    authEvent === "owner_login_failed" ||
+    authEvent === "owner_locked";
+
+  if (authEvent === "owner_login") {
+    trackEvent("owner_authenticated");
+  }
+
   return {
     answer: messages.join("\n\n"),
     messages,
@@ -129,13 +162,17 @@ async function callAskShirleyApi(
       ? data.relatedTopics.filter((t) => typeof t === "string")
       : [],
     source: "api",
+    ownerMode: data.ownerMode === true,
+    authEvent,
+    citations: Array.isArray(data.citations) ? data.citations : [],
+    suppressUserMessage,
   };
 }
 
 export async function respondAskShirley(
   args: AskShirleyRespondArgs,
 ): Promise<AskShirleyReply> {
-  const base = endpointBase();
+  const base = askShirleyEndpointBase();
   if (base) {
     return callAskShirleyApi(args, base);
   }
