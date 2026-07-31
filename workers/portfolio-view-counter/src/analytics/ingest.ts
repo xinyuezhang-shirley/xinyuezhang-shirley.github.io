@@ -269,32 +269,27 @@ async function bumpDailyAggregates(
     label: string;
   },
 ): Promise<void> {
-  if (args.eventName === "page_viewed") {
+  // Site-wide "views" count visits/sessions — not every SPA page hop.
+  if (args.eventName === "session_started") {
     await db
       .prepare(
-        `INSERT INTO analytics_daily_totals (day, human_views, bot_views)
-         VALUES (?, ?, ?)
+        `INSERT INTO analytics_daily_totals (day, human_views, bot_views, human_sessions)
+         VALUES (?, ?, ?, ?)
          ON CONFLICT(day) DO UPDATE SET
            human_views = human_views + excluded.human_views,
-           bot_views = bot_views + excluded.bot_views`,
+           bot_views = bot_views + excluded.bot_views,
+           human_sessions = human_sessions + excluded.human_sessions`,
       )
-      .bind(args.day, args.bot ? 0 : 1, args.bot ? 1 : 0)
-      .run();
-
-    await db
-      .prepare(
-        `INSERT INTO analytics_daily_pages (day, page_path, views, sessions, active_ms_total, entries, exits)
-         VALUES (?, ?, 1, 0, 0, 0, 0)
-         ON CONFLICT(day, page_path) DO UPDATE SET views = views + 1`,
-      )
-      .bind(args.day, args.pagePath)
+      .bind(args.day, args.bot ? 0 : 1, args.bot ? 1 : 0, args.bot ? 0 : 1)
       .run();
 
     await db
       .prepare(
         `INSERT INTO analytics_daily_sources (day, acquisition, referrer_domain, sessions, views)
-         VALUES (?, ?, ?, 0, 1)
-         ON CONFLICT(day, acquisition, referrer_domain) DO UPDATE SET views = views + 1`,
+         VALUES (?, ?, ?, 1, 1)
+         ON CONFLICT(day, acquisition, referrer_domain) DO UPDATE SET
+           sessions = sessions + 1,
+           views = views + 1`,
       )
       .bind(args.day, args.acquisition, args.referrerDomain)
       .run();
@@ -302,10 +297,24 @@ async function bumpDailyAggregates(
     await db
       .prepare(
         `INSERT INTO analytics_daily_locations (day, country, region, sessions, views)
-         VALUES (?, ?, ?, 0, 1)
-         ON CONFLICT(day, country, region) DO UPDATE SET views = views + 1`,
+         VALUES (?, ?, ?, 1, 1)
+         ON CONFLICT(day, country, region) DO UPDATE SET
+           sessions = sessions + 1,
+           views = views + 1`,
       )
       .bind(args.day, args.country, args.region)
+      .run();
+  }
+
+  // Per-page popularity still tracks page_viewed, without inflating site-wide views.
+  if (args.eventName === "page_viewed") {
+    await db
+      .prepare(
+        `INSERT INTO analytics_daily_pages (day, page_path, views, sessions, active_ms_total, entries, exits)
+         VALUES (?, ?, 1, 0, 0, 0, 0)
+         ON CONFLICT(day, page_path) DO UPDATE SET views = views + 1`,
+      )
+      .bind(args.day, args.pagePath)
       .run();
   }
 

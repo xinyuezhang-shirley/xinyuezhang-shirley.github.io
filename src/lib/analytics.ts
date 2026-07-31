@@ -74,24 +74,34 @@ function getVisitorId(): string {
   }
 }
 
-function getSessionId(): string {
+function getSessionId(): { id: string; isNew: boolean } {
   try {
     const now = Date.now();
-    const touch = Number(sessionStorage.getItem(SESSION_TOUCH_KEY) || 0);
-    let sid = sessionStorage.getItem(SESSION_KEY);
+    // Prefer localStorage so closing a tab for a few minutes doesn't mint a new visit.
+    const touch = Number(
+      localStorage.getItem(SESSION_TOUCH_KEY) ||
+        sessionStorage.getItem(SESSION_TOUCH_KEY) ||
+        0,
+    );
+    let sid =
+      localStorage.getItem(SESSION_KEY) || sessionStorage.getItem(SESSION_KEY);
+    let isNew = false;
     if (!sid || now - touch > SESSION_INACTIVITY_MS) {
       sid = randomId("asid");
-      sessionStorage.setItem(SESSION_KEY, sid);
+      isNew = true;
     }
+    localStorage.setItem(SESSION_KEY, sid);
+    localStorage.setItem(SESSION_TOUCH_KEY, String(now));
+    sessionStorage.setItem(SESSION_KEY, sid);
     sessionStorage.setItem(SESSION_TOUCH_KEY, String(now));
-    return sid;
+    return { id: sid, isNew };
   } catch {
-    return randomId("asid");
+    return { id: randomId("asid"), isNew: true };
   }
 }
 
 export function getAnalyticsIds(): { visitorId: string; sessionId: string } {
-  return { visitorId: getVisitorId(), sessionId: getSessionId() };
+  return { visitorId: getVisitorId(), sessionId: getSessionId().id };
 }
 
 function endpoint(): string | null {
@@ -196,7 +206,7 @@ export function trackEvent(
     queue.push({
       eventName,
       anonymousVisitorId: getVisitorId(),
-      sessionId: getSessionId(),
+      sessionId: getSessionId().id,
       pagePath: path.slice(0, 200),
       pageTitle: document.title.slice(0, 200),
       referrer: document.referrer || undefined,
@@ -229,7 +239,11 @@ export function trackPageView(path?: string): void {
     pageVisible = document.visibilityState === "visible";
     if (!startedSession) {
       startedSession = true;
-      trackEvent("session_started", {}, next);
+      // Only emit session_started when the visit window is actually new.
+      const session = getSessionId();
+      if (session.isNew) {
+        trackEvent("session_started", {}, next);
+      }
     }
     trackEvent(
       "page_viewed",

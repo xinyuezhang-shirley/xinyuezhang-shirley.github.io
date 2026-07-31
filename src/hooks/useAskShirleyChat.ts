@@ -196,7 +196,16 @@ export function useAskShirleyChat(opts?: {
         if (isAuthCommand) {
           setMessages((prev) => prev.filter((m) => m.id !== userMsg.id));
         }
-        setError("Couldn't send — try again?");
+        const code = err instanceof Error ? err.message : "";
+        if (code === "rate_limit" || code === "http_429") {
+          setError("Slow down a sec — too many messages. Try again shortly.");
+        } else if (code === "http_403") {
+          setError("Couldn't reach Ask Shirley from this origin (CORS). Use the live site or allowed localhost port.");
+        } else if (code === "prep" || code === "http_500") {
+          setError("Couldn't send — hit reset, then try again.");
+        } else {
+          setError("Couldn't send — try again?");
+        }
       } finally {
         if (abortRef.current === controller) {
           setIsTyping(false);

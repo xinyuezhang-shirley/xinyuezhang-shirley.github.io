@@ -1,4 +1,7 @@
 const SESSION_KEY = "portfolio-session-recorded";
+const VISIT_TOUCH_KEY = "portfolio-visit-touch";
+/** Same browser should not inflate the counter while navigating or quickly revisiting. */
+const VISIT_COOLDOWN_MS = 30 * 60 * 1000;
 
 function shouldSkipRecording(): boolean {
   if (typeof window === "undefined") return true;
@@ -36,8 +39,28 @@ function shouldSkipRecording(): boolean {
   return false;
 }
 
+function alreadyCountedRecently(): boolean {
+  try {
+    if (sessionStorage.getItem(SESSION_KEY) === "1") return true;
+    const touch = Number(localStorage.getItem(VISIT_TOUCH_KEY) || 0);
+    if (touch && Date.now() - touch < VISIT_COOLDOWN_MS) return true;
+  } catch {
+    /* ignore */
+  }
+  return false;
+}
+
+function markCounted(): void {
+  try {
+    sessionStorage.setItem(SESSION_KEY, "1");
+    localStorage.setItem(VISIT_TOUCH_KEY, String(Date.now()));
+  } catch {
+    /* ignore */
+  }
+}
+
 /**
- * Silently record one portfolio browser session.
+ * Silently record one portfolio visit (not one per page).
  * Never throws, never blocks render, never shows UI.
  */
 export function recordPortfolioSession(): void {
@@ -47,8 +70,9 @@ export function recordPortfolioSession(): void {
     const endpoint = import.meta.env.VITE_VIEW_COUNTER_ENDPOINT;
     if (typeof endpoint !== "string" || !endpoint.trim()) return;
 
-    if (sessionStorage.getItem(SESSION_KEY) === "1") return;
-    sessionStorage.setItem(SESSION_KEY, "1");
+    // SPA route changes and short revisits must not become new views.
+    if (alreadyCountedRecently()) return;
+    markCounted();
 
     const url = endpoint.replace(/\/$/, "") + "/view";
     void fetch(url, {

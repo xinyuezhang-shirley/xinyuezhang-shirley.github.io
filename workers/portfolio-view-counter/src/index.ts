@@ -68,6 +68,15 @@ async function handleView(request: Request, env: Env): Promise<void> {
   const isBot = /bot|crawl|spider|slurp|facebookexternalhit|preview|headless|wget|curl|python-requests/i.test(
     ua,
   );
+  if (isBot) return;
+
+  // At most one counted view per IP every 30 minutes (page hops / quick revisits ignored).
+  const fresh = await allowRequest(env, request, {
+    prefix: "view",
+    max: 1,
+    windowMs: 30 * 60_000,
+  });
+  if (!fresh) return;
 
   const incremented = await env.DB.prepare(
     "UPDATE visit_stats SET total = total + 1 WHERE id = 1 RETURNING total, last_notified",
@@ -76,8 +85,6 @@ async function handleView(request: Request, env: Env): Promise<void> {
   if (!incremented) {
     throw new Error("visit_stats missing — run schema.sql");
   }
-
-  if (isBot) return;
 
   await maybeSendThresholdEmail(env, incremented);
 }
